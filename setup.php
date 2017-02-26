@@ -151,6 +151,10 @@ function audit_log_valid_event() {
 			}
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
 			$valid = false;
+		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
+			$valid = false;
+		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
+			$valid = false;
 		}elseif (isset($_POST) && sizeof($_POST)) {
 			$valid = true;
 		}elseif (isset_request_var('purge_continue')) {
