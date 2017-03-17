@@ -147,7 +147,7 @@ function audit_log_valid_event() {
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
 			if (isset_request_var('mode')) {
 				$valid  = true;
-				$action = $_REQUEST['mode'];
+				$action = get_nfilter_request_var('mode');
 			}
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
 			$valid = false;
@@ -194,7 +194,17 @@ function audit_config_insert() {
 		$page        = basename($_SERVER['SCRIPT_NAME']);
 		$user_id     = $_SESSION['sess_user_id'];
 		$event_time  = date('Y-m-d H:i:s');
-		$ip_address  = $_SERVER['REMOTE_ADDR'];
+
+		if (isset($_SERVER['X-Forwarded-For'])) {
+			$ip_address = $_SERVER['X-Forwarded-For'];
+		} elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		} elseif (isset($_SERVER['REMOTE_ADDR'])) {
+			$ip_address = $_SERVER['REMOTE_ADDR'];
+		}else{
+			$ip_address = '';
+		}
+
 		$user_agent  = $_SERVER['HTTP_USER_AGENT'];
 
 		if (empty($action) && isset_request_var('action')) {
