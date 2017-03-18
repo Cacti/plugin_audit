@@ -417,7 +417,7 @@ function audit_log() {
 			'sort' => 'ASC',
 			'tip' => __('The page where the event was generated.')
 		),
-		'user' => array(
+		'username' => array(
 			'display' => __('User Name'),
 			'align' => 'left',
 			'sort' => 'ASC',
