@@ -393,13 +393,16 @@ function audit_log() {
 		ON audit_log.user_id=user_auth.id
 		$sql_where");
 
+	$sql_order = get_order_string();
+	$sql_limit = ' LIMIT ' . ($rows*(get_request_var('page')-1)) . ',' . $rows;
+
 	$events = db_fetch_assoc("SELECT audit_log.*, user_auth.username
 		FROM audit_log
 		LEFT JOIN user_auth
 		ON audit_log.user_id=user_auth.id
 		$sql_where
-		ORDER BY " . get_request_var('sort_column') . ' ' . get_request_var('sort_direction') . "
-		LIMIT " . ($rows*(get_request_var('page')-1)) . ',' . $rows);
+		$sql_order
+		$sql_limit");
 
     $nav = html_nav_bar('audit.php?filter=' . get_request_var('filter'), MAX_DISPLAY_PAGES, get_request_var('page'), $rows, $total_rows, 5, __('Audit Events'), 'page', 'main');
 
@@ -478,9 +481,9 @@ function audit_log() {
 		id = $(this).attr('id').replace('event', '');
 		$.get('audit.php?action=getdata&id='+id, function(data) {
 			if (data.indexOf('narrow') > 0) {
-				width = 200;
+				width = 400;
 			}else{
-				width = 600;
+				width = 700;
 			}
 			$('body').append('<div id="audit" style="display:block;display:none;" title="<?php print __('Audit Event Details');?>">'+data+'</div>');
 			$('#audit').dialog({
