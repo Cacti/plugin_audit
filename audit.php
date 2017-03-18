@@ -224,7 +224,7 @@ function process_request_vars() {
 			)
 	);
 
-	validate_store_request_vars($filters, 'sess_color');
+	validate_store_request_vars($filters, 'sess_audit');
 	/* ================= input validation ================= */
 }
 
