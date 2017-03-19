@@ -51,12 +51,13 @@ case 'getdata':
 	if ($data['action'] == 'cli') {
 		$width = 'wide';
 		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-		$output .= '<span><b>' . __('User:') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
+		$output .= '<span><b>' . __('Page:') . '</b>  <i>' . $data['page'] . '</i></span>';
+		$output .= '<br><span><b>' . __('User:') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
 		$output .= '<br><span><b>' . __('IP Address:') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
 		$output .= '<br><span><b>' . __('Date:') . '</b>  <i>' . $data['event_time'] . '</i></span>';
 		$output .= '<br><span><b>' . __('Action:') . '</b>  <i>' . $data['action'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Script:') . '</b>  <i>' . $data['post'] . '</i></span>';
 		$output .= '<hr>';
+		$output .= '<span><b>' . __('Script:') . '</b>  <i>' . $data['post'] . '</i></span>';
 	}elseif (sizeof($data)) {
 		$attribs = json_decode($data['post']);
 
@@ -498,10 +499,9 @@ function audit_log() {
 
 	?>
 	<script type='text/javascript'>
-	$('span[id^="event"]').hover(function() {
-		close_dialog();
+	var auditTimer = null;
 
-		id = $(this).attr('id').replace('event', '');
+	function open_dialog(id) {
 		$.get('audit.php?action=getdata&id='+id, function(data) {
 			if (data.indexOf('narrow') > 0) {
 				width = 400;
@@ -518,8 +518,24 @@ function audit_log() {
 				}
 			});
 		});
+	}
+
+	$('span[id^="event"]').hover(function() {
+		close_dialog();
+
+		id = $(this).attr('id').replace('event', '');
+
+		if (auditTimer != null) {
+			clearTimeout(auditTimer);
+		}
+
+		auditTimer = setTimeout(function() { open_dialog(id); }, 400);
 	},
 	function() {
+		if (auditTimer != null) {
+			clearTimeout(auditTimer);
+		}
+
 		close_dialog();
 	});
 
