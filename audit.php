@@ -48,7 +48,16 @@ case 'getdata':
 
 	$output = '';
 
-	if (sizeof($data)) {
+	if ($data['action'] == 'cli') {
+		$width = 'wide';
+		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
+		$output .= '<span><b>' . __('User:') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
+		$output .= '<br><span><b>' . __('IP Address:') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Date:') . '</b>  <i>' . $data['event_time'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Action:') . '</b>  <i>' . $data['action'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Script:') . '</b>  <i>' . $data['post'] . '</i></span>';
+		$output .= '<hr>';
+	}elseif (sizeof($data)) {
 		$attribs = json_decode($data['post']);
 
 		$nattribs = array();
@@ -66,6 +75,7 @@ case 'getdata':
 		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
 		$output .= '<span><b>' . __('Page:') . '</b>  <i>' . $data['page'] . '</i></span>';
 		$output .= '<br><span><b>' . __('User:') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
+		$output .= '<br><span><b>' . __('IP Address:') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
 		$output .= '<br><span><b>' . __('Date:') . '</b>  <i>' . $data['event_time'] . '</i></span>';
 		$output .= '<br><span><b>' . __('Action:') . '</b>  <i>' . $data['action'] . '</i></span>';
 		$output .= '<hr>';
@@ -275,10 +285,12 @@ function audit_log() {
 					<td>
 						<select id='user_id'>
 							<option value='-1'<?php print (get_request_var('user_id') == '-1' ? ' selected>':'>') . __('All');?></option>
+							<option value='0'<?php print (get_request_var('user_id') == '0' ? ' selected>':'>') . __('cli');?></option>
 							<?php
 							$users = array_rekey(db_fetch_assoc('SELECT DISTINCT user_id FROM audit_log ORDER BY user_id'), 'user_id', 'user_id');
 							if (sizeof($users)) {
 								foreach ($users as $user) {
+									if ($user == 0) continue;
 									print "<option value='" . $user . "'"; if (get_request_var('user_id') == $user) { print ' selected'; } print '>' . htmlspecialchars(get_username($user)) . "</option>\n";
 								}
 							}
@@ -454,14 +466,25 @@ function audit_log() {
 	$i = 0;
 	if (sizeof($events)) {
 		foreach ($events as $e) {
-			form_alternate_row('line' . $e['id'], false);
-			form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
-			form_selectable_cell($e['username'], $e['id']);
-			form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-			form_selectable_cell($e['user_agent'], $e['id']);
-			form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
-			form_selectable_cell($e['event_time'], $e['id'], '', 'right');
-			form_end_row();
+			if ($e['action'] == 'cli') {
+				form_alternate_row('line' . $e['id'], false);
+				form_selectable_cell($e['page'], $e['id']);
+				form_selectable_cell($e['user_agent'], $e['id']);
+				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
+				form_selectable_cell(__('N/A'), $e['id']);
+				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
+				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
+				form_end_row();
+			}else{
+				form_alternate_row('line' . $e['id'], false);
+				form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
+				form_selectable_cell($e['username'], $e['id']);
+				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
+				form_selectable_cell($e['user_agent'], $e['id']);
+				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
+				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
+				form_end_row();
+			}
 		}
 	}else{
 		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found') . "</em></td></tr>\n";

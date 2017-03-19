@@ -215,7 +215,24 @@ function audit_config_insert() {
 
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
 			VALUES (?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, $ip_address, $user_agent, $event_time , $post));
+			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
+	}elseif (isset($_SERVER['argv'])) {
+		$page       = basename($_SERVER['argv'][0]);
+		$user_id    = 0;
+		$action     = 'cli';
+		$ip_address = getHostByName(php_uname('n'));
+		$user_agent = get_current_user();
+		$event_time = date('Y-m-d H:i:s');
+		$post       = implode(' ', $_SERVER['argv']);
+
+		/* don't insert poller records */
+		if (strpos($_SERVER['argv'][0], 'poller') === false && 
+			strpos($_SERVER['argv'][0], 'script_server.php') === false &&
+			strpos($_SERVER['argv'][0], '_process.php') === false) {
+			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
+				VALUES (?, ?, ?, ?, ?, ?, ?)',
+				array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
+		}
 	}
 }
 
