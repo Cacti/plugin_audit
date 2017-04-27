@@ -30,7 +30,7 @@ function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 
-	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log'), 1);
+	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
 
 	audit_setup_table();
 }
@@ -240,12 +240,12 @@ function audit_utilities_array() {
 	global $utilities;
 
 	/* append technical support page */
-	$utilities[__('Technical Support')] = array_merge(
-		$utilities[__('Technical Support')], 
+	$utilities[__('Technical Support', 'audit')] = array_merge(
+		$utilities[__('Technical Support', 'audit')], 
 		array(
-			__('View Audit Log') => array(
+			__('View Audit Log', 'audit') => array(
 				'link'  => 'plugins/audit/audit.php',
-				'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.')
+				'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
 			)
 		)
 	);
@@ -259,16 +259,16 @@ function audit_config_arrays() {
 	}
 
 	$audit_retentions = array(
-		-1   => __('Indefinitely'),
-		14   => __('%d Weeks',  2),
-		30   => __('%d Month',  1),
-		60   => __('%d Months', 2),
-		90   => __('%d Months', 3),
-		120  => __('%d Months', 4),
-		183  => __('%d Months', 6),
-		365  => __('%d Year',   1),
-		730  => __('%d Years',  2),
-		1095 => __('%d Years',  3)
+		-1   => __('Indefinitely', 'audit'),
+		14   => __('%d Weeks',  2, 'audit'),
+		30   => __('%d Month',  1, 'audit'),
+		60   => __('%d Months', 2, 'audit'),
+		90   => __('%d Months', 3, 'audit'),
+		120  => __('%d Months', 4, 'audit'),
+		183  => __('%d Months', 6, 'audit'),
+		365  => __('%d Year',   1, 'audit'),
+		730  => __('%d Years',  2, 'audit'),
+		1095 => __('%d Years',  3, 'audit')
 	);
 }
 
@@ -277,25 +277,25 @@ function audit_config_settings () {
 
 	$temp = array(
 		'audit_header' => array(
-			'friendly_name' => __('Audit Log Settings'),
+			'friendly_name' => __('Audit Log Settings', 'audit'),
 			'method' => 'spacer',
 			),
 		'audit_enabled' => array(
-			'friendly_name' => __('Enable Audit Log'),
-			'description' => __('Check this box, if you want the Audit Log to track GUI activities.'),
+			'friendly_name' => __('Enable Audit Log', 'audit'),
+			'description' => __('Check this box, if you want the Audit Log to track GUI activities.', 'audit'),
 			'method' => 'checkbox',
 			'default' => 'on'
 			),
 		'audit_retention' => array(
-			'friendly_name' => __('Audit Log Retention'),
-			'description' => __('How long do you wish Audit Log entries to be retained?'),
+			'friendly_name' => __('Audit Log Retention', 'audit'),
+			'description' => __('How long do you wish Audit Log entries to be retained?', 'audit'),
 			'method' => 'drop_array',
 			'default' => '90',
 			'array' => $audit_retentions
 			),
 		);
 
-	$tabs['misc'] = __('Misc');
+	$tabs['misc'] = __('Misc', 'audit');
 
 	if (isset($settings['misc'])) {
 		$settings['misc'] = array_merge($settings['misc'], $temp);
@@ -306,7 +306,7 @@ function audit_config_settings () {
 
 function audit_draw_navigation_text($nav) {
 	$nav['audit.php:'] = array(
-		'title'   => __('Audit Event Log'), 
+		'title'   => __('Audit Event Log', 'audit'), 
 		'mapping' => '', 
 		'url'     => 'audit.php', 
 		'level'   => '0'

@@ -51,13 +51,13 @@ case 'getdata':
 	if ($data['action'] == 'cli') {
 		$width = 'wide';
 		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-		$output .= '<span><b>' . __('Page:') . '</b>  <i>' . $data['page'] . '</i></span>';
-		$output .= '<br><span><b>' . __('User:') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
-		$output .= '<br><span><b>' . __('IP Address:') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Date:') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Action:') . '</b>  <i>' . $data['action'] . '</i></span>';
+		$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
+		$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
+		$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
 		$output .= '<hr>';
-		$output .= '<span><b>' . __('Script:') . '</b>  <i>' . $data['post'] . '</i></span>';
+		$output .= '<span><b>' . __('Script:', 'audit') . '</b>  <i>' . $data['post'] . '</i></span>';
 	}elseif (sizeof($data)) {
 		$attribs = json_decode($data['post']);
 
@@ -74,20 +74,20 @@ case 'getdata':
 		}
 
 		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-		$output .= '<span><b>' . __('Page:') . '</b>  <i>' . $data['page'] . '</i></span>';
-		$output .= '<br><span><b>' . __('User:') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
-		$output .= '<br><span><b>' . __('IP Address:') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Date:') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Action:') . '</b>  <i>' . $data['action'] . '</i></span>';
+		$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
+		$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
+		$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
+		$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
 		$output .= '<hr>';
 		$output .= '<table style="width:100%">';
 
 		if (sizeof($nattribs) > 16) {
 			$columns = 2;
-			$output .= '<tr class="tableHeader"><th style="width:25%">' . __('Attrib') . '</th><th style="width:25%">' . __('Value') . '</th><th style="width:25%">' . __('Attrib') . '</th><th style="width:25%">' . __('Value') . '</th></tr>';
+			$output .= '<tr class="tableHeader"><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th></tr>';
 		}else{
 			$columns = 1;
-			$output .= '<tr class="tableHeader"><th style="width:50%">' . __('Attrib') . '</th><th style="width:50%">' . __('Value') . '</th></tr>';
+			$output .= '<tr class="tableHeader"><th style="width:50%">' . __('Attrib', 'audit') . '</th><th style="width:50%">' . __('Value', 'audit') . '</th></tr>';
 		}
 
 		$i = 0;
@@ -127,7 +127,7 @@ default:
 function audit_purge() {
 	db_execute('TRUNCATE TABLE audit_log');
 
-	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']));
+	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
 
 	cacti_log('NOTE: Audit Log Purged by ' . get_username($_SESSION['sess_user_id']), false, 'WEBUI');
 
@@ -250,7 +250,7 @@ function audit_log() {
 		$rows = get_request_var('rows');
 	}
 
-	html_start_box(__('Audit Log'), '100%', '', '3', 'center', '');
+	html_start_box(__('Audit Log', 'audit'), '100%', '', '3', 'center', '');
 
 	?>
 	<tr class='even'>
@@ -259,17 +259,17 @@ function audit_log() {
 			<table class='filterTable'>
 				<tr>
 					<td>
-						<?php print __('Search');?>
+						<?php print __('Search', 'audit');?>
 					</td>
 					<td>
 						<input id='filter' type='text' name='filter' size='25' value='<?php print htmlspecialchars(get_request_var('filter'));?>'>
 					</td>
 					<td>
-						<?php print __('Page');?>
+						<?php print __('Page', 'audit');?>
 					</td>
 					<td>
 						<select id='event_page'>
-							<option value='-1'<?php print (get_request_var('event_page') == '-1' ? ' selected>':'>') . __('All');?></option>
+							<option value='-1'<?php print (get_request_var('event_page') == '-1' ? ' selected>':'>') . __('All', 'audit');?></option>
 							<?php
 							$pages = array_rekey(db_fetch_assoc('SELECT DISTINCT page FROM audit_log ORDER BY page'), 'page', 'page');
 							if (sizeof($pages)) {
@@ -281,12 +281,12 @@ function audit_log() {
 						</select>
 					</td>
 					<td>
-						<?php print __('User');?>
+						<?php print __('User', 'audit');?>
 					</td>
 					<td>
 						<select id='user_id'>
-							<option value='-1'<?php print (get_request_var('user_id') == '-1' ? ' selected>':'>') . __('All');?></option>
-							<option value='0'<?php print (get_request_var('user_id') == '0' ? ' selected>':'>') . __('cli');?></option>
+							<option value='-1'<?php print (get_request_var('user_id') == '-1' ? ' selected>':'>') . __('All', 'audit');?></option>
+							<option value='0'<?php print (get_request_var('user_id') == '0' ? ' selected>':'>') . __('cli', 'audit');?></option>
 							<?php
 							$users = array_rekey(db_fetch_assoc('SELECT DISTINCT user_id FROM audit_log ORDER BY user_id'), 'user_id', 'user_id');
 							if (sizeof($users)) {
@@ -298,11 +298,11 @@ function audit_log() {
 							?>
 						</select>
 					<td>
-						<?php print __('Events');?>
+						<?php print __('Events', 'audit');?>
 					</td>
 					<td>
 						<select id='rows'>
-							<option value='-1'<?php print (get_request_var('rows') == '-1' ? ' selected>':'>') . __('Default');?></option>
+							<option value='-1'<?php print (get_request_var('rows') == '-1' ? ' selected>':'>') . __('Default', 'audit');?></option>
 							<?php
 							if (sizeof($item_rows)) {
 								foreach ($item_rows as $key => $value) {
@@ -313,16 +313,16 @@ function audit_log() {
 						</select>
 					</td>
 					<td>
-						<input type='button' id='refresh' value='<?php print __('Go');?>' title='<?php print __('Set/Refresh Filters');?>'>
+						<input type='button' id='refresh' value='<?php print __esc('Go', 'audit');?>' title='<?php print __esc('Set/Refresh Filters', 'audit');?>'>
 					</td>
 					<td>
-						<input type='button' id='clear' value='<?php print __('Clear');?>' title='<?php print __('Clear Filters');?>'>
+						<input type='button' id='clear' value='<?php print __esc('Clear', 'audit');?>' title='<?php print __esc('Clear Filters', 'audit');?>'>
 					</td>
 					<td>
-						<input type='button' id='export' value='<?php print __('Export');?>' title='<?php print __('Export Log Events');?>'>
+						<input type='button' id='export' value='<?php print __esc('Export', 'audit');?>' title='<?php print __esc('Export Log Events', 'audit');?>'>
 					</td>
 					<td>
-						<input type='button' id='purge' value='<?php print __('Purge');?>' title='<?php print __('Purge Log Events');?>'>
+						<input type='button' id='purge' value='<?php print __esc('Purge', 'audit');?>' title='<?php print __esc('Purge Log Events', 'audit');?>'>
 					</td>
 				</tr>
 				</tr>
@@ -417,7 +417,7 @@ function audit_log() {
 		$sql_order
 		$sql_limit");
 
-    $nav = html_nav_bar('audit.php?filter=' . get_request_var('filter'), MAX_DISPLAY_PAGES, get_request_var('page'), $rows, $total_rows, 5, __('Audit Events'), 'page', 'main');
+    $nav = html_nav_bar('audit.php?filter=' . get_request_var('filter'), MAX_DISPLAY_PAGES, get_request_var('page'), $rows, $total_rows, 5, __('Audit Events', 'audit'), 'page', 'main');
 
     print $nav;
 
@@ -425,40 +425,40 @@ function audit_log() {
 
 	$display_text = array(
 		'page' => array(
-			'display' => __('Page Name'),
+			'display' => __('Page Name', 'audit'),
 			'align' => 'left',
 			'sort' => 'ASC',
-			'tip' => __('The page where the event was generated.')
+			'tip' => __('The page where the event was generated.', 'audit')
 		),
 		'username' => array(
-			'display' => __('User Name'),
+			'display' => __('User Name', 'audit'),
 			'align' => 'left',
 			'sort' => 'ASC',
-			'tip' => __('The user who generated the event.')
+			'tip' => __('The user who generated the event.', 'audit')
 		),
 		'action' => array(
-			'display' => __('Action'),
+			'display' => __('Action', 'audit'),
 			'align' => 'left',
 			'sort' => 'ASC',
-			'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.')
+			'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.', 'audit')
 		),
 		'user_agent'  => array(
-			'display' => __('User Agent'),
+			'display' => __('User Agent', 'audit'),
 			'align' => 'left',
 			'sort' => 'ASC',
-			'tip' => __('The browser type of the requester.')
+			'tip' => __('The browser type of the requester.', 'audit')
 		),
 		'ip_address'  => array(
-			'display' => __('IP Address'),
+			'display' => __('IP Address', 'audit'),
 			'align' => 'right',
 			'sort' => 'ASC',
-			'tip' => __('The IP Address of the requester.')
+			'tip' => __('The IP Address of the requester.', 'audit')
 		),
 		'event_time'  => array(
-			'display' => __('Event Time'),
+			'display' => __('Event Time', 'audit'),
 			'align' => 'right',
 			'sort' => 'DESC',
-			'tip' => __('The time the Event took place.')
+			'tip' => __('The time the Event took place.', 'audit')
 		)
 	);
 
@@ -472,7 +472,7 @@ function audit_log() {
 				form_selectable_cell($e['page'], $e['id']);
 				form_selectable_cell($e['user_agent'], $e['id']);
 				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-				form_selectable_cell(__('N/A'), $e['id']);
+				form_selectable_cell(__('N/A', 'audit'), $e['id']);
 				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
 				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
 				form_end_row();
@@ -488,7 +488,7 @@ function audit_log() {
 			}
 		}
 	}else{
-		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found') . "</em></td></tr>\n";
+		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
 	}
 
 	html_end_box(false);
@@ -508,7 +508,7 @@ function audit_log() {
 			}else{
 				width = 700;
 			}
-			$('body').append('<div id="audit" style="display:block;display:none;" title="<?php print __('Audit Event Details');?>">'+data+'</div>');
+			$('body').append('<div id="audit" style="display:block;display:none;" title="<?php print __esc('Audit Event Details', 'audit');?>">'+data+'</div>');
 			$('#audit').dialog({
 				minWidth: width,
 				position: {
