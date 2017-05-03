@@ -30,7 +30,7 @@ function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 
-	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
+	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log'), 1);
 
 	audit_setup_table();
 }
@@ -240,8 +240,8 @@ function audit_utilities_array() {
 	global $utilities;
 
 	/* append technical support page */
-	$utilities[__('Technical Support', 'audit')] = array_merge(
-		$utilities[__('Technical Support', 'audit')], 
+	$utilities[__('Technical Support')] = array_merge(
+		$utilities[__('Technical Support')], 
 		array(
 			__('View Audit Log', 'audit') => array(
 				'link'  => 'plugins/audit/audit.php',

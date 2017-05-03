@@ -3,56 +3,57 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-03 21:36+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-05-03 21:37+0200\n"
+"PO-Revision-Date: 2017-05-03 22:46+0200\n"
+"Last-Translator: Andreas Braun <browniebraun@cacti.net>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../audit.php:54 ../audit.php:77
 msgid "Page:"
-msgstr ""
+msgstr "Seite:"
 
 #: ../audit.php:55 ../audit.php:78
 msgid "User:"
-msgstr ""
+msgstr "Benutzer:"
 
 #: ../audit.php:56 ../audit.php:79
 msgid "IP Address:"
-msgstr ""
+msgstr "IP Adresse:"
 
 #: ../audit.php:57 ../audit.php:80
 msgid "Date:"
-msgstr ""
+msgstr "Datum:"
 
 #: ../audit.php:58 ../audit.php:81
 msgid "Action:"
-msgstr ""
+msgstr "Aktion:"
 
 #: ../audit.php:60
 msgid "Script:"
-msgstr ""
+msgstr "Skript:"
 
 #: ../audit.php:87 ../audit.php:90
 msgid "Attrib"
-msgstr ""
+msgstr "Attribut"
 
 #: ../audit.php:87 ../audit.php:90
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: ../audit.php:130
 #, php-format
 msgid "Audit Log Purged by %s"
-msgstr ""
+msgstr "Audit-Protokoll von %s gelöscht"
 
 #: ../audit.php:165
 msgctxt ""
@@ -61,206 +62,215 @@ msgctxt ""
 msgid ""
 "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr ""
+"Seite, Benutzer_ID, Benutzername, Aktion, IP_Adresse, User_Agent, Uhrzeit, "
+"POST_Daten"
 
 #: ../audit.php:253
 msgid "Audit Log"
-msgstr ""
+msgstr "Audit Protokoll"
 
 #: ../audit.php:262
 msgid "Search"
-msgstr ""
+msgstr "Suche"
 
 #: ../audit.php:268
 msgid "Page"
-msgstr ""
+msgstr "Seite"
 
 #: ../audit.php:272 ../audit.php:288
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: ../audit.php:284
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: ../audit.php:289
 msgid "cli"
-msgstr ""
+msgstr "cli"
 
 #: ../audit.php:301
 msgid "Events"
-msgstr ""
+msgstr "Ereignisse"
 
 #: ../audit.php:305
 msgid "Default"
-msgstr ""
+msgstr "Voreinstellung"
 
 #: ../audit.php:316
 msgid "Go"
-msgstr ""
+msgstr "Anwenden"
 
 #: ../audit.php:316
 msgid "Set/Refresh Filters"
-msgstr ""
+msgstr "Filter anwenden"
 
 #: ../audit.php:319
 msgid "Clear"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: ../audit.php:319
 msgid "Clear Filters"
-msgstr ""
+msgstr "Filter zurücksetzen"
 
 #: ../audit.php:322
 msgid "Export"
-msgstr ""
+msgstr "Exportieren"
 
 #: ../audit.php:322
 msgid "Export Log Events"
-msgstr ""
+msgstr "Protokollereignisse exportieren"
 
 #: ../audit.php:325
 msgid "Purge"
-msgstr ""
+msgstr "Löschen"
 
 #: ../audit.php:325
 msgid "Purge Log Events"
-msgstr ""
+msgstr "Audit Protokoll löschen"
 
 #: ../audit.php:420
 msgid "Audit Events"
-msgstr ""
+msgstr "Protokollereignisse"
 
 #: ../audit.php:428
 msgid "Page Name"
-msgstr ""
+msgstr "Seitenname"
 
 #: ../audit.php:431
 msgid "The page where the event was generated."
-msgstr ""
+msgstr "Die Seite, auf welcher das Ereignis ausgelöst wurde."
 
 #: ../audit.php:434
 msgid "User Name"
-msgstr ""
+msgstr "Benutzername"
 
 #: ../audit.php:437
 msgid "The user who generated the event."
-msgstr ""
+msgstr "Der Benutzer, der das Ereignis ausgelöst hat."
 
 #: ../audit.php:440
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: ../audit.php:443
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr ""
+"Die angeforderte Aktion. Fahren Sie mit der Maus über die gelistete Aktion "
+"um weitere Details zu den $_POST Daten zu sehen."
 
 #: ../audit.php:446
 msgid "User Agent"
-msgstr ""
+msgstr "User Agent"
 
 #: ../audit.php:449
 msgid "The browser type of the requester."
-msgstr ""
+msgstr "Typ des verwendeten Browsers."
 
 #: ../audit.php:452
 msgid "IP Address"
-msgstr ""
+msgstr "IP Adresse"
 
 #: ../audit.php:455
 msgid "The IP Address of the requester."
-msgstr ""
+msgstr "Verwendete IP-Adresse"
 
 #: ../audit.php:458
 msgid "Event Time"
-msgstr ""
+msgstr "Uhrzeit"
 
 #: ../audit.php:461
 msgid "The time the Event took place."
-msgstr ""
+msgstr "Der Zeitpunkt zu dem das Ereignis eingetreten ist."
 
 #: ../audit.php:475
 msgid "N/A"
-msgstr ""
+msgstr "Nicht verfügbar"
 
 #: ../audit.php:491
 msgid "No Audit Log Events Found"
-msgstr ""
+msgstr "Kein Protokollereignis gefunden"
 
 #: ../audit.php:511
 msgid "Audit Event Details"
-msgstr ""
+msgstr "Ereignisdetails"
 
 #: ../setup.php:33
 msgid "View Cacti Audit Log"
-msgstr ""
+msgstr "Ansicht Audit Protokoll"
 
 #: ../setup.php:243 ../setup.php:244
 msgid "Technical Support"
-msgstr ""
+msgstr "Technischer Support"
 
 #: ../setup.php:246
 msgid "View Audit Log"
-msgstr ""
+msgstr "Audit Protokoll"
 
 #: ../setup.php:248
 msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
+"Ermöglicht es Administratoren, Change-Aktivitäten auf dem Cacti Server "
+"anzeigen.  Administratoren können auch das Auditprotokoll zu Analysezwecken "
+"exportieren."
 
 #: ../setup.php:262
 msgid "Indefinitely"
-msgstr ""
+msgstr "Auf unbestimmte Zeit"
 
 #: ../setup.php:263
 #, php-format
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d Wochen"
 
 #: ../setup.php:264
 #, php-format
 msgid "%d Month"
-msgstr ""
+msgstr "%d Monat"
 
 #: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
 #, php-format
 msgid "%d Months"
-msgstr ""
+msgstr "%d Monate"
 
 #: ../setup.php:269
 #, php-format
 msgid "%d Year"
-msgstr ""
+msgstr "%d Jahr"
 
 #: ../setup.php:270 ../setup.php:271
 #, php-format
 msgid "%d Years"
-msgstr ""
+msgstr "%d Jahre"
 
 #: ../setup.php:280
 msgid "Audit Log Settings"
-msgstr ""
+msgstr "Audit Protokoll Einstellungen"
 
 #: ../setup.php:284
 msgid "Enable Audit Log"
-msgstr ""
+msgstr "Audit Protokoll Aktivieren"
 
 #: ../setup.php:285
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr ""
+"Aktivieren Sie dieses Kontrollkästchen, wenn das Audit Protokoll GUI-"
+"Aktivitäten verfolgen soll."
 
 #: ../setup.php:290
 msgid "Audit Log Retention"
-msgstr ""
+msgstr "Audit Protokoll Speicherung"
 
 #: ../setup.php:291
 msgid "How long do you wish Audit Log entries to be retained?"
-msgstr ""
+msgstr "Wie lange möchten Sie Audit Protokoll-Einträge beibehalten?"
 
 #: ../setup.php:298
 msgid "Misc"
-msgstr ""
+msgstr "Sonstiges"
 
 #: ../setup.php:309
 msgid "Audit Event Log"
-msgstr ""
+msgstr "Ereignisprotokoll"

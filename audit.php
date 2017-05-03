@@ -162,7 +162,7 @@ function audit_export_rows() {
 	if (sizeof($events)) {
 		header('Content-Disposition: attachment; filename=audit_export.csv');
 
-		print "page, user_id, username, action, ip_address, user_agent, event_time, post\n";
+		print __x('Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant.','page, user_id, username, action, ip_address, user_agent, event_time, post', 'audit') . "\n";
 
 		foreach($events as $event) {
 			$post = json_decode($event['post']);
