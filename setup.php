@@ -30,7 +30,7 @@ function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 
-	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log'), 1);
+	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
 
 	audit_setup_table();
 }
@@ -67,15 +67,15 @@ function audit_check_upgrade() {
 			api_plugin_enable_hooks('audit');
 		}
 
-		db_execute("UPDATE plugin_config 
-			SET version='$current' 
+		db_execute("UPDATE plugin_config
+			SET version='$current'
 			WHERE directory='audit'");
 
-		db_execute("UPDATE plugin_config SET 
-			version='" . $version['version']  . "', 
-			name='"    . $version['longname'] . "', 
-			author='"  . $version['author']   . "', 
-			webpage='" . $version['url']      . "' 
+		db_execute("UPDATE plugin_config SET
+			version='" . $version['version']  . "',
+			name='"    . $version['longname'] . "',
+			author='"  . $version['author']   . "',
+			webpage='" . $version['url']      . "'
 			WHERE directory='" . $version['name'] . "' ");
 	}
 }
@@ -120,8 +120,8 @@ function audit_setup_table() {
 		KEY `page` (`page`),
 		KEY `ip_address` (`ip_address`),
 		KEY `event_time` (`event_time`),
-		KEY `action` (`action`)) 
-		ENGINE=InnoDB 
+		KEY `action` (`action`))
+		ENGINE=InnoDB
 		COMMENT='Audit Log for all GUI activities'");
 
 	return true;
@@ -141,7 +141,7 @@ function audit_log_valid_event() {
 	if (read_config_option('audit_enabled') == 'on') {
 		if (strpos($_SERVER['SCRIPT_NAME'], 'graph_view.php') !== false) {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false && 
+		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false &&
 			isset_request_var('action') && get_nfilter_request_var('action') == 'checkpass') {
 			$valid = false;
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
@@ -162,7 +162,7 @@ function audit_log_valid_event() {
 			$action = 'purge';
 		}
 	}
-	
+
 	return $valid;
 }
 
@@ -226,7 +226,7 @@ function audit_config_insert() {
 		$post       = implode(' ', $_SERVER['argv']);
 
 		/* don't insert poller records */
-		if (strpos($_SERVER['argv'][0], 'poller') === false && 
+		if (strpos($_SERVER['argv'][0], 'poller') === false &&
 			strpos($_SERVER['argv'][0], 'script_server.php') === false &&
 			strpos($_SERVER['argv'][0], '_process.php') === false) {
 			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
@@ -240,15 +240,17 @@ function audit_utilities_array() {
 	global $utilities;
 
 	/* append technical support page */
-	$utilities[__('Technical Support')] = array_merge(
-		$utilities[__('Technical Support')], 
-		array(
-			__('View Audit Log', 'audit') => array(
-				'link'  => 'plugins/audit/audit.php',
-				'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
+	if (api_plugin_user_realm_auth('audit.php')) {
+		$utilities[__('Technical Support', 'audit')] = array_merge(
+			$utilities[__('Technical Support', 'audit')],
+			array(
+				__('View Audit Log', 'audit') => array(
+					'link'  => 'plugins/audit/audit.php',
+					'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
+				)
 			)
-		)
-	);
+		);
+	}
 }
 
 function audit_config_arrays() {
@@ -306,9 +308,9 @@ function audit_config_settings () {
 
 function audit_draw_navigation_text($nav) {
 	$nav['audit.php:'] = array(
-		'title'   => __('Audit Event Log', 'audit'), 
-		'mapping' => '', 
-		'url'     => 'audit.php', 
+		'title'   => __('Audit Event Log', 'audit'),
+		'mapping' => '',
+		'url'     => 'audit.php',
 		'level'   => '0'
 	);
 
