@@ -58,8 +58,8 @@ function audit_check_upgrade() {
 		return;
 	}
 
-	$version = plugin_audit_version ();
-	$current = $version['version'];
+	$info = plugin_audit_version();
+	$current = $info['version'];
 	$old     = db_fetch_cell("SELECT version FROM plugin_config WHERE directory='audit'");
 	if ($current != $old) {
 		if (api_plugin_is_enabled('audit')) {
@@ -72,11 +72,11 @@ function audit_check_upgrade() {
 			WHERE directory='audit'");
 
 		db_execute("UPDATE plugin_config SET
-			version='" . $version['version']  . "',
-			name='"    . $version['longname'] . "',
-			author='"  . $version['author']   . "',
-			webpage='" . $version['url']      . "'
-			WHERE directory='" . $version['name'] . "' ");
+			version='" . $info['version']  . "',
+			name='"    . $info['longname'] . "',
+			author='"  . $info['author']   . "',
+			webpage='" . $info['homepage'] . "'
+			WHERE directory='" . $info['name'] . "' ");
 	}
 }
 
@@ -272,6 +272,8 @@ function audit_config_arrays() {
 		730  => __('%d Years',  2, 'audit'),
 		1095 => __('%d Years',  3, 'audit')
 	);
+
+	audit_check_upgrade();
 }
 
 function audit_config_settings () {
