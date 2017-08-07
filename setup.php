@@ -58,7 +58,7 @@ function audit_check_upgrade() {
 		return;
 	}
 
-	$info = plugin_audit_version();
+	$info    = plugin_audit_version();
 	$current = $info['version'];
 	$old     = db_fetch_cell("SELECT version FROM plugin_config WHERE directory='audit'");
 	if ($current != $old) {
