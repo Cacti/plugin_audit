@@ -192,7 +192,7 @@ function audit_config_insert() {
 
 		$post        = json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
-		$user_id     = $_SESSION['sess_user_id'];
+		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id']:0);
 		$event_time  = date('Y-m-d H:i:s');
 
 		if (isset($_SERVER['X-Forwarded-For'])) {
