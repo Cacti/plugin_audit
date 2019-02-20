@@ -13,7 +13,7 @@ This plugin allows Cacti Administrators to log user change activity
 	
 ## Installation
 
-Install just like any other plugin, just throw it in the plugin directory, and Install and Enabled from the Plugin Management Interface.  Make sure the plugin directory is named 'admin' and not 'plugin_admin'.
+Install just like any other plugin, just throw it in the plugin directory, and Install and Enabled from the Plugin Management Interface.  Make sure the plugin directory is named 'audit' and not 'plugin_audit'.
 
 Once this is done, you have to goto Configuration -> Settings -> Misc and define data retention	and turn on auditing.
     
