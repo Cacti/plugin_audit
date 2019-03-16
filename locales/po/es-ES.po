@@ -9,14 +9,14 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
 "PO-Revision-Date: 2017-09-07 16:39+1200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.3\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: es_ES\n"
 
 #: ../audit.php:54 ../audit.php:77
 msgid "Page:"
@@ -154,8 +154,8 @@ msgstr "Acción"
 #: ../audit.php:443
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr ""
-"La acción de Cacti solicitada. Pasa el mouse sobre acción para ver los "
-"datos de $_POST."
+"La acción de Cacti solicitada. Pasa el mouse sobre acción para ver los datos "
+"de $_POST."
 
 #: ../audit.php:446
 msgid "User Agent"
