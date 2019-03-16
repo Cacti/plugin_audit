@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
-"PO-Revision-Date: 2017-09-07 16:39+1200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: es_ES\n"
+"PO-Revision-Date: 2019-03-16 13:37+0000\n"
+"Last-Translator: Mark Brugnoli-Vinten <netniv@cacti.net>\n"
+"Language-Team: Spanish <http://translate.cacti.net/projects/cacti/audit/"
+"es-ES/>\n"
+"Language: es-ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../audit.php:54 ../audit.php:77
 msgid "Page:"
@@ -44,7 +45,7 @@ msgstr "Script:"
 
 #: ../audit.php:87 ../audit.php:90
 msgid "Attrib"
-msgstr "Atrib:"
+msgstr "Atrib"
 
 #: ../audit.php:87 ../audit.php:90
 msgid "Value"
@@ -226,17 +227,17 @@ msgstr "%d semanas"
 #: ../setup.php:264
 #, php-format
 msgid "%d Month"
-msgstr "%d mes"
+msgstr "%d Mes"
 
 #: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
 #, php-format
 msgid "%d Months"
-msgstr "%d meses"
+msgstr "%d Meses"
 
 #: ../setup.php:269
 #, php-format
 msgid "%d Year"
-msgstr "%d año"
+msgstr "%d Año"
 
 #: ../setup.php:270 ../setup.php:271
 #, php-format
