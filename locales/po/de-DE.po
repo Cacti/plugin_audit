@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:37+0200\n"
-"PO-Revision-Date: 2017-05-03 22:46+0200\n"
-"Last-Translator: Andreas Braun <browniebraun@cacti.net>\n"
-"Language-Team: \n"
-"Language: de_DE\n"
+"PO-Revision-Date: 2019-03-16 02:57+0000\n"
+"Last-Translator: The Cacti Group <weblate@cacti.net>\n"
+"Language-Team: German <http://translate.cacti.net/projects/cacti/audit/de-DE/"
+">\n"
+"Language: de-DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../audit.php:54 ../audit.php:77
 msgid "Page:"
@@ -103,15 +104,15 @@ msgstr "Anwenden"
 
 #: ../audit.php:316
 msgid "Set/Refresh Filters"
-msgstr "Filter anwenden"
+msgstr "Filter setzen/auffrischen"
 
 #: ../audit.php:319
 msgid "Clear"
-msgstr "Zurücksetzen"
+msgstr "Löschen"
 
 #: ../audit.php:319
 msgid "Clear Filters"
-msgstr "Filter zurücksetzen"
+msgstr "Filter löschen"
 
 #: ../audit.php:322
 msgid "Export"
