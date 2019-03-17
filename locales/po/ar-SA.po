@@ -5,261 +5,321 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ar-SA\n"
+"PO-Revision-Date: 2019-03-16 21:05-0400\n"
+"Language: ar_SA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../audit.php:54 ../audit.php:77
+#, fuzzy
 msgid "Page:"
-msgstr ""
+msgstr "صفحة"
 
 #: ../audit.php:55 ../audit.php:78
+#, fuzzy
 msgid "User:"
-msgstr ""
+msgstr "المستخدم.:"
 
 #: ../audit.php:56 ../audit.php:79
+#, fuzzy
 msgid "IP Address:"
-msgstr ""
+msgstr "عنوان IP:"
 
 #: ../audit.php:57 ../audit.php:80
+#, fuzzy
 msgid "Date:"
-msgstr ""
+msgstr "التاريخ"
 
 #: ../audit.php:58 ../audit.php:81
+#, fuzzy
 msgid "Action:"
-msgstr ""
+msgstr "الإجراء"
 
 #: ../audit.php:60
+#, fuzzy
 msgid "Script:"
-msgstr ""
+msgstr "النصي:"
 
 #: ../audit.php:87 ../audit.php:90
+#, fuzzy
 msgid "Attrib"
-msgstr ""
+msgstr "ATTRIB"
 
 #: ../audit.php:87 ../audit.php:90
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "القيمة"
 
 #: ../audit.php:130
-#, php-format
+#, fuzzy, php-format
 msgid "Audit Log Purged by %s"
-msgstr ""
+msgstr "سجل التدقيق تم تطهيره بواسطة٪ s"
 
 #: ../audit.php:165
+#, fuzzy
 msgctxt ""
 "Column Header used for CSV log export. Ensure that you do NOT(!) remove one "
 "of the commas. The output needs to be CSV compliant."
 msgid ""
 "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr ""
+"الصفحة ، user_id ، اسم المستخدم ، الإجراء ، ip_address ، user_agent ، "
+"event_time ، منشور"
 
 #: ../audit.php:253
+#, fuzzy
 msgid "Audit Log"
-msgstr ""
+msgstr "سجل التدقيق"
 
 #: ../audit.php:262
+#, fuzzy
 msgid "Search"
-msgstr ""
+msgstr "بحث"
 
 #: ../audit.php:268
+#, fuzzy
 msgid "Page"
-msgstr ""
+msgstr "صفحة"
 
 #: ../audit.php:272 ../audit.php:288
+#, fuzzy
 msgid "All"
-msgstr ""
+msgstr "الكل"
 
 #: ../audit.php:284
+#, fuzzy
 msgid "User"
-msgstr ""
+msgstr "المستخدم"
 
 #: ../audit.php:289
+#, fuzzy
 msgid "cli"
-msgstr ""
+msgstr "المبادرة القطرية"
 
 #: ../audit.php:301
+#, fuzzy
 msgid "Events"
-msgstr ""
+msgstr "الفعاليات"
 
 #: ../audit.php:305
+#, fuzzy
 msgid "Default"
-msgstr ""
+msgstr "الافتراضي"
 
 #: ../audit.php:316
+#, fuzzy
 msgid "Go"
-msgstr ""
+msgstr "أذهب"
 
 #: ../audit.php:316
+#, fuzzy
 msgid "Set/Refresh Filters"
-msgstr ""
+msgstr "ضبط / تحديث المرشحات"
 
 #: ../audit.php:319
+#, fuzzy
 msgid "Clear"
-msgstr ""
+msgstr "واضح"
 
 #: ../audit.php:319
+#, fuzzy
 msgid "Clear Filters"
-msgstr ""
+msgstr "مرشحات واضحة"
 
 #: ../audit.php:322
+#, fuzzy
 msgid "Export"
-msgstr ""
+msgstr "تصدير"
 
 #: ../audit.php:322
+#, fuzzy
 msgid "Export Log Events"
-msgstr ""
+msgstr "أحداث سجل التصدير"
 
 #: ../audit.php:325
+#, fuzzy
 msgid "Purge"
-msgstr ""
+msgstr "تطهير"
 
 #: ../audit.php:325
+#, fuzzy
 msgid "Purge Log Events"
-msgstr ""
+msgstr "تطهير سجل الأحداث"
 
 #: ../audit.php:420
+#, fuzzy
 msgid "Audit Events"
-msgstr ""
+msgstr "أحداث التدقيق"
 
 #: ../audit.php:428
+#, fuzzy
 msgid "Page Name"
-msgstr ""
+msgstr "اسم الصفحة"
 
 #: ../audit.php:431
+#, fuzzy
 msgid "The page where the event was generated."
-msgstr ""
+msgstr "الصفحة التي تم فيها إنشاء الحدث."
 
 #: ../audit.php:434
+#, fuzzy
 msgid "User Name"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: ../audit.php:437
+#, fuzzy
 msgid "The user who generated the event."
-msgstr ""
+msgstr "المستخدم الذي أنشأ الحدث."
 
 #: ../audit.php:440
+#, fuzzy
 msgid "Action"
-msgstr ""
+msgstr "الإجراء"
 
 #: ../audit.php:443
+#, fuzzy
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
-msgstr ""
+msgstr "طلب الصبار العمل. قم بالمرور فوق الإجراء لرؤية بيانات $ _POST."
 
 #: ../audit.php:446
+#, fuzzy
 msgid "User Agent"
-msgstr ""
+msgstr "وكيل المستخدم"
 
 #: ../audit.php:449
+#, fuzzy
 msgid "The browser type of the requester."
-msgstr ""
+msgstr "نوع متصفح الطالب."
 
 #: ../audit.php:452
+#, fuzzy
 msgid "IP Address"
-msgstr ""
+msgstr "عنوان IP"
 
 #: ../audit.php:455
+#, fuzzy
 msgid "The IP Address of the requester."
-msgstr ""
+msgstr "عنوان IP لمقدم الطلب."
 
 #: ../audit.php:458
+#, fuzzy
 msgid "Event Time"
-msgstr ""
+msgstr "وقت الحدث"
 
 #: ../audit.php:461
+#, fuzzy
 msgid "The time the Event took place."
-msgstr ""
+msgstr "الوقت حدث الحدث."
 
 #: ../audit.php:475
+#, fuzzy
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: ../audit.php:491
+#, fuzzy
 msgid "No Audit Log Events Found"
-msgstr ""
+msgstr "لم يتم العثور على أحداث سجل التدقيق"
 
 #: ../audit.php:511
+#, fuzzy
 msgid "Audit Event Details"
-msgstr ""
+msgstr "مراجعة تفاصيل الحدث"
 
 #: ../setup.php:33
+#, fuzzy
 msgid "View Cacti Audit Log"
-msgstr ""
+msgstr "عرض سجل تدقيق الصبار"
 
 #: ../setup.php:243 ../setup.php:244
+#, fuzzy
 msgid "Technical Support"
-msgstr ""
+msgstr "دعم فني"
 
 #: ../setup.php:246
+#, fuzzy
 msgid "View Audit Log"
-msgstr ""
+msgstr "عرض سجل التدقيق"
 
 #: ../setup.php:248
+#, fuzzy
 msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
+"يسمح للمسؤولين بعرض نشاط التغيير على خادم Cacti. يمكن للمسؤولين أيضًا تصدير "
+"سجل التدقيق لأغراض التحليل."
 
 #: ../setup.php:262
+#, fuzzy
 msgid "Indefinitely"
-msgstr ""
+msgstr "إلى أجل غير مسمى"
 
 #: ../setup.php:263
-#, php-format
+#, fuzzy, php-format
 msgid "%d Weeks"
-msgstr ""
+msgstr "٪ د أسابيع"
 
 #: ../setup.php:264
-#, php-format
+#, fuzzy, php-format
 msgid "%d Month"
-msgstr ""
+msgstr "٪ د الشهر"
 
 #: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
-#, php-format
+#, fuzzy, php-format
 msgid "%d Months"
-msgstr ""
+msgstr "٪ د أشهر"
 
 #: ../setup.php:269
-#, php-format
+#, fuzzy, php-format
 msgid "%d Year"
-msgstr ""
+msgstr "٪ د السنة"
 
 #: ../setup.php:270 ../setup.php:271
-#, php-format
+#, fuzzy, php-format
 msgid "%d Years"
-msgstr ""
+msgstr "٪ د سنوات"
 
 #: ../setup.php:280
+#, fuzzy
 msgid "Audit Log Settings"
-msgstr ""
+msgstr "إعدادات سجل التدقيق"
 
 #: ../setup.php:284
+#, fuzzy
 msgid "Enable Audit Log"
-msgstr ""
+msgstr "تمكين سجل التدقيق"
 
 #: ../setup.php:285
+#, fuzzy
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr ""
+"حدد هذا المربع ، إذا كنت تريد أن يقوم سجل التدوين بتتبع أنشطة واجهة "
+"المستخدم الرسومية."
 
 #: ../setup.php:290
+#, fuzzy
 msgid "Audit Log Retention"
-msgstr ""
+msgstr "مراجعة سجل الاحتفاظ"
 
 #: ../setup.php:291
+#, fuzzy
 msgid "How long do you wish Audit Log entries to be retained?"
-msgstr ""
+msgstr "ما المدة التي ترغب في الاحتفاظ بها في إدخالات تدوين السجل؟"
 
 #: ../setup.php:298
+#, fuzzy
 msgid "Misc"
-msgstr ""
+msgstr "متفرقات"
 
 #: ../setup.php:309
+#, fuzzy
 msgid "Audit Event Log"
-msgstr ""
+msgstr "تدوين سجل الأحداث"

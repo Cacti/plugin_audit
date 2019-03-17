@@ -5,261 +5,320 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: ko-KR\n"
+"PO-Revision-Date: 2019-03-16 21:11-0400\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../audit.php:54 ../audit.php:77
+#, fuzzy
 msgid "Page:"
-msgstr ""
+msgstr "페이지"
 
 #: ../audit.php:55 ../audit.php:78
+#, fuzzy
 msgid "User:"
-msgstr ""
+msgstr "회원:"
 
 #: ../audit.php:56 ../audit.php:79
+#, fuzzy
 msgid "IP Address:"
-msgstr ""
+msgstr "IP 주소"
 
 #: ../audit.php:57 ../audit.php:80
+#, fuzzy
 msgid "Date:"
-msgstr ""
+msgstr "날짜"
 
 #: ../audit.php:58 ../audit.php:81
+#, fuzzy
 msgid "Action:"
-msgstr ""
+msgstr "실행"
 
 #: ../audit.php:60
+#, fuzzy
 msgid "Script:"
-msgstr ""
+msgstr "스크립트"
 
 #: ../audit.php:87 ../audit.php:90
+#, fuzzy
 msgid "Attrib"
-msgstr ""
+msgstr "속성"
 
 #: ../audit.php:87 ../audit.php:90
+#, fuzzy
 msgid "Value"
-msgstr ""
+msgstr "값"
 
 #: ../audit.php:130
-#, php-format
+#, fuzzy, php-format
 msgid "Audit Log Purged by %s"
-msgstr ""
+msgstr "%s에 의해 제거 된 감사 로그"
 
 #: ../audit.php:165
+#, fuzzy
 msgctxt ""
 "Column Header used for CSV log export. Ensure that you do NOT(!) remove one "
 "of the commas. The output needs to be CSV compliant."
 msgid ""
 "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr ""
+"페이지, user_id, 사용자 이름, 작업, ip_address, user_agent, event_time, post"
 
 #: ../audit.php:253
+#, fuzzy
 msgid "Audit Log"
-msgstr ""
+msgstr "감사 로그"
 
 #: ../audit.php:262
+#, fuzzy
 msgid "Search"
-msgstr ""
+msgstr "검색"
 
 #: ../audit.php:268
+#, fuzzy
 msgid "Page"
-msgstr ""
+msgstr "페이지"
 
 #: ../audit.php:272 ../audit.php:288
+#, fuzzy
 msgid "All"
-msgstr ""
+msgstr "모두"
 
 #: ../audit.php:284
+#, fuzzy
 msgid "User"
-msgstr ""
+msgstr "사용자"
 
 #: ../audit.php:289
+#, fuzzy
 msgid "cli"
-msgstr ""
+msgstr "클리"
 
 #: ../audit.php:301
+#, fuzzy
 msgid "Events"
-msgstr ""
+msgstr "이벤트"
 
 #: ../audit.php:305
+#, fuzzy
 msgid "Default"
-msgstr ""
+msgstr "기본값"
 
 #: ../audit.php:316
+#, fuzzy
 msgid "Go"
-msgstr ""
+msgstr "가기"
 
 #: ../audit.php:316
+#, fuzzy
 msgid "Set/Refresh Filters"
-msgstr ""
+msgstr "필터 설정 / 새로 고침"
 
 #: ../audit.php:319
+#, fuzzy
 msgid "Clear"
-msgstr ""
+msgstr "지우기"
 
 #: ../audit.php:319
+#, fuzzy
 msgid "Clear Filters"
-msgstr ""
+msgstr "필터 지우기"
 
 #: ../audit.php:322
+#, fuzzy
 msgid "Export"
-msgstr ""
+msgstr "내보내기"
 
 #: ../audit.php:322
+#, fuzzy
 msgid "Export Log Events"
-msgstr ""
+msgstr "로그 이벤트 내보내기"
 
 #: ../audit.php:325
+#, fuzzy
 msgid "Purge"
-msgstr ""
+msgstr "숙청"
 
 #: ../audit.php:325
+#, fuzzy
 msgid "Purge Log Events"
-msgstr ""
+msgstr "로그 이벤트 제거"
 
 #: ../audit.php:420
+#, fuzzy
 msgid "Audit Events"
-msgstr ""
+msgstr "감사 이벤트"
 
 #: ../audit.php:428
+#, fuzzy
 msgid "Page Name"
-msgstr ""
+msgstr "페이지 이름"
 
 #: ../audit.php:431
+#, fuzzy
 msgid "The page where the event was generated."
-msgstr ""
+msgstr "이벤트가 생성 된 페이지입니다."
 
 #: ../audit.php:434
+#, fuzzy
 msgid "User Name"
-msgstr ""
+msgstr "사용자 이름"
 
 #: ../audit.php:437
+#, fuzzy
 msgid "The user who generated the event."
-msgstr ""
+msgstr "이벤트를 생성 한 사용자입니다."
 
 #: ../audit.php:440
+#, fuzzy
 msgid "Action"
-msgstr ""
+msgstr "실행"
 
 #: ../audit.php:443
+#, fuzzy
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr ""
+"Cacti Action이 요청했습니다. 마우스를 올려 놓으면 $ _POST 데이터를 볼 수 있"
+"습니다."
 
 #: ../audit.php:446
+#, fuzzy
 msgid "User Agent"
-msgstr ""
+msgstr "유저 에이전트"
 
 #: ../audit.php:449
+#, fuzzy
 msgid "The browser type of the requester."
-msgstr ""
+msgstr "요청자의 브라우저 유형."
 
 #: ../audit.php:452
+#, fuzzy
 msgid "IP Address"
-msgstr ""
+msgstr "IP 주소"
 
 #: ../audit.php:455
+#, fuzzy
 msgid "The IP Address of the requester."
-msgstr ""
+msgstr "요청자의 IP 주소."
 
 #: ../audit.php:458
+#, fuzzy
 msgid "Event Time"
-msgstr ""
+msgstr "이벤트 적용 시간"
 
 #: ../audit.php:461
+#, fuzzy
 msgid "The time the Event took place."
-msgstr ""
+msgstr "이벤트가 발생한 시간."
 
 #: ../audit.php:475
+#, fuzzy
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: ../audit.php:491
+#, fuzzy
 msgid "No Audit Log Events Found"
-msgstr ""
+msgstr "감사 로그 이벤트 없음"
 
 #: ../audit.php:511
+#, fuzzy
 msgid "Audit Event Details"
-msgstr ""
+msgstr "감사 이벤트 세부 정보"
 
 #: ../setup.php:33
+#, fuzzy
 msgid "View Cacti Audit Log"
-msgstr ""
+msgstr "Cacti 감사 로그보기"
 
 #: ../setup.php:243 ../setup.php:244
+#, fuzzy
 msgid "Technical Support"
-msgstr ""
+msgstr "기술 지원"
 
 #: ../setup.php:246
+#, fuzzy
 msgid "View Audit Log"
-msgstr ""
+msgstr "감사 로그보기"
 
 #: ../setup.php:248
+#, fuzzy
 msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
+"관리자가 Cacti 서버에서 변경 작업을 볼 수 있습니다. 관리자는 분석을 위해 감"
+"사 로그를 내보낼 수도 있습니다."
 
 #: ../setup.php:262
+#, fuzzy
 msgid "Indefinitely"
-msgstr ""
+msgstr "무기한으로"
 
 #: ../setup.php:263
-#, php-format
+#, fuzzy, php-format
 msgid "%d Weeks"
-msgstr ""
+msgstr "% d 주"
 
 #: ../setup.php:264
-#, php-format
+#, fuzzy, php-format
 msgid "%d Month"
-msgstr ""
+msgstr "% d 개월"
 
 #: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
-#, php-format
+#, fuzzy, php-format
 msgid "%d Months"
-msgstr ""
+msgstr "개월 % d 개월"
 
 #: ../setup.php:269
-#, php-format
+#, fuzzy, php-format
 msgid "%d Year"
-msgstr ""
+msgstr "% d 년"
 
 #: ../setup.php:270 ../setup.php:271
-#, php-format
+#, fuzzy, php-format
 msgid "%d Years"
-msgstr ""
+msgstr "% d 년"
 
 #: ../setup.php:280
+#, fuzzy
 msgid "Audit Log Settings"
-msgstr ""
+msgstr "감사 로그 설정"
 
 #: ../setup.php:284
+#, fuzzy
 msgid "Enable Audit Log"
-msgstr ""
+msgstr "감사 로그 사용"
 
 #: ../setup.php:285
+#, fuzzy
 msgid "Check this box, if you want the Audit Log to track GUI activities."
-msgstr ""
+msgstr "감사 로그가 GUI 활동을 추적하게하려면이 상자를 선택하십시오."
 
 #: ../setup.php:290
+#, fuzzy
 msgid "Audit Log Retention"
-msgstr ""
+msgstr "감사 로그 보존"
 
 #: ../setup.php:291
+#, fuzzy
 msgid "How long do you wish Audit Log entries to be retained?"
-msgstr ""
+msgstr "감사 로그 항목을 얼마나 오래 보관 하시겠습니까?"
 
 #: ../setup.php:298
+#, fuzzy
 msgid "Misc"
-msgstr ""
+msgstr "기타"
 
 #: ../setup.php:309
+#, fuzzy
 msgid "Audit Event Log"
-msgstr ""
+msgstr "감사 이벤트 로그"
