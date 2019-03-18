@@ -1,17 +1,12 @@
 language: php
 
 php:
-php:
 - '5.4'
 - '5.5'
 - '5.6'
 - '7.0'
 - '7.1'
 - '7.2'
-
-#matrix:
-#  allow_failures:
-#  - php: 7.0
 
 before_script:
 - if find . -name "*.php" -exec php -l {} 2>&1 \; | grep -iv "no syntax errors detected"; then exit 1; fi
@@ -26,3 +21,5 @@ notifications:
     on_failure: always
     recipients:
     - developers@cacti.net
+  slack:
+    secure: uEPES643SuD/5KnW+9EKUaNrKS1UzaOX3GNJQJsYW9BeTuj57C228ubQn93UEYeOpjLWE07j1yeckAoDhQS1fB2SnBWuwJOmh75RD8CYpdBjb2vOC3ZWNAFNwW9Yl2FEAIGOXXi4kxpjEocjo1zJ5RmY2Bi7cYex61FjvqYOsEim+m0EwXltBO6qYoNZgMtAWQNU057AeqqAttZMnrHAlHhrbVqrpYbXnwBB0iMPeqPsNh5bL3redBLWYAqAYxoJQPZ2JxE6KZFhjIkyDSzNM/vzIHwLORW9mQQBF3Dgc1viOsBSWWsRGObObo/Mx3GaGZytlZZF/nL/yzmKMS8q4Y1uMrUp0dyOZmru2uUi4XfmVQRgMk4xkD38omPemDZeUfaEOgPHDnA00HqsosHGhbQuRVnwL8iWHLnxM/vgbms63hPHnjbnfgAmWYi/CDUW7ecyqvumFpme7OYK7x+iJl5uP34gRAdayjK65FrP4+eZjlMvl7qQqXX9dV5yG+Dsz2ocdzQ4RnGV5M7VJwM1t5PRIvbsBMEs3R5vM8ZcULu8sZ7SP9gzoiRtHfPn5n/4mM/wUuUj9SBEnmVpTL3IYJpVm9lPJQ2N6Li8Husa73NC11xpMUdLTSwk17+IWugN5xHc7PI07adlkXpe8rJtV3MsRCwOXO6j9I54IALN9vE=
