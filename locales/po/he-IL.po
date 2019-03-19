@@ -9,12 +9,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
 "PO-Revision-Date: 2019-03-16 21:07-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.2.1\n"
 
 #: ../audit.php:54 ../audit.php:77
@@ -69,8 +69,7 @@ msgctxt ""
 "of the commas. The output needs to be CSV compliant."
 msgid ""
 "page, user_id, username, action, ip_address, user_agent, event_time, post"
-msgstr ""
-"דף, user_id, שם משתמש, פעולה, ip_address, user_agent, event_time, פוסט"
+msgstr "דף, user_id, שם משתמש, פעולה, ip_address, user_agent, event_time, פוסט"
 
 #: ../audit.php:253
 #, fuzzy
@@ -185,8 +184,7 @@ msgstr "פעולה"
 #: ../audit.php:443
 #, fuzzy
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
-msgstr ""
-"פעולה Cacti המבוקש. העבר את העכבר מעל לפעולה כדי לראות $ _POST נתונים."
+msgstr "פעולה Cacti המבוקש. העבר את העכבר מעל לפעולה כדי לראות $ _POST נתונים."
 
 #: ../audit.php:446
 #, fuzzy
