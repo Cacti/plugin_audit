@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-03 21:36+0200\n"
+"POT-Creation-Date: 2019-03-19 09:50+0000\n"
 "PO-Revision-Date: 2019-03-16 21:08-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,52 +17,52 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#: ../audit.php:54 ../audit.php:77
+#: audit.php:54 audit.php:77
 #, fuzzy
 msgid "Page:"
 msgstr "页面"
 
-#: ../audit.php:55 ../audit.php:78
+#: audit.php:55 audit.php:78
 #, fuzzy
 msgid "User:"
 msgstr "उपयोगकर्ता "
 
-#: ../audit.php:56 ../audit.php:79
+#: audit.php:56 audit.php:79
 #, fuzzy
 msgid "IP Address:"
 msgstr "आईपी पता:"
 
-#: ../audit.php:57 ../audit.php:80
+#: audit.php:57 audit.php:80
 #, fuzzy
 msgid "Date:"
 msgstr "दिनांक"
 
-#: ../audit.php:58 ../audit.php:81
+#: audit.php:58 audit.php:81
 #, fuzzy
 msgid "Action:"
 msgstr "क्रिया:"
 
-#: ../audit.php:60
+#: audit.php:60
 #, fuzzy
 msgid "Script:"
 msgstr "स्क्रिप्ट:"
 
-#: ../audit.php:87 ../audit.php:90
+#: audit.php:87 audit.php:90
 #, fuzzy
 msgid "Attrib"
 msgstr "attrib"
 
-#: ../audit.php:87 ../audit.php:90
+#: audit.php:87 audit.php:90
 #, fuzzy
 msgid "Value"
 msgstr "मूल्य"
 
-#: ../audit.php:130
+#: audit.php:130
 #, fuzzy, php-format
 msgid "Audit Log Purged by %s"
 msgstr "ऑडिट लॉग पर्सेंटेज %s द्वारा"
 
-#: ../audit.php:165
+#: audit.php:165
 #, fuzzy
 msgctxt ""
 "Column Header used for CSV log export. Ensure that you do NOT(!) remove one "
@@ -72,182 +72,182 @@ msgid ""
 msgstr ""
 "पृष्ठ, user_id, उपयोगकर्ता नाम, क्रिया, ip_address, user_agent, event_time, पोस्ट"
 
-#: ../audit.php:253
+#: audit.php:253
 #, fuzzy
 msgid "Audit Log"
 msgstr "हिसाब सूचि"
 
-#: ../audit.php:262
+#: audit.php:262
 #, fuzzy
 msgid "Search"
 msgstr "खोज"
 
-#: ../audit.php:268
+#: audit.php:268
 #, fuzzy
 msgid "Page"
 msgstr "页面"
 
-#: ../audit.php:272 ../audit.php:288
+#: audit.php:272 audit.php:288
 #, fuzzy
 msgid "All"
 msgstr "所有"
 
-#: ../audit.php:284
+#: audit.php:284
 #, fuzzy
 msgid "User"
 msgstr "उपयोगकर्ता "
 
-#: ../audit.php:289
+#: audit.php:289
 #, fuzzy
 msgid "cli"
 msgstr "CLI"
 
-#: ../audit.php:301
+#: audit.php:301
 #, fuzzy
 msgid "Events"
 msgstr "आयोजन"
 
-#: ../audit.php:305
+#: audit.php:305
 #, fuzzy
 msgid "Default"
 msgstr "चूक"
 
-#: ../audit.php:316
+#: audit.php:316
 #, fuzzy
 msgid "Go"
 msgstr "चले जाओ"
 
-#: ../audit.php:316
+#: audit.php:316
 #, fuzzy
 msgid "Set/Refresh Filters"
 msgstr "सेट / फ़िल्टर ताज़ा करें"
 
-#: ../audit.php:319
+#: audit.php:319
 #, fuzzy
 msgid "Clear"
 msgstr "明确"
 
-#: ../audit.php:319
+#: audit.php:319
 #, fuzzy
 msgid "Clear Filters"
 msgstr "साफ फिल्टर"
 
-#: ../audit.php:322
+#: audit.php:322
 #, fuzzy
 msgid "Export"
 msgstr "निर्यात"
 
-#: ../audit.php:322
+#: audit.php:322
 #, fuzzy
 msgid "Export Log Events"
 msgstr "लॉग इवेंट्स निर्यात करें"
 
-#: ../audit.php:325
+#: audit.php:325
 #, fuzzy
 msgid "Purge"
 msgstr "शुद्ध करना"
 
-#: ../audit.php:325
+#: audit.php:325
 #, fuzzy
 msgid "Purge Log Events"
 msgstr "पर्ज लॉग इवेंट्स"
 
-#: ../audit.php:420
+#: audit.php:420
 #, fuzzy
 msgid "Audit Events"
 msgstr "ऑडिट इवेंट"
 
-#: ../audit.php:428
+#: audit.php:428
 #, fuzzy
 msgid "Page Name"
 msgstr "पन्ने का नाम"
 
-#: ../audit.php:431
+#: audit.php:431
 #, fuzzy
 msgid "The page where the event was generated."
 msgstr "वह पृष्ठ जहाँ ईवेंट उत्पन्न किया गया था।"
 
-#: ../audit.php:434
+#: audit.php:434
 #, fuzzy
 msgid "User Name"
 msgstr "उपयोगकर्ता नाम"
 
-#: ../audit.php:437
+#: audit.php:437
 #, fuzzy
 msgid "The user who generated the event."
 msgstr "उपयोगकर्ता जो ईवेंट उत्पन्न करता है।"
 
-#: ../audit.php:440
+#: audit.php:440
 #, fuzzy
 msgid "Action"
 msgstr "कार्य"
 
-#: ../audit.php:443
+#: audit.php:443
 #, fuzzy
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "कैक्टि एक्शन का अनुरोध किया। $ _POST डेटा देखने के लिए कार्रवाई पर होवर करें।"
 
-#: ../audit.php:446
+#: audit.php:446
 #, fuzzy
 msgid "User Agent"
 msgstr "उपभोक्ता अभिकर्ता"
 
-#: ../audit.php:449
+#: audit.php:449
 #, fuzzy
 msgid "The browser type of the requester."
 msgstr "आवश्यक प्रकार का ब्राउज़र प्रकार।"
 
-#: ../audit.php:452
+#: audit.php:452
 #, fuzzy
 msgid "IP Address"
 msgstr "आईपी पता"
 
-#: ../audit.php:455
+#: audit.php:455
 #, fuzzy
 msgid "The IP Address of the requester."
 msgstr "अनुरोधकर्ता का आईपी पता।"
 
-#: ../audit.php:458
+#: audit.php:458
 #, fuzzy
 msgid "Event Time"
 msgstr "घटना के समय"
 
-#: ../audit.php:461
+#: audit.php:461
 #, fuzzy
 msgid "The time the Event took place."
 msgstr "जिस समय इवेंट हुआ।"
 
-#: ../audit.php:475
+#: audit.php:475
 #, fuzzy
 msgid "N/A"
 msgstr "एन / ए"
 
-#: ../audit.php:491
+#: audit.php:491
 #, fuzzy
 msgid "No Audit Log Events Found"
 msgstr "कोई ऑडिट लॉग इवेंट नहीं मिला"
 
-#: ../audit.php:511
+#: audit.php:511
 #, fuzzy
 msgid "Audit Event Details"
 msgstr "ऑडिट इवेंट विवरण"
 
-#: ../setup.php:33
+#: setup.php:33
 #, fuzzy
 msgid "View Cacti Audit Log"
 msgstr "कैक्टि ऑडिट लॉग देखें"
 
-#: ../setup.php:243 ../setup.php:244
+#: setup.php:244 setup.php:245
 #, fuzzy
 msgid "Technical Support"
 msgstr "तकनीकी सहायता"
 
-#: ../setup.php:246
+#: setup.php:247
 #, fuzzy
 msgid "View Audit Log"
 msgstr "ऑडिट लॉग देखें"
 
-#: ../setup.php:248
+#: setup.php:249
 #, fuzzy
 msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
@@ -256,68 +256,68 @@ msgstr ""
 "व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक विश्लेषण "
 "उद्देश्यों के लिए ऑडिट लॉग का निर्यात भी कर सकते हैं।"
 
-#: ../setup.php:262
+#: setup.php:264
 #, fuzzy
 msgid "Indefinitely"
 msgstr "अनिश्चित काल के लिए"
 
-#: ../setup.php:263
+#: setup.php:265
 #, fuzzy, php-format
 msgid "%d Weeks"
 msgstr "% द वीक"
 
-#: ../setup.php:264
+#: setup.php:266
 #, fuzzy, php-format
 msgid "%d Month"
 msgstr "% d महीना"
 
-#: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
+#: setup.php:267 setup.php:268 setup.php:269 setup.php:270
 #, fuzzy, php-format
 msgid "%d Months"
 msgstr "% d माह"
 
-#: ../setup.php:269
+#: setup.php:271
 #, fuzzy, php-format
 msgid "%d Year"
 msgstr "% d वष"
 
-#: ../setup.php:270 ../setup.php:271
+#: setup.php:272 setup.php:273
 #, fuzzy, php-format
 msgid "%d Years"
 msgstr "% d वष"
 
-#: ../setup.php:280
+#: setup.php:284
 #, fuzzy
 msgid "Audit Log Settings"
 msgstr "ऑडिट लॉग सेटिंग्स"
 
-#: ../setup.php:284
+#: setup.php:288
 #, fuzzy
 msgid "Enable Audit Log"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: ../setup.php:285
+#: setup.php:289
 #, fuzzy
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr ""
 "इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
 
-#: ../setup.php:290
+#: setup.php:294
 #, fuzzy
 msgid "Audit Log Retention"
 msgstr "ऑडिट लॉग रिटेंशन"
 
-#: ../setup.php:291
+#: setup.php:295
 #, fuzzy
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "आप कब तक ऑडिट लॉग प्रविष्टियों को बनाए रखना चाहते हैं?"
 
-#: ../setup.php:298
+#: setup.php:302
 #, fuzzy
 msgid "Misc"
 msgstr "विविध"
 
-#: ../setup.php:309
+#: setup.php:313
 #, fuzzy
 msgid "Audit Event Log"
 msgstr "ऑडिट इवेंट लॉग"
