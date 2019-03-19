@@ -9,12 +9,12 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-03 21:36+0200\n"
 "PO-Revision-Date: 2019-03-16 21:08-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: hi_IN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.2.1\n"
 
 #: ../audit.php:54 ../audit.php:77
@@ -253,8 +253,8 @@ msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
-"व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक "
-"विश्लेषण उद्देश्यों के लिए ऑडिट लॉग का निर्यात भी कर सकते हैं।"
+"व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक विश्लेषण "
+"उद्देश्यों के लिए ऑडिट लॉग का निर्यात भी कर सकते हैं।"
 
 #: ../setup.php:262
 #, fuzzy
