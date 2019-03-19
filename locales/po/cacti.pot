@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-03 21:36+0200\n"
+"POT-Creation-Date: 2019-03-19 09:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,44 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../audit.php:54 ../audit.php:77
+#: audit.php:54 audit.php:77
 msgid "Page:"
 msgstr ""
 
-#: ../audit.php:55 ../audit.php:78
+#: audit.php:55 audit.php:78
 msgid "User:"
 msgstr ""
 
-#: ../audit.php:56 ../audit.php:79
+#: audit.php:56 audit.php:79
 msgid "IP Address:"
 msgstr ""
 
-#: ../audit.php:57 ../audit.php:80
+#: audit.php:57 audit.php:80
 msgid "Date:"
 msgstr ""
 
-#: ../audit.php:58 ../audit.php:81
+#: audit.php:58 audit.php:81
 msgid "Action:"
 msgstr ""
 
-#: ../audit.php:60
+#: audit.php:60
 msgid "Script:"
 msgstr ""
 
-#: ../audit.php:87 ../audit.php:90
+#: audit.php:87 audit.php:90
 msgid "Attrib"
 msgstr ""
 
-#: ../audit.php:87 ../audit.php:90
+#: audit.php:87 audit.php:90
 msgid "Value"
 msgstr ""
 
-#: ../audit.php:130
+#: audit.php:130
 #, php-format
 msgid "Audit Log Purged by %s"
 msgstr ""
 
-#: ../audit.php:165
+#: audit.php:165
 msgctxt ""
 "Column Header used for CSV log export. Ensure that you do NOT(!) remove one "
 "of the commas. The output needs to be CSV compliant."
@@ -62,205 +62,205 @@ msgid ""
 "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr ""
 
-#: ../audit.php:253
+#: audit.php:253
 msgid "Audit Log"
 msgstr ""
 
-#: ../audit.php:262
+#: audit.php:262
 msgid "Search"
 msgstr ""
 
-#: ../audit.php:268
+#: audit.php:268
 msgid "Page"
 msgstr ""
 
-#: ../audit.php:272 ../audit.php:288
+#: audit.php:272 audit.php:288
 msgid "All"
 msgstr ""
 
-#: ../audit.php:284
+#: audit.php:284
 msgid "User"
 msgstr ""
 
-#: ../audit.php:289
+#: audit.php:289
 msgid "cli"
 msgstr ""
 
-#: ../audit.php:301
+#: audit.php:301
 msgid "Events"
 msgstr ""
 
-#: ../audit.php:305
+#: audit.php:305
 msgid "Default"
 msgstr ""
 
-#: ../audit.php:316
+#: audit.php:316
 msgid "Go"
 msgstr ""
 
-#: ../audit.php:316
+#: audit.php:316
 msgid "Set/Refresh Filters"
 msgstr ""
 
-#: ../audit.php:319
+#: audit.php:319
 msgid "Clear"
 msgstr ""
 
-#: ../audit.php:319
+#: audit.php:319
 msgid "Clear Filters"
 msgstr ""
 
-#: ../audit.php:322
+#: audit.php:322
 msgid "Export"
 msgstr ""
 
-#: ../audit.php:322
+#: audit.php:322
 msgid "Export Log Events"
 msgstr ""
 
-#: ../audit.php:325
+#: audit.php:325
 msgid "Purge"
 msgstr ""
 
-#: ../audit.php:325
+#: audit.php:325
 msgid "Purge Log Events"
 msgstr ""
 
-#: ../audit.php:420
+#: audit.php:420
 msgid "Audit Events"
 msgstr ""
 
-#: ../audit.php:428
+#: audit.php:428
 msgid "Page Name"
 msgstr ""
 
-#: ../audit.php:431
+#: audit.php:431
 msgid "The page where the event was generated."
 msgstr ""
 
-#: ../audit.php:434
+#: audit.php:434
 msgid "User Name"
 msgstr ""
 
-#: ../audit.php:437
+#: audit.php:437
 msgid "The user who generated the event."
 msgstr ""
 
-#: ../audit.php:440
+#: audit.php:440
 msgid "Action"
 msgstr ""
 
-#: ../audit.php:443
+#: audit.php:443
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr ""
 
-#: ../audit.php:446
+#: audit.php:446
 msgid "User Agent"
 msgstr ""
 
-#: ../audit.php:449
+#: audit.php:449
 msgid "The browser type of the requester."
 msgstr ""
 
-#: ../audit.php:452
+#: audit.php:452
 msgid "IP Address"
 msgstr ""
 
-#: ../audit.php:455
+#: audit.php:455
 msgid "The IP Address of the requester."
 msgstr ""
 
-#: ../audit.php:458
+#: audit.php:458
 msgid "Event Time"
 msgstr ""
 
-#: ../audit.php:461
+#: audit.php:461
 msgid "The time the Event took place."
 msgstr ""
 
-#: ../audit.php:475
+#: audit.php:475
 msgid "N/A"
 msgstr ""
 
-#: ../audit.php:491
+#: audit.php:491
 msgid "No Audit Log Events Found"
 msgstr ""
 
-#: ../audit.php:511
+#: audit.php:511
 msgid "Audit Event Details"
 msgstr ""
 
-#: ../setup.php:33
+#: setup.php:33
 msgid "View Cacti Audit Log"
 msgstr ""
 
-#: ../setup.php:243 ../setup.php:244
+#: setup.php:244 setup.php:245
 msgid "Technical Support"
 msgstr ""
 
-#: ../setup.php:246
+#: setup.php:247
 msgid "View Audit Log"
 msgstr ""
 
-#: ../setup.php:248
+#: setup.php:249
 msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
 
-#: ../setup.php:262
+#: setup.php:264
 msgid "Indefinitely"
 msgstr ""
 
-#: ../setup.php:263
+#: setup.php:265
 #, php-format
 msgid "%d Weeks"
 msgstr ""
 
-#: ../setup.php:264
+#: setup.php:266
 #, php-format
 msgid "%d Month"
 msgstr ""
 
-#: ../setup.php:265 ../setup.php:266 ../setup.php:267 ../setup.php:268
+#: setup.php:267 setup.php:268 setup.php:269 setup.php:270
 #, php-format
 msgid "%d Months"
 msgstr ""
 
-#: ../setup.php:269
+#: setup.php:271
 #, php-format
 msgid "%d Year"
 msgstr ""
 
-#: ../setup.php:270 ../setup.php:271
+#: setup.php:272 setup.php:273
 #, php-format
 msgid "%d Years"
 msgstr ""
 
-#: ../setup.php:280
+#: setup.php:284
 msgid "Audit Log Settings"
 msgstr ""
 
-#: ../setup.php:284
+#: setup.php:288
 msgid "Enable Audit Log"
 msgstr ""
 
-#: ../setup.php:285
+#: setup.php:289
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr ""
 
-#: ../setup.php:290
+#: setup.php:294
 msgid "Audit Log Retention"
 msgstr ""
 
-#: ../setup.php:291
+#: setup.php:295
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr ""
 
-#: ../setup.php:298
+#: setup.php:302
 msgid "Misc"
 msgstr ""
 
-#: ../setup.php:309
+#: setup.php:313
 msgid "Audit Event Log"
 msgstr ""
