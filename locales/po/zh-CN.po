@@ -6,26 +6,28 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:16-0400\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2019-04-26 03:12+0000\n"
+"Last-Translator: whsir <wh@whsir.com>\n"
+"Language-Team: Chinese (Simplified) <http://translate.cacti.net/projects/"
+"cacti/audit/zh-CN/>\n"
+"Language: zh-CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
 msgid "Page:"
-msgstr "网页"
+msgstr "页"
 
 #: audit.php:55 audit.php:78
 #, fuzzy
 msgid "User:"
-msgstr "用户名:"
+msgstr "用户:"
 
 #: audit.php:56 audit.php:79
 #, fuzzy
@@ -115,7 +117,7 @@ msgstr "默认"
 #: audit.php:316
 #, fuzzy
 msgid "Go"
-msgstr "启动"
+msgstr "Go"
 
 #: audit.php:316
 #, fuzzy
@@ -130,7 +132,7 @@ msgstr "清除"
 #: audit.php:319
 #, fuzzy
 msgid "Clear Filters"
-msgstr "清除过滤器"
+msgstr "清除过滤"
 
 #: audit.php:322
 #, fuzzy
@@ -313,7 +315,7 @@ msgstr "您希望保留审核日志条目多长时间？"
 #: setup.php:302
 #, fuzzy
 msgid "Misc"
-msgstr "杂项"
+msgstr "其他"
 
 #: setup.php:313
 #, fuzzy
