@@ -151,8 +151,6 @@ function audit_log_valid_event() {
 			}
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'cmd.php') !== false) {
-			$valid = false;
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
 			$valid = false;
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
@@ -229,6 +227,7 @@ function audit_config_insert() {
 
 		/* don't insert poller records */
 		if (strpos($_SERVER['argv'][0], 'poller') === false &&
+			strpos($_SERVER['argv'][0], 'cmd.php') === false &&
 			strpos($_SERVER['argv'][0], 'script_server.php') === false &&
 			strpos($_SERVER['argv'][0], '_process.php') === false) {
 			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
