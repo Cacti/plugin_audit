@@ -151,6 +151,8 @@ function audit_log_valid_event() {
 			}
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
 			$valid = false;
+		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'cmd.php') !== false) {
+			$valid = false;
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
 			$valid = false;
 		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
@@ -311,9 +313,9 @@ function audit_config_settings () {
 function audit_draw_navigation_text($nav) {
 	$nav['audit.php:'] = array(
 		'title'   => __('Audit Event Log', 'audit'),
-		'mapping' => '',
+		'mapping' => 'index.php:',
 		'url'     => 'audit.php',
-		'level'   => '0'
+		'level'   => '1'
 	);
 
 	return $nav;
