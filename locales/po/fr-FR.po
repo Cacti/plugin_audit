@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-31 14:52+0000\n"
-"Last-Translator: The Cacti Group <weblate@cacti.net>\n"
+"PO-Revision-Date: 2019-05-29 15:13+0000\n"
+"Last-Translator: Olivier VOGEL <olivier.vogel@st.com>\n"
 "Language-Team: French <http://translate.cacti.net/projects/cacti/audit/fr-FR/"
 ">\n"
 "Language: fr-FR\n"
@@ -80,7 +80,6 @@ msgid "Audit Log"
 msgstr "Journal d'audit"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "Rechercher"
 
@@ -110,7 +109,6 @@ msgid "Events"
 msgstr "Événements"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "Défaut"
 
