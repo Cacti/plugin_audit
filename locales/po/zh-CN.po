@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-04-26 03:12+0000\n"
-"Last-Translator: whsir <wh@whsir.com>\n"
+"PO-Revision-Date: 2019-07-13 03:14+0000\n"
+"Last-Translator: tomcat <luis_126@126.com>\n"
 "Language-Team: Chinese (Simplified) <http://translate.cacti.net/projects/"
 "cacti/audit/zh-CN/>\n"
 "Language: zh-CN\n"
@@ -80,7 +80,6 @@ msgid "Audit Log"
 msgstr "审计日志"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "搜索"
 
@@ -115,7 +114,6 @@ msgid "Default"
 msgstr "默认"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Go"
 
@@ -125,7 +123,6 @@ msgid "Set/Refresh Filters"
 msgstr "设置/刷新过滤器"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "清除"
 
