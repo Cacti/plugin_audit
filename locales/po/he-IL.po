@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:07-0400\n"
+"PO-Revision-Date: 2019-07-21 20:47-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -43,7 +43,6 @@ msgid "Action:"
 msgstr "פעולה"
 
 #: audit.php:60
-#, fuzzy
 msgid "Script:"
 msgstr "תסריט:"
 
@@ -53,7 +52,6 @@ msgid "Attrib"
 msgstr "Attrib"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "ערך"
 
@@ -77,22 +75,18 @@ msgid "Audit Log"
 msgstr "יומן ביקורת"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "חיפוש"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "עמוד"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "הכל"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "משתמש"
 
@@ -102,17 +96,14 @@ msgid "cli"
 msgstr "קלי"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "אירועים"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "ברירת מחדל"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "עבור"
 
@@ -122,17 +113,14 @@ msgid "Set/Refresh Filters"
 msgstr "הגדר / רענן מסננים"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "נקה"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear Filters"
 msgstr "מחיקת מסננים"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "ייצא"
 
@@ -157,7 +145,6 @@ msgid "Audit Events"
 msgstr "אירועים ביקורת"
 
 #: audit.php:428
-#, fuzzy
 msgid "Page Name"
 msgstr "שם הדף "
 
@@ -167,7 +154,6 @@ msgid "The page where the event was generated."
 msgstr "הדף שבו נוצר האירוע."
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "שם משתמש"
 
@@ -177,7 +163,6 @@ msgid "The user who generated the event."
 msgstr "המשתמש שיצר את האירוע."
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "פעולה"
 
@@ -187,7 +172,6 @@ msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "פעולה Cacti המבוקש. העבר את העכבר מעל לפעולה כדי לראות $ _POST נתונים."
 
 #: audit.php:446
-#, fuzzy
 msgid "User Agent"
 msgstr "דפדפן משתמש"
 
@@ -197,7 +181,6 @@ msgid "The browser type of the requester."
 msgstr "סוג הדפדפן של המבקש."
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "כתובת IP"
 
@@ -217,7 +200,6 @@ msgid "The time the Event took place."
 msgstr "הזמן שבו התקיים האירוע."
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "לא זמין"
 
@@ -237,7 +219,6 @@ msgid "View Cacti Audit Log"
 msgstr "הצג יומן ביקורת Cacti"
 
 #: setup.php:244 setup.php:245
-#, fuzzy
 msgid "Technical Support"
 msgstr "תמיכה טכנית"
 
@@ -311,7 +292,6 @@ msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "כמה זמן אתה רוצה לשמור רשומות יומן ביקורת?"
 
 #: setup.php:302
-#, fuzzy
 msgid "Misc"
 msgstr "שונות"
 

@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-05-29 15:13+0000\n"
+"PO-Revision-Date: 2019-07-21 20:47-0400\n"
 "Last-Translator: Olivier VOGEL <olivier.vogel@st.com>\n"
 "Language-Team: French <http://translate.cacti.net/projects/cacti/audit/fr-FR/"
 ">\n"
-"Language: fr-FR\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -54,7 +54,6 @@ msgid "Attrib"
 msgstr "Attribut"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "Valeur"
 
@@ -75,7 +74,6 @@ msgstr ""
 "event_time, post"
 
 #: audit.php:253
-#, fuzzy
 msgid "Audit Log"
 msgstr "Journal d'audit"
 
@@ -84,17 +82,14 @@ msgid "Search"
 msgstr "Rechercher"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "Page"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "Tout"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "Utilisateur"
 
@@ -104,7 +99,6 @@ msgid "cli"
 msgstr "cli"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "Événements"
 
@@ -113,7 +107,6 @@ msgid "Default"
 msgstr "Défaut"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Go"
 
@@ -123,17 +116,14 @@ msgid "Set/Refresh Filters"
 msgstr "Définir/Rafraîchir les filtres"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "Effacer"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear Filters"
 msgstr "Supprimer les filtres"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "Exporter"
 
@@ -143,7 +133,6 @@ msgid "Export Log Events"
 msgstr "Exporter les événements du journal"
 
 #: audit.php:325
-#, fuzzy
 msgid "Purge"
 msgstr "Effacer"
 
@@ -158,7 +147,6 @@ msgid "Audit Events"
 msgstr "Événements de vérification"
 
 #: audit.php:428
-#, fuzzy
 msgid "Page Name"
 msgstr "Nom de la page"
 
@@ -168,7 +156,6 @@ msgid "The page where the event was generated."
 msgstr "La page où l'événement a été généré."
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "Nom d'utilisateur"
 
@@ -178,7 +165,6 @@ msgid "The user who generated the event."
 msgstr "L'utilisateur qui a généré l'événement."
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "Action"
 
@@ -189,7 +175,6 @@ msgstr ""
 "L'Action Cacti demandée.  Survolez l'action pour voir les données $_POST."
 
 #: audit.php:446
-#, fuzzy
 msgid "User Agent"
 msgstr "Agent utilisateur"
 
@@ -199,7 +184,6 @@ msgid "The browser type of the requester."
 msgstr "Le type de navigateur du demandeur."
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "Adresse IP"
 
@@ -209,7 +193,6 @@ msgid "The IP Address of the requester."
 msgstr "L'adresse IP du demandeur."
 
 #: audit.php:458
-#, fuzzy
 msgid "Event Time"
 msgstr "Heure de l’évènement"
 
@@ -219,7 +202,6 @@ msgid "The time the Event took place."
 msgstr "L'heure à laquelle l'événement a eu lieu."
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "N/A"
 
@@ -239,7 +221,6 @@ msgid "View Cacti Audit Log"
 msgstr "Voir le journal d'audit Cacti"
 
 #: setup.php:244 setup.php:245
-#, fuzzy
 msgid "Technical Support"
 msgstr "Support technique et services professionnels"
 
@@ -259,32 +240,31 @@ msgstr ""
 "d'audit à des fins d'analyse."
 
 #: setup.php:264
-#, fuzzy
 msgid "Indefinitely"
 msgstr "Indéfiniment"
 
 #: setup.php:265
-#, fuzzy, php-format
+#, php-format
 msgid "%d Weeks"
 msgstr "%d semaines"
 
 #: setup.php:266
-#, fuzzy, php-format
+#, php-format
 msgid "%d Month"
 msgstr "%d mois"
 
 #: setup.php:267 setup.php:268 setup.php:269 setup.php:270
-#, fuzzy, php-format
+#, php-format
 msgid "%d Months"
 msgstr "%d mois"
 
 #: setup.php:271
-#, fuzzy, php-format
+#, php-format
 msgid "%d Year"
 msgstr "%d année"
 
 #: setup.php:272 setup.php:273
-#, fuzzy, php-format
+#, php-format
 msgid "%d Years"
 msgstr "%d années"
 
@@ -306,7 +286,6 @@ msgstr ""
 "de l'interface graphique."
 
 #: setup.php:294
-#, fuzzy
 msgid "Audit Log Retention"
 msgstr "Rétention des journaux d'audit"
 
@@ -318,7 +297,6 @@ msgstr ""
 "conservées ?"
 
 #: setup.php:302
-#, fuzzy
 msgid "Misc"
 msgstr "Divers"
 

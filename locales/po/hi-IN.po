@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:08-0400\n"
+"PO-Revision-Date: 2019-07-21 20:47-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: hi_IN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -53,7 +53,6 @@ msgid "Attrib"
 msgstr "attrib"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "मूल्य"
 
@@ -65,12 +64,10 @@ msgstr "ऑडिट लॉग पर्सेंटेज %s द्वारा
 #: audit.php:165
 #, fuzzy
 msgctxt ""
-"Column Header used for CSV log export. Ensure that you do NOT(!) remove one "
-"of the commas. The output needs to be CSV compliant."
-msgid ""
-"page, user_id, username, action, ip_address, user_agent, event_time, post"
-msgstr ""
-"पृष्ठ, user_id, उपयोगकर्ता नाम, क्रिया, ip_address, user_agent, event_time, पोस्ट"
+"Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. "
+"The output needs to be CSV compliant."
+msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
+msgstr "पृष्ठ, user_id, उपयोगकर्ता नाम, क्रिया, ip_address, user_agent, event_time, पोस्ट"
 
 #: audit.php:253
 #, fuzzy
@@ -83,17 +80,14 @@ msgid "Search"
 msgstr "खोज"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "页面"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "所有"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "उपयोगकर्ता "
 
@@ -123,7 +117,6 @@ msgid "Set/Refresh Filters"
 msgstr "सेट / फ़िल्टर ताज़ा करें"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "明确"
 
@@ -168,7 +161,6 @@ msgid "The page where the event was generated."
 msgstr "वह पृष्ठ जहाँ ईवेंट उत्पन्न किया गया था।"
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "उपयोगकर्ता नाम"
 
@@ -250,11 +242,11 @@ msgstr "ऑडिट लॉग देखें"
 #: setup.php:249
 #, fuzzy
 msgid ""
-"Allows Administrators to view change activity on the Cacti server.  "
-"Administrators can also export the audit log for analysis purposes."
+"Allows Administrators to view change activity on the Cacti server.  Administrators can also "
+"export the audit log for analysis purposes."
 msgstr ""
-"व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक विश्लेषण "
-"उद्देश्यों के लिए ऑडिट लॉग का निर्यात भी कर सकते हैं।"
+"व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक विश्लेषण उद्देश्यों के लिए "
+"ऑडिट लॉग का निर्यात भी कर सकते हैं।"
 
 #: setup.php:264
 #, fuzzy
@@ -299,8 +291,7 @@ msgstr "ऑडिट लॉग सक्षम करें"
 #: setup.php:289
 #, fuzzy
 msgid "Check this box, if you want the Audit Log to track GUI activities."
-msgstr ""
-"इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
+msgstr "इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
 
 #: setup.php:294
 #, fuzzy

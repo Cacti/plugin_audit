@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:09-0400\n"
+"PO-Revision-Date: 2019-07-21 20:48-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -53,7 +53,6 @@ msgid "Attrib"
 msgstr "アトリビューション"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "値"
 
@@ -78,22 +77,18 @@ msgid "Audit Log"
 msgstr "監査ログ"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "検索"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "ページ"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "すべて"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "ユーザー"
 
@@ -103,17 +98,14 @@ msgid "cli"
 msgstr "cli"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "イベント"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "デフォルト"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Go"
 
@@ -123,17 +115,14 @@ msgid "Set/Refresh Filters"
 msgstr "フィルタの設定/更新"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "クリア"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear Filters"
 msgstr "絞り込み条件を解除する"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "エクスポート"
 
@@ -168,7 +157,6 @@ msgid "The page where the event was generated."
 msgstr "イベントが生成されたページ。"
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "ユーザー名"
 
@@ -178,7 +166,6 @@ msgid "The user who generated the event."
 msgstr "イベントを生成したユーザー。"
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "アクション"
 
@@ -190,7 +177,6 @@ msgstr ""
 "カーソルを合わせます。"
 
 #: audit.php:446
-#, fuzzy
 msgid "User Agent"
 msgstr "ユーザーエージェント"
 
@@ -200,7 +186,6 @@ msgid "The browser type of the requester."
 msgstr "要求者のブラウザの種類。"
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "IPアドレス"
 
@@ -210,7 +195,6 @@ msgid "The IP Address of the requester."
 msgstr "要求者のIPアドレス。"
 
 #: audit.php:458
-#, fuzzy
 msgid "Event Time"
 msgstr "イベントの時間"
 
@@ -220,7 +204,6 @@ msgid "The time the Event took place."
 msgstr "イベントが発生した時間。"
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "該当なし"
 
@@ -240,7 +223,6 @@ msgid "View Cacti Audit Log"
 msgstr "サボテン監査ログを表示する"
 
 #: setup.php:244 setup.php:245
-#, fuzzy
 msgid "Technical Support"
 msgstr "テクニカルサポート"
 
@@ -255,11 +237,10 @@ msgid ""
 "Allows Administrators to view change activity on the Cacti server.  "
 "Administrators can also export the audit log for analysis purposes."
 msgstr ""
-"管理者がCactiサーバの変更アクティビティを表示することを許可します。管理者は分"
-"析目的で監査ログをエクスポートすることもできます。"
+"管理者がCactiサーバの変更アクティビティを表示することを許可します。管理者は"
+"分析目的で監査ログをエクスポートすることもできます。"
 
 #: setup.php:264
-#, fuzzy
 msgid "Indefinitely"
 msgstr "無期限に"
 
@@ -315,7 +296,6 @@ msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "監査ログのエントリをどのくらいの期間保持しますか。"
 
 #: setup.php:302
-#, fuzzy
 msgid "Misc"
 msgstr "その他"
 

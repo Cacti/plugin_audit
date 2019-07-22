@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:05-0400\n"
+"PO-Revision-Date: 2019-07-21 20:46-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: bg_BG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -53,7 +53,6 @@ msgid "Attrib"
 msgstr "Атрибутът"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "Стойност"
 
@@ -79,22 +78,18 @@ msgid "Audit Log"
 msgstr "Дневник на одита"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "Търсене"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "Страница"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "Всички"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "Потребител"
 
@@ -104,17 +99,14 @@ msgid "cli"
 msgstr "CLI"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "Събития"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "По подразбиране"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Търси"
 
@@ -124,7 +116,6 @@ msgid "Set/Refresh Filters"
 msgstr "Задаване / опресняване на филтрите"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "Изчисти"
 
@@ -134,7 +125,6 @@ msgid "Clear Filters"
 msgstr "Изчистване на филтрите"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "Експортиране"
 
@@ -169,7 +159,6 @@ msgid "The page where the event was generated."
 msgstr "Страницата, на която е генерирано събитието."
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "Потребителско име"
 
@@ -179,7 +168,6 @@ msgid "The user who generated the event."
 msgstr "Потребителят, генерирал събитието."
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "Действие"
 
@@ -201,7 +189,6 @@ msgid "The browser type of the requester."
 msgstr "Типът на браузъра на рикуестъра."
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "IP Адрес"
 
@@ -221,7 +208,6 @@ msgid "The time the Event took place."
 msgstr "Времето на събитието."
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "Няма"
 

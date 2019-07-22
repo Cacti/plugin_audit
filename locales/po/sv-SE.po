@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:14-0400\n"
+"PO-Revision-Date: 2019-07-21 20:50-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -23,7 +23,6 @@ msgid "Page:"
 msgstr "Sida"
 
 #: audit.php:55 audit.php:78
-#, fuzzy
 msgid "User:"
 msgstr "Användare:"
 
@@ -53,7 +52,6 @@ msgid "Attrib"
 msgstr "Attrib"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "Värde"
 
@@ -73,27 +71,22 @@ msgstr ""
 "sida, user_id, användarnamn, åtgärd, ip_adress, user_agent, event_time, post"
 
 #: audit.php:253
-#, fuzzy
 msgid "Audit Log"
 msgstr "Granskningslogg"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "Sök"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "Sida"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "Alla"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "Användare"
 
@@ -103,17 +96,14 @@ msgid "cli"
 msgstr "cli"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "Evenemang"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "Standard"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Utför"
 
@@ -123,7 +113,6 @@ msgid "Set/Refresh Filters"
 msgstr "Ange / Uppdatera filter"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "Rensa"
 
@@ -133,7 +122,6 @@ msgid "Clear Filters"
 msgstr "Rensa filter"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "Exportera"
 
@@ -158,7 +146,6 @@ msgid "Audit Events"
 msgstr "Revisionshändelser"
 
 #: audit.php:428
-#, fuzzy
 msgid "Page Name"
 msgstr "Sidonamn"
 
@@ -168,7 +155,6 @@ msgid "The page where the event was generated."
 msgstr "Sidan där händelsen genererades."
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "Användarnamn"
 
@@ -178,7 +164,6 @@ msgid "The user who generated the event."
 msgstr "Användaren som genererade händelsen."
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "Åtgärd"
 
@@ -188,7 +173,6 @@ msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "Cacti Action begärde. Håll över handling för att se $ _POST data."
 
 #: audit.php:446
-#, fuzzy
 msgid "User Agent"
 msgstr "Användaragent"
 
@@ -198,7 +182,6 @@ msgid "The browser type of the requester."
 msgstr "Webbläsarens typ av sökande."
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "IP adress"
 
@@ -208,7 +191,6 @@ msgid "The IP Address of the requester."
 msgstr "IP-adress för beställaren."
 
 #: audit.php:458
-#, fuzzy
 msgid "Event Time"
 msgstr "Tid för evenemanget"
 
@@ -218,7 +200,6 @@ msgid "The time the Event took place."
 msgstr "Den tid händelsen ägde rum."
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "N/A"
 
@@ -238,7 +219,6 @@ msgid "View Cacti Audit Log"
 msgstr "Visa Cacti Audit Log"
 
 #: setup.php:244 setup.php:245
-#, fuzzy
 msgid "Technical Support"
 msgstr "Teknisk support"
 
@@ -314,7 +294,6 @@ msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Hur länge önskar du att revisionslogguppgifter ska behållas?"
 
 #: setup.php:302
-#, fuzzy
 msgid "Misc"
 msgstr "Övrigt"
 

@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-03-19 09:50+0000\n"
-"PO-Revision-Date: 2019-03-16 21:15-0400\n"
+"PO-Revision-Date: 2019-07-21 20:50-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: audit.php:54 audit.php:77
 #, fuzzy
@@ -23,7 +23,6 @@ msgid "Page:"
 msgstr "Sayfa"
 
 #: audit.php:55 audit.php:78
-#, fuzzy
 msgid "User:"
 msgstr "Kullanıcı:"
 
@@ -53,7 +52,6 @@ msgid "Attrib"
 msgstr "attrib"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Value"
 msgstr "Değer"
 
@@ -74,27 +72,22 @@ msgstr ""
 "yayınla"
 
 #: audit.php:253
-#, fuzzy
 msgid "Audit Log"
 msgstr "Denetim Günlüğü"
 
 #: audit.php:262
-#, fuzzy
 msgid "Search"
 msgstr "Arama"
 
 #: audit.php:268
-#, fuzzy
 msgid "Page"
 msgstr "Sayfa"
 
 #: audit.php:272 audit.php:288
-#, fuzzy
 msgid "All"
 msgstr "Tümü"
 
 #: audit.php:284
-#, fuzzy
 msgid "User"
 msgstr "Kullanıcı"
 
@@ -104,17 +97,14 @@ msgid "cli"
 msgstr "cli"
 
 #: audit.php:301
-#, fuzzy
 msgid "Events"
 msgstr "Etkinlikler"
 
 #: audit.php:305
-#, fuzzy
 msgid "Default"
 msgstr "Varsayılan"
 
 #: audit.php:316
-#, fuzzy
 msgid "Go"
 msgstr "Git"
 
@@ -124,17 +114,14 @@ msgid "Set/Refresh Filters"
 msgstr "Filtreleri Ayarla / Yenile"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear"
 msgstr "Temizle"
 
 #: audit.php:319
-#, fuzzy
 msgid "Clear Filters"
 msgstr "Filtreleri Temizle"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export"
 msgstr "Dışa Aktar"
 
@@ -144,7 +131,6 @@ msgid "Export Log Events"
 msgstr "Günlük Olaylarını Dışa Aktar"
 
 #: audit.php:325
-#, fuzzy
 msgid "Purge"
 msgstr "Temizle"
 
@@ -159,7 +145,6 @@ msgid "Audit Events"
 msgstr "Denetim Olayları"
 
 #: audit.php:428
-#, fuzzy
 msgid "Page Name"
 msgstr "Sayfa İsmi"
 
@@ -169,7 +154,6 @@ msgid "The page where the event was generated."
 msgstr "Etkinliğin oluşturulduğu sayfa."
 
 #: audit.php:434
-#, fuzzy
 msgid "User Name"
 msgstr "Kullanıcı Adı"
 
@@ -179,7 +163,6 @@ msgid "The user who generated the event."
 msgstr "Etkinliği oluşturan kullanıcı."
 
 #: audit.php:440
-#, fuzzy
 msgid "Action"
 msgstr "Aksiyon"
 
@@ -190,7 +173,6 @@ msgstr ""
 "Kaktüs Eylemi istedi. $ _POST verisini görmek için işlemin üzerine gelin."
 
 #: audit.php:446
-#, fuzzy
 msgid "User Agent"
 msgstr "Kullanıcı"
 
@@ -200,7 +182,6 @@ msgid "The browser type of the requester."
 msgstr "İsteğin tarayıcı türü."
 
 #: audit.php:452
-#, fuzzy
 msgid "IP Address"
 msgstr "IP Adresi"
 
@@ -210,7 +191,6 @@ msgid "The IP Address of the requester."
 msgstr "İstek sahibinin IP Adresi."
 
 #: audit.php:458
-#, fuzzy
 msgid "Event Time"
 msgstr "Etkinlik Saati"
 
@@ -220,7 +200,6 @@ msgid "The time the Event took place."
 msgstr "Etkinliğin gerçekleştiği zaman."
 
 #: audit.php:475
-#, fuzzy
 msgid "N/A"
 msgstr "N/A"
 
@@ -240,7 +219,6 @@ msgid "View Cacti Audit Log"
 msgstr "Kaktüsler Denetim Günlüğünü Görüntüle"
 
 #: setup.php:244 setup.php:245
-#, fuzzy
 msgid "Technical Support"
 msgstr "Teknik destek"
 
@@ -317,7 +295,6 @@ msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Denetim Günlüğü girişlerinin ne kadar süreyle saklanmasını istersiniz?"
 
 #: setup.php:302
-#, fuzzy
 msgid "Misc"
 msgstr "Çeşitli"
 
