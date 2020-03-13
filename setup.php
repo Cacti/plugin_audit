@@ -141,23 +141,23 @@ function audit_log_valid_event() {
 	if (read_config_option('audit_enabled') == 'on') {
 		if (strpos($_SERVER['SCRIPT_NAME'], 'graph_view.php') !== false) {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false &&
+		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false &&
 			isset_request_var('action') && get_nfilter_request_var('action') == 'checkpass') {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
+		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
 			if (isset_request_var('mode')) {
 				$valid  = true;
 				$action = get_nfilter_request_var('mode');
 			}
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
+		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
+		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
 			$valid = false;
-		}elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
+		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
 			$valid = false;
-		}elseif (isset($_POST) && sizeof($_POST)) {
+		} elseif (isset($_POST) && sizeof($_POST)) {
 			$valid = true;
-		}elseif (isset_request_var('purge_continue')) {
+		} elseif (isset_request_var('purge_continue')) {
 			$valid  = true;
 			$action = 'purge';
 		}
@@ -201,7 +201,7 @@ function audit_config_insert() {
 			$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		} elseif (isset($_SERVER['REMOTE_ADDR'])) {
 			$ip_address = $_SERVER['REMOTE_ADDR'];
-		}else{
+		} else {
 			$ip_address = '';
 		}
 
@@ -209,14 +209,14 @@ function audit_config_insert() {
 
 		if (empty($action) && isset_request_var('action')) {
 			$action = get_nfilter_request_var('action');
-		}elseif(empty($action)) {
+		} elseif (empty($action)) {
 			$action = 'none';
 		}
 
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
 			VALUES (?, ?, ?, ?, ?, ?, ?)',
 			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
-	}elseif (isset($_SERVER['argv'])) {
+	} elseif (isset($_SERVER['argv'])) {
 		$page       = basename($_SERVER['argv'][0]);
 		$user_id    = 0;
 		$action     = 'cli';
@@ -305,7 +305,7 @@ function audit_config_settings () {
 
 	if (isset($settings['misc'])) {
 		$settings['misc'] = array_merge($settings['misc'], $temp);
-	}else{
+	} else {
 		$settings['misc'] = $temp;
 	}
 }
