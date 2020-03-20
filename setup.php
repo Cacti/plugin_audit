@@ -275,6 +275,10 @@ function audit_config_arrays() {
 		1095 => __('%d Years',  3, 'audit')
 	);
 
+	if (function_exists('auth_augment_roles')) {
+		auth_augment_roles(__('System Administration'), array('audit.php'));
+	}
+
 	audit_check_upgrade();
 }
 
