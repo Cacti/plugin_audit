@@ -537,8 +537,13 @@ function audit_log() {
 			clearTimeout(auditTimer);
 		}
 
-		close_dialog();
-	});
+        $('#dialog').hover(function() {
+            clearTimeout(auditTimer);
+        }, function() {
+            auditTimer = setTimeout(function() { close_dialog(); }, 400);
+        });
+            
+        });
 
 	function close_dialog() {
 		if ($('#audit').length) {
