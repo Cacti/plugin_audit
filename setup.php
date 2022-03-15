@@ -30,6 +30,9 @@ function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 
+	/* hook for table replication */
+	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
+
 	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
 
 	audit_setup_table();
@@ -77,11 +80,55 @@ function audit_check_upgrade() {
 			author='"  . $info['author']   . "',
 			webpage='" . $info['homepage'] . "'
 			WHERE directory='" . $info['name'] . "' ");
+
+		/* hook for table replication */
+		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', '1');
 	}
 }
 
-function audit_check_dependencies() {
-	return true;
+function audit_check_dependencies($data) {
+	$remote_poller_id = $data['remote_poller_id'];
+	$rcnn_id          = $data['rcnn_id'];
+	$class            = $data['class'];
+
+	if ($class == 'all') {
+		if (!db_table_exists('alert_log', false, $rcnn_id)) {
+			$create = db_fetch_cell('SHOW CREATE TABLE autid_log');
+
+			db_execute($create, false, $rcnn_id);
+		}
+	}
+
+	return $data;
+}
+
+function audit_replicate_out($data) {
+	$remote_poller_id = $data['remote_poller_id'];
+	$rcnn_id          = $data['rcnn_id'];
+	$class            = $data['class'];
+
+	cacti_log('INFO: Replacting for the Audit Plugin', false, 'REPLICATE');
+
+	if ($class == 'all') {
+		if (!db_table_exists('audit_log', false, $rcnn_id)) {
+			cacti_log('INFO: Audit Log table does not exist creating', false, 'REPLICATE');
+
+			$table  = 'audit_log';
+			$create = db_fetch_row("SHOW CREATE TABLE $table");
+
+			if (isset($create["CREATE TABLE `$table`"]) || isset($create['Create Table'])) {
+				if (isset($create["CREATE TABLE `$table`"])) {
+					db_execute($create["CREATE TABLE `$table`"], true, $rcnn_id);
+				} else {
+					db_execute($create['Create Table'], true, $rcnn_id);
+				}
+			}
+		} else {
+			cacti_log('INFO: Audit Log table exists skipping', false, 'REPLICATE');
+		}
+	}
+
+	return $data;
 }
 
 function audit_poller_bottom() {
