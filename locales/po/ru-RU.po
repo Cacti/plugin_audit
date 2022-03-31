@@ -4,18 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2020-12-12 20:10-0500\n"
-"PO-Revision-Date: 2020-12-12 20:16-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ru_RU\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-03-31 15:49+0000\nLast-Translator: Anatoliy <hamrad99h2@gmail.com>\nLanguage-Team: Russian <http://translate.cacti.net/projects/cacti/audit/ru/>\nLanguage: ru-RU\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -67,7 +56,7 @@ msgstr "Аудиторский отчет"
 
 #: audit.php:262
 msgid "Search"
-msgstr "Найти"
+msgstr "Поиск"
 
 #: audit.php:268
 msgid "Page"
@@ -100,7 +89,7 @@ msgstr "Перейти"
 
 #: audit.php:316
 msgid "Set/Refresh Filters"
-msgstr "Установить/Обновить фильтры"
+msgstr "Выбрать/Обновить фильтры"
 
 #: audit.php:319
 msgid "Clear"
@@ -251,7 +240,7 @@ msgstr "%d Года"
 
 #: setup.php:279
 msgid "System Administration"
-msgstr "Администрирование системы."
+msgstr "Администрирование системы"
 
 #: setup.php:290
 #, fuzzy
