@@ -4,31 +4,31 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLast-Translator: Automatically generated\nLanguage-Team: none\nLanguage: lv\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
+msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-16 22:39+0000\nLast-Translator: Coool <coool@mail.lv>\nLanguage-Team: Latvian <http://translate.cacti.net/projects/cacti/audit/lv/>\nLanguage: lv\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
-msgstr ""
+msgstr "Lapa:"
 
 #: audit.php:55 audit.php:78
 msgid "User:"
-msgstr ""
+msgstr "Lietotājs:"
 
 #: audit.php:56 audit.php:79
 msgid "IP Address:"
-msgstr ""
+msgstr "IP adrese:"
 
 #: audit.php:57 audit.php:80
 msgid "Date:"
-msgstr ""
+msgstr "Datums:"
 
 #: audit.php:58 audit.php:81
 msgid "Action:"
-msgstr ""
+msgstr "Darbība:"
 
 #: audit.php:60
 msgid "Script:"
-msgstr ""
+msgstr "Skripts:"
 
 #: audit.php:87 audit.php:90
 msgid "Attrib"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: audit.php:87 audit.php:90
 msgid "Value"
-msgstr ""
+msgstr "Vērtība"
 
 #: audit.php:130
 #, php-format
@@ -54,19 +54,19 @@ msgstr ""
 
 #: audit.php:262
 msgid "Search"
-msgstr ""
+msgstr "Meklēt"
 
 #: audit.php:268
 msgid "Page"
-msgstr ""
+msgstr "Lapa"
 
 #: audit.php:272 audit.php:288
 msgid "All"
-msgstr ""
+msgstr "Visi"
 
 #: audit.php:284
 msgid "User"
-msgstr ""
+msgstr "Lietotājs"
 
 #: audit.php:289
 msgid "cli"
@@ -74,11 +74,11 @@ msgstr ""
 
 #: audit.php:301
 msgid "Events"
-msgstr ""
+msgstr "Notikumi"
 
 #: audit.php:305
 msgid "Default"
-msgstr ""
+msgstr "Noklusējuma"
 
 #: audit.php:316
 msgid "Go"
@@ -90,15 +90,15 @@ msgstr ""
 
 #: audit.php:319
 msgid "Clear"
-msgstr ""
+msgstr "Notīrīt"
 
 #: audit.php:319
 msgid "Clear Filters"
-msgstr ""
+msgstr "Notīrīt filtrus"
 
 #: audit.php:322
 msgid "Export"
-msgstr ""
+msgstr "Eksportēt"
 
 #: audit.php:322
 msgid "Export Log Events"
@@ -118,7 +118,7 @@ msgstr ""
 
 #: audit.php:429
 msgid "Page Name"
-msgstr ""
+msgstr "Lapas nosaukums"
 
 #: audit.php:432
 msgid "The page where the event was generated."
@@ -126,7 +126,7 @@ msgstr ""
 
 #: audit.php:435
 msgid "User Name"
-msgstr ""
+msgstr "Lietotājvārds"
 
 #: audit.php:438
 msgid "The user who generated the event."
@@ -150,7 +150,7 @@ msgstr ""
 
 #: audit.php:453
 msgid "IP Address"
-msgstr ""
+msgstr "IP adrese"
 
 #: audit.php:456
 msgid "The IP Address of the requester."
