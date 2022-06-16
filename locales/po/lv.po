@@ -1,0 +1,254 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\nLast-Translator: Automatically generated\nLanguage-Team: none\nLanguage: lv\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
+
+#: audit.php:54 audit.php:77
+msgid "Page:"
+msgstr ""
+
+#: audit.php:55 audit.php:78
+msgid "User:"
+msgstr ""
+
+#: audit.php:56 audit.php:79
+msgid "IP Address:"
+msgstr ""
+
+#: audit.php:57 audit.php:80
+msgid "Date:"
+msgstr ""
+
+#: audit.php:58 audit.php:81
+msgid "Action:"
+msgstr ""
+
+#: audit.php:60
+msgid "Script:"
+msgstr ""
+
+#: audit.php:87 audit.php:90
+msgid "Attrib"
+msgstr ""
+
+#: audit.php:87 audit.php:90
+msgid "Value"
+msgstr ""
+
+#: audit.php:130
+#, php-format
+msgid "Audit Log Purged by %s"
+msgstr ""
+
+#: audit.php:166
+msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
+msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
+msgstr ""
+
+#: audit.php:253
+msgid "Audit Log"
+msgstr ""
+
+#: audit.php:262
+msgid "Search"
+msgstr ""
+
+#: audit.php:268
+msgid "Page"
+msgstr ""
+
+#: audit.php:272 audit.php:288
+msgid "All"
+msgstr ""
+
+#: audit.php:284
+msgid "User"
+msgstr ""
+
+#: audit.php:289
+msgid "cli"
+msgstr ""
+
+#: audit.php:301
+msgid "Events"
+msgstr ""
+
+#: audit.php:305
+msgid "Default"
+msgstr ""
+
+#: audit.php:316
+msgid "Go"
+msgstr ""
+
+#: audit.php:316
+msgid "Set/Refresh Filters"
+msgstr ""
+
+#: audit.php:319
+msgid "Clear"
+msgstr ""
+
+#: audit.php:319
+msgid "Clear Filters"
+msgstr ""
+
+#: audit.php:322
+msgid "Export"
+msgstr ""
+
+#: audit.php:322
+msgid "Export Log Events"
+msgstr ""
+
+#: audit.php:325
+msgid "Purge"
+msgstr ""
+
+#: audit.php:325
+msgid "Purge Log Events"
+msgstr ""
+
+#: audit.php:421
+msgid "Audit Events"
+msgstr ""
+
+#: audit.php:429
+msgid "Page Name"
+msgstr ""
+
+#: audit.php:432
+msgid "The page where the event was generated."
+msgstr ""
+
+#: audit.php:435
+msgid "User Name"
+msgstr ""
+
+#: audit.php:438
+msgid "The user who generated the event."
+msgstr ""
+
+#: audit.php:441
+msgid "Action"
+msgstr ""
+
+#: audit.php:444
+msgid "The Cacti Action requested.  Hover over action to see $_POST data."
+msgstr ""
+
+#: audit.php:447
+msgid "User Agent"
+msgstr ""
+
+#: audit.php:450
+msgid "The browser type of the requester."
+msgstr ""
+
+#: audit.php:453
+msgid "IP Address"
+msgstr ""
+
+#: audit.php:456
+msgid "The IP Address of the requester."
+msgstr ""
+
+#: audit.php:459
+msgid "Event Time"
+msgstr ""
+
+#: audit.php:462
+msgid "The time the Event took place."
+msgstr ""
+
+#: audit.php:476
+msgid "N/A"
+msgstr ""
+
+#: audit.php:492
+msgid "No Audit Log Events Found"
+msgstr ""
+
+#: audit.php:512
+msgid "Audit Event Details"
+msgstr ""
+
+#: setup.php:33
+msgid "View Cacti Audit Log"
+msgstr ""
+
+#: setup.php:246 setup.php:247
+msgid "Technical Support"
+msgstr ""
+
+#: setup.php:249
+msgid "View Audit Log"
+msgstr ""
+
+#: setup.php:251
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr ""
+
+#: setup.php:266
+msgid "Indefinitely"
+msgstr ""
+
+#: setup.php:267
+#, php-format
+msgid "%d Weeks"
+msgstr ""
+
+#: setup.php:268
+#, php-format
+msgid "%d Month"
+msgstr ""
+
+#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
+#, php-format
+msgid "%d Months"
+msgstr ""
+
+#: setup.php:273
+#, php-format
+msgid "%d Year"
+msgstr ""
+
+#: setup.php:274 setup.php:275
+#, php-format
+msgid "%d Years"
+msgstr ""
+
+#: setup.php:279
+msgid "System Administration"
+msgstr ""
+
+#: setup.php:290
+msgid "Audit Log Settings"
+msgstr ""
+
+#: setup.php:294
+msgid "Enable Audit Log"
+msgstr ""
+
+#: setup.php:295
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr ""
+
+#: setup.php:300
+msgid "Audit Log Retention"
+msgstr ""
+
+#: setup.php:301
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr ""
+
+#: setup.php:308
+msgid "Misc"
+msgstr ""
+
+#: setup.php:319
+msgid "Audit Event Log"
+msgstr ""
