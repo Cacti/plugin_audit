@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-11 03:50+0000\nLast-Translator: San IPE <sanipe1949@krunsea.com>\nLanguage-Team: Turkish <http://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.8.1\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-20 22:45+0000\nLast-Translator: San IPE <sanipe1949@krunsea.com>\nLanguage-Team: Turkish <http://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -28,7 +28,7 @@ msgstr "Eylem:"
 
 #: audit.php:60
 msgid "Script:"
-msgstr "Yazı:"
+msgstr "Betik:"
 
 #: audit.php:87 audit.php:90
 msgid "Attrib"
@@ -39,15 +39,14 @@ msgid "Value"
 msgstr "Değer"
 
 #: audit.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Audit Log Purged by %s"
-msgstr "Denetim Günlüğü %s Temizlendi"
+msgstr "Denetim Günlüğü %s tarafından temizlendi"
 
 #: audit.php:166
-#, fuzzy
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
-msgstr "sayfa, user_id, kullanıcı adı, eylem, ip_adresi, user_agent, event_time, yayınla"
+msgstr "sayfa, kullanıcı_id, kullanıcı_adı, eylem, ip_adresi, kullanıcı_aracısı, olay_zamanı, gönderilen"
 
 #: audit.php:253
 msgid "Audit Log"
@@ -55,7 +54,7 @@ msgstr "Denetim Günlüğü"
 
 #: audit.php:262
 msgid "Search"
-msgstr "Arama"
+msgstr "Ara"
 
 #: audit.php:268
 msgid "Page"
@@ -75,7 +74,7 @@ msgstr "komut satırı"
 
 #: audit.php:301
 msgid "Events"
-msgstr "Etkinlikler"
+msgstr "Olaylar"
 
 #: audit.php:305
 msgid "Default"
@@ -86,7 +85,6 @@ msgid "Go"
 msgstr "Git"
 
 #: audit.php:316
-#, fuzzy
 msgid "Set/Refresh Filters"
 msgstr "Filtreleri Ayarla / Yenile"
 
@@ -103,7 +101,6 @@ msgid "Export"
 msgstr "Dışa Aktar"
 
 #: audit.php:322
-#, fuzzy
 msgid "Export Log Events"
 msgstr "Günlük Olaylarını Dışa Aktar"
 
@@ -112,21 +109,18 @@ msgid "Purge"
 msgstr "Temizle"
 
 #: audit.php:325
-#, fuzzy
 msgid "Purge Log Events"
 msgstr "Günlük Olaylarını Temizle"
 
 #: audit.php:421
-#, fuzzy
 msgid "Audit Events"
-msgstr "Denetim Olayları"
+msgstr "Olayları Denetle"
 
 #: audit.php:429
 msgid "Page Name"
 msgstr "Sayfa İsmi"
 
 #: audit.php:432
-#, fuzzy
 msgid "The page where the event was generated."
 msgstr "Etkinliğin oluşturulduğu sayfa."
 
@@ -135,7 +129,6 @@ msgid "User Name"
 msgstr "Kullanıcı Adı"
 
 #: audit.php:438
-#, fuzzy
 msgid "The user who generated the event."
 msgstr "Etkinliği oluşturan kullanıcı."
 
@@ -160,7 +153,6 @@ msgid "IP Address"
 msgstr "IP Adresi"
 
 #: audit.php:456
-#, fuzzy
 msgid "The IP Address of the requester."
 msgstr "İstek sahibinin IP Adresi."
 
@@ -211,29 +203,29 @@ msgid "Indefinitely"
 msgstr "süresiz olarak"
 
 #: setup.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "%d Weeks"
-msgstr "% d Hafta"
+msgstr "%d Hafta"
 
 #: setup.php:268
-#, fuzzy, php-format
+#, php-format
 msgid "%d Month"
-msgstr "% d Ay"
+msgstr "%d Ay"
 
 #: setup.php:269 setup.php:270 setup.php:271 setup.php:272
-#, fuzzy, php-format
+#, php-format
 msgid "%d Months"
-msgstr "% d Ay"
+msgstr "%d Ay"
 
 #: setup.php:273
 #, php-format
 msgid "%d Year"
-msgstr "%d yıl"
+msgstr "%d Yıl"
 
 #: setup.php:274 setup.php:275
 #, php-format
 msgid "%d Years"
-msgstr "%d Yıllar"
+msgstr "%d Yıl"
 
 #: setup.php:279
 msgid "System Administration"
