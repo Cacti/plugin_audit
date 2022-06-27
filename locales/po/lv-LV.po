@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-23 09:52+0000\nLast-Translator: Coool (github.com/Coool) <coool@mail.lv>\nLanguage-Team: Latvian <http://translate.cacti.net/projects/cacti/audit/lv/>\nLanguage: lv-LV\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\nX-Generator: Weblate 4.8.1\n"
+msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-27 20:42+0000\nLast-Translator: Coool (github.com/Coool) <coool@mail.lv>\nLanguage-Team: Latvian <http://translate.cacti.net/projects/cacti/audit/lv/>\nLanguage: lv-LV\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -102,7 +102,7 @@ msgstr "Eksportēt"
 
 #: audit.php:322
 msgid "Export Log Events"
-msgstr "Eksportēt žurnāla notikumus"
+msgstr "Eksportēti žurnāla notikumi"
 
 #: audit.php:325
 msgid "Purge"
@@ -110,7 +110,7 @@ msgstr "Iztīrīšana"
 
 #: audit.php:325
 msgid "Purge Log Events"
-msgstr "Iztīrīt žurnāla notikumus"
+msgstr "Iztīrīti žurnāla notikumi"
 
 #: audit.php:421
 msgid "Audit Events"
@@ -204,17 +204,17 @@ msgstr "%d nedēļas"
 #: setup.php:268
 #, php-format
 msgid "%d Month"
-msgstr "%d mēnesis"
+msgstr "%d mēnesis"
 
 #: setup.php:269 setup.php:270 setup.php:271 setup.php:272
 #, php-format
 msgid "%d Months"
-msgstr "%d mēneši"
+msgstr "%d mēneši"
 
 #: setup.php:273
 #, php-format
 msgid "%d Year"
-msgstr "%d gads"
+msgstr "%d gads"
 
 #: setup.php:274 setup.php:275
 #, php-format
