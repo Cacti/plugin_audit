@@ -302,7 +302,7 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 	if ($drop_action !== false) {
 		switch($page) {
 			case 'host.php':
-				$objects = db_fetch_assoc_prepared('SELECT *
+				$objects = db_fetch_assoc_prepared('SELECT description,hostname,site_id
 					FROM host
 					WHERE id IN (?)',
 					array(implode(', ', $selected_items)));
