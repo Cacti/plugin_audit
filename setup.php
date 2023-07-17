@@ -227,8 +227,8 @@ function audit_config_insert() {
 		unset($post['password']);
 		unset($post['password_confirm']);
 
-		// Check if delete_type is present and update action accordingly
-		if (isset($post['delete_type'])) {
+		// Check if drp_action is present and update action accordingly
+		if (isset($post['drp_action'])) {
 			$action = 'delete';
 		}
 
@@ -305,6 +305,11 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 					array(implode(', ', $selected_items)));
 
 				break;
+			case 'graph_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+				     FROM graph_templates
+					 where id IN (?)',
+					 array(implode(', ', $selected_items)));
 		}
 	}
 
