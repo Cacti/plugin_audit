@@ -228,19 +228,8 @@ function audit_config_insert() {
 		unset($post['password_confirm']);
 
 		// Check if drp_action is present and update action accordingly
-		if (isset($post['drp_action'])) {
-			switch ($post['drp_action']) {
-				case 1:
-					$action = 'delete';
-					break;
-				case 3:
-				case 4:
-					$action = 'disable';
-					break;
-				default:
-					// Handle other cases if needed
-					break;
-			}
+		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
+			$action = 'delete';
 		}
 
 		
