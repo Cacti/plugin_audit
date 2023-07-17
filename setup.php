@@ -305,44 +305,49 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 					FROM host
 					WHERE id IN (?)',
 					array(implode(', ', $selected_items)));
-
 				break;
 			case 'host_templates.php':
-					$objects = db_fetch_assoc_prepared('SELECT name
-						FROM host_template
-						where id IN (?)',
-						array(implode(', ', $selected_items)));
+				$objects = db_fetch_assoc_prepared('SELECT name
+					FROM host_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'graph_templates.php':
 				$objects = db_fetch_assoc_prepared('SELECT name
-				     FROM graph_templates
-					 where id IN (?)',
-					 array(implode(', ', $selected_items)));
+					FROM graph_templates
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'data_templates.php':
 				$objects = db_fetch_assoc_prepared('SELECT name
-				      FROM  data_template
-					  where id IN (?)',
-					  array(implode(', ', $selected_items)));
+					FROM data_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'aggregate_templates.php':
 				$objects = db_fetch_assoc_prepared('SELECT name
-					   FROM  aggregate_graph_templates
-						where id IN (?)',
-						array(implode(', ', $selected_items)));
+					FROM aggregate_graph_templates
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'thold_templates.php':
 				$objects = db_fetch_assoc_prepared('SELECT name,data_source_name
-						FROM  thold_template
-						where id IN (?)',
-						array(implode(', ', $selected_items)));
+					FROM thold_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'user_admin.php':
 				$objects = db_fetch_assoc_prepared('SELECT username,full_name,email_address
-						FROM  user_auth
-						where id IN (?)',
-						array(implode(', ', $selected_items)));
+					FROM user_auth
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 			case 'user_group_admin.php':
 				$objects = db_fetch_assoc_prepared('SELECT name,description
-						  user_auth_group
-						  where id IN (?)',
-						array(implode(', ', $selected_items)));
-
+					FROM user_auth_group
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
 		}
 	}
 
