@@ -1,7 +1,7 @@
 <?php
 /*
  +-------------------------------------------------------------------------+
- | Copyright (C) 2004-2023 The Cacti Group                                 |
+ | Copyright (C) 2007-2023 The Cacti Group                                 |
  |                                                                         |
  | This program is free software; you can redistribute it and/or           |
  | modify it under the terms of the GNU General Public License             |
@@ -162,6 +162,7 @@ function audit_setup_table() {
 		`user_agent` varchar(256) DEFAULT NULL,
 		`event_time` timestamp DEFAULT CURRENT_TIMESTAMP,
 		`post` longblob,
+		`object_data` longblob,
 		PRIMARY KEY (`id`),
 		KEY `user_id` (`user_id`),
 		KEY `page` (`page`),
@@ -218,30 +219,39 @@ function audit_config_insert() {
 
 	if (audit_log_valid_event()) {
 		/* prepare post */
-		$post        = $_REQUEST;
+		$post = $_REQUEST;
 
-		/* remove unsafe vairables */
-		if (isset($post['__csrf_magic'])) {
-			unset($post['__csrf_magic']);
+		/* remove unsafe variables */
+		unset($post['__csrf_magic']);
+		unset($post['header']);
+		unset($post['password']);
+		unset($post['password_confirm']);
+
+		// Check if drp_action is present and update action accordingly
+		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
+			$action = 'delete';
+		} else if (isset($post['drp_action']) && $post['drp_action'] == 4) {
+			$action = 'disable';
 		}
 
-		if (isset($post['header'])) {
-			unset($post['header']);
-		}
 
-		if (isset($post['password'])) {
-			unset($post['password']);
-		}
+		
 
-		if (isset($post['password_confirm'])) {
-			unset($post['password_confirm']);
+		/* sanitize and serialize selected items */
+		if (isset($post['selected_items'])) {
+			$selected_items = sanitize_unserialize_selected_items($post['selected_items']);
+			$drop_action    = $post['drp_action'];
+		} else {
+			$selected_items = array();
+			$drop_action    = false;
 		}
 
 		$post        = json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
-		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id']:0);
+		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0);
 		$event_time  = date('Y-m-d H:i:s');
 
+		// Retrieve IP address
 		if (isset($_SERVER['X-Forwarded-For'])) {
 			$ip_address = $_SERVER['X-Forwarded-For'];
 		} elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -260,9 +270,11 @@ function audit_config_insert() {
 			$action = 'none';
 		}
 
-		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
-			VALUES (?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
+		$object_data = audit_process_page_data($page, $drop_action, $selected_items);
+
+		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
 	} elseif (isset($_SERVER['argv'])) {
 		$page       = basename($_SERVER['argv'][0]);
 		$user_id    = 0;
@@ -283,6 +295,66 @@ function audit_config_insert() {
 				array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
 		}
 	}
+}
+
+
+function audit_process_page_data($page, $drop_action, $selected_items) {
+	$objects = array();
+
+	if ($drop_action !== false) {
+		switch($page) {
+			case 'host.php':
+				$objects = db_fetch_assoc_prepared('SELECT description,hostname,site_id
+					FROM host
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'host_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+					FROM host_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'graph_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+					FROM graph_templates
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'data_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+					FROM data_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'aggregate_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+					FROM aggregate_graph_templates
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'thold_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name,data_source_name
+					FROM thold_template
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'user_admin.php':
+				$objects = db_fetch_assoc_prepared('SELECT username,full_name,email_address
+					FROM user_auth
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+			case 'user_group_admin.php':
+				$objects = db_fetch_assoc_prepared('SELECT name,description
+					FROM user_auth_group
+					WHERE id IN (?)',
+					array(implode(', ', $selected_items)));
+				break;
+		}
+	}
+
+	return json_encode($objects);
 }
 
 function audit_utilities_array() {
