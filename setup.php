@@ -228,9 +228,11 @@ function audit_config_insert() {
 		unset($post['password_confirm']);
 
 		// Check if drp_action is present and update action accordingly
-		if (isset($post['drp_action'])) {
+		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
 			$action = 'delete';
 		}
+
+		
 
 		/* sanitize and serialize selected items */
 		if (isset($post['selected_items'])) {
@@ -334,6 +336,11 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 				$objects = db_fetch_assoc_prepared('SELECT username,full_name,email_address
 						FROM  user_auth
 						where id IN (?)',
+						array(implode(', ', $selected_items)));
+			case 'user_group_admin.php':
+				$objects = db_fetch_assoc_prepared('SELECT name,description
+						  user_auth_group
+						  where id IN (?)',
 						array(implode(', ', $selected_items)));
 
 		}
