@@ -39,3 +39,6 @@ Got any ideas or complaints, please log an issue on GitHub.
 * feature: Added Spanish Translation
 
 * Initial Release
+
+-----------------------------------------------
+Copyright (c) 2004-2023 - The Cacti Group, Inc.
