@@ -330,6 +330,11 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 						FROM  thold_template
 						where id IN (?)',
 						array(implode(', ', $selected_items)));
+			case 'user_admin.php':
+				$objects = db_fetch_assoc_prepared('SELECT username,full_name,email_address
+						FROM  user_auth
+						where id IN (?)',
+						array(implode(', ', $selected_items)));
 
 		}
 	}
