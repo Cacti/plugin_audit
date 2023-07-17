@@ -40,83 +40,96 @@ case 'purge':
 	bottom_footer();
 
 	break;
-case 'getdata':
-	$data = db_fetch_row_prepared('SELECT *
-		FROM audit_log
-		WHERE id = ?',
-		array(get_filter_request_var('id')));
-
-	$output = '';
-
-	if ($data['action'] == 'cli') {
-		$width = 'wide';
-		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-		$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
-		$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
-		$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
-		$output .= '<hr>';
-		$output .= '<span><b>' . __('Script:', 'audit') . '</b>  <i>' . $data['post'] . '</i></span>';
-	} elseif (cacti_sizeof($data)) {
-		$attribs = json_decode($data['post']);
-
-		$nattribs = array();
-		foreach($attribs as $field => $content) {
-			$nattribs[$field] = $content;
-		}
-		ksort($nattribs);
-
-		if (cacti_sizeof($nattribs) > 16) {
+	case 'getdata':
+		$data = db_fetch_row_prepared('SELECT *
+			FROM audit_log
+			WHERE id = ?',
+			array(get_filter_request_var('id')));
+	
+		$output = '';
+	
+		if ($data['action'] == 'cli') {
 			$width = 'wide';
-		} else {
-			$width = 'narrow';
-		}
-
-		$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-		$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
-		$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
-		$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-		$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
-		$output .= '<hr>';
-		$output .= '<table style="width:100%">';
-
-		if (cacti_sizeof($nattribs) > 16) {
-			$columns = 2;
-			$output .= '<tr class="tableHeader"><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th></tr>';
-		} else {
-			$columns = 1;
-			$output .= '<tr class="tableHeader"><th style="width:50%">' . __('Attrib', 'audit') . '</th><th style="width:50%">' . __('Value', 'audit') . '</th></tr>';
-		}
-
-		$i = 0;
-		if (cacti_sizeof($nattribs)) {
-			foreach($nattribs as $field => $content) {
-				if ($i % $columns == 0) {
-					$output .= ($output != '' ? '</tr>':'') . '<tr>';
-				}
-
-				if (is_array($content)) {
-					$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td">' . implode(',', $content) . '</td>';
-				} else {
-					$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td>' . $content . '</td>';
-				}
-
-				$i++;
+			$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
+			$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
+			$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
+			$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
+			$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
+			$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
+			$output .= '<hr>';
+			$output .= '<span><b>' . __('Script:', 'audit') . '</b>  <i>' . $data['post'] . '</i></span>';
+		} elseif (cacti_sizeof($data)) {
+			$attribs = json_decode($data['post']);
+	
+			$nattribs = array();
+			foreach($attribs as $field => $content) {
+				$nattribs[$field] = $content;
 			}
-
-			if ($i % $columns > 0) {
-				$output . '<td></td><td></td></tr>';
+			ksort($nattribs);
+	
+			if (cacti_sizeof($nattribs) > 16) {
+				$width = 'wide';
+			} else {
+				$width = 'narrow';
+			}
+	
+			$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
+			$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
+			$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
+			$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
+			$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
+			$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
+			$output .= '<hr>';
+			$output .= '<table style="width:100%">';
+	
+			if (cacti_sizeof($nattribs) > 16) {
+				$columns = 2;
+				$output .= '<tr class="tableHeader"><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th></tr>';
+			} else {
+				$columns = 1;
+				$output .= '<tr class="tableHeader"><th style="width:50%">' . __('Attrib', 'audit') . '</th><th style="width:50%">' . __('Value', 'audit') . '</th></tr>';
+			}
+	
+			$i = 0;
+			if (cacti_sizeof($nattribs)) {
+				foreach($nattribs as $field => $content) {
+					if ($i % $columns == 0) {
+						$output .= ($output != '' ? '</tr>':'') . '<tr>';
+					}
+	
+					if (is_array($content)) {
+						$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td">' . implode(',', $content) . '</td>';
+					} else {
+						$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td>' . $content . '</td>';
+					}
+	
+					$i++;
+				}
+	
+				if ($i % $columns > 0) {
+					$output . '<td></td><td></td></tr>';
+				}
+			}
+	
+			// Display the Record Data under selected_items if it is not empty
+			$recordData = json_decode($data['object_data']);
+			if (!empty($recordData)) {
+				$output .= '</table>';
+				$output .= '<tr><td colspan="' . ($columns * 2) . '"><hr></td></tr>';
+				$output .= '<tr><td colspan="' . ($columns * 2) . '"><b>' . __('Record Data:', 'audit') . '</b></td></tr>';
+	
+				foreach ($recordData as $record) {
+					$output .= '<tr><td colspan="' . ($columns * 2) . '"><pre>' . json_encode($record, JSON_PRETTY_PRINT) . '</pre></td></tr>';
+				}
+			} else {
+				$output .= '</table>';
 			}
 		}
-		$output .= '</table>';
-	}
-
-	$output .= '</td></tr></table>';
-
-	print $output;
-
+	
+		// Output the final result
+		echo $output;
+	
+	
 	break;
 default:
 	top_header();
