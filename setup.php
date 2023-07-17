@@ -305,16 +305,27 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 					array(implode(', ', $selected_items)));
 
 				break;
+			case 'host_templates.php':
+					$objects = db_fetch_assoc_prepared('SELECT name
+						FROM host_template
+						where id IN (?)',
+						array(implode(', ', $selected_items)));
 			case 'graph_templates.php':
 				$objects = db_fetch_assoc_prepared('SELECT name
 				     FROM graph_templates
 					 where id IN (?)',
 					 array(implode(', ', $selected_items)));
-			case 'host_templates.php':
-			     $objects = db_fetch_assoc_prepared('SELECT name
-				     FROM host_template
-					 where id IN (?)',
-					 array(implode(', ', $selected_items)));
+			case 'data_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+				      FROM  data_template
+					  where id IN (?)',
+					  array(implode(', ', $selected_items)));
+			case 'aggregate_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name
+					   FROM  aggregate_graph_templates
+						where id IN (?)',
+						array(implode(', ', $selected_items)));
+
 		}
 	}
 
