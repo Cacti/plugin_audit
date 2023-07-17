@@ -230,7 +230,10 @@ function audit_config_insert() {
 		// Check if drp_action is present and update action accordingly
 		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
 			$action = 'delete';
+		} else if (isset($post['drp_action']) && $post['drp_action'] == 4) {
+			$action = 'disable';
 		}
+
 
 		
 
