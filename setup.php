@@ -325,6 +325,11 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 					   FROM  aggregate_graph_templates
 						where id IN (?)',
 						array(implode(', ', $selected_items)));
+			case 'thold_templates.php':
+				$objects = db_fetch_assoc_prepared('SELECT name,data_source_name
+						FROM  thold_template
+						where id IN (?)',
+						array(implode(', ', $selected_items)));
 
 		}
 	}
