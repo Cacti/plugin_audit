@@ -310,8 +310,8 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 				     FROM graph_templates
 					 where id IN (?)',
 					 array(implode(', ', $selected_items)));
-			case 'host_templates.php'
-			     $objects = dba_fetch_assoc_prepared('SELECT name
+			case 'host_templates.php':
+			     $objects = db_fetch_assoc_prepared('SELECT name
 				     FROM host_template
 					 where id IN (?)',
 					 array(implode(', ', $selected_items)));
