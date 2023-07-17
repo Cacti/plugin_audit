@@ -32,13 +32,5 @@ If you figure out this problem, see the Cacti forums!
 
 Got any ideas or complaints, please log an issue on GitHub.
 
-## Changelog
 
---- 1.0 ---
-
-* feature: Added Spanish Translation
-
-* Initial Release
-
------------------------------------------------
 Copyright (c) 2004-2023 - The Cacti Group, Inc.

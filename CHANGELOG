@@ -1,0 +1,15 @@
+## Changelog
+
+--- 1.1 ---
+
+* feature: Capture record details when a device is deleted instead of just id
+* Feature: Capture template details for a deleted template instead of just id
+* Feature: Capture data of user or group that is deleted instead of just id
+* issue: correct classification of action to reflect either delete or Disable
+
+
+--- 1.0 ---
+
+* feature: Added Spanish Translation
+
+* Initial Release
