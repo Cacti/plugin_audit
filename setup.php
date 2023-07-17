@@ -219,25 +219,20 @@ function audit_config_insert() {
 
 	if (audit_log_valid_event()) {
 		/* prepare post */
-		$post        = $_REQUEST;
+		$post = $_REQUEST;
 
-		/* remove unsafe vairables */
-		if (isset($post['__csrf_magic'])) {
-			unset($post['__csrf_magic']);
+		/* remove unsafe variables */
+		unset($post['__csrf_magic']);
+		unset($post['header']);
+		unset($post['password']);
+		unset($post['password_confirm']);
+
+		// Check if delete_type is present and update action accordingly
+		if (isset($post['delete_type'])) {
+			$action = 'delete';
 		}
 
-		if (isset($post['header'])) {
-			unset($post['header']);
-		}
-
-		if (isset($post['password'])) {
-			unset($post['password']);
-		}
-
-		if (isset($post['password_confirm'])) {
-			unset($post['password_confirm']);
-		}
-
+		/* sanitize and serialize selected items */
 		if (isset($post['selected_items'])) {
 			$selected_items = sanitize_unserialize_selected_items($post['selected_items']);
 			$drop_action    = $post['drp_action'];
@@ -248,9 +243,10 @@ function audit_config_insert() {
 
 		$post        = json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
-		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id']:0);
+		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0);
 		$event_time  = date('Y-m-d H:i:s');
 
+		// Retrieve IP address
 		if (isset($_SERVER['X-Forwarded-For'])) {
 			$ip_address = $_SERVER['X-Forwarded-For'];
 		} elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -296,6 +292,7 @@ function audit_config_insert() {
 	}
 }
 
+
 function audit_process_page_data($page, $drop_action, $selected_items) {
 	$objects = array();
 
@@ -306,12 +303,6 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 					FROM host
 					WHERE id IN (?)',
 					array(implode(', ', $selected_items)));
-
-				break;
-			case 'data_sources.php':
-				$objects['data_template_data'] = array();
-				$objects['data_template_rrd']  = array();
-				$objects['data_local'] = array();
 
 				break;
 		}
