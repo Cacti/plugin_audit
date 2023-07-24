@@ -69,7 +69,7 @@ function audit_check_upgrade() {
 			# may sound ridiculous, but enables new hooks
 			api_plugin_enable_hooks('audit');
 
-			db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB')
+			db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
 		}
 
 		db_execute("UPDATE plugin_config
