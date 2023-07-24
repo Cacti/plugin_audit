@@ -68,6 +68,10 @@ function audit_check_upgrade() {
 		if (api_plugin_is_enabled('audit')) {
 			# may sound ridiculous, but enables new hooks
 			api_plugin_enable_hooks('audit');
+
+			if (!db_column_exists()) {
+				db_add_column(`object_data` longblob);
+			}
 		}
 
 		db_execute("UPDATE plugin_config
