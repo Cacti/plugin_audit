@@ -7,6 +7,7 @@
 * Feature: #17 Capture data of user or group that is deleted instead of just id
 * issue: 18  correct classification of action to reflect either delete or Disable
 * Issue #11: audit does not upgrade the audit_log table
+* Issue 8: Record device details when multiple devices are deleted 
 
 
 --- 1.0 ---
