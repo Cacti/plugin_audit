@@ -306,52 +306,71 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 	if ($drop_action !== false) {
 		switch($page) {
 			case 'host.php':
-				$objects = db_fetch_assoc_prepared('SELECT description,hostname,site_id
-					FROM host
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				//loop over array and perform query for each item
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT description,hostname,site_id
+						FROM host
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 			case 'host_templates.php':
-				$objects = db_fetch_assoc_prepared('SELECT name
-					FROM host_template
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM host_template
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
+
 			case 'graph_templates.php':
-				$objects = db_fetch_assoc_prepared('SELECT name
-					FROM graph_templates
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM graph_template
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 			case 'data_templates.php':
-				$objects = db_fetch_assoc_prepared('SELECT name
-					FROM data_template
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM data_template
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 			case 'aggregate_templates.php':
-				$objects = db_fetch_assoc_prepared('SELECT name
-					FROM aggregate_graph_templates
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+                for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM aggregate_graph_template
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
+
 			case 'thold_templates.php':
-				$objects = db_fetch_assoc_prepared('SELECT name,data_source_name
-					FROM thold_template
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM thold_template
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 			case 'user_admin.php':
-				$objects = db_fetch_assoc_prepared('SELECT username,full_name,email_address
-					FROM user_auth
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT username
+						FROM user_auth
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 			case 'user_group_admin.php':
-				$objects = db_fetch_assoc_prepared('SELECT name,description
-					FROM user_auth_group
-					WHERE id IN (?)',
-					array(implode(', ', $selected_items)));
+				for ($i = 0; $i < count($selected_items); $i++) {
+						$objects[$i] = db_fetch_assoc_prepared('SELECT name
+						FROM user_auth_group
+						WHERE id IN (?)',
+						array($selected_items[$i]));
+				}
 				break;
 		}
 	}
@@ -445,4 +464,3 @@ function audit_draw_navigation_text($nav) {
 
 	return $nav;
 }
-
