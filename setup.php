@@ -299,7 +299,6 @@ function audit_config_insert() {
 	}
 }
 
-
 function audit_process_page_data($page, $drop_action, $selected_items) {
     $objects = array();
 
@@ -377,6 +376,7 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 
     return json_encode($objects);
 }
+
 
 
 function audit_utilities_array() {
