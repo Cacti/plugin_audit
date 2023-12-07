@@ -227,6 +227,7 @@ function audit_config_insert() {
 		unset($post['__csrf_magic']);
 		unset($post['header']);
 		unset($post['password']);
+		unset($post['login_password']);
 		unset($post['password_confirm']);
 
 		// Check if drp_action is present and update action accordingly
