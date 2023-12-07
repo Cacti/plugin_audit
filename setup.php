@@ -109,7 +109,7 @@ function audit_replicate_out($data) {
 	$rcnn_id          = $data['rcnn_id'];
 	$class            = $data['class'];
 
-	cacti_log('INFO: Replacting for the Audit Plugin', false, 'REPLICATE');
+	cacti_log('INFO: Replicating for the Audit Plugin', false, 'REPLICATE');
 
 	if ($class == 'all') {
 		if (!db_table_exists('audit_log', false, $rcnn_id)) {
