@@ -447,12 +447,12 @@ function audit_config_settings () {
 			),
 		);
 
-	$tabs['misc'] = __('Misc', 'audit');
+	$tabs['Audit'] = __('Audit', 'Audit');
 
-	if (isset($settings['misc'])) {
-		$settings['misc'] = array_merge($settings['misc'], $temp);
+	if (isset($settings['Audit'])) {
+		$settings['Audit'] = array_merge($settings['Audit'], $temp);
 	} else {
-		$settings['misc'] = $temp;
+		$settings['Audit'] = $temp;
 	}
 }
 
