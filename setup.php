@@ -309,11 +309,11 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 			case 'host.php':
 				//loop over array and perform query for each item
 				foreach ($selected_items as $item) {
-					$objects[] = db_fetch_assoc_prepared('SELECT description,hostname,site_id
-						FROM host
-						WHERE id IN (?)',
-						array($item));
-				}
+					$objects[] = db_fetch_assoc_prepared('SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS la$
+							FROM host
+							WHERE id IN (?)',
+							array($item));
+			}
 				break;
 			case 'host_templates.php':
 				foreach ($selected_items as $item) {
