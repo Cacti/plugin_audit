@@ -323,6 +323,23 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 						array($item));
 				}
 				break;
+			
+				case 'automation_devices.php':
+					foreach ($selected_items as $item) {
+						$result = db_fetch_assoc_prepared('SELECT id, network_id,hostname,ip,sysName,syslocation,snmp,up
+							FROM automation_devices
+							WHERE id IN (?)',
+							array($item));
+				
+						foreach ($result as &$row) {
+							$row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
+							$row['up'] = ($row['up'] == 1) ? 'Yes' : 'No';
+						}
+				
+						$objects[] = $result;
+					}
+					break;
+				
 
 			case 'graph_templates.php':
 				foreach ($selected_items as $item) {
