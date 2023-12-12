@@ -309,7 +309,7 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 			case 'host.php':
 				//loop over array and perform query for each item
 				foreach ($selected_items as $item) {
-					$objects[] = db_fetch_assoc_prepared('SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS last_fail_date,status_rec_date AS last_Recovered_date
+					$objects[] = db_fetch_assoc_prepared('SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS la$
 							FROM host
 							WHERE id IN (?)',
 							array($item));
