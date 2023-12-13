@@ -229,6 +229,10 @@ function audit_config_insert() {
 		unset($post['password']);
 		unset($post['login_password']);
 		unset($post['password_confirm']);
+		unset($post['snmp_password']);
+		unset($post['snmp_priv_passphrase_confirm']);
+		unset($post['snmp_priv_passphrase']);
+		unset($post['snmp_password_confirm']);
 
 		// Check if drp_action is present and update action accordingly
 		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
