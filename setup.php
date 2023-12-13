@@ -222,13 +222,17 @@ function audit_config_insert() {
 	if (audit_log_valid_event()) {
 		/* prepare post */
 		$post = $_REQUEST;
+		
 
 		/* remove unsafe variables */
 		unset($post['__csrf_magic']);
 		unset($post['header']);
-		unset($post['password']);
-		unset($post['login_password']);
-		unset($post['password_confirm']);
+		foreach ($post as $key => $value) {
+			if (preg_match('/pass|phrase/i', $key)) {
+				unset($post[$key]);
+			}
+		}
+
 
 		// Check if drp_action is present and update action accordingly
 		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
@@ -239,7 +243,6 @@ function audit_config_insert() {
 
 
 		
-
 		/* sanitize and serialize selected items */
 		if (isset($post['selected_items'])) {
 			$selected_items = sanitize_unserialize_selected_items($post['selected_items']);
@@ -274,6 +277,12 @@ function audit_config_insert() {
 		}
 
 		$object_data = audit_process_page_data($page, $drop_action, $selected_items);
+		if ($page == 'automation_devices.php' && $drop_action == 2) {
+			$action = 'Delete Device';
+		}
+		if ($page == 'automation_devices.php' && $drop_action == 1) {
+			$action = 'Create Device';
+		}
 
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -303,7 +312,6 @@ function audit_config_insert() {
 
 function audit_process_page_data($page, $drop_action, $selected_items) {
 	$objects = array();
-
 	if ($drop_action !== false) {
 		switch ($page) {
 			case 'host.php':
