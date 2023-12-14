@@ -224,6 +224,8 @@ function audit_config_insert() {
 		$post = $_REQUEST;
 		
 
+		
+
 		/* remove unsafe variables */
 		unset($post['__csrf_magic']);
 		unset($post['header']);
