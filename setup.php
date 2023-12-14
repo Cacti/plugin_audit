@@ -224,8 +224,6 @@ function audit_config_insert() {
 		$post = $_REQUEST;
 		
 
-		
-
 		/* remove unsafe variables */
 		unset($post['__csrf_magic']);
 		unset($post['header']);
@@ -288,8 +286,12 @@ function audit_config_insert() {
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
 			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
+
+			if (!file_exists(read_config_option('audit_log_external_path'))) {
+				cacti_log('ERROR: Audit Log External Log file  Path does not exist', false, 'AUDIT');
+			}
 		
-			if (read_config_option('audit_log_external') == 'on' && read_config_option('audit_log_external_path') != '') {
+			if (read_config_option('audit_log_external') == 'on' && read_config_option('audit_log_external_path') != '' && file_exists(read_config_option('audit_log_external_path')))  {
 				$audit_log_external_path = read_config_option('audit_log_external_path');
 				$log_data = array(
 					'page' => $page,
@@ -504,7 +506,7 @@ function audit_config_settings () {
 			'default' => 'off'
 			),
 		'audit_log_external_path' => array(
-			'friendly_name' => __('External Audit Log Path', 'audit'),
+			'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
 			'description' => __('Enter the path to the external audit log file.', 'audit'),
 			'method' => 'textbox',
 			'default' => '/var/www/cacti/log/audit.log',
