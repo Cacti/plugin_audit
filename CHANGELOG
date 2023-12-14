@@ -10,6 +10,7 @@
 * Feature: #29 Rename Tab name from Misc to Audit
 * Feature #25  Record additional Device info when deleted
 * Feature: Capture Actions on the automation_devices.php page
+* Feature: Allow logging of audit events to a file
 
 
 --- 1.0 ---
