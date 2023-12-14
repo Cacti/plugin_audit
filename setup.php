@@ -224,6 +224,8 @@ function audit_config_insert() {
 		$post = $_REQUEST;
 		
 
+		
+
 		/* remove unsafe variables */
 		unset($post['__csrf_magic']);
 		unset($post['header']);
@@ -283,10 +285,32 @@ function audit_config_insert() {
 		if ($page == 'automation_devices.php' && $drop_action == 1) {
 			$action = 'Create Device';
 		}
-
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
 			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
+		
+			if (read_config_option('audit_log_external') == 'on' && read_config_option('audit_log_external_path') != '') {
+				$audit_log_external_path = read_config_option('audit_log_external_path');
+				$log_data = array(
+					'page' => $page,
+					'user_id' => $user_id,
+					'action' => $action,
+					'ip_address' => $ip_address,
+					'user_agent' => $user_agent,
+					'event_time' => $event_time,
+					'post' => $post,
+					'object_data' => $object_data
+				);
+
+				$log_msg = json_encode($log_data) . "\n";
+				$file = fopen($audit_log_external_path, 'a');
+				if ($file) {
+					fwrite($file, $log_msg);
+					fclose($file);
+				}
+			}
+
+
 	} elseif (isset($_SERVER['argv'])) {
 		$page       = basename($_SERVER['argv'][0]);
 		$user_id    = 0;
@@ -405,6 +429,8 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 }
 
 
+
+
 function audit_utilities_array() {
 	global $utilities;
 
@@ -469,6 +495,21 @@ function audit_config_settings () {
 			'method' => 'drop_array',
 			'default' => '90',
 			'array' => $audit_retentions
+			),
+		
+		'audit_log_external' => array(
+			'friendly_name' => __('External Audit Log', 'audit'),
+			'description' => __('Check this box, if you want the Audit Log to be written to an external file.', 'audit'),
+			'method' => 'checkbox',
+			'default' => 'off'
+			),
+		'audit_log_external_path' => array(
+			'friendly_name' => __('External Audit Log Path', 'audit'),
+			'description' => __('Enter the path to the external audit log file.', 'audit'),
+			'method' => 'textbox',
+			'default' => '/var/www/cacti/log/audit.log',
+			'max_length' => '255'
+
 			),
 		);
 
