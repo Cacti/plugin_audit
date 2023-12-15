@@ -57,14 +57,14 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 				}
 				break;
 
-				case 'thold.php':
-					foreach ($selected_items as $item) {
-						$objects[] = db_fetch_assoc_prepared('SELECT id,name_cache AS THOLD_NAME,data_source_name AS Data_Source 
-							from thold_data
-							WHERE id IN (?)',
-							array($item));
-					}
-					break;
+			case 'thold.php':
+				foreach ($selected_items as $item) {
+					$objects[] = db_fetch_assoc_prepared('SELECT id,name_cache AS THOLD_NAME,data_source_name AS Data_Source 
+						FROM thold_data
+						WHERE id IN (?)',
+						array($item));
+				}
+				break;
 			case 'data_templates.php':
 				foreach ($selected_items as $item) {
 					$objects[] = db_fetch_assoc_prepared('SELECT name
