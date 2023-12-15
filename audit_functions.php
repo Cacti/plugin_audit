@@ -65,6 +65,14 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 						array($item));
 				}
 				break;
+			case 'data_sources.php':
+				foreach ($selected_items as $item) {
+					$objects[] = db_fetch_assoc_prepared('select name_cache AS Data_Source_Name,active  from data_template_data
+						WHERE local_data_id IN (?)',
+						array($item));
+				}
+				break;
+				
 			case 'data_templates.php':
 				foreach ($selected_items as $item) {
 					$objects[] = db_fetch_assoc_prepared('SELECT name
@@ -73,6 +81,7 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 						array($item));
 				}
 				break;
+			
 			case 'aggregate_templates.php':
 				foreach ($selected_items as $item) {
 					$objects[] = db_fetch_assoc_prepared('SELECT name
