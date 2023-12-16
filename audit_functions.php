@@ -184,11 +184,27 @@ function audit_config_insert() {
 		}
 
 		$object_data = audit_process_page_data($page, $drop_action, $selected_items);
-		if ($page == 'automation_devices.php' && $drop_action == 2) {
-			$action = 'Delete Device';
-		}
-		if ($page == 'automation_devices.php' && $drop_action == 1) {
-			$action = 'Create Device';
+		switch ($page) {
+			case 'automation_devices.php':
+				switch ($drop_action) {
+					case 2:
+						$action = 'Delete Device';
+						break;
+					case 1:
+						$action = 'Create Device';
+						break;
+				}
+				break;
+			case 'host.php':
+				switch ($drop_action) {
+					case 2:
+						$action = 'Host Enabled';
+						break;
+					case 3:
+						$action = 'Host Disabled';
+						break;
+				}
+				break;
 		}
 
 		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
@@ -196,7 +212,7 @@ function audit_config_insert() {
 			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
 
 			if (!file_exists(read_config_option('audit_log_external_path'))) {
-				cacti_log('ERROR: Audit Log External Path does not exist ', false, 'AUDIT');
+				cacti_log('ERROR: Audit Log file does not exist ', false, 'AUDIT');
 			}
 		
 			if (read_config_option('audit_log_external') == 'on' && read_config_option('audit_log_external_path') != '' && file_exists(read_config_option('audit_log_external_path')))  {
