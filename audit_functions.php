@@ -196,7 +196,7 @@ function audit_config_insert() {
 			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
 
 			if (!file_exists(read_config_option('audit_log_external_path'))) {
-				cacti_log('ERROR: Audit Log External Path does not exist ', false, 'AUDIT');
+				cacti_log('ERROR: Audit Log file does not exist ', false, 'AUDIT');
 			}
 		
 			if (read_config_option('audit_log_external') == 'on' && read_config_option('audit_log_external_path') != '' && file_exists(read_config_option('audit_log_external_path')))  {
