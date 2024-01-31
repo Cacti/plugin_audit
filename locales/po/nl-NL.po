@@ -4,18 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2020-12-12 20:10-0500\n"
-"PO-Revision-Date: 2020-12-12 20:15-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: nl_NL\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2024-01-31 14:27+0000\nLast-Translator: Edwin Lankamp <edwin.lankamp@gmail.com>\nLanguage-Team: Dutch <http://translate.cacti.net/projects/cacti/audit/nl/>\nLanguage: nl-NL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -42,7 +31,6 @@ msgid "Script:"
 msgstr "Script:"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Attrib"
 msgstr "Attribuut"
 
@@ -51,9 +39,9 @@ msgid "Value"
 msgstr "Waarde"
 
 #: audit.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Audit Log Purged by %s"
-msgstr "Auditlogboek Gezuiverd door %s"
+msgstr "Auditlogboek gezuiverd door %s"
 
 #: audit.php:166
 #, fuzzy
@@ -158,7 +146,7 @@ msgstr "Actie"
 #: audit.php:444
 #, fuzzy
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
-msgstr "De gevraagde Cactusactie.  Beweeg de muis over de actie om $_POST data te zien."
+msgstr "De gevraagde Cacti actie.  Beweeg de muis over de actie om $_POST data te zien."
 
 #: audit.php:447
 msgid "User Agent"
@@ -202,9 +190,8 @@ msgid "Audit Event Details"
 msgstr "Details van het auditevenement"
 
 #: setup.php:33
-#, fuzzy
 msgid "View Cacti Audit Log"
-msgstr "Bekijk het auditlogboek van de cactussen"
+msgstr "Bekijk het auditlogboek van Cacti"
 
 #: setup.php:246 setup.php:247
 msgid "Technical Support"
@@ -216,9 +203,8 @@ msgid "View Audit Log"
 msgstr "Bekijk auditlogboek"
 
 #: setup.php:251
-#, fuzzy
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
-msgstr "Stelt beheerders in staat om wijzigingsactiviteiten op de Cactus-server te bekijken.  Beheerders kunnen het auditlogboek ook exporteren voor analysedoeleinden."
+msgstr "Stelt beheerders in staat om wijzigingsactiviteiten op de Cacti-server te bekijken.  Beheerders kunnen het auditlogboek ook exporteren voor analysedoeleinden."
 
 #: setup.php:266
 msgid "Indefinitely"
