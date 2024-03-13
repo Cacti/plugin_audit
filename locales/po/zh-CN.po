@@ -4,19 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2020-12-12 20:10-0500\n"
-"PO-Revision-Date: 2020-12-12 20:18-0500\n"
-"Last-Translator: whsir <wh@whsir.com>\n"
-"Language-Team: Chinese (Simplified) <http://translate.cacti.net/projects/cacti/audit/zh-CN/>\n"
-"Language: zh_CN\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.2\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2024-03-13 07:39+0000\nLast-Translator: lily chen <chenyinxue@jiyunhudong.com>\nLanguage-Team: Chinese (Simplified) <http://translate.cacti.net/projects/cacti/audit/zh_Hans/>\nLanguage: zh-CN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 4.8.1\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -43,18 +31,17 @@ msgid "Script:"
 msgstr "脚本:"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Attrib"
-msgstr "ATTRIB"
+msgstr "但是"
 
 #: audit.php:87 audit.php:90
 msgid "Value"
 msgstr "值"
 
 #: audit.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Audit Log Purged by %s"
-msgstr "审核日志由％s清除"
+msgstr "手机"
 
 #: audit.php:166
 #, fuzzy
