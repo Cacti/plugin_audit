@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
 "POT-Creation-Date: 2024-06-08 09:09-0400\n"
-"PO-Revision-Date: 2024-06-08 09:19-0400\n"
+"PO-Revision-Date: 2024-06-08 09:27-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi_VN\n"
@@ -42,7 +42,6 @@ msgid "Script:"
 msgstr "Tập lệnh:"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Attrib"
 msgstr "Attrib"
 
@@ -161,7 +160,6 @@ msgid "User Agent"
 msgstr "Tài khoản quản lí"
 
 #: audit.php:463
-#, fuzzy
 msgid "The browser type of the requester."
 msgstr "Các loại trình duyệt của người yêu cầu."
 
@@ -243,12 +241,10 @@ msgid "System Administration"
 msgstr "Quản lí hệ thống"
 
 #: setup.php:272
-#, fuzzy
 msgid "Audit Log Settings"
 msgstr "Cài đặt nhật ký kiểm toán"
 
 #: setup.php:276
-#, fuzzy
 msgid "Enable Audit Log"
 msgstr "Bật nhật ký kiểm toán"
 
@@ -261,12 +257,10 @@ msgid "Audit Log Retention"
 msgstr "Lưu giữ nhật ký kiểm toán"
 
 #: setup.php:283
-#, fuzzy
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Bạn muốn các mục Nhật ký kiểm toán được giữ lại trong bao lâu?"
 
 #: setup.php:290
-#, fuzzy
 msgid "External Audit Log"
 msgstr "Bật nhật ký kiểm toán"
 
