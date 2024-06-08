@@ -4,7 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2024-01-31 14:27+0000\nLast-Translator: Edwin Lankamp <edwin.lankamp@gmail.com>\nLanguage-Team: Dutch <http://translate.cacti.net/projects/cacti/audit/nl/>\nLanguage: nl-NL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.8.1\n"
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:16-0400\n"
+"Last-Translator: Edwin Lankamp <edwin.lankamp@gmail.com>\n"
+"Language-Team: Dutch <http://translate.cacti.net/projects/cacti/audit/nl/>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -38,237 +50,240 @@ msgstr "Attribuut"
 msgid "Value"
 msgstr "Waarde"
 
-#: audit.php:130
+#: audit.php:119
+msgid "Record Data:"
+msgstr "Gegevens opnemen:"
+
+#: audit.php:143
 #, php-format
 msgid "Audit Log Purged by %s"
 msgstr "Auditlogboek gezuiverd door %s"
 
-#: audit.php:166
-#, fuzzy
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "pagina, user_id, gebruikersnaam, actie, ip_address, user_agent, event_time, post"
 
-#: audit.php:253
+#: audit.php:266
 msgid "Audit Log"
 msgstr "Auditlogboek"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "Zoeken"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "Pagina"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "Alle"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "Gebruiker"
 
-#: audit.php:289
-#, fuzzy
+#: audit.php:302
 msgid "cli"
 msgstr "cliënteel"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "Gebeurtenissen"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "Standaard"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "Ga"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "Stel in/vernieuw filters"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "Herstel"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "Stel filters opnieuw in"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "Exporteer"
 
-#: audit.php:322
-#, fuzzy
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "Logboekgebeurtenissen exporteren"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "Legen"
 
-#: audit.php:325
-#, fuzzy
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "Logboekgebeurtenissen zuiveren"
 
-#: audit.php:421
-#, fuzzy
+#: audit.php:434
 msgid "Audit Events"
 msgstr "Audit Evenementen"
 
-#: audit.php:429
+#: audit.php:442
 msgid "Page Name"
 msgstr "Paginanaam"
 
-#: audit.php:432
-#, fuzzy
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "De pagina waar het evenement is gegenereerd."
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "Gebruikersnaam"
 
-#: audit.php:438
-#, fuzzy
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "De gebruiker die het evenement heeft gegenereerd."
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "Actie"
 
-#: audit.php:444
-#, fuzzy
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "De gevraagde Cacti actie.  Beweeg de muis over de actie om $_POST data te zien."
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "Gebruiker agent"
 
-#: audit.php:450
-#, fuzzy
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "Het type browser van de aanvrager."
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "IP-adres"
 
-#: audit.php:456
-#, fuzzy
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "Het IP-adres van de aanvrager."
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "Evenement Tijd"
 
-#: audit.php:462
-#, fuzzy
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "De tijd dat het evenement plaatsvond."
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "N/B"
 
-#: audit.php:492
-#, fuzzy
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "Geen auditlogboekgebeurtenissen gevonden"
 
-#: audit.php:512
-#, fuzzy
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "Details van het auditevenement"
 
-#: setup.php:33
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "Bekijk het auditlogboek van Cacti"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "Technische ondersteuning"
 
-#: setup.php:249
-#, fuzzy
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "Bekijk auditlogboek"
 
-#: setup.php:251
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "Stelt beheerders in staat om wijzigingsactiviteiten op de Cacti-server te bekijken.  Beheerders kunnen het auditlogboek ook exporteren voor analysedoeleinden."
 
-#: setup.php:266
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "Onbepaalde tijd"
 
-#: setup.php:267
+#: setup.php:249
 #, php-format
 msgid "%d Weeks"
 msgstr "%d Weken"
 
-#: setup.php:268
+#: setup.php:250
 #, php-format
 msgid "%d Month"
 msgstr "%d Maand"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
 #, php-format
 msgid "%d Months"
 msgstr "%d Maanden"
 
-#: setup.php:273
+#: setup.php:255
 #, php-format
 msgid "%d Year"
 msgstr "%d Jaar"
 
-#: setup.php:274 setup.php:275
+#: setup.php:256 setup.php:257
 #, php-format
 msgid "%d Years"
 msgstr "%d Jaren"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "Systeembeheer"
 
-#: setup.php:290
-#, fuzzy
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "Instellingen auditlogboek"
 
-#: setup.php:294
-#, fuzzy
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "Auditlogboek inschakelen"
 
-#: setup.php:295
-#, fuzzy
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "Vink dit vakje aan als u wilt dat het auditlogboek de GUI-activiteiten volgt."
 
-#: setup.php:300
-#, fuzzy
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "Audit Logboek Behoud"
 
-#: setup.php:301
-#, fuzzy
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Hoe lang wilt u dat de gegevens uit het auditlogboek worden bewaard?"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "Diversen"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "Auditlogboek inschakelen"
 
-#: setup.php:319
-#, fuzzy
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Vink dit vakje aan als u wilt dat het auditlogboek de GUI-activiteiten volgt."
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "Pad naar logboekbestand voor externe controle"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "Voer het pad naar het externe controlelogboekbestand in."
+
+#: setup.php:305
+msgid "Audit"
+msgstr "Controle"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "Auditgebeurtenislogboek"
+
+#~ msgid "Misc"
+#~ msgstr "Diversen"

@@ -4,7 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2023-06-26 13:06+0000\nLast-Translator: Coool (github.com/Coool) <coool@mail.lv>\nLanguage-Team: Latvian <http://translate.cacti.net/projects/cacti/audit/lv/>\nLanguage: lv-LV\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\nX-Generator: Weblate 4.8.1\n"
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:15-0400\n"
+"Last-Translator: Coool (github.com/Coool) <coool@mail.lv>\n"
+"Language-Team: Latvian <http://translate.cacti.net/projects/cacti/audit/lv/>\n"
+"Language: lv_LV\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -38,217 +50,240 @@ msgstr "Īpašība"
 msgid "Value"
 msgstr "Vērtība"
 
-#: audit.php:130
+#: audit.php:119
+msgid "Record Data:"
+msgstr "Ieraksta dati:"
+
+#: audit.php:143
 #, php-format
 msgid "Audit Log Purged by %s"
 msgstr "Revīzijas žurnālu iztīrīja %s"
 
-#: audit.php:166
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "lapa, lietotāja_id, lietotājvārds, darbība, ip_adrese, lietotāja_aģents, notikuma_laiks, ziņa"
 
-#: audit.php:253
+#: audit.php:266
 msgid "Audit Log"
 msgstr "Audita žurnāls"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "Meklēt"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "Lapa"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "Visi"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "Lietotājs"
 
-#: audit.php:289
+#: audit.php:302
 msgid "cli"
 msgstr "Komandrindas interfeiss"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "Notikumi"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "Noklusējuma"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "Doties"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "Atlasīt/Atjaunināt filtrus"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "Notīrīt"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "Notīrīt filtrus"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "Eksportēt"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "Eksportēti žurnāla notikumi"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "Iztīrīt"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "Iztīrīti žurnāla notikumi"
 
-#: audit.php:421
+#: audit.php:434
 msgid "Audit Events"
 msgstr "Revīzijas notikumi"
 
-#: audit.php:429
+#: audit.php:442
 msgid "Page Name"
 msgstr "Lapas nosaukums"
 
-#: audit.php:432
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "Lapa, kurā tika ģenerēts notikums."
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "Lietotājvārds"
 
-#: audit.php:438
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "Lietotājs, kurš ģenerēja notikumu."
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "Darbība"
 
-#: audit.php:444
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "Pieprasītā Cacti darbība.  Pārvietojiet kursoru uz darbību, lai redzētu $_POST datus."
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "Lietotāja aģents"
 
-#: audit.php:450
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "Pieprasītāja pārlūkprogrammas tips."
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "IP adrese"
 
-#: audit.php:456
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "Pieprasītāja IP adrese."
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "Notikuma laiks"
 
-#: audit.php:462
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "Notikums notika."
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "Nav pieejams"
 
-#: audit.php:492
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "Netika atrasts neviens revīzijas žurnāla notikums"
 
-#: audit.php:512
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "Revīzijas notikuma detalizēta informācija"
 
-#: setup.php:33
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "Skatīt Cacti revīzijas žurnālu"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "Tehniskais atbalsts"
 
-#: setup.php:249
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "Skatīt revīzijas žurnālu"
 
-#: setup.php:251
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "Ļauj administratoriem skatīt izmaiņu aktivitāti Cacti serverī.   Administratori drīkst arī eksportēt revīzijas žurnālu analīzes nolūkos."
 
-#: setup.php:266
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "Uz visiem laikiem"
 
-#: setup.php:267
+#: setup.php:249
 #, php-format
 msgid "%d Weeks"
 msgstr "%d nedēļas"
 
-#: setup.php:268
+#: setup.php:250
 #, php-format
 msgid "%d Month"
 msgstr "%d mēnesis"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
 #, php-format
 msgid "%d Months"
 msgstr "%d mēneši"
 
-#: setup.php:273
+#: setup.php:255
 #, php-format
 msgid "%d Year"
 msgstr "%d gads"
 
-#: setup.php:274 setup.php:275
+#: setup.php:256 setup.php:257
 #, php-format
 msgid "%d Years"
 msgstr "%d gadi"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "Sistēmas pārvaldīšana"
 
-#: setup.php:290
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "Revīzijas žurnāla iestatījumi"
 
-#: setup.php:294
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "Iespējot revīzijas žurnālu"
 
-#: setup.php:295
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "Atķeksējiet, ja vēlaties, lai revīzijas žurnāls reģistrētu GUI darbības."
 
-#: setup.php:300
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "Revīzijas žurnāla uzglabāšana"
 
-#: setup.php:301
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Cik ilgi uzglabāt revīzijas žurnāla ierakstus?"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "Dažādi"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "Iespējot revīzijas žurnālu"
 
-#: setup.php:319
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Atķeksējiet, ja vēlaties, lai revīzijas žurnāls reģistrētu GUI darbības."
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "Ārējā audita žurnālfaila ceļš"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "Ievadiet ceļu uz ārējā audita žurnālfailu."
+
+#: setup.php:305
+msgid "Audit"
+msgstr "Audita žurnāls"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "Revīzijas notikumu žurnāls"
+
+#~ msgid "Misc"
+#~ msgstr "Dažādi"

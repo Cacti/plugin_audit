@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2020-12-12 20:10-0500\n"
-"PO-Revision-Date: 2020-12-12 20:15-0500\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:15-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja_JP\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -42,7 +42,6 @@ msgid "Script:"
 msgstr "スクリプト(T):"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Attrib"
 msgstr "アトリビューション"
 
@@ -50,242 +49,240 @@ msgstr "アトリビューション"
 msgid "Value"
 msgstr "値"
 
-#: audit.php:130
-#, fuzzy, php-format
-msgid "Audit Log Purged by %s"
-msgstr "監査ログが％sによって消去されました"
+#: audit.php:119
+msgid "Record Data:"
+msgstr "レコードデータ:"
 
-#: audit.php:166
-#, fuzzy
+#: audit.php:143
+#, php-format
+msgid "Audit Log Purged by %s"
+msgstr "監査ログが%sによってパージされる"
+
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "page、user_id、username、action、ip_address、user_agent、event_time、post"
 
-#: audit.php:253
-#, fuzzy
+#: audit.php:266
 msgid "Audit Log"
 msgstr "監査ログ"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "検索"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "ページ"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "すべて"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "ユーザー"
 
-#: audit.php:289
-#, fuzzy
+#: audit.php:302
 msgid "cli"
 msgstr "CLI"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "イベント"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "デフォルト"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "Go"
 
-#: audit.php:316
-#, fuzzy
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "フィルタの設定/更新"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "クリア"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "絞り込み条件を解除する"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "エクスポート"
 
-#: audit.php:322
-#, fuzzy
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "ログイベントのエクスポート"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "粛清"
 
-#: audit.php:325
-#, fuzzy
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "ログイベントの消去"
 
-#: audit.php:421
-#, fuzzy
+#: audit.php:434
 msgid "Audit Events"
 msgstr "監査イベント"
 
-#: audit.php:429
-#, fuzzy
+#: audit.php:442
 msgid "Page Name"
 msgstr "ページ名"
 
-#: audit.php:432
-#, fuzzy
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "イベントが生成されたページ。"
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "ユーザー名"
 
-#: audit.php:438
-#, fuzzy
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "イベントを生成したユーザー。"
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "アクション"
 
-#: audit.php:444
-#, fuzzy
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "サボテンアクションは要求しました。 $ _POSTデータを表示するためのアクションにカーソルを合わせます。"
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "ユーザーエージェント"
 
-#: audit.php:450
-#, fuzzy
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "要求者のブラウザの種類。"
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "IPアドレス"
 
-#: audit.php:456
-#, fuzzy
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "要求者のIPアドレス。"
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "イベントの時間"
 
-#: audit.php:462
-#, fuzzy
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "イベントが発生した時間。"
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "該当なし"
 
-#: audit.php:492
-#, fuzzy
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "監査ログイベントが見つかりません"
 
-#: audit.php:512
-#, fuzzy
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "監査イベントの詳細"
 
-#: setup.php:33
-#, fuzzy
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "サボテン監査ログを表示する"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "テクニカルサポート"
 
-#: setup.php:249
-#, fuzzy
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "監査ログを表示する"
 
-#: setup.php:251
-#, fuzzy
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "管理者がCactiサーバの変更アクティビティを表示することを許可します。管理者は分析目的で監査ログをエクスポートすることもできます。"
 
-#: setup.php:266
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "無期限に"
 
-#: setup.php:267
-#, fuzzy, php-format
+#: setup.php:249
+#, php-format
 msgid "%d Weeks"
-msgstr "％d週"
+msgstr "%d 週間の"
 
-#: setup.php:268
-#, fuzzy, php-format
+#: setup.php:250
+#, php-format
 msgid "%d Month"
-msgstr "％d月"
+msgstr "%d ヶ月間の"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
-#, fuzzy, php-format
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
+#, php-format
 msgid "%d Months"
-msgstr "％d月"
+msgstr "%d ヶ月間の"
 
-#: setup.php:273
-#, fuzzy, php-format
+#: setup.php:255
+#, php-format
 msgid "%d Year"
-msgstr "％d年"
+msgstr "%d 年間の"
 
-#: setup.php:274 setup.php:275
+#: setup.php:256 setup.php:257
 #, php-format
 msgid "%d Years"
-msgstr "<ph id=\"mtc_1\" equiv-text=\"base64:JWQ=\"/> 年"
+msgstr "%d 年"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "2. システム管理"
 
-#: setup.php:290
-#, fuzzy
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "監査ログ設定"
 
-#: setup.php:294
-#, fuzzy
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "監査ログを有効にする"
 
-#: setup.php:295
-#, fuzzy
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "監査ログにGUIアクティビティを追跡させる場合は、このボックスをオンにします。"
 
-#: setup.php:300
-#, fuzzy
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "監査ログの保存"
 
-#: setup.php:301
-#, fuzzy
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "監査ログのエントリをどのくらいの期間保持しますか。"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "その他"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "監査ログを有効にする"
 
-#: setup.php:319
-#, fuzzy
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "監査ログにGUIアクティビティを追跡させる場合は、このボックスをオンにします。"
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "外部監査ログ ログ ファイルのパス"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "外部監査ログ ファイルへのパスを入力します。"
+
+#: setup.php:305
+msgid "Audit"
+msgstr "監査"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "監査イベントログ"
+
+#~ msgid "Misc"
+#~ msgstr "その他"

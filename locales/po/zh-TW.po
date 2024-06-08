@@ -4,7 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2021-05-04 08:47+0000\nLast-Translator: Linya Huang <linya0405@gmail.com>\nLanguage-Team: Chinese (Traditional) <http://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 4.3.2\n"
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:21-0400\n"
+"Last-Translator: Linya Huang <linya0405@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <http://translate.cacti.net/projects/cacti/audit/zh_Hant/>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -27,7 +39,6 @@ msgid "Action:"
 msgstr "行動："
 
 #: audit.php:60
-#, fuzzy
 msgid "Script:"
 msgstr "腳本"
 
@@ -39,222 +50,240 @@ msgstr "屬性"
 msgid "Value"
 msgstr "值"
 
-#: audit.php:130
-#, fuzzy, php-format
-msgid "Audit Log Purged by %s"
-msgstr "審核日誌由％s清除"
+#: audit.php:119
+msgid "Record Data:"
+msgstr "記錄資料："
 
-#: audit.php:166
-#, fuzzy
+#: audit.php:143
+#, php-format
+msgid "Audit Log Purged by %s"
+msgstr "%s清除的審核日誌"
+
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "page，user_id，username，action，ip_address，user_agent，event_time，post"
 
-#: audit.php:253
+#: audit.php:266
 msgid "Audit Log"
 msgstr "審核日誌"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "搜尋"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "頁面"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "全部"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "使用者"
 
-#: audit.php:289
-#, fuzzy
+#: audit.php:302
 msgid "cli"
-msgstr "CLI"
+msgstr "經典"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "活動"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "預設"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "送出"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "設置/刷新過濾器"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "清除"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "清除過濾器"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "匯出"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "導出日誌事件"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "清除"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "清除日誌事件"
 
-#: audit.php:421
+#: audit.php:434
 msgid "Audit Events"
 msgstr "審計事件"
 
-#: audit.php:429
+#: audit.php:442
 msgid "Page Name"
 msgstr "頁面名稱"
 
-#: audit.php:432
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "生成事件的頁面。"
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "使用者名稱"
 
-#: audit.php:438
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "生成事件的用戶。"
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "動作"
 
-#: audit.php:444
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "仙人掌行動要求。將鼠標懸停在操作上以查看$ _POST數據。"
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "使用者代理"
 
-#: audit.php:450
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "請求者的瀏覽器類型。"
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "IP 位址"
 
-#: audit.php:456
-#, fuzzy
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "請求者的IP地址。"
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "活動時間"
 
-#: audit.php:462
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "事件發生的時間。"
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "不适用"
 
-#: audit.php:492
-#, fuzzy
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "未找到審核日誌事件"
 
-#: audit.php:512
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "審核事件詳情"
 
-#: setup.php:33
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "查看Cacti審核日誌"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "การสนับสนุนทางเทคนิค"
 
-#: setup.php:249
-#, fuzzy
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "查看審核日誌"
 
-#: setup.php:251
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "允許管理員查看Cacti服務器上的更改活動。管理員還可以導出審核日誌以進行分析。"
 
-#: setup.php:266
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "無限期"
 
-#: setup.php:267
-#, php-format
+#: setup.php:249
+#, fuzzy, php-format
 msgid "%d Weeks"
-msgstr "％d週"
+msgstr "最後％d週"
 
-#: setup.php:268
+#: setup.php:250
 #, php-format
 msgid "%d Month"
-msgstr "％d月"
+msgstr "%d月"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
-#, php-format
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
+#, fuzzy, php-format
 msgid "%d Months"
-msgstr "％d個月"
+msgstr "最後％d個月"
 
-#: setup.php:273
+#: setup.php:255
 #, php-format
 msgid "%d Year"
-msgstr "％d年"
+msgstr "%d年"
 
-#: setup.php:274 setup.php:275
-#, php-format
+#: setup.php:256 setup.php:257
+#, fuzzy, php-format
 msgid "%d Years"
-msgstr "％d年"
+msgstr "最後％d年"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "系統管理"
 
-#: setup.php:290
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "審核日誌設置"
 
-#: setup.php:294
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "啟用審核日誌"
 
-#: setup.php:295
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
 
-#: setup.php:300
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "審核日誌保留"
 
-#: setup.php:301
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "您希望保留審核日誌條目多長時間？"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "雜項"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "啟用審核日誌"
 
-#: setup.php:319
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "外部審核紀錄紀錄檔路徑"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "輸入外部審核日誌檔的路徑。"
+
+#: setup.php:305
+msgid "Audit"
+msgstr "稽核"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "審核事件日誌"
+
+#~ msgid "Misc"
+#~ msgstr "雜項"

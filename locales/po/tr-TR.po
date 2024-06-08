@@ -4,7 +4,19 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2020-12-12 20:10-0500\nPO-Revision-Date: 2022-06-20 22:45+0000\nLast-Translator: San IPE <sanipe1949@krunsea.com>\nLanguage-Team: Turkish <http://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 4.8.1\n"
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:19-0400\n"
+"Last-Translator: San IPE <sanipe1949@krunsea.com>\n"
+"Language-Team: Turkish <http://translate.cacti.net/projects/cacti/audit/tr/>\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -38,229 +50,240 @@ msgstr "nitelik"
 msgid "Value"
 msgstr "Değer"
 
-#: audit.php:130
+#: audit.php:119
+msgid "Record Data:"
+msgstr "Kayıt Verileri:"
+
+#: audit.php:143
 #, php-format
 msgid "Audit Log Purged by %s"
 msgstr "Denetim Günlüğü %s tarafından temizlendi"
 
-#: audit.php:166
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "sayfa, kullanıcı_id, kullanıcı_adı, eylem, ip_adresi, kullanıcı_aracısı, olay_zamanı, gönderilen"
 
-#: audit.php:253
+#: audit.php:266
 msgid "Audit Log"
 msgstr "Denetim Günlüğü"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "Ara"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "Sayfa"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "Tümü"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "Kullanıcı"
 
-#: audit.php:289
+#: audit.php:302
 msgid "cli"
 msgstr "komut satırı"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "Olaylar"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "Varsayılan"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "Git"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "Filtreleri Ayarla / Yenile"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "Temizle"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "Filtreleri Temizle"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "Dışa Aktar"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "Günlük Olaylarını Dışa Aktar"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "Temizle"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "Günlük Olaylarını Temizle"
 
-#: audit.php:421
+#: audit.php:434
 msgid "Audit Events"
 msgstr "Olayları Denetle"
 
-#: audit.php:429
+#: audit.php:442
 msgid "Page Name"
 msgstr "Sayfa İsmi"
 
-#: audit.php:432
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "Etkinliğin oluşturulduğu sayfa."
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "Kullanıcı Adı"
 
-#: audit.php:438
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "Etkinliği oluşturan kullanıcı."
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "Aksiyon"
 
-#: audit.php:444
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "Cacti Eylemi talep edildi. $ _POST verisini görmek için işlemin üzerine gelin."
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "Kullanıcı"
 
-#: audit.php:450
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "İstekte bulunanın tarayıcı türü."
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "IP Adresi"
 
-#: audit.php:456
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "İstek sahibinin IP Adresi."
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "Etkinlik Zamanı"
 
-#: audit.php:462
-#, fuzzy
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "Etkinliğin gerçekleştiği zaman."
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "Yok"
 
-#: audit.php:492
-#, fuzzy
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "Denetim Günlüğü Etkinliği Bulunamadı"
 
-#: audit.php:512
-#, fuzzy
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "Etkinlik Detaylarını Denetle"
 
-#: setup.php:33
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "Cacti Denetim Günlüğünü Görüntüle"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "Teknik destek"
 
-#: setup.php:249
-#, fuzzy
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "Denetim Günlüğünü Görüntüle"
 
-#: setup.php:251
-#, fuzzy
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "Yöneticilerin Cacti sunucusundaki değişiklik etkinliğini görüntülemesine izin verir. Yöneticiler ayrıca denetim günlüğünü analiz amacıyla dışa aktarabilir."
 
-#: setup.php:266
-#, fuzzy
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "süresiz olarak"
 
-#: setup.php:267
+#: setup.php:249
 #, php-format
 msgid "%d Weeks"
 msgstr "%d Hafta"
 
-#: setup.php:268
+#: setup.php:250
 #, php-format
 msgid "%d Month"
 msgstr "%d Ay"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
 #, php-format
 msgid "%d Months"
 msgstr "%d Ay"
 
-#: setup.php:273
+#: setup.php:255
 #, php-format
 msgid "%d Year"
 msgstr "%d Yıl"
 
-#: setup.php:274 setup.php:275
+#: setup.php:256 setup.php:257
 #, php-format
 msgid "%d Years"
 msgstr "%d Yıl"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "Sistem Yönetimi"
 
-#: setup.php:290
-#, fuzzy
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "Denetim Günlüğü Ayarları"
 
-#: setup.php:294
-#, fuzzy
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "Denetim Günlüğünü Etkinleştir"
 
-#: setup.php:295
-#, fuzzy
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "Denetim Günlüğünün GUI etkinliklerini izlemesini istiyorsanız bu kutuyu işaretleyin."
 
-#: setup.php:300
-#, fuzzy
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "Denetim Günlüğü Tutma"
 
-#: setup.php:301
-#, fuzzy
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "Denetim Günlüğü girişlerinin ne kadar süreyle saklanmasını istersiniz?"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "Çeşitli"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "Denetim Günlüğünü Etkinleştir"
 
-#: setup.php:319
-#, fuzzy
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Denetim Günlüğünün GUI etkinliklerini izlemesini istiyorsanız bu kutuyu işaretleyin."
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "Dış Denetim Günlüğü Günlük dosyası Yolu"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "Dış denetim günlüğü dosyasının yolunu girin."
+
+#: setup.php:305
+msgid "Audit"
+msgstr "Denetim Günlüğü"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "Olay Günlüğünü Denetle"
+
+#~ msgid "Misc"
+#~ msgstr "Çeşitli"

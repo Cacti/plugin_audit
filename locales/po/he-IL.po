@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2020-12-12 20:10-0500\n"
-"PO-Revision-Date: 2020-12-12 20:13-0500\n"
+"POT-Creation-Date: 2024-06-08 09:09-0400\n"
+"PO-Revision-Date: 2024-06-08 09:13-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he_IL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: audit.php:54 audit.php:77
 msgid "Page:"
@@ -42,7 +42,6 @@ msgid "Script:"
 msgstr "תסריט:"
 
 #: audit.php:87 audit.php:90
-#, fuzzy
 msgid "Attrib"
 msgstr "Attrib"
 
@@ -50,242 +49,240 @@ msgstr "Attrib"
 msgid "Value"
 msgstr "ערך"
 
-#: audit.php:130
-#, fuzzy, php-format
+#: audit.php:119
+msgid "Record Data:"
+msgstr "נתוני רשומה:"
+
+#: audit.php:143
+#, php-format
 msgid "Audit Log Purged by %s"
 msgstr "יומן ביקורת מבוצע על ידי %s"
 
-#: audit.php:166
-#, fuzzy
+#: audit.php:179
 msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
 msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
 msgstr "דף, user_id, שם משתמש, פעולה, ip_address, user_agent, event_time, פוסט"
 
-#: audit.php:253
-#, fuzzy
+#: audit.php:266
 msgid "Audit Log"
 msgstr "יומן ביקורת"
 
-#: audit.php:262
+#: audit.php:275
 msgid "Search"
 msgstr "חיפוש"
 
-#: audit.php:268
+#: audit.php:281
 msgid "Page"
 msgstr "עמוד"
 
-#: audit.php:272 audit.php:288
+#: audit.php:285 audit.php:301
 msgid "All"
 msgstr "הכל"
 
-#: audit.php:284
+#: audit.php:297
 msgid "User"
 msgstr "משתמש"
 
-#: audit.php:289
-#, fuzzy
+#: audit.php:302
 msgid "cli"
 msgstr "קלי"
 
-#: audit.php:301
+#: audit.php:314
 msgid "Events"
 msgstr "אירועים"
 
-#: audit.php:305
+#: audit.php:318
 msgid "Default"
 msgstr "ברירת מחדל"
 
-#: audit.php:316
+#: audit.php:329
 msgid "Go"
 msgstr "עבור"
 
-#: audit.php:316
-#, fuzzy
+#: audit.php:329
 msgid "Set/Refresh Filters"
 msgstr "הגדר / רענן מסננים"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear"
 msgstr "נקה"
 
-#: audit.php:319
+#: audit.php:332
 msgid "Clear Filters"
 msgstr "מחיקת מסננים"
 
-#: audit.php:322
+#: audit.php:335
 msgid "Export"
 msgstr "ייצא"
 
-#: audit.php:322
-#, fuzzy
+#: audit.php:335
 msgid "Export Log Events"
 msgstr "ייצוא אירועי יומן"
 
-#: audit.php:325
+#: audit.php:338
 msgid "Purge"
 msgstr "מחק"
 
-#: audit.php:325
-#, fuzzy
+#: audit.php:338
 msgid "Purge Log Events"
 msgstr "יומן אירועים"
 
-#: audit.php:421
-#, fuzzy
+#: audit.php:434
 msgid "Audit Events"
 msgstr "אירועים ביקורת"
 
-#: audit.php:429
+#: audit.php:442
 msgid "Page Name"
 msgstr "שם הדף "
 
-#: audit.php:432
-#, fuzzy
+#: audit.php:445
 msgid "The page where the event was generated."
 msgstr "הדף שבו נוצר האירוע."
 
-#: audit.php:435
+#: audit.php:448
 msgid "User Name"
 msgstr "שם משתמש"
 
-#: audit.php:438
-#, fuzzy
+#: audit.php:451
 msgid "The user who generated the event."
 msgstr "המשתמש שיצר את האירוע."
 
-#: audit.php:441
+#: audit.php:454
 msgid "Action"
 msgstr "פעולה"
 
-#: audit.php:444
-#, fuzzy
+#: audit.php:457
 msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgstr "פעולה Cacti המבוקש. העבר את העכבר מעל לפעולה כדי לראות $ _POST נתונים."
 
-#: audit.php:447
+#: audit.php:460
 msgid "User Agent"
 msgstr "דפדפן משתמש"
 
-#: audit.php:450
-#, fuzzy
+#: audit.php:463
 msgid "The browser type of the requester."
 msgstr "סוג הדפדפן של המבקש."
 
-#: audit.php:453
+#: audit.php:466
 msgid "IP Address"
 msgstr "כתובת IP"
 
-#: audit.php:456
-#, fuzzy
+#: audit.php:469
 msgid "The IP Address of the requester."
 msgstr "כתובת ה- IP של המבקש."
 
-#: audit.php:459
+#: audit.php:472
 msgid "Event Time"
 msgstr "זמן האירוע"
 
-#: audit.php:462
-#, fuzzy
+#: audit.php:475
 msgid "The time the Event took place."
 msgstr "הזמן שבו התקיים האירוע."
 
-#: audit.php:476
+#: audit.php:489
 msgid "N/A"
 msgstr "לא זמין"
 
-#: audit.php:492
-#, fuzzy
+#: audit.php:505
 msgid "No Audit Log Events Found"
 msgstr "לא נמצאו יומן ביקורת אירועים"
 
-#: audit.php:512
-#, fuzzy
+#: audit.php:525
 msgid "Audit Event Details"
 msgstr "פרטי אירוע ביקורת"
 
-#: setup.php:33
-#, fuzzy
+#: setup.php:38
 msgid "View Cacti Audit Log"
 msgstr "הצג יומן ביקורת Cacti"
 
-#: setup.php:246 setup.php:247
+#: setup.php:228 setup.php:229
 msgid "Technical Support"
 msgstr "תמיכה טכנית"
 
-#: setup.php:249
-#, fuzzy
+#: setup.php:231
 msgid "View Audit Log"
 msgstr "הצג יומן ביקורת"
 
-#: setup.php:251
-#, fuzzy
+#: setup.php:233
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "מאפשר למנהלי מערכת להציג פעילות שינוי בשרת Cacti. מנהלי מערכת יכולים גם לייצא את יומן הביקורת למטרות ניתוח."
 
-#: setup.php:266
-#, fuzzy
+#: setup.php:248
 msgid "Indefinitely"
 msgstr "ללא הגבלת זמן"
 
-#: setup.php:267
-#, fuzzy, php-format
+#: setup.php:249
+#, php-format
 msgid "%d Weeks"
 msgstr "% d שבועות"
 
-#: setup.php:268
-#, fuzzy, php-format
+#: setup.php:250
+#, php-format
 msgid "%d Month"
 msgstr "% d חודש"
 
-#: setup.php:269 setup.php:270 setup.php:271 setup.php:272
-#, fuzzy, php-format
+#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
+#, php-format
 msgid "%d Months"
-msgstr "% חודשים"
+msgstr "%d חודשים"
 
-#: setup.php:273
-#, fuzzy, php-format
+#: setup.php:255
+#, php-format
 msgid "%d Year"
 msgstr "% d שנה"
 
-#: setup.php:274 setup.php:275
-#, fuzzy, php-format
+#: setup.php:256 setup.php:257
+#, php-format
 msgid "%d Years"
 msgstr "% d שנים"
 
-#: setup.php:279
+#: setup.php:261
 msgid "System Administration"
 msgstr "ניהול המערכת"
 
-#: setup.php:290
-#, fuzzy
+#: setup.php:272
 msgid "Audit Log Settings"
 msgstr "הגדרות יומן ביקורת"
 
-#: setup.php:294
-#, fuzzy
+#: setup.php:276
 msgid "Enable Audit Log"
 msgstr "הפעל יומן ביקורת"
 
-#: setup.php:295
-#, fuzzy
+#: setup.php:277
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "סמן תיבה זו, אם ברצונך ש'יומן הביקורת 'יעקוב אחר פעילויות GUI."
 
-#: setup.php:300
-#, fuzzy
+#: setup.php:282
 msgid "Audit Log Retention"
 msgstr "רישום יומן ביקורת"
 
-#: setup.php:301
-#, fuzzy
+#: setup.php:283
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "כמה זמן אתה רוצה לשמור רשומות יומן ביקורת?"
 
-#: setup.php:308
-msgid "Misc"
-msgstr "שונות"
+#: setup.php:290
+msgid "External Audit Log"
+msgstr "הפעל יומן ביקורת"
 
-#: setup.php:319
-#, fuzzy
+#: setup.php:291
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "סמן תיבה זו, אם ברצונך ש'יומן הביקורת 'יעקוב אחר פעילויות GUI."
+
+#: setup.php:296
+msgid "External Audit Log Log file  Path"
+msgstr "נתיב קובץ יומן רישום ביקורת חיצוני"
+
+#: setup.php:297
+msgid "Enter the path to the external audit log file."
+msgstr "הזן את הנתיב לקובץ יומן הרישום של הביקורת החיצונית."
+
+#: setup.php:305
+msgid "Audit"
+msgstr "ביקורת"
+
+#: setup.php:316
 msgid "Audit Event Log"
 msgstr "יומן אירועים"
+
+#~ msgid "Misc"
+#~ msgstr "שונות"
