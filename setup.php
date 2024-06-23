@@ -271,43 +271,41 @@ function audit_config_settings () {
 		'audit_header' => array(
 			'friendly_name' => __('Audit Log Settings', 'audit'),
 			'method' => 'spacer',
-			),
+		),
 		'audit_enabled' => array(
 			'friendly_name' => __('Enable Audit Log', 'audit'),
 			'description' => __('Check this box, if you want the Audit Log to track GUI activities.', 'audit'),
 			'method' => 'checkbox',
 			'default' => 'on'
-			),
+		),
 		'audit_retention' => array(
 			'friendly_name' => __('Audit Log Retention', 'audit'),
 			'description' => __('How long do you wish Audit Log entries to be retained?', 'audit'),
 			'method' => 'drop_array',
 			'default' => '90',
 			'array' => $audit_retentions
-			),
-		
+		),
 		'audit_log_external' => array(
 			'friendly_name' => __('External Audit Log', 'audit'),
 			'description' => __('Check this box, if you want the Audit Log to be written to an external file.', 'audit'),
 			'method' => 'checkbox',
 			'default' => 'off'
-			),
+		),
 		'audit_log_external_path' => array(
 			'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
 			'description' => __('Enter the path to the external audit log file.', 'audit'),
-			'method' => 'textbox',
-			'default' => '/var/www/cacti/log/audit.log',
+			'method' => 'filepath',
+			'default' => '/var/www/html/cacti/log/audit.log',
 			'max_length' => '255'
+		),
+	);
 
-			),
-		);
+	$tabs['audit'] = __('Audit', 'audit');
 
-	$tabs['Audit'] = __('Audit', 'Audit');
-
-	if (isset($settings['Audit'])) {
-		$settings['Audit'] = array_merge($settings['Audit'], $temp);
+	if (isset($settings['audit'])) {
+		$settings['audit'] = array_merge($settings['audit'], $temp);
 	} else {
-		$settings['Audit'] = $temp;
+		$settings['audit'] = $temp;
 	}
 }
 
