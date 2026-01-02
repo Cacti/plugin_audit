@@ -6,6 +6,7 @@
 * issue: If the audit log does not exist or is not set, set it and create it
 * issue: Audit assumes that all selected_items are numeric resulting in fatal error
 * feature: Support for Cacti 1.3
+* Refactor: Migrats JS functions to functions.js
 
 --- 1.2 ---
 
