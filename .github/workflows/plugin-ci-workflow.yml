@@ -205,7 +205,7 @@ jobs:
       run: |
         cd ${{ github.workspace }}
         ENABLE_AUDIT_LOGGING="update settings set value = 'on' where name = 'audit_enabled' or name = 'audit_log_external';"
-        mysql -u cactiuser -h 127.0.0.1 -pcacti cacti -e "$ENABLE_AUDIT_LOGGING"
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "$ENABLE_AUDIT_LOGGING"
 
     - name: Run cli script to trigger audit log entry
       run: |
