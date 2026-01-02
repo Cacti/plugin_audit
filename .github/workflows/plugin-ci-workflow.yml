@@ -215,7 +215,7 @@ jobs:
     - name: check audit log entries
       run: |
         cd ${{ github.workspace }}
-        AUDIT_LOG_COUNT=$(mysql -u cactiuser -pcacti cacti -se "select count(*) from audit_log;")
+        AUDIT_LOG_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select count(*) from audit_log;")
         echo "Audit log entry count: $AUDIT_LOG_COUNT"
         if [ "$AUDIT_LOG_COUNT" -lt 1 ]; then
           echo "No audit log entries found!"
