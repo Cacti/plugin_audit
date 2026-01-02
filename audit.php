@@ -338,54 +338,6 @@ function audit_log() {
 			</table>
 			<input type='hidden' id='page' value='<?php print get_request_var('page');?>'>
 			</form>
-			<script type='text/javascript'>
-			function applyFilter() {
-				strURL = 'audit.php' +
-					'?filter='+$('#filter').val()+
-					'&rows='+$('#rows').val()+
-					'&page='+$('#page').val()+
-					'&event_page='+$('#event_page').val()+
-					'&user_id='+$('#user_id').val()+
-					'&header=false';
-				loadPageNoHeader(strURL);
-			}
-
-			function clearFilter() {
-				strURL = 'audit.php?clear=1&header=false';
-				loadPageNoHeader(strURL);
-			}
-
-			$(function() {
-				$('#event_page, #user_id, #rows').change(function() {
-					applyFilter();
-				});
-
-				$('#refresh').click(function() {
-					applyFilter();
-				});
-
-				$('#clear').click(function() {
-					clearFilter();
-				});
-
-				$('#purge').click(function() {
-					strURL = 'audit.php?action=purge&header=false';
-					loadPageNoHeader(strURL);
-				});
-
-				$('#export').click(function() {
-					document.location = 'audit.php?action=export' +
-						'&filter='+$('#filter').val()+
-						'&event_page='+$('#event_page').val()+
-						'&user_id='+$('#user_id').val();
-				});
-
-				$('#form_audit').submit(function(event) {
-					event.preventDefault();
-					applyFilter();
-				});
-			});
-			</script>
 		</td>
 	</tr>
 	<?php
@@ -508,61 +460,7 @@ function audit_log() {
 	}
 
 	?>
-	<script type='text/javascript'>
-	var auditTimer = null;
-
-	function open_dialog(id) {
-		$.get('audit.php?action=getdata&id='+id, function(data) {
-			if (data.indexOf('narrow') > 0) {
-				width = 400;
-			} else {
-				width = 700;
-			}
-			$('body').append('<div id="audit" style="display:block;display:none;" title="<?php print __esc('Audit Event Details', 'audit');?>">'+data+'</div>');
-			$('#audit').dialog({
-				minWidth: width,
-				position: {
-					my: 'left',
-					at: 'right',
-					of: $('span[id="event'+id+'"]')
-				}
-			});
-		});
-	}
-
-	$('span[id^="event"]').hover(function() {
-		close_dialog();
-
-		id = $(this).attr('id').replace('event', '');
-
-		if (auditTimer != null) {
-			clearTimeout(auditTimer);
-		}
-
-		auditTimer = setTimeout(function() { open_dialog(id); }, 400);
-	},
-	function() {
-		if (auditTimer != null) {
-			clearTimeout(auditTimer);
-		}
-
-        $('#dialog').hover(function() {
-            clearTimeout(auditTimer);
-        }, function() {
-            auditTimer = setTimeout(function() { close_dialog(); }, 400);
-        });
-
-        });
-
-	function close_dialog() {
-		if ($('#audit').length) {
-			if (typeof $('#audit').dialog() === 'function') {
-				$('#audit').dialog('close');
-			}
-			$('#audit').remove();
-		}
-	}
-	</script>
+	<script type='text/javascript' src='plugins/audit/js/functions.js'></script>
 	<?php
 }
 

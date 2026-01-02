@@ -267,4 +267,3 @@ function audit_config_insert() {
 		}
 	}
 }
-
