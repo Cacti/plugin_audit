@@ -5,7 +5,7 @@
  *
  * @return array<string, string>
  */
-function auditBuildPageQueryMap() {
+function auditBuildPageQueryMap(): array {
     return [
         'host.php' => 'SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS last_failed_date,status_rec_date AS last_recovered_date FROM host WHERE id IN (?)',
         'host_templates.php' => 'SELECT name FROM host_template WHERE id IN (?)',
@@ -29,7 +29,7 @@ function auditBuildPageQueryMap() {
  *
  * @return array<int, array<string, mixed>>
  */
-function auditTransformAutomationDevices($result) {
+function auditTransformAutomationDevices(array $result): array {
     foreach ($result as &$row) {
         $row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
         $row['up']   = ($row['up'] == 1) ? 'Yes' : 'No';
@@ -47,7 +47,7 @@ function auditTransformAutomationDevices($result) {
  *
  * @return string JSON-encoded object snapshot list.
  */
-function auditProcessPageData($page, $drop_action, $selected_items) {
+function auditProcessPageData(string $page, int|false $drop_action, array $selected_items): string {
     if ($drop_action === false) {
         return json_encode([]);
     }
@@ -77,7 +77,7 @@ function auditProcessPageData($page, $drop_action, $selected_items) {
  *
  * @return array<string, mixed>
  */
-function auditPrepareRequestPost(&$action) {
+function auditPrepareRequestPost(string &$action): array {
     $post = $_REQUEST;
     unset($post['__csrf_magic']);
     unset($post['header']);
@@ -104,7 +104,7 @@ function auditPrepareRequestPost(&$action) {
  *
  * @return array{0: array, 1: int|false}
  */
-function auditGetSelectedItemsData($post) {
+function auditGetSelectedItemsData(array $post): array {
     if (!isset($post['selected_items'])) {
         return [[], false];
     }
@@ -122,7 +122,7 @@ function auditGetSelectedItemsData($post) {
  *
  * @return string
  */
-function auditGetBasePath($config) {
+function auditGetBasePath(array $config): string {
     if (defined('CACTI_PATH_BASE')) {
         return CACTI_PATH_BASE;
     }
@@ -139,7 +139,7 @@ function auditGetBasePath($config) {
  *
  * @return string
  */
-function auditResolveAction($page, $drop_action, $action) {
+function auditResolveAction(string $page, int|false $drop_action, string $action): string {
     $action_map = [
         'automation_devices.php' => [
             2 => 'Delete Device',
@@ -166,7 +166,7 @@ function auditResolveAction($page, $drop_action, $action) {
  *
  * @return array<string, mixed>
  */
-function auditBuildGuiEventData($config, &$action) {
+function auditBuildGuiEventData(array $config, string &$action): array {
     $post = auditPrepareRequestPost($action);
     list($selected_items, $drop_action) = auditGetSelectedItemsData($post);
 
@@ -199,7 +199,7 @@ function auditBuildGuiEventData($config, &$action) {
  *
  * @return void
  */
-function auditInsertGuiEvent($event) {
+function auditInsertGuiEvent(array $event): void {
     db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [$event['page'], $event['user_id'], $event['action'], $event['ip_address'], $event['user_agent'], $event['event_time'], $event['post'], $event['object_data']]);
@@ -212,7 +212,7 @@ function auditInsertGuiEvent($event) {
  *
  * @return string
  */
-function auditGetExternalLogPath($base_path) {
+function auditGetExternalLogPath(string $base_path): string {
     $audit_log = read_config_option('audit_log_external_path');
     if ($audit_log == '') {
         $audit_log = $base_path . '/log/audit.log';
@@ -229,7 +229,7 @@ function auditGetExternalLogPath($base_path) {
  *
  * @return void
  */
-function auditEnsureExternalLogFile($audit_log) {
+function auditEnsureExternalLogFile(string $audit_log): void {
     if ($audit_log == '' || file_exists($audit_log)) {
         return;
     }
@@ -250,7 +250,7 @@ function auditEnsureExternalLogFile($audit_log) {
  *
  * @return void
  */
-function auditWriteExternalLog($audit_log, $event) {
+function auditWriteExternalLog(string $audit_log, array $event): void {
     if (read_config_option('audit_log_external') != 'on' || $audit_log == '' || !file_exists($audit_log)) {
         return;
     }
@@ -279,7 +279,7 @@ function auditWriteExternalLog($audit_log, $event) {
  *
  * @return void
  */
-function auditInsertCliEvent() {
+function auditInsertCliEvent(): void {
     $page       = basename($_SERVER['argv'][0]);
     $user_id    = 0;
     $action     = 'cli';
@@ -306,7 +306,7 @@ function auditInsertCliEvent() {
  *
  * @return void
  */
-function auditConfigInsert() {
+function auditConfigInsert(): void {
     global $action, $config;
 
     if (auditLogValidEvent()) {

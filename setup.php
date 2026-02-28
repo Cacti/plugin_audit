@@ -29,7 +29,7 @@ include_once 'audit_functions.php';
  *
  * @return void
  */
-function pluginAuditInstall() {
+function pluginAuditInstall(): void {
     api_plugin_register_hook('audit', 'config_arrays',        'auditConfigArrays',        'setup.php');
     api_plugin_register_hook('audit', 'config_settings',      'auditConfigSettings',      'setup.php');
     api_plugin_register_hook('audit', 'config_insert',        'auditConfigInsert',        'setup.php');
@@ -51,7 +51,7 @@ function pluginAuditInstall() {
  *
  * @return bool
  */
-function pluginAuditUninstall() {
+function pluginAuditUninstall(): bool {
     db_execute('DROP TABLE IF EXISTS audit_log');
     return true;
 }
@@ -63,7 +63,7 @@ function pluginAuditUninstall() {
  *
  * @return bool
  */
-function auditIsConsolePage($url) {
+function auditIsConsolePage(string $url): bool {
     if (strpos($url, 'audit.php') !== false) {
         return true;
     }
@@ -76,7 +76,7 @@ function auditIsConsolePage($url) {
  *
  * @return bool
  */
-function pluginAuditCheckConfig() {
+function pluginAuditCheckConfig(): bool {
     return true;
 }
 
@@ -85,7 +85,7 @@ function pluginAuditCheckConfig() {
  *
  * @return bool
  */
-function pluginAuditUpgrade() {
+function pluginAuditUpgrade(): bool {
     return true;
 }
 
@@ -94,7 +94,7 @@ function pluginAuditUpgrade() {
  *
  * @return void
  */
-function auditCheckUpgrade() {
+function auditCheckUpgrade(): void {
     global $config, $database_default;
     include_once $config['library_path'] . '/database.php';
     include_once $config['library_path'] . '/functions.php';
@@ -139,7 +139,7 @@ function auditCheckUpgrade() {
  *
  * @return array<string, mixed>
  */
-function auditCheckDependencies($data) {
+function auditCheckDependencies(array $data): array {
     $remote_poller_id = $data['remote_poller_id'];
     $rcnn_id          = $data['rcnn_id'];
     $class            = $data['class'];
@@ -162,7 +162,7 @@ function auditCheckDependencies($data) {
  *
  * @return array<string, mixed>
  */
-function auditReplicateOut($data) {
+function auditReplicateOut(array $data): array {
     $remote_poller_id = $data['remote_poller_id'];
     $rcnn_id          = $data['rcnn_id'];
     $class            = $data['class'];
@@ -196,7 +196,7 @@ function auditReplicateOut($data) {
  *
  * @return void
  */
-function auditPollerBottom() {
+function auditPollerBottom(): void {
     $last_check = read_config_option('audit_last_check');
 
     $now = date('d');
@@ -219,7 +219,7 @@ function auditPollerBottom() {
  *
  * @return bool
  */
-function auditSetupTable() {
+function auditSetupTable(): bool {
     global $config, $database_default;
     include_once $config['library_path'] . '/database.php';
 
@@ -250,7 +250,7 @@ function auditSetupTable() {
  *
  * @return array<string, mixed>
  */
-function pluginAuditVersion() {
+function pluginAuditVersion(): array {
     global $config;
     $info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
     return $info['info'];
@@ -261,7 +261,7 @@ function pluginAuditVersion() {
  *
  * @return bool
  */
-function auditLogValidEvent() {
+function auditLogValidEvent(): bool {
     global $action;
 
     $valid = false;
@@ -299,7 +299,7 @@ function auditLogValidEvent() {
  *
  * @return void
  */
-function auditUtilitiesArray() {
+function auditUtilitiesArray(): void {
     global $utilities;
 
     if (version_compare(CACTI_VERSION, '1.3.0', '<')) {
@@ -322,7 +322,7 @@ function auditUtilitiesArray() {
  *
  * @return void
  */
-function auditConfigArrays() {
+function auditConfigArrays(): void {
     global $menu, $messages, $audit_retentions, $utilities;
 
     if (isset($_SESSION['audit_message']) && $_SESSION['audit_message'] != '') {
@@ -356,7 +356,7 @@ function auditConfigArrays() {
  *
  * @return void
  */
-function auditConfigSettings() {
+function auditConfigSettings(): void {
     global $tabs, $settings, $item_rows, $audit_retentions;
 
     $temp = [
@@ -408,7 +408,7 @@ function auditConfigSettings() {
  *
  * @return array<string, mixed>
  */
-function auditDrawNavigationText($nav) {
+function auditDrawNavigationText(array $nav): array {
     $nav['audit.php:'] = [
         'title'   => __('Audit Event Log', 'audit'),
         'mapping' => 'index.php:',

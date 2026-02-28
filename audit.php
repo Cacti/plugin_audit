@@ -142,7 +142,7 @@ default:
  *
  * @return void
  */
-function auditPurge() {
+function auditPurge(): void {
     db_execute('TRUNCATE TABLE audit_log');
 
     $_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
@@ -157,7 +157,7 @@ function auditPurge() {
  *
  * @return string
  */
-function auditBuildSqlWhereClause() {
+function auditBuildSqlWhereClause(): string {
     $sql_where = '';
 
     if (get_request_var('filter') != '') {
@@ -184,7 +184,7 @@ function auditBuildSqlWhereClause() {
  *
  * @return string
  */
-function auditBuildPosterString($post_payload) {
+function auditBuildPosterString(string $post_payload): string {
     $post   = json_decode($post_payload);
     $poster = '';
 
@@ -210,7 +210,7 @@ function auditBuildPosterString($post_payload) {
  *
  * @return void
  */
-function auditRenderFilterForm($item_rows) {
+function auditRenderFilterForm(array $item_rows): void {
     ?>
     <tr class='even'>
         <td>
@@ -298,7 +298,7 @@ function auditRenderFilterForm($item_rows) {
  *
  * @return void
  */
-function auditRenderEventsRows($events) {
+function auditRenderEventsRows(array $events): void {
     if (!cacti_sizeof($events)) {
         print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
         return;
@@ -332,7 +332,7 @@ function auditRenderEventsRows($events) {
  *
  * @return array<string, array<string, string>>
  */
-function auditGetDisplayText() {
+function auditGetDisplayText(): array {
     return [
         'page' => [
             'display' => __('Page Name', 'audit'),
@@ -378,7 +378,7 @@ function auditGetDisplayText() {
  *
  * @return void
  */
-function auditExportRows() {
+function auditExportRows(): void {
     processRequestVars();
     $sql_where = auditBuildSqlWhereClause();
 
@@ -416,7 +416,7 @@ function auditExportRows() {
  *
  * @return string
  */
-function auditCsvEscape($string) {
+function auditCsvEscape(string $string): string {
     $string = str_replace('"', '', $string);
     $string = str_replace(',', '|', $string);
     return $string;
@@ -427,7 +427,7 @@ function auditCsvEscape($string) {
  *
  * @return void
  */
-function processRequestVars() {
+function processRequestVars(): void {
     /* ================= input validation and session storage ================= */
     $filters = [
         'rows' => [
@@ -476,7 +476,7 @@ function processRequestVars() {
  *
  * @return void
  */
-function auditLog() {
+function auditLog(): void {
     global $item_rows;
 
     processRequestVars();
