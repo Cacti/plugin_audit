@@ -31,7 +31,7 @@
  * Apply filter to audit log
  */
 function audit_applyFilter() {
-	strURL = 'audit.php' +
+	const strURL = 'audit.php' +
 		'?filter='+$('#filter').val()+
 		'&rows='+$('#rows').val()+
 		'&page='+$('#page').val()+
@@ -45,14 +45,14 @@ function audit_applyFilter() {
  * Clear all filters
  */
 function audit_clearFilter() {
-	strURL = 'audit.php?clear=1&header=false';
+	const strURL = 'audit.php?clear=1&header=false';
 	loadPageNoHeader(strURL);
 }
 
 /**
  * Global variable to store audit timer
  */
-var auditTimer = null;
+let auditTimer = null;
 
 /**
  * Open dialog to display audit event details
@@ -60,7 +60,7 @@ var auditTimer = null;
  */
 function audit_open_dialog(id) {
 	$.get('audit.php?action=getdata&id='+id, function(data) {
-		var width;
+		let width;
 		if (data.indexOf('narrow') > 0) {
 			width = 400;
 		} else {
@@ -108,7 +108,7 @@ $(function() {
 	});
 
 	$('#purge').click(function() {
-		strURL = 'audit.php?action=purge&header=false';
+		const strURL = 'audit.php?action=purge&header=false';
 		loadPageNoHeader(strURL);
 	});
 
@@ -128,7 +128,7 @@ $(function() {
 	$('span[id^="event"]').hover(function() {
 		audit_close_dialog();
 
-		id = $(this).attr('id').replace('event', '');
+		const id = $(this).attr('id').replace('event', '');
 
 		if (auditTimer != null) {
 			clearTimeout(auditTimer);
