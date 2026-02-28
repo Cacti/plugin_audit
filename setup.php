@@ -27,7 +27,7 @@ include_once('audit_functions.php');
 function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'config_arrays',        'audit_config_arrays',        'setup.php');
 	api_plugin_register_hook('audit', 'config_settings',      'audit_config_settings',      'setup.php');
-	api_plugin_register_hook('audit', 'config_insert',        'audit_config_insert',        'setup.php');
+	api_plugin_register_hook('audit', 'config_insert',        'auditConfigInsert',        'setup.php');
 	api_plugin_register_hook('audit', 'poller_bottom',        'audit_poller_bottom',        'setup.php');
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');

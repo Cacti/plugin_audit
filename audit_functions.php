@@ -1,6 +1,6 @@
 <?php
 
-function audit_process_page_data($page, $drop_action, $selected_items) {
+function auditProcessPageData($page, $drop_action, $selected_items) {
 	$objects = array();
 	if ($drop_action !== false) {
 		switch ($page) {
@@ -123,7 +123,7 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 
 
 
-function audit_config_insert() {
+function auditConfigInsert() {
 	global $action, $config;
 
 	if (audit_log_valid_event()) {
@@ -172,7 +172,7 @@ function audit_config_insert() {
 			$action = 'none';
 		}
 
-		$object_data = audit_process_page_data($page, $drop_action, $selected_items);
+		$object_data = auditProcessPageData($page, $drop_action, $selected_items);
 
 		switch ($page) {
 			case 'automation_devices.php':
@@ -267,3 +267,4 @@ function audit_config_insert() {
 		}
 	}
 }
+
