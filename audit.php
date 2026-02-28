@@ -137,6 +137,11 @@ default:
     bottom_footer();
 }
 
+/**
+ * Purge all audit records and raise a user-facing confirmation message.
+ *
+ * @return void
+ */
 function auditPurge() {
     db_execute('TRUNCATE TABLE audit_log');
 
@@ -147,6 +152,11 @@ function auditPurge() {
     raise_message('audit_message');
 }
 
+/**
+ * Build SQL filter conditions based on current request filters.
+ *
+ * @return string
+ */
 function auditBuildSqlWhereClause() {
     $sql_where = '';
 
@@ -167,6 +177,13 @@ function auditBuildSqlWhereClause() {
     return $sql_where;
 }
 
+/**
+ * Convert JSON-encoded POST payload into export-friendly key/value text.
+ *
+ * @param string $post_payload JSON payload stored in audit_log.post.
+ *
+ * @return string
+ */
 function auditBuildPosterString($post_payload) {
     $post   = json_decode($post_payload);
     $poster = '';
@@ -186,6 +203,13 @@ function auditBuildPosterString($post_payload) {
     return $poster;
 }
 
+/**
+ * Render the audit list filter form.
+ *
+ * @param array<int, mixed> $item_rows Row-count options for pagination.
+ *
+ * @return void
+ */
 function auditRenderFilterForm($item_rows) {
     ?>
     <tr class='even'>
@@ -265,6 +289,13 @@ function auditRenderFilterForm($item_rows) {
     <?php
 }
 
+/**
+ * Render HTML table rows for the current audit event result set.
+ *
+ * @param array<int, array<string, mixed>> $events Query result rows.
+ *
+ * @return void
+ */
 function auditRenderEventsRows($events) {
     if (!cacti_sizeof($events)) {
         print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
@@ -294,6 +325,11 @@ function auditRenderEventsRows($events) {
     }
 }
 
+/**
+ * Return display metadata for sortable audit table columns.
+ *
+ * @return array<string, array<string, string>>
+ */
 function auditGetDisplayText() {
     return array(
         'page' => array(
@@ -335,6 +371,11 @@ function auditGetDisplayText() {
     );
 }
 
+/**
+ * Export filtered audit events as CSV output.
+ *
+ * @return void
+ */
 function auditExportRows() {
     processRequestVars();
     $sql_where = auditBuildSqlWhereClause();
@@ -366,12 +407,24 @@ function auditExportRows() {
     }
 }
 
+/**
+ * Escape unsafe CSV characters in a value.
+ *
+ * @param string $string Raw value.
+ *
+ * @return string
+ */
 function auditCsvEscape($string) {
     $string = str_replace('"', '', $string);
     $string = str_replace(',', '|', $string);
     return $string;
 }
 
+/**
+ * Validate and store request filter variables in session scope.
+ *
+ * @return void
+ */
 function processRequestVars() {
     /* ================= input validation and session storage ================= */
     $filters = array(
@@ -416,6 +469,11 @@ function processRequestVars() {
     /* ================= input validation ================= */
 }
 
+/**
+ * Render the audit log page with filters, navigation, and results.
+ *
+ * @return void
+ */
 function auditLog() {
     global $item_rows;
 

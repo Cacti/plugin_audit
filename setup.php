@@ -24,6 +24,11 @@
 
 include_once 'audit_functions.php';
 
+/**
+ * Register plugin hooks, realms, and required tables.
+ *
+ * @return void
+ */
 function pluginAuditInstall() {
     api_plugin_register_hook('audit', 'config_arrays',        'auditConfigArrays',        'setup.php');
     api_plugin_register_hook('audit', 'config_settings',      'auditConfigSettings',      'setup.php');
@@ -41,11 +46,23 @@ function pluginAuditInstall() {
     auditSetupTable();
 }
 
+/**
+ * Remove plugin data during uninstall.
+ *
+ * @return bool
+ */
 function pluginAuditUninstall() {
     db_execute('DROP TABLE IF EXISTS audit_log');
     return true;
 }
 
+/**
+ * Determine whether a URL points to the audit plugin console page.
+ *
+ * @param string $url Request URL.
+ *
+ * @return bool
+ */
 function auditIsConsolePage($url) {
     if (strpos($url, 'audit.php') !== false) {
         return true;
@@ -54,14 +71,29 @@ function auditIsConsolePage($url) {
     return false;
 }
 
+/**
+ * Report plugin configuration readiness.
+ *
+ * @return bool
+ */
 function pluginAuditCheckConfig() {
     return true;
 }
 
+/**
+ * Perform plugin upgrade checks.
+ *
+ * @return bool
+ */
 function pluginAuditUpgrade() {
     return true;
 }
 
+/**
+ * Apply schema and hook updates when the plugin version changes.
+ *
+ * @return void
+ */
 function auditCheckUpgrade() {
     global $config, $database_default;
     include_once $config['library_path'] . '/database.php';
@@ -100,6 +132,13 @@ function auditCheckUpgrade() {
     }
 }
 
+/**
+ * Replication callback used to verify remote dependencies for this plugin.
+ *
+ * @param array<string, mixed> $data Replication context from core.
+ *
+ * @return array<string, mixed>
+ */
 function auditCheckDependencies($data) {
     $remote_poller_id = $data['remote_poller_id'];
     $rcnn_id          = $data['rcnn_id'];
@@ -116,6 +155,13 @@ function auditCheckDependencies($data) {
     return $data;
 }
 
+/**
+ * Replicate audit table structures to a remote poller database.
+ *
+ * @param array<string, mixed> $data Replication context from core.
+ *
+ * @return array<string, mixed>
+ */
 function auditReplicateOut($data) {
     $remote_poller_id = $data['remote_poller_id'];
     $rcnn_id          = $data['rcnn_id'];
@@ -145,6 +191,11 @@ function auditReplicateOut($data) {
     return $data;
 }
 
+/**
+ * Poller hook to enforce retention cleanup for audit records.
+ *
+ * @return void
+ */
 function auditPollerBottom() {
     $last_check = read_config_option('audit_last_check');
 
@@ -163,6 +214,11 @@ function auditPollerBottom() {
     set_config_option('audit_last_check', $now);
 }
 
+/**
+ * Create the audit log table when it does not exist.
+ *
+ * @return bool
+ */
 function auditSetupTable() {
     global $config, $database_default;
     include_once $config['library_path'] . '/database.php';
@@ -189,12 +245,22 @@ function auditSetupTable() {
     return true;
 }
 
+/**
+ * Read plugin metadata from the INFO file.
+ *
+ * @return array<string, mixed>
+ */
 function pluginAuditVersion() {
     global $config;
     $info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
     return $info['info'];
 }
 
+/**
+ * Determine whether the current request should be logged.
+ *
+ * @return bool
+ */
 function auditLogValidEvent() {
     global $action;
 
@@ -228,6 +294,11 @@ function auditLogValidEvent() {
     return $valid;
 }
 
+/**
+ * Register the plugin utility menu entry for supported versions.
+ *
+ * @return void
+ */
 function auditUtilitiesArray() {
     global $utilities;
 
@@ -246,6 +317,11 @@ function auditUtilitiesArray() {
     }
 }
 
+/**
+ * Populate plugin menu entries and runtime configuration arrays.
+ *
+ * @return void
+ */
 function auditConfigArrays() {
     global $menu, $messages, $audit_retentions, $utilities;
 
@@ -275,6 +351,11 @@ function auditConfigArrays() {
     auditCheckUpgrade();
 }
 
+/**
+ * Define plugin settings fields and tabs.
+ *
+ * @return void
+ */
 function auditConfigSettings() {
     global $tabs, $settings, $item_rows, $audit_retentions;
 
@@ -320,6 +401,13 @@ function auditConfigSettings() {
     }
 }
 
+/**
+ * Add audit page breadcrumb/navigation mapping metadata.
+ *
+ * @param array<string, mixed> $nav Existing navigation map.
+ *
+ * @return array<string, mixed>
+ */
 function auditDrawNavigationText($nav) {
     $nav['audit.php:'] = array(
         'title'   => __('Audit Event Log', 'audit'),

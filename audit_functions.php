@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Build a lookup map of page names to SQL queries for selected item snapshots.
+ *
+ * @return array<string, string>
+ */
 function auditBuildPageQueryMap() {
     return array(
         'host.php' => 'SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS last_failed_date,status_rec_date AS last_recovered_date FROM host WHERE id IN (?)',
@@ -17,6 +22,13 @@ function auditBuildPageQueryMap() {
     );
 }
 
+/**
+ * Normalize automation device fields before they are written to object_data.
+ *
+ * @param array<int, array<string, mixed>> $result Raw automation device rows.
+ *
+ * @return array<int, array<string, mixed>>
+ */
 function auditTransformAutomationDevices($result) {
     foreach ($result as &$row) {
         $row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
@@ -26,6 +38,15 @@ function auditTransformAutomationDevices($result) {
     return $result;
 }
 
+/**
+ * Collect page-specific object snapshots for selected IDs and return JSON.
+ *
+ * @param string    $page           Current page filename.
+ * @param int|false $drop_action    Bulk action value or false when not applicable.
+ * @param array     $selected_items Selected item identifiers from request payload.
+ *
+ * @return string JSON-encoded object snapshot list.
+ */
 function auditProcessPageData($page, $drop_action, $selected_items) {
     if ($drop_action === false) {
         return json_encode(array());
@@ -49,6 +70,13 @@ function auditProcessPageData($page, $drop_action, $selected_items) {
     return json_encode($objects);
 }
 
+/**
+ * Sanitize request payload and infer action from bulk-operation request values.
+ *
+ * @param string $action Action value, updated by reference when a drop action is detected.
+ *
+ * @return array<string, mixed>
+ */
 function auditPrepareRequestPost(&$action) {
     $post = $_REQUEST;
     unset($post['__csrf_magic']);
@@ -69,6 +97,13 @@ function auditPrepareRequestPost(&$action) {
     return $post;
 }
 
+/**
+ * Extract selected item IDs and the drop action from a sanitized request payload.
+ *
+ * @param array<string, mixed> $post Sanitized request payload.
+ *
+ * @return array{0: array, 1: int|false}
+ */
 function auditGetSelectedItemsData($post) {
     if (!isset($post['selected_items'])) {
         return array(array(), false);
@@ -80,6 +115,13 @@ function auditGetSelectedItemsData($post) {
     return array($selected_items, $drop_action);
 }
 
+/**
+ * Resolve the runtime base path used by the plugin.
+ *
+ * @param array<string, mixed> $config Global Cacti config array.
+ *
+ * @return string
+ */
 function auditGetBasePath($config) {
     if (defined('CACTI_PATH_BASE')) {
         return CACTI_PATH_BASE;
@@ -88,6 +130,15 @@ function auditGetBasePath($config) {
     return $config['base_path'];
 }
 
+/**
+ * Map known bulk actions to user-friendly labels for audit output.
+ *
+ * @param string    $page        Current page filename.
+ * @param int|false $drop_action Drop action code from request payload.
+ * @param string    $action      Fallback action label.
+ *
+ * @return string
+ */
 function auditResolveAction($page, $drop_action, $action) {
     $action_map = array(
         'automation_devices.php' => array(
@@ -107,6 +158,14 @@ function auditResolveAction($page, $drop_action, $action) {
     return $action;
 }
 
+/**
+ * Build a normalized GUI audit event payload for database and file logging.
+ *
+ * @param array<string, mixed> $config Global Cacti config array.
+ * @param string               $action Current action value, updated by reference.
+ *
+ * @return array<string, mixed>
+ */
 function auditBuildGuiEventData($config, &$action) {
     $post = auditPrepareRequestPost($action);
     list($selected_items, $drop_action) = auditGetSelectedItemsData($post);
@@ -133,12 +192,26 @@ function auditBuildGuiEventData($config, &$action) {
     );
 }
 
+/**
+ * Insert a GUI audit event into the audit_log table.
+ *
+ * @param array<string, mixed> $event Normalized GUI audit event payload.
+ *
+ * @return void
+ */
 function auditInsertGuiEvent($event) {
     db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         array($event['page'], $event['user_id'], $event['action'], $event['ip_address'], $event['user_agent'], $event['event_time'], $event['post'], $event['object_data']));
 }
 
+/**
+ * Resolve and initialize the external audit log path setting.
+ *
+ * @param string $base_path Cacti base path.
+ *
+ * @return string
+ */
 function auditGetExternalLogPath($base_path) {
     $audit_log = read_config_option('audit_log_external_path');
     if ($audit_log == '') {
@@ -149,6 +222,13 @@ function auditGetExternalLogPath($base_path) {
     return $audit_log;
 }
 
+/**
+ * Create the external audit log file when configured and missing.
+ *
+ * @param string $audit_log External audit log file path.
+ *
+ * @return void
+ */
 function auditEnsureExternalLogFile($audit_log) {
     if ($audit_log == '' || file_exists($audit_log)) {
         return;
@@ -162,6 +242,14 @@ function auditEnsureExternalLogFile($audit_log) {
     }
 }
 
+/**
+ * Append an event record to the configured external audit log.
+ *
+ * @param string               $audit_log External audit log file path.
+ * @param array<string, mixed> $event     Normalized GUI audit event payload.
+ *
+ * @return void
+ */
 function auditWriteExternalLog($audit_log, $event) {
     if (read_config_option('audit_log_external') != 'on' || $audit_log == '' || !file_exists($audit_log)) {
         return;
@@ -186,6 +274,11 @@ function auditWriteExternalLog($audit_log, $event) {
     }
 }
 
+/**
+ * Persist CLI audit events when the invoking script is not excluded.
+ *
+ * @return void
+ */
 function auditInsertCliEvent() {
     $page       = basename($_SERVER['argv'][0]);
     $user_id    = 0;
@@ -208,6 +301,11 @@ function auditInsertCliEvent() {
         array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
 }
 
+/**
+ * Hook callback for config_insert to capture GUI and CLI audit activity.
+ *
+ * @return void
+ */
 function auditConfigInsert() {
     global $action, $config;
 
