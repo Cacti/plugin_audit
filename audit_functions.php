@@ -6,7 +6,7 @@
  * @return array<string, string>
  */
 function auditBuildPageQueryMap() {
-    return array(
+    return [
         'host.php' => 'SELECT id AS host_id,site_id,description,hostname,status,status_fail_date AS last_failed_date,status_rec_date AS last_recovered_date FROM host WHERE id IN (?)',
         'host_templates.php' => 'SELECT name FROM host_template WHERE id IN (?)',
         'templates_export.php' => 'SELECT name FROM graph_templates WHERE id IN (?)',
@@ -19,7 +19,7 @@ function auditBuildPageQueryMap() {
         'thold_templates.php' => 'SELECT name FROM thold_template WHERE id IN (?)',
         'user_admin.php' => 'SELECT username FROM user_auth WHERE id IN (?)',
         'user_group_admin.php' => 'SELECT name FROM user_auth_group WHERE id IN (?)'
-    );
+    ];
 }
 
 /**
@@ -49,17 +49,17 @@ function auditTransformAutomationDevices($result) {
  */
 function auditProcessPageData($page, $drop_action, $selected_items) {
     if ($drop_action === false) {
-        return json_encode(array());
+        return json_encode([]);
     }
 
     $query_map = auditBuildPageQueryMap();
     if (!isset($query_map[$page])) {
-        return json_encode(array());
+        return json_encode([]);
     }
 
-    $objects = array();
+    $objects = [];
     foreach ($selected_items as $item) {
-        $result = db_fetch_assoc_prepared($query_map[$page], array($item));
+        $result = db_fetch_assoc_prepared($query_map[$page], [$item]);
         if ($page == 'automation_devices.php') {
             $result = auditTransformAutomationDevices($result);
         }
@@ -106,13 +106,13 @@ function auditPrepareRequestPost(&$action) {
  */
 function auditGetSelectedItemsData($post) {
     if (!isset($post['selected_items'])) {
-        return array(array(), false);
+        return [[], false];
     }
 
-    $selected_items = unserialize(stripslashes($post['selected_items']), array('allowed_classes' => false));
+    $selected_items = unserialize(stripslashes($post['selected_items']), ['allowed_classes' => false]);
     $drop_action    = isset($post['drp_action']) ? $post['drp_action'] : false;
 
-    return array($selected_items, $drop_action);
+    return [$selected_items, $drop_action];
 }
 
 /**
@@ -140,16 +140,16 @@ function auditGetBasePath($config) {
  * @return string
  */
 function auditResolveAction($page, $drop_action, $action) {
-    $action_map = array(
-        'automation_devices.php' => array(
+    $action_map = [
+        'automation_devices.php' => [
             2 => 'Delete Device',
             1 => 'Create Device'
-        ),
-        'host.php' => array(
+        ],
+        'host.php' => [
             2 => 'Host Enabled',
             3 => 'Host Disabled'
-        )
-    );
+        ]
+    ];
 
     if (isset($action_map[$page][$drop_action])) {
         return $action_map[$page][$drop_action];
@@ -179,7 +179,7 @@ function auditBuildGuiEventData($config, &$action) {
     $page = basename($_SERVER['SCRIPT_NAME']);
     $action = auditResolveAction($page, $drop_action, $action);
 
-    return array(
+    return [
         'page'        => $page,
         'user_id'     => isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0,
         'action'      => $action,
@@ -189,7 +189,7 @@ function auditBuildGuiEventData($config, &$action) {
         'post'        => json_encode($post),
         'object_data' => auditProcessPageData($page, $drop_action, $selected_items),
         'base_path'   => auditGetBasePath($config)
-    );
+    ];
 }
 
 /**
@@ -202,7 +202,7 @@ function auditBuildGuiEventData($config, &$action) {
 function auditInsertGuiEvent($event) {
     db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-        array($event['page'], $event['user_id'], $event['action'], $event['ip_address'], $event['user_agent'], $event['event_time'], $event['post'], $event['object_data']));
+        [$event['page'], $event['user_id'], $event['action'], $event['ip_address'], $event['user_agent'], $event['event_time'], $event['post'], $event['object_data']]);
 }
 
 /**
@@ -255,7 +255,7 @@ function auditWriteExternalLog($audit_log, $event) {
         return;
     }
 
-    $log_data = array(
+    $log_data = [
         'page'        => $event['page'],
         'user_id'     => $event['user_id'],
         'action'      => $event['action'],
@@ -264,7 +264,7 @@ function auditWriteExternalLog($audit_log, $event) {
         'event_time'  => $event['event_time'],
         'post'        => $event['post'],
         'object_data' => $event['object_data']
-    );
+    ];
 
     $log_msg = json_encode($log_data) . "\n";
     $file    = fopen($audit_log, 'a');
@@ -298,7 +298,7 @@ function auditInsertCliEvent() {
 
     db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
         VALUES (?, ?, ?, ?, ?, ?, ?)',
-        array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
+        [$page, $user_id, $action, $ip_address, $user_agent, $event_time, $post]);
 }
 
 /**

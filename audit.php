@@ -27,7 +27,7 @@ include_once './include/auth.php';
 
 set_default_action();
 
-switch(get_request_var('action')) {
+switch (get_request_var('action')) {
 case 'export':
     auditExportRows();
 
@@ -44,7 +44,7 @@ case 'purge':
         $data = db_fetch_row_prepared('SELECT *
             FROM audit_log
             WHERE id = ?',
-            array(get_filter_request_var('id')));
+            [get_filter_request_var('id')]);
 
         $output = '';
 
@@ -61,8 +61,8 @@ case 'purge':
         } elseif (cacti_sizeof($data)) {
             $attribs = json_decode($data['post']);
 
-            $nattribs = array();
-            foreach($attribs as $field => $content) {
+            $nattribs = [];
+            foreach ($attribs as $field => $content) {
                 $nattribs[$field] = $content;
             }
             ksort($nattribs);
@@ -92,7 +92,7 @@ case 'purge':
 
             $i = 0;
             if (cacti_sizeof($nattribs)) {
-                foreach($nattribs as $field => $content) {
+                foreach ($nattribs as $field => $content) {
                     if ($i % $columns == 0) {
                         $output .= ($output != '' ? '</tr>':'') . '<tr>';
                     }
@@ -250,7 +250,9 @@ function auditRenderFilterForm($item_rows) {
                             $users = array_rekey(db_fetch_assoc('SELECT DISTINCT user_id FROM audit_log ORDER BY user_id'), 'user_id', 'user_id');
                             if (cacti_sizeof($users)) {
                                 foreach ($users as $user) {
-                                    if ($user == 0) continue;
+                                    if ($user == 0) {
+                                        continue;
+                                    }
                                     print "<option value='" . $user . "'"; if (get_request_var('user_id') == $user) { print ' selected'; } print '>' . htmlspecialchars(get_username($user)) . "</option>\n";
                                 }
                             }
@@ -331,44 +333,44 @@ function auditRenderEventsRows($events) {
  * @return array<string, array<string, string>>
  */
 function auditGetDisplayText() {
-    return array(
-        'page' => array(
+    return [
+        'page' => [
             'display' => __('Page Name', 'audit'),
             'align' => 'left',
             'sort' => 'ASC',
             'tip' => __('The page where the event was generated.', 'audit')
-        ),
-        'username' => array(
+        ],
+        'username' => [
             'display' => __('User Name', 'audit'),
             'align' => 'left',
             'sort' => 'ASC',
             'tip' => __('The user who generated the event.', 'audit')
-        ),
-        'action' => array(
+        ],
+        'action' => [
             'display' => __('Action', 'audit'),
             'align' => 'left',
             'sort' => 'ASC',
             'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.', 'audit')
-        ),
-        'user_agent' => array(
+        ],
+        'user_agent' => [
             'display' => __('User Agent', 'audit'),
             'align' => 'left',
             'sort' => 'ASC',
             'tip' => __('The browser type of the requester.', 'audit')
-        ),
-        'ip_address' => array(
+        ],
+        'ip_address' => [
             'display' => __('IP Address', 'audit'),
             'align' => 'right',
             'sort' => 'ASC',
             'tip' => __('The IP Address of the requester.', 'audit')
-        ),
-        'event_time' => array(
+        ],
+        'event_time' => [
             'display' => __('Event Time', 'audit'),
             'align' => 'right',
             'sort' => 'DESC',
             'tip' => __('The time the Event took place.', 'audit')
-        )
-    );
+        ]
+    ];
 }
 
 /**
@@ -391,7 +393,7 @@ function auditExportRows() {
 
         print __x('Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant.','page, user_id, username, action, ip_address, user_agent, event_time, post', 'audit') . "\n";
 
-        foreach($events as $event) {
+        foreach ($events as $event) {
             $poster = auditBuildPosterString($event['post']);
 
             print
@@ -427,43 +429,43 @@ function auditCsvEscape($string) {
  */
 function processRequestVars() {
     /* ================= input validation and session storage ================= */
-    $filters = array(
-        'rows' => array(
+    $filters = [
+        'rows' => [
             'filter' => FILTER_VALIDATE_INT,
             'pageset' => true,
             'default' => '-1'
-            ),
-        'page' => array(
+            ],
+        'page' => [
             'filter' => FILTER_VALIDATE_INT,
             'default' => '1'
-            ),
-        'filter' => array(
+            ],
+        'filter' => [
             'filter' => FILTER_DEFAULT,
             'pageset' => true,
             'default' => ''
-            ),
-        'sort_column' => array(
+            ],
+        'sort_column' => [
             'filter' => FILTER_CALLBACK,
             'default' => 'event_time',
-            'options' => array('options' => 'sanitize_search_string')
-            ),
-        'sort_direction' => array(
+            'options' => ['options' => 'sanitize_search_string']
+            ],
+        'sort_direction' => [
             'filter' => FILTER_CALLBACK,
             'default' => 'DESC',
-            'options' => array('options' => 'sanitize_search_string')
-            ),
-        'user_id' => array(
+            'options' => ['options' => 'sanitize_search_string']
+            ],
+        'user_id' => [
             'filter' => FILTER_VALIDATE_INT,
             'pageset' => true,
             'default' => '-1'
-            ),
-        'event_page' => array(
+            ],
+        'event_page' => [
             'filter' => FILTER_CALLBACK,
             'pageset' => true,
             'default' => '-1',
-            'options' => array('options' => 'sanitize_search_string')
-            )
-    );
+            'options' => ['options' => 'sanitize_search_string']
+            ]
+    ];
 
     validate_store_request_vars($filters, 'sess_audit');
     /* ================= input validation ================= */

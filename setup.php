@@ -99,7 +99,7 @@ function auditCheckUpgrade() {
     include_once $config['library_path'] . '/database.php';
     include_once $config['library_path'] . '/functions.php';
 
-    $files = array('plugins.php', 'audit.php');
+    $files = ['plugins.php', 'audit.php'];
     if (isset($_SERVER['PHP_SELF']) && !in_array(basename($_SERVER['PHP_SELF']), $files)) {
         return;
     }
@@ -306,12 +306,12 @@ function auditUtilitiesArray() {
         if (api_plugin_user_realm_auth('audit.php')) {
             $utilities[__('Technical Support', 'audit')] = array_merge(
                 $utilities[__('Technical Support', 'audit')],
-                array(
-                    __('View Audit Log', 'audit') => array(
+                [
+                    __('View Audit Log', 'audit') => [
                         'link'  => 'plugins/audit/audit.php',
                         'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
-                    )
-                )
+                    ]
+                ]
             );
         }
     }
@@ -326,10 +326,10 @@ function auditConfigArrays() {
     global $menu, $messages, $audit_retentions, $utilities;
 
     if (isset($_SESSION['audit_message']) && $_SESSION['audit_message'] != '') {
-        $messages['audit_message'] = array('message' => $_SESSION['audit_message'], 'type' => 'info');
+        $messages['audit_message'] = ['message' => $_SESSION['audit_message'], 'type' => 'info'];
     }
 
-    $audit_retentions = array(
+    $audit_retentions = [
         -1   => __('Indefinitely', 'audit'),
         14   => __('%d Weeks',  2, 'audit'),
         30   => __('%d Month',  1, 'audit'),
@@ -340,12 +340,12 @@ function auditConfigArrays() {
         365  => __('%d Year',   1, 'audit'),
         730  => __('%d Years',  2, 'audit'),
         1095 => __('%d Years',  3, 'audit')
-    );
+    ];
 
     $menu[__('Utilities')]['plugins/audit/audit.php'] = __('Audit Log', 'audit');
 
     if (function_exists('auth_augment_roles')) {
-        auth_augment_roles(__('System Administration'), array('audit.php'));
+        auth_augment_roles(__('System Administration'), ['audit.php']);
     }
 
     auditCheckUpgrade();
@@ -359,38 +359,38 @@ function auditConfigArrays() {
 function auditConfigSettings() {
     global $tabs, $settings, $item_rows, $audit_retentions;
 
-    $temp = array(
-        'audit_header' => array(
+    $temp = [
+        'audit_header' => [
             'friendly_name' => __('Audit Log Settings', 'audit'),
             'method' => 'spacer',
-        ),
-        'audit_enabled' => array(
+        ],
+        'audit_enabled' => [
             'friendly_name' => __('Enable Audit Log', 'audit'),
             'description' => __('Check this box, if you want the Audit Log to track GUI activities.', 'audit'),
             'method' => 'checkbox',
             'default' => 'on'
-        ),
-        'audit_retention' => array(
+        ],
+        'audit_retention' => [
             'friendly_name' => __('Audit Log Retention', 'audit'),
             'description' => __('How long do you wish Audit Log entries to be retained?', 'audit'),
             'method' => 'drop_array',
             'default' => '90',
             'array' => $audit_retentions
-        ),
-        'audit_log_external' => array(
+        ],
+        'audit_log_external' => [
             'friendly_name' => __('External Audit Log', 'audit'),
             'description' => __('Check this box, if you want the Audit Log to be written to an external file.', 'audit'),
             'method' => 'checkbox',
             'default' => 'off'
-        ),
-        'audit_log_external_path' => array(
+        ],
+        'audit_log_external_path' => [
             'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
             'description' => __('Enter the path to the external audit log file.', 'audit'),
             'method' => 'filepath',
             'default' => '/var/www/html/cacti/log/audit.log',
             'max_length' => '255'
-        ),
-    );
+        ],
+    ];
 
     $tabs['audit'] = __('Audit', 'audit');
 
@@ -409,12 +409,12 @@ function auditConfigSettings() {
  * @return array<string, mixed>
  */
 function auditDrawNavigationText($nav) {
-    $nav['audit.php:'] = array(
+    $nav['audit.php:'] = [
         'title'   => __('Audit Event Log', 'audit'),
         'mapping' => 'index.php:',
         'url'     => 'audit.php',
         'level'   => '1'
-    );
+    ];
 
     return $nav;
 }
