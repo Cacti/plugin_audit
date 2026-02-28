@@ -22,311 +22,311 @@
  +-------------------------------------------------------------------------+
 */
 
-include_once('audit_functions.php');
+include_once 'audit_functions.php';
 
 function pluginAuditInstall() {
-	api_plugin_register_hook('audit', 'config_arrays',        'auditConfigArrays',        'setup.php');
-	api_plugin_register_hook('audit', 'config_settings',      'auditConfigSettings',      'setup.php');
-	api_plugin_register_hook('audit', 'config_insert',        'auditConfigInsert',        'setup.php');
-	api_plugin_register_hook('audit', 'poller_bottom',        'auditPollerBottom',        'setup.php');
-	api_plugin_register_hook('audit', 'draw_navigation_text', 'auditDrawNavigationText', 'setup.php');
-	api_plugin_register_hook('audit', 'utilities_array',      'auditUtilitiesArray',      'setup.php');
-	api_plugin_register_hook('audit', 'is_console_page',      'auditIsConsolePage',      'setup.php');
+    api_plugin_register_hook('audit', 'config_arrays',        'auditConfigArrays',        'setup.php');
+    api_plugin_register_hook('audit', 'config_settings',      'auditConfigSettings',      'setup.php');
+    api_plugin_register_hook('audit', 'config_insert',        'auditConfigInsert',        'setup.php');
+    api_plugin_register_hook('audit', 'poller_bottom',        'auditPollerBottom',        'setup.php');
+    api_plugin_register_hook('audit', 'draw_navigation_text', 'auditDrawNavigationText', 'setup.php');
+    api_plugin_register_hook('audit', 'utilities_array',      'auditUtilitiesArray',      'setup.php');
+    api_plugin_register_hook('audit', 'is_console_page',      'auditIsConsolePage',      'setup.php');
 
-	/* hook for table replication */
-	api_plugin_register_hook('audit', 'replicate_out',        'auditReplicateOut',        'setup.php');
+    /* hook for table replication */
+    api_plugin_register_hook('audit', 'replicate_out',        'auditReplicateOut',        'setup.php');
 
-	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
+    api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
 
-	auditSetupTable();
+    auditSetupTable();
 }
 
 function pluginAuditUninstall() {
-	db_execute('DROP TABLE IF EXISTS audit_log');
-	return true;
+    db_execute('DROP TABLE IF EXISTS audit_log');
+    return true;
 }
 
 function auditIsConsolePage($url) {
-	if (strpos($url, 'audit.php') !== false) {
-		return true;
-	}
+    if (strpos($url, 'audit.php') !== false) {
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 function pluginAuditCheckConfig() {
-	return true;
+    return true;
 }
 
 function pluginAuditUpgrade() {
-	return true;
+    return true;
 }
 
 function auditCheckUpgrade() {
-	global $config, $database_default;
-	include_once($config['library_path'] . '/database.php');
-	include_once($config['library_path'] . '/functions.php');
+    global $config, $database_default;
+    include_once $config['library_path'] . '/database.php';
+    include_once $config['library_path'] . '/functions.php';
 
-	$files = array('plugins.php', 'audit.php');
-	if (isset($_SERVER['PHP_SELF']) && !in_array(basename($_SERVER['PHP_SELF']), $files)) {
-		return;
-	}
+    $files = array('plugins.php', 'audit.php');
+    if (isset($_SERVER['PHP_SELF']) && !in_array(basename($_SERVER['PHP_SELF']), $files)) {
+        return;
+    }
 
-	$info    = pluginAuditVersion();
-	$current = $info['version'];
-	$old     = db_fetch_cell("SELECT version FROM plugin_config WHERE directory='audit'");
-	if ($current != $old) {
-		if (api_plugin_is_enabled('audit')) {
-			# may sound ridiculous, but enables new hooks
-			api_plugin_enable_hooks('audit');
+    $info    = pluginAuditVersion();
+    $current = $info['version'];
+    $old     = db_fetch_cell("SELECT version FROM plugin_config WHERE directory='audit'");
+    if ($current != $old) {
+        if (api_plugin_is_enabled('audit')) {
+            # may sound ridiculous, but enables new hooks
+            api_plugin_enable_hooks('audit');
 
-			db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
-		}
+            db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
+        }
 
-		db_execute("UPDATE plugin_config
-			SET version='$current'
-			WHERE directory='audit'");
+        db_execute("UPDATE plugin_config
+            SET version='$current'
+            WHERE directory='audit'");
 
-		db_execute("UPDATE plugin_config SET
-			version='" . $info['version']  . "',
-			name='"    . $info['longname'] . "',
-			author='"  . $info['author']   . "',
-			webpage='" . $info['homepage'] . "'
-			WHERE directory='" . $info['name'] . "' ");
+        db_execute("UPDATE plugin_config SET
+            version='" . $info['version']  . "',
+            name='"    . $info['longname'] . "',
+            author='"  . $info['author']   . "',
+            webpage='" . $info['homepage'] . "'
+            WHERE directory='" . $info['name'] . "' ");
 
-		/* hook for table replication */
-		api_plugin_register_hook('audit', 'replicate_out', 'auditReplicateOut', 'setup.php', '1');
-		api_plugin_register_hook('audit', 'is_console_page', 'auditIsConsolePage', 'setup.php', 1);
-	}
+        /* hook for table replication */
+        api_plugin_register_hook('audit', 'replicate_out', 'auditReplicateOut', 'setup.php', '1');
+        api_plugin_register_hook('audit', 'is_console_page', 'auditIsConsolePage', 'setup.php', 1);
+    }
 }
 
 function auditCheckDependencies($data) {
-	$remote_poller_id = $data['remote_poller_id'];
-	$rcnn_id          = $data['rcnn_id'];
-	$class            = $data['class'];
+    $remote_poller_id = $data['remote_poller_id'];
+    $rcnn_id          = $data['rcnn_id'];
+    $class            = $data['class'];
 
-	if ($class == 'all') {
-		if (!db_table_exists('alert_log', false, $rcnn_id)) {
-			$create = db_fetch_cell('SHOW CREATE TABLE autid_log');
+    if ($class == 'all') {
+        if (!db_table_exists('alert_log', false, $rcnn_id)) {
+            $create = db_fetch_cell('SHOW CREATE TABLE autid_log');
 
-			db_execute($create, false, $rcnn_id);
-		}
-	}
+            db_execute($create, false, $rcnn_id);
+        }
+    }
 
-	return $data;
+    return $data;
 }
 
 function auditReplicateOut($data) {
-	$remote_poller_id = $data['remote_poller_id'];
-	$rcnn_id          = $data['rcnn_id'];
-	$class            = $data['class'];
+    $remote_poller_id = $data['remote_poller_id'];
+    $rcnn_id          = $data['rcnn_id'];
+    $class            = $data['class'];
 
-	cacti_log('INFO: Replicating for the Audit Plugin', false, 'REPLICATE');
+    cacti_log('INFO: Replicating for the Audit Plugin', false, 'REPLICATE');
 
-	if ($class == 'all') {
-		if (!db_table_exists('audit_log', false, $rcnn_id)) {
-			cacti_log('INFO: Audit Log table does not exist creating', false, 'REPLICATE');
+    if ($class == 'all') {
+        if (!db_table_exists('audit_log', false, $rcnn_id)) {
+            cacti_log('INFO: Audit Log table does not exist creating', false, 'REPLICATE');
 
-			$table  = 'audit_log';
-			$create = db_fetch_row("SHOW CREATE TABLE $table");
+            $table  = 'audit_log';
+            $create = db_fetch_row("SHOW CREATE TABLE $table");
 
-			if (isset($create["CREATE TABLE `$table`"]) || isset($create['Create Table'])) {
-				if (isset($create["CREATE TABLE `$table`"])) {
-					db_execute($create["CREATE TABLE `$table`"], true, $rcnn_id);
-				} else {
-					db_execute($create['Create Table'], true, $rcnn_id);
-				}
-			}
-		} else {
-			cacti_log('INFO: Audit Log table exists skipping', false, 'REPLICATE');
-		}
-	}
+            if (isset($create["CREATE TABLE `$table`"]) || isset($create['Create Table'])) {
+                if (isset($create["CREATE TABLE `$table`"])) {
+                    db_execute($create["CREATE TABLE `$table`"], true, $rcnn_id);
+                } else {
+                    db_execute($create['Create Table'], true, $rcnn_id);
+                }
+            }
+        } else {
+            cacti_log('INFO: Audit Log table exists skipping', false, 'REPLICATE');
+        }
+    }
 
-	return $data;
+    return $data;
 }
 
 function auditPollerBottom() {
-	$last_check = read_config_option('audit_last_check');
+    $last_check = read_config_option('audit_last_check');
 
-	$now = date('d');
+    $now = date('d');
 
-	if ($last_check != $now) {
-		$retention = read_config_option('audit_retention');
+    if ($last_check != $now) {
+        $retention = read_config_option('audit_retention');
 
-		if ($retention > 0) {
-			db_execute('DELETE FROM audit_log WHERE event_time < FROM_UNIXTIME(' . (time() - ($retention * 86400)) . ')');
-			$rows = db_affected_rows();
-			cacti_log('NOTE: Purged ' . $rows . ' Audit Log Records from Cacti', false, 'POLLER');
-		}
-	}
+        if ($retention > 0) {
+            db_execute('DELETE FROM audit_log WHERE event_time < FROM_UNIXTIME(' . (time() - ($retention * 86400)) . ')');
+            $rows = db_affected_rows();
+            cacti_log('NOTE: Purged ' . $rows . ' Audit Log Records from Cacti', false, 'POLLER');
+        }
+    }
 
-	set_config_option('audit_last_check', $now);
+    set_config_option('audit_last_check', $now);
 }
 
 function auditSetupTable() {
-	global $config, $database_default;
-	include_once($config['library_path'] . '/database.php');
+    global $config, $database_default;
+    include_once $config['library_path'] . '/database.php';
 
-	db_execute("CREATE TABLE IF NOT EXISTS `audit_log` (
-		`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		`page` varchar(40) DEFAULT NULL,
-		`user_id` int(10) unsigned DEFAULT NULL,
-		`action` varchar(20) DEFAULT NULL,
-		`ip_address` varchar(40) DEFAULT NULL,
-		`user_agent` varchar(256) DEFAULT NULL,
-		`event_time` timestamp DEFAULT CURRENT_TIMESTAMP,
-		`post` longblob,
-		`object_data` longblob,
-		PRIMARY KEY (`id`),
-		KEY `user_id` (`user_id`),
-		KEY `page` (`page`),
-		KEY `ip_address` (`ip_address`),
-		KEY `event_time` (`event_time`),
-		KEY `action` (`action`))
-		ENGINE=InnoDB
-		COMMENT='Audit Log for all GUI activities'");
+    db_execute("CREATE TABLE IF NOT EXISTS `audit_log` (
+        `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+        `page` varchar(40) DEFAULT NULL,
+        `user_id` int(10) unsigned DEFAULT NULL,
+        `action` varchar(20) DEFAULT NULL,
+        `ip_address` varchar(40) DEFAULT NULL,
+        `user_agent` varchar(256) DEFAULT NULL,
+        `event_time` timestamp DEFAULT CURRENT_TIMESTAMP,
+        `post` longblob,
+        `object_data` longblob,
+        PRIMARY KEY (`id`),
+        KEY `user_id` (`user_id`),
+        KEY `page` (`page`),
+        KEY `ip_address` (`ip_address`),
+        KEY `event_time` (`event_time`),
+        KEY `action` (`action`))
+        ENGINE=InnoDB
+        COMMENT='Audit Log for all GUI activities'");
 
-	return true;
+    return true;
 }
 
 function pluginAuditVersion() {
-	global $config;
-	$info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
-	return $info['info'];
+    global $config;
+    $info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
+    return $info['info'];
 }
 
 function auditLogValidEvent() {
-	global $action;
+    global $action;
 
-	$valid = false;
+    $valid = false;
 
-	if (read_config_option('audit_enabled') == 'on') {
-		if (strpos($_SERVER['SCRIPT_NAME'], 'graph_view.php') !== false) {
-			$valid = false;
-		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false &&
-			isset_request_var('action') && get_nfilter_request_var('action') == 'checkpass') {
-			$valid = false;
-		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
-			if (isset_request_var('mode')) {
-				$valid  = true;
-				$action = get_nfilter_request_var('mode');
-			}
-		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
-			$valid = false;
-		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
-			$valid = false;
-		} elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
-			$valid = false;
-		} elseif (isset($_POST) && sizeof($_POST)) {
-			$valid = true;
-		} elseif (isset_request_var('purge_continue')) {
-			$valid  = true;
-			$action = 'purge';
-		}
-	}
+    if (read_config_option('audit_enabled') == 'on') {
+        if (strpos($_SERVER['SCRIPT_NAME'], 'graph_view.php') !== false) {
+            $valid = false;
+        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'user_admin.php') !== false &&
+            isset_request_var('action') && get_nfilter_request_var('action') == 'checkpass') {
+            $valid = false;
+        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'plugins.php') !== false) {
+            if (isset_request_var('mode')) {
+                $valid  = true;
+                $action = get_nfilter_request_var('mode');
+            }
+        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_profile.php') !== false) {
+            $valid = false;
+        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'index.php') !== false) {
+            $valid = false;
+        } elseif (strpos($_SERVER['SCRIPT_NAME'], 'auth_changepassword.php') !== false) {
+            $valid = false;
+        } elseif (isset($_POST) && sizeof($_POST)) {
+            $valid = true;
+        } elseif (isset_request_var('purge_continue')) {
+            $valid  = true;
+            $action = 'purge';
+        }
+    }
 
-	return $valid;
+    return $valid;
 }
 
 function auditUtilitiesArray() {
-	global $utilities;
+    global $utilities;
 
-	if (version_compare(CACTI_VERSION, '1.3.0', '<')) {
-		if (api_plugin_user_realm_auth('audit.php')) {
-			$utilities[__('Technical Support', 'audit')] = array_merge(
-				$utilities[__('Technical Support', 'audit')],
-				array(
-					__('View Audit Log', 'audit') => array(
-						'link'  => 'plugins/audit/audit.php',
-						'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
-					)
-				)
-			);
-		}
-	}
+    if (version_compare(CACTI_VERSION, '1.3.0', '<')) {
+        if (api_plugin_user_realm_auth('audit.php')) {
+            $utilities[__('Technical Support', 'audit')] = array_merge(
+                $utilities[__('Technical Support', 'audit')],
+                array(
+                    __('View Audit Log', 'audit') => array(
+                        'link'  => 'plugins/audit/audit.php',
+                        'description' => __('Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes.', 'audit')
+                    )
+                )
+            );
+        }
+    }
 }
 
 function auditConfigArrays() {
-	global $menu, $messages, $audit_retentions, $utilities;
+    global $menu, $messages, $audit_retentions, $utilities;
 
-	if (isset($_SESSION['audit_message']) && $_SESSION['audit_message'] != '') {
-		$messages['audit_message'] = array('message' => $_SESSION['audit_message'], 'type' => 'info');
-	}
+    if (isset($_SESSION['audit_message']) && $_SESSION['audit_message'] != '') {
+        $messages['audit_message'] = array('message' => $_SESSION['audit_message'], 'type' => 'info');
+    }
 
-	$audit_retentions = array(
-		-1   => __('Indefinitely', 'audit'),
-		14   => __('%d Weeks',  2, 'audit'),
-		30   => __('%d Month',  1, 'audit'),
-		60   => __('%d Months', 2, 'audit'),
-		90   => __('%d Months', 3, 'audit'),
-		120  => __('%d Months', 4, 'audit'),
-		183  => __('%d Months', 6, 'audit'),
-		365  => __('%d Year',   1, 'audit'),
-		730  => __('%d Years',  2, 'audit'),
-		1095 => __('%d Years',  3, 'audit')
-	);
+    $audit_retentions = array(
+        -1   => __('Indefinitely', 'audit'),
+        14   => __('%d Weeks',  2, 'audit'),
+        30   => __('%d Month',  1, 'audit'),
+        60   => __('%d Months', 2, 'audit'),
+        90   => __('%d Months', 3, 'audit'),
+        120  => __('%d Months', 4, 'audit'),
+        183  => __('%d Months', 6, 'audit'),
+        365  => __('%d Year',   1, 'audit'),
+        730  => __('%d Years',  2, 'audit'),
+        1095 => __('%d Years',  3, 'audit')
+    );
 
-	$menu[__('Utilities')]['plugins/audit/audit.php'] = __('Audit Log', 'audit');
+    $menu[__('Utilities')]['plugins/audit/audit.php'] = __('Audit Log', 'audit');
 
-	if (function_exists('auth_augment_roles')) {
-		auth_augment_roles(__('System Administration'), array('audit.php'));
-	}
+    if (function_exists('auth_augment_roles')) {
+        auth_augment_roles(__('System Administration'), array('audit.php'));
+    }
 
-	auditCheckUpgrade();
+    auditCheckUpgrade();
 }
 
 function auditConfigSettings() {
-	global $tabs, $settings, $item_rows, $audit_retentions;
+    global $tabs, $settings, $item_rows, $audit_retentions;
 
-	$temp = array(
-		'audit_header' => array(
-			'friendly_name' => __('Audit Log Settings', 'audit'),
-			'method' => 'spacer',
-		),
-		'audit_enabled' => array(
-			'friendly_name' => __('Enable Audit Log', 'audit'),
-			'description' => __('Check this box, if you want the Audit Log to track GUI activities.', 'audit'),
-			'method' => 'checkbox',
-			'default' => 'on'
-		),
-		'audit_retention' => array(
-			'friendly_name' => __('Audit Log Retention', 'audit'),
-			'description' => __('How long do you wish Audit Log entries to be retained?', 'audit'),
-			'method' => 'drop_array',
-			'default' => '90',
-			'array' => $audit_retentions
-		),
-		'audit_log_external' => array(
-			'friendly_name' => __('External Audit Log', 'audit'),
-			'description' => __('Check this box, if you want the Audit Log to be written to an external file.', 'audit'),
-			'method' => 'checkbox',
-			'default' => 'off'
-		),
-		'audit_log_external_path' => array(
-			'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
-			'description' => __('Enter the path to the external audit log file.', 'audit'),
-			'method' => 'filepath',
-			'default' => '/var/www/html/cacti/log/audit.log',
-			'max_length' => '255'
-		),
-	);
+    $temp = array(
+        'audit_header' => array(
+            'friendly_name' => __('Audit Log Settings', 'audit'),
+            'method' => 'spacer',
+        ),
+        'audit_enabled' => array(
+            'friendly_name' => __('Enable Audit Log', 'audit'),
+            'description' => __('Check this box, if you want the Audit Log to track GUI activities.', 'audit'),
+            'method' => 'checkbox',
+            'default' => 'on'
+        ),
+        'audit_retention' => array(
+            'friendly_name' => __('Audit Log Retention', 'audit'),
+            'description' => __('How long do you wish Audit Log entries to be retained?', 'audit'),
+            'method' => 'drop_array',
+            'default' => '90',
+            'array' => $audit_retentions
+        ),
+        'audit_log_external' => array(
+            'friendly_name' => __('External Audit Log', 'audit'),
+            'description' => __('Check this box, if you want the Audit Log to be written to an external file.', 'audit'),
+            'method' => 'checkbox',
+            'default' => 'off'
+        ),
+        'audit_log_external_path' => array(
+            'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
+            'description' => __('Enter the path to the external audit log file.', 'audit'),
+            'method' => 'filepath',
+            'default' => '/var/www/html/cacti/log/audit.log',
+            'max_length' => '255'
+        ),
+    );
 
-	$tabs['audit'] = __('Audit', 'audit');
+    $tabs['audit'] = __('Audit', 'audit');
 
-	if (isset($settings['audit'])) {
-		$settings['audit'] = array_merge($settings['audit'], $temp);
-	} else {
-		$settings['audit'] = $temp;
-	}
+    if (isset($settings['audit'])) {
+        $settings['audit'] = array_merge($settings['audit'], $temp);
+    } else {
+        $settings['audit'] = $temp;
+    }
 }
 
 function auditDrawNavigationText($nav) {
-	$nav['audit.php:'] = array(
-		'title'   => __('Audit Event Log', 'audit'),
-		'mapping' => 'index.php:',
-		'url'     => 'audit.php',
-		'level'   => '1'
-	);
+    $nav['audit.php:'] = array(
+        'title'   => __('Audit Event Log', 'audit'),
+        'mapping' => 'index.php:',
+        'url'     => 'audit.php',
+        'level'   => '1'
+    );
 
-	return $nav;
+    return $nav;
 }
