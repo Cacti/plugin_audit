@@ -29,14 +29,14 @@ set_default_action();
 
 switch(get_request_var('action')) {
 case 'export':
-	audit_export_rows();
+	auditExportRows();
 
 	break;
 case 'purge':
-	audit_purge();
+	auditPurge();
 
 	top_header();
-	audit_log();
+	auditLog();
 	bottom_footer();
 
 	break;
@@ -133,11 +133,11 @@ case 'purge':
 	break;
 default:
 	top_header();
-	audit_log();
+	auditLog();
 	bottom_footer();
 }
 
-function audit_purge() {
+function auditPurge() {
 	db_execute('TRUNCATE TABLE audit_log');
 
 	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
@@ -147,8 +147,8 @@ function audit_purge() {
 	raise_message('audit_message');
 }
 
-function audit_export_rows() {
-	process_request_vars();
+function auditExportRows() {
+	processRequestVars();
 
 	/* form the 'where' clause for our main sql query */
 	if (get_request_var('filter') != '') {
@@ -202,13 +202,13 @@ function audit_export_rows() {
 	}
 }
 
-function audit_csv_escape($string) {
+function auditCsvEscape($string) {
 	$string = str_replace('"', '', $string);
 	$string = str_replace(',', '|', $string);
 	return $string;
 }
 
-function process_request_vars() {
+function processRequestVars() {
 	/* ================= input validation and session storage ================= */
 	$filters = array(
 		'rows' => array(
@@ -252,10 +252,10 @@ function process_request_vars() {
 	/* ================= input validation ================= */
 }
 
-function audit_log() {
+function auditLog() {
 	global $item_rows;
 
-	process_request_vars();
+	processRequestVars();
 
 	if (get_request_var('rows') == '-1') {
 		$rows = read_config_option('num_rows_table');

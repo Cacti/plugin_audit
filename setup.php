@@ -24,29 +24,29 @@
 
 include_once('audit_functions.php');
 
-function plugin_audit_install() {
-	api_plugin_register_hook('audit', 'config_arrays',        'audit_config_arrays',        'setup.php');
-	api_plugin_register_hook('audit', 'config_settings',      'audit_config_settings',      'setup.php');
+function pluginAuditInstall() {
+	api_plugin_register_hook('audit', 'config_arrays',        'auditConfigArrays',        'setup.php');
+	api_plugin_register_hook('audit', 'config_settings',      'auditConfigSettings',      'setup.php');
 	api_plugin_register_hook('audit', 'config_insert',        'auditConfigInsert',        'setup.php');
-	api_plugin_register_hook('audit', 'poller_bottom',        'audit_poller_bottom',        'setup.php');
-	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
-	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
-	api_plugin_register_hook('audit', 'is_console_page',      'audit_is_console_page',      'setup.php');
+	api_plugin_register_hook('audit', 'poller_bottom',        'auditPollerBottom',        'setup.php');
+	api_plugin_register_hook('audit', 'draw_navigation_text', 'auditDrawNavigationText', 'setup.php');
+	api_plugin_register_hook('audit', 'utilities_array',      'auditUtilitiesArray',      'setup.php');
+	api_plugin_register_hook('audit', 'is_console_page',      'auditIsConsolePage',      'setup.php');
 
 	/* hook for table replication */
-	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
+	api_plugin_register_hook('audit', 'replicate_out',        'auditReplicateOut',        'setup.php');
 
 	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
 
-	audit_setup_table();
+	auditSetupTable();
 }
 
-function plugin_audit_uninstall() {
+function pluginAuditUninstall() {
 	db_execute('DROP TABLE IF EXISTS audit_log');
 	return true;
 }
 
-function audit_is_console_page($url) {
+function auditIsConsolePage($url) {
 	if (strpos($url, 'audit.php') !== false) {
 		return true;
 	}
@@ -54,15 +54,15 @@ function audit_is_console_page($url) {
 	return false;
 }
 
-function plugin_audit_check_config() {
+function pluginAuditCheckConfig() {
 	return true;
 }
 
-function plugin_audit_upgrade() {
+function pluginAuditUpgrade() {
 	return true;
 }
 
-function audit_check_upgrade() {
+function auditCheckUpgrade() {
 	global $config, $database_default;
 	include_once($config['library_path'] . '/database.php');
 	include_once($config['library_path'] . '/functions.php');
@@ -72,7 +72,7 @@ function audit_check_upgrade() {
 		return;
 	}
 
-	$info    = plugin_audit_version();
+	$info    = pluginAuditVersion();
 	$current = $info['version'];
 	$old     = db_fetch_cell("SELECT version FROM plugin_config WHERE directory='audit'");
 	if ($current != $old) {
@@ -95,12 +95,12 @@ function audit_check_upgrade() {
 			WHERE directory='" . $info['name'] . "' ");
 
 		/* hook for table replication */
-		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', '1');
-		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
+		api_plugin_register_hook('audit', 'replicate_out', 'auditReplicateOut', 'setup.php', '1');
+		api_plugin_register_hook('audit', 'is_console_page', 'auditIsConsolePage', 'setup.php', 1);
 	}
 }
 
-function audit_check_dependencies($data) {
+function auditCheckDependencies($data) {
 	$remote_poller_id = $data['remote_poller_id'];
 	$rcnn_id          = $data['rcnn_id'];
 	$class            = $data['class'];
@@ -116,7 +116,7 @@ function audit_check_dependencies($data) {
 	return $data;
 }
 
-function audit_replicate_out($data) {
+function auditReplicateOut($data) {
 	$remote_poller_id = $data['remote_poller_id'];
 	$rcnn_id          = $data['rcnn_id'];
 	$class            = $data['class'];
@@ -145,7 +145,7 @@ function audit_replicate_out($data) {
 	return $data;
 }
 
-function audit_poller_bottom() {
+function auditPollerBottom() {
 	$last_check = read_config_option('audit_last_check');
 
 	$now = date('d');
@@ -163,7 +163,7 @@ function audit_poller_bottom() {
 	set_config_option('audit_last_check', $now);
 }
 
-function audit_setup_table() {
+function auditSetupTable() {
 	global $config, $database_default;
 	include_once($config['library_path'] . '/database.php');
 
@@ -189,13 +189,13 @@ function audit_setup_table() {
 	return true;
 }
 
-function plugin_audit_version() {
+function pluginAuditVersion() {
 	global $config;
 	$info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
 	return $info['info'];
 }
 
-function audit_log_valid_event() {
+function auditLogValidEvent() {
 	global $action;
 
 	$valid = false;
@@ -228,7 +228,7 @@ function audit_log_valid_event() {
 	return $valid;
 }
 
-function audit_utilities_array() {
+function auditUtilitiesArray() {
 	global $utilities;
 
 	if (version_compare(CACTI_VERSION, '1.3.0', '<')) {
@@ -246,7 +246,7 @@ function audit_utilities_array() {
 	}
 }
 
-function audit_config_arrays() {
+function auditConfigArrays() {
 	global $menu, $messages, $audit_retentions, $utilities;
 
 	if (isset($_SESSION['audit_message']) && $_SESSION['audit_message'] != '') {
@@ -272,10 +272,10 @@ function audit_config_arrays() {
 		auth_augment_roles(__('System Administration'), array('audit.php'));
 	}
 
-	audit_check_upgrade();
+	auditCheckUpgrade();
 }
 
-function audit_config_settings() {
+function auditConfigSettings() {
 	global $tabs, $settings, $item_rows, $audit_retentions;
 
 	$temp = array(
@@ -320,7 +320,7 @@ function audit_config_settings() {
 	}
 }
 
-function audit_draw_navigation_text($nav) {
+function auditDrawNavigationText($nav) {
 	$nav['audit.php:'] = array(
 		'title'   => __('Audit Event Log', 'audit'),
 		'mapping' => 'index.php:',

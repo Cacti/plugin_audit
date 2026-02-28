@@ -126,7 +126,7 @@ function auditProcessPageData($page, $drop_action, $selected_items) {
 function auditConfigInsert() {
 	global $action, $config;
 
-	if (audit_log_valid_event()) {
+	if (auditLogValidEvent()) {
 		/* prepare post */
 		$post = $_REQUEST;
 
