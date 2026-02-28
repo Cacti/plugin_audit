@@ -26,6 +26,14 @@ data retention and turn on auditing.
 
 You can also enable file based logging for ingestion by Siem or Log analysis tools such as splunk
 
+## Testing
+
+Run the unit tests with:
+
+```bash
+phpunit -c phpunit.xml.dist
+```
+
 ## Possible Bugs
 
 If you figure out this problem, see the Cacti forums!
