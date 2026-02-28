@@ -147,124 +147,46 @@ function auditPurge() {
 	raise_message('audit_message');
 }
 
-function auditExportRows() {
-	processRequestVars();
+function auditBuildSqlWhereClause() {
+	$sql_where = '';
 
-	/* form the 'where' clause for our main sql query */
 	if (get_request_var('filter') != '') {
 		$sql_where = 'WHERE (
 			page LIKE '    . db_qstr('%' . get_request_var('filter') . '%') . '
 			OR post LIKE ' . db_qstr('%' . get_request_var('filter') . '%') . ')';
-	} else {
-		$sql_where = '';
 	}
 
 	if (get_request_var('event_page') != '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' page = ' . db_qstr(get_request_var('event_page'));
+		$sql_where .= ($sql_where != '' ? ' AND ' : 'WHERE ') . ' page = ' . db_qstr(get_request_var('event_page'));
 	}
 
 	if (!isempty_request_var('user_id') && get_request_var('user_id') > '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' user_id = ' . get_request_var('user_id');
+		$sql_where .= ($sql_where != '' ? ' AND ' : 'WHERE ') . ' user_id = ' . get_request_var('user_id');
 	}
 
-	$events = db_fetch_assoc("SELECT audit_log.*, user_auth.username
-		FROM audit_log
-		LEFT JOIN user_auth
-		ON audit_log.user_id=user_auth.id
-		$sql_where");
+	return $sql_where;
+}
 
-	if (cacti_sizeof($events)) {
-		header('Content-Disposition: attachment; filename=audit_export.csv');
+function auditBuildPosterString($post_payload) {
+	$post   = json_decode($post_payload);
+	$poster = '';
 
-		print __x('Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant.','page, user_id, username, action, ip_address, user_agent, event_time, post', 'audit') . "\n";
+	if (!is_object($post)) {
+		return $poster;
+	}
 
-		foreach($events as $event) {
-			$post = json_decode($event['post']);
-			$poster = '';
-			foreach($post as $var => $value) {
-				if (is_array($value)) {
-					$poster .= ($poster != '' ? '|':'') . $var . ':' . implode('%', $value);
-				} else {
-					$poster .= ($poster != '' ? '|':'') . $var . ':' . $value;
-				}
-			}
-
-			print
-				$event['page']                   . ', '  .
-				$event['user_id']                . ', '  .
-				get_username($event['user_id'])  . ', '  .
-				$event['action']                 . ', '  .
-				$event['ip_address']             . ', '  .
-				$event['user_agent']             . ', '  .
-				$event['event_time']             . ', ' .
-				$poster                          . "\n";
+	foreach ($post as $var => $value) {
+		if (is_array($value)) {
+			$poster .= ($poster != '' ? '|' : '') . $var . ':' . implode('%', $value);
+		} else {
+			$poster .= ($poster != '' ? '|' : '') . $var . ':' . $value;
 		}
 	}
+
+	return $poster;
 }
 
-function auditCsvEscape($string) {
-	$string = str_replace('"', '', $string);
-	$string = str_replace(',', '|', $string);
-	return $string;
-}
-
-function processRequestVars() {
-	/* ================= input validation and session storage ================= */
-	$filters = array(
-		'rows' => array(
-			'filter' => FILTER_VALIDATE_INT,
-			'pageset' => true,
-			'default' => '-1'
-			),
-		'page' => array(
-			'filter' => FILTER_VALIDATE_INT,
-			'default' => '1'
-			),
-		'filter' => array(
-			'filter' => FILTER_DEFAULT,
-			'pageset' => true,
-			'default' => ''
-			),
-		'sort_column' => array(
-			'filter' => FILTER_CALLBACK,
-			'default' => 'event_time',
-			'options' => array('options' => 'sanitize_search_string')
-			),
-		'sort_direction' => array(
-			'filter' => FILTER_CALLBACK,
-			'default' => 'DESC',
-			'options' => array('options' => 'sanitize_search_string')
-			),
-		'user_id' => array(
-			'filter' => FILTER_VALIDATE_INT,
-			'pageset' => true,
-			'default' => '-1'
-			),
-		'event_page' => array(
-			'filter' => FILTER_CALLBACK,
-			'pageset' => true,
-			'default' => '-1',
-			'options' => array('options' => 'sanitize_search_string')
-			)
-	);
-
-	validate_store_request_vars($filters, 'sess_audit');
-	/* ================= input validation ================= */
-}
-
-function auditLog() {
-	global $item_rows;
-
-	processRequestVars();
-
-	if (get_request_var('rows') == '-1') {
-		$rows = read_config_option('num_rows_table');
-	} else {
-		$rows = get_request_var('rows');
-	}
-
-	html_start_box(__('Audit Log', 'audit'), '100%', '', '3', 'center', '');
-
+function auditRenderFilterForm($item_rows) {
 	?>
 	<tr class='even'>
 		<td>
@@ -341,25 +263,172 @@ function auditLog() {
 		</td>
 	</tr>
 	<?php
+}
+
+function auditRenderEventsRows($events) {
+	if (!cacti_sizeof($events)) {
+		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
+		return;
+	}
+
+	foreach ($events as $e) {
+		if ($e['action'] == 'cli') {
+			form_alternate_row('line' . $e['id'], false);
+			form_selectable_cell($e['page'], $e['id']);
+			form_selectable_cell($e['user_agent'], $e['id']);
+			form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
+			form_selectable_cell(__('N/A', 'audit'), $e['id']);
+			form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
+			form_selectable_cell($e['event_time'], $e['id'], '', 'right');
+			form_end_row();
+		} else {
+			form_alternate_row('line' . $e['id'], false);
+			form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
+			form_selectable_cell($e['username'], $e['id']);
+			form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
+			form_selectable_cell($e['user_agent'], $e['id']);
+			form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
+			form_selectable_cell($e['event_time'], $e['id'], '', 'right');
+			form_end_row();
+		}
+	}
+}
+
+function auditGetDisplayText() {
+	return array(
+		'page' => array(
+			'display' => __('Page Name', 'audit'),
+			'align' => 'left',
+			'sort' => 'ASC',
+			'tip' => __('The page where the event was generated.', 'audit')
+		),
+		'username' => array(
+			'display' => __('User Name', 'audit'),
+			'align' => 'left',
+			'sort' => 'ASC',
+			'tip' => __('The user who generated the event.', 'audit')
+		),
+		'action' => array(
+			'display' => __('Action', 'audit'),
+			'align' => 'left',
+			'sort' => 'ASC',
+			'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.', 'audit')
+		),
+		'user_agent' => array(
+			'display' => __('User Agent', 'audit'),
+			'align' => 'left',
+			'sort' => 'ASC',
+			'tip' => __('The browser type of the requester.', 'audit')
+		),
+		'ip_address' => array(
+			'display' => __('IP Address', 'audit'),
+			'align' => 'right',
+			'sort' => 'ASC',
+			'tip' => __('The IP Address of the requester.', 'audit')
+		),
+		'event_time' => array(
+			'display' => __('Event Time', 'audit'),
+			'align' => 'right',
+			'sort' => 'DESC',
+			'tip' => __('The time the Event took place.', 'audit')
+		)
+	);
+}
+
+function auditExportRows() {
+	processRequestVars();
+	$sql_where = auditBuildSqlWhereClause();
+
+	$events = db_fetch_assoc("SELECT audit_log.*, user_auth.username
+		FROM audit_log
+		LEFT JOIN user_auth
+		ON audit_log.user_id=user_auth.id
+		$sql_where");
+
+	if (cacti_sizeof($events)) {
+		header('Content-Disposition: attachment; filename=audit_export.csv');
+
+		print __x('Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant.','page, user_id, username, action, ip_address, user_agent, event_time, post', 'audit') . "\n";
+
+		foreach($events as $event) {
+			$poster = auditBuildPosterString($event['post']);
+
+			print
+				$event['page']                   . ', '  .
+				$event['user_id']                . ', '  .
+				get_username($event['user_id'])  . ', '  .
+				$event['action']                 . ', '  .
+				$event['ip_address']             . ', '  .
+				$event['user_agent']             . ', '  .
+				$event['event_time']             . ', ' .
+				$poster                          . "\n";
+		}
+	}
+}
+
+function auditCsvEscape($string) {
+	$string = str_replace('"', '', $string);
+	$string = str_replace(',', '|', $string);
+	return $string;
+}
+
+function processRequestVars() {
+	/* ================= input validation and session storage ================= */
+	$filters = array(
+		'rows' => array(
+			'filter' => FILTER_VALIDATE_INT,
+			'pageset' => true,
+			'default' => '-1'
+			),
+		'page' => array(
+			'filter' => FILTER_VALIDATE_INT,
+			'default' => '1'
+			),
+		'filter' => array(
+			'filter' => FILTER_DEFAULT,
+			'pageset' => true,
+			'default' => ''
+			),
+		'sort_column' => array(
+			'filter' => FILTER_CALLBACK,
+			'default' => 'event_time',
+			'options' => array('options' => 'sanitize_search_string')
+			),
+		'sort_direction' => array(
+			'filter' => FILTER_CALLBACK,
+			'default' => 'DESC',
+			'options' => array('options' => 'sanitize_search_string')
+			),
+		'user_id' => array(
+			'filter' => FILTER_VALIDATE_INT,
+			'pageset' => true,
+			'default' => '-1'
+			),
+		'event_page' => array(
+			'filter' => FILTER_CALLBACK,
+			'pageset' => true,
+			'default' => '-1',
+			'options' => array('options' => 'sanitize_search_string')
+			)
+	);
+
+	validate_store_request_vars($filters, 'sess_audit');
+	/* ================= input validation ================= */
+}
+
+function auditLog() {
+	global $item_rows;
+
+	processRequestVars();
+
+	$rows = (get_request_var('rows') == '-1') ? read_config_option('num_rows_table') : get_request_var('rows');
+
+	html_start_box(__('Audit Log', 'audit'), '100%', '', '3', 'center', '');
+	auditRenderFilterForm($item_rows);
 
 	html_end_box();
 
-	/* form the 'where' clause for our main sql query */
-	if (get_request_var('filter') != '') {
-		$sql_where = 'WHERE (
-			page LIKE '    . db_qstr('%' . get_request_var('filter') . '%') . '
-			OR post LIKE ' . db_qstr('%' . get_request_var('filter') . '%') . ')';
-	} else {
-		$sql_where = '';
-	}
-
-	if (get_request_var('event_page') != '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' page = ' . db_qstr(get_request_var('event_page'));
-	}
-
-	if (!isempty_request_var('user_id') && get_request_var('user_id') > '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' user_id = ' . get_request_var('user_id');
-	}
+	$sql_where = auditBuildSqlWhereClause();
 
 	$total_rows = db_fetch_cell("SELECT
 		COUNT(*)
@@ -385,73 +454,10 @@ function auditLog() {
 
 	html_start_box('', '100%', '', '3', 'center', '');
 
-	$display_text = array(
-		'page' => array(
-			'display' => __('Page Name', 'audit'),
-			'align' => 'left',
-			'sort' => 'ASC',
-			'tip' => __('The page where the event was generated.', 'audit')
-		),
-		'username' => array(
-			'display' => __('User Name', 'audit'),
-			'align' => 'left',
-			'sort' => 'ASC',
-			'tip' => __('The user who generated the event.', 'audit')
-		),
-		'action' => array(
-			'display' => __('Action', 'audit'),
-			'align' => 'left',
-			'sort' => 'ASC',
-			'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.', 'audit')
-		),
-		'user_agent'  => array(
-			'display' => __('User Agent', 'audit'),
-			'align' => 'left',
-			'sort' => 'ASC',
-			'tip' => __('The browser type of the requester.', 'audit')
-		),
-		'ip_address'  => array(
-			'display' => __('IP Address', 'audit'),
-			'align' => 'right',
-			'sort' => 'ASC',
-			'tip' => __('The IP Address of the requester.', 'audit')
-		),
-		'event_time'  => array(
-			'display' => __('Event Time', 'audit'),
-			'align' => 'right',
-			'sort' => 'DESC',
-			'tip' => __('The time the Event took place.', 'audit')
-		)
-	);
+	$display_text = auditGetDisplayText();
 
 	html_header_sort($display_text, get_request_var('sort_column'), get_request_var('sort_direction'), false);
-
-	$i = 0;
-	if (cacti_sizeof($events)) {
-		foreach ($events as $e) {
-			if ($e['action'] == 'cli') {
-				form_alternate_row('line' . $e['id'], false);
-				form_selectable_cell($e['page'], $e['id']);
-				form_selectable_cell($e['user_agent'], $e['id']);
-				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-				form_selectable_cell(__('N/A', 'audit'), $e['id']);
-				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
-				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
-				form_end_row();
-			} else {
-				form_alternate_row('line' . $e['id'], false);
-				form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
-				form_selectable_cell($e['username'], $e['id']);
-				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-				form_selectable_cell($e['user_agent'], $e['id']);
-				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
-				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
-				form_end_row();
-			}
-		}
-	} else {
-		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
-	}
+	auditRenderEventsRows($events);
 
 	html_end_box(false);
 
@@ -463,4 +469,3 @@ function auditLog() {
 	<script type='text/javascript' src='plugins/audit/js/functions.js'></script>
 	<?php
 }
-
