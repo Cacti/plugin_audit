@@ -6,13 +6,15 @@ This is a Cacti plugin that logs GUI and CLI activities to an audit trail. The p
 **Core Components:**
 - [`setup.php`](../setup.php): Plugin lifecycle (install/uninstall/upgrade) and hook registration via `api_plugin_register_hook()`
 - [`audit.php`](../audit.php): Web UI for viewing/exporting/purging audit logs; handles actions via `switch(get_request_var('action'))`
-- [`audit_functions.php`](../audit_functions.php): Core logging logic in `audit_config_insert()` and page-specific data extraction in `audit_process_page_data()`
+ - [`audit_functions.php`](../audit_functions.php): Core logging logic in `auditConfigInsert()` and page-specific data extraction in `auditProcessPageData()`
 - Database: Single `audit_log` table with columns: `page`, `user_id`, `action`, `ip_address`, `user_agent`, `event_time`, `post` (JSON), `object_data` (JSON)
 
+**Standards:** This project enforces PSR-12 coding standards (use camelCase for function and method names) and requires PHP 8.1 or newer.
+
 **Data Flow:**
-1. Cacti triggers `config_insert` hook on POST requests → `audit_config_insert()` executes
+1. Cacti triggers `config_insert` hook on POST requests → `auditConfigInsert()` executes
 2. Function validates event via `audit_log_valid_event()`, sanitizes `$_POST`, removes passwords
-3. If `selected_items` present, `audit_process_page_data()` extracts object details from DB
+3. If `selected_items` present, `auditProcessPageData()` extracts object details from DB
 4. Event logged to `audit_log` table + optional external JSON file
 
 ## Critical Conventions
@@ -95,6 +97,6 @@ Hooks registered in `plugin_audit_install()`:
 ## Key Files Reference
 - [`setup.php`](../setup.php) - Hook registration, table schema, upgrade logic
 - [`audit.php`](../audit.php) - UI controller with export/purge/getdata actions
-- [`audit_functions.php`](../audit_functions.php) - `audit_config_insert()` (main logger), `audit_process_page_data()` (extract object details)
+- [`audit_functions.php`](../audit_functions.php) - `auditConfigInsert()` (main logger), `auditProcessPageData()` (extract object details)
 - [`locales/build_gettext.sh`](../locales/build_gettext.sh) - Translation builder
 - [`.github/workflows/plugin-ci-workflow.yml`](../.github/workflows/plugin-ci-workflow.yml) - Integration tests
