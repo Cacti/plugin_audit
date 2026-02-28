@@ -76,6 +76,7 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring
+        tools: phpunit
         ini-values: "post_max_size=256M, max_execution_time=60, date.timezone=America/New_York"
     
     - name: Check PHP version
@@ -221,5 +222,8 @@ jobs:
           echo "No audit log entries found!"
           exit 1
         fi
-
+    - name: Run PHPUnit tests
+      run: |
+        cd ${{ github.workspace }}/cacti/plugins/audit
+        phpunit -c phpunit.xml.dist
 
