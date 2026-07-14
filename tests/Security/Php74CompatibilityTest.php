@@ -19,19 +19,20 @@ describe('PHP 7.4 compatibility in audit', function () {
 		'setup.php',
 	);
 
+	beforeEach(function () use ($files) {
+		foreach ($files as $relativeFile) {
+			$path = realpath(__DIR__ . '/../../' . $relativeFile);
+			expect($path)->not->toBeFalse("Required plugin file is missing: {$relativeFile}");
+			expect(is_readable($path))->toBeTrue("Required plugin file is unreadable: {$relativeFile}");
+		}
+	});
+
 	it('does not use str_contains (PHP 8.0)', function () use ($files) {
 		foreach ($files as $relativeFile) {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);
 
-			if ($path === false) {
-				continue;
-			}
-
 			$contents = file_get_contents($path);
-
-			if ($contents === false) {
-				continue;
-			}
+			expect($contents)->not->toBeFalse("Unable to read {$relativeFile}");
 
 			expect(preg_match('/\bstr_contains\s*\(/', $contents))->toBe(0,
 				"{$relativeFile} uses str_contains() which requires PHP 8.0"
@@ -43,15 +44,8 @@ describe('PHP 7.4 compatibility in audit', function () {
 		foreach ($files as $relativeFile) {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);
 
-			if ($path === false) {
-				continue;
-			}
-
 			$contents = file_get_contents($path);
-
-			if ($contents === false) {
-				continue;
-			}
+			expect($contents)->not->toBeFalse("Unable to read {$relativeFile}");
 
 			expect(preg_match('/\bstr_starts_with\s*\(/', $contents))->toBe(0,
 				"{$relativeFile} uses str_starts_with() which requires PHP 8.0"
@@ -63,15 +57,8 @@ describe('PHP 7.4 compatibility in audit', function () {
 		foreach ($files as $relativeFile) {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);
 
-			if ($path === false) {
-				continue;
-			}
-
 			$contents = file_get_contents($path);
-
-			if ($contents === false) {
-				continue;
-			}
+			expect($contents)->not->toBeFalse("Unable to read {$relativeFile}");
 
 			expect(preg_match('/\bstr_ends_with\s*\(/', $contents))->toBe(0,
 				"{$relativeFile} uses str_ends_with() which requires PHP 8.0"
@@ -83,15 +70,8 @@ describe('PHP 7.4 compatibility in audit', function () {
 		foreach ($files as $relativeFile) {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);
 
-			if ($path === false) {
-				continue;
-			}
-
 			$contents = file_get_contents($path);
-
-			if ($contents === false) {
-				continue;
-			}
+			expect($contents)->not->toBeFalse("Unable to read {$relativeFile}");
 
 			expect(preg_match('/\?->/', $contents))->toBe(0,
 				"{$relativeFile} uses nullsafe operator which requires PHP 8.0"
