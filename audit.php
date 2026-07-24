@@ -81,7 +81,7 @@ function audit_render_event_details($data) {
 	$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . html_escape($data['ip_address']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . html_escape($data['event_time']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . html_escape($data['action']) . '</i></span>';
-	$output .= '<br><span><b>' . __('Outcome:', 'audit') . '</b>  <i>' . html_escape($data['outcome']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Request Status:', 'audit') . '</b>  <i>' . html_escape($data['request_status']) . '</i></span>';
 	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
 	if ($data['external_error'] != '') {
 		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
@@ -198,7 +198,7 @@ function audit_export_rows() {
 		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
-		fputcsv($output, array('page', 'user_id', 'username', 'action', 'outcome', 'external_status', 'external_error', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
+		fputcsv($output, array('page', 'user_id', 'username', 'action', 'request_status', 'external_status', 'external_error', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
 
 		foreach($events as $event) {
 			if ($event['action'] == 'cli') {
@@ -213,7 +213,7 @@ function audit_export_rows() {
 				$event['user_id'],
 				get_username($event['user_id']),
 				$event['action'],
-				$event['outcome'],
+				$event['request_status'],
 				$event['external_status'],
 				$event['external_error'],
 				$event['ip_address'],
@@ -432,8 +432,8 @@ function audit_log() {
 				'sort' => 'ASC',
 				'tip' => __('The requested Cacti action. Hover over the action to see request data.', 'audit')
 			),
-			'outcome' => array(
-				'display' => __('Outcome', 'audit'),
+			'request_status' => array(
+				'display' => __('Request Status', 'audit'),
 				'align' => 'left',
 				'sort' => 'ASC',
 				'tip' => __('Request processing state; completion does not guarantee that every operation succeeded.', 'audit')
@@ -474,7 +474,7 @@ function audit_log() {
 					form_selectable_ecell($e['page'], $e['id']);
 					form_selectable_ecell($e['user_agent'], $e['id']);
 					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
-					form_selectable_ecell($e['outcome'], $e['id']);
+					form_selectable_ecell($e['request_status'], $e['id']);
 					form_selectable_ecell($e['external_status'], $e['id']);
 					form_selectable_cell(__('N/A', 'audit'), $e['id']);
 					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');
@@ -485,7 +485,7 @@ function audit_log() {
 					form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
 					form_selectable_ecell($e['username'], $e['id']);
 					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
-					form_selectable_ecell($e['outcome'], $e['id']);
+					form_selectable_ecell($e['request_status'], $e['id']);
 					form_selectable_ecell($e['external_status'], $e['id']);
 					form_selectable_ecell($e['user_agent'], $e['id']);
 					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');

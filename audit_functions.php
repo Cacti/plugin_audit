@@ -299,7 +299,7 @@ function audit_retry_external_logs() {
 			'page'        => $event['page'],
 			'user_id'     => $event['user_id'],
 			'action'      => $event['action'],
-			'outcome'     => $event['outcome'],
+			'request_status' => $event['request_status'],
 			'ip_address'  => $event['ip_address'],
 			'user_agent'  => $event['user_agent'],
 			'event_time'  => $event['event_time'],
@@ -317,27 +317,27 @@ function audit_retry_external_logs() {
 	}
 }
 
-function audit_request_outcome($error = null, $status_code = 200) {
+function audit_request_status($error = null, $status_code = 200) {
 	$fatal_types = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR);
 
 	if ((is_array($error) && in_array($error['type'] ?? null, $fatal_types, true)) ||
 		$status_code >= 400) {
-		return 'request_failed';
+		return 'failed';
 	}
 
-	return 'request_completed';
+	return 'completed';
 }
 
 function audit_finalize_request($id) {
 	$status_code = http_response_code();
 	$status_code = is_int($status_code) ? $status_code : 200;
-	$outcome     = audit_request_outcome(error_get_last(), $status_code);
+	$request_status = audit_request_status(error_get_last(), $status_code);
 
 	db_execute_prepared("UPDATE audit_log
-		SET outcome = ?
+		SET request_status = ?
 		WHERE id = ?
-		AND outcome = 'attempted'",
-		array($outcome, $id));
+		AND request_status = 'started'",
+		array($request_status, $id));
 }
 
 
@@ -426,9 +426,9 @@ function audit_config_insert() {
 			$base = CACTI_PATH_BASE;
 		}
 
-		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, object_data, external_status)
+		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, request_status, ip_address, user_agent, event_time, post, object_data, external_status)
 			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, $object_data, $external_status));
+			array($page, $user_id, $action, 'started', $ip_address, $user_agent, $event_time, $post, $object_data, $external_status));
 		$audit_id = db_fetch_insert_id();
 		register_shutdown_function('audit_finalize_request', $audit_id);
 
@@ -455,7 +455,7 @@ function audit_config_insert() {
 				'page'        => $page,
 				'user_id'     => $user_id,
 				'action'      => $action,
-				'outcome'     => 'attempted',
+				'request_status' => 'started',
 				'ip_address'  => $ip_address,
 				'user_agent'  => $user_agent,
 				'event_time'  => $event_time,
@@ -492,9 +492,9 @@ function audit_config_insert() {
 			strpos($arguments[0], 'script_server.php') === false &&
 			strpos($arguments[0], '_process.php') === false) {
 
-			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, external_status)
+			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, request_status, ip_address, user_agent, event_time, post, external_status)
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-				array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, 'not_applicable'));
+				array($page, $user_id, $action, 'started', $ip_address, $user_agent, $event_time, $post, 'not_applicable'));
 		}
 	}
 }

@@ -23,7 +23,7 @@ foreach ($required_controller_guards as $guard) {
 $required_schema_fragments = array(
 	'api_plugin_register_realm(\'audit\', \'audit_manage.php\'',
 	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
-	'ADD COLUMN IF NOT EXISTS outcome',
+	'request_status',
 	'ADD COLUMN IF NOT EXISTS external_status',
 	'ADD COLUMN IF NOT EXISTS external_error',
 	'SHOW CREATE TABLE $table',

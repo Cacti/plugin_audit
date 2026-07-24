@@ -180,7 +180,7 @@ jobs:
           FROM information_schema.columns
           WHERE table_schema = 'cacti'
             AND table_name = 'audit_log'
-            AND column_name IN ('outcome', 'external_status', 'external_error');
+            AND column_name IN ('request_status', 'external_status', 'external_error');
         ")
         if [ "$COLUMN_COUNT" -ne 3 ]; then
           echo "Audit schema security columns are missing"
@@ -242,8 +242,8 @@ jobs:
           exit 1
         fi
 
-        CLI_OUTCOME=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select outcome from audit_log where action = 'cli' order by id desc limit 1;")
-        if [ "$CLI_OUTCOME" != "attempted" ]; then
-          echo "Unexpected CLI audit outcome: $CLI_OUTCOME"
+        CLI_STATUS=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select request_status from audit_log where action = 'cli' order by id desc limit 1;")
+        if [ "$CLI_STATUS" != "started" ]; then
+          echo "Unexpected CLI request status: $CLI_STATUS"
           exit 1
         fi

@@ -2,6 +2,7 @@
 
 --- develop ---
 
+* feature: Rename outcome to request_status with started/completed/failed values
 * feature: Track and retry failed external audit-log delivery
 * security: Bound nested request depth, field counts, string sizes, and JSON parsing
 * security: Escape stored audit data before rendering to prevent stored XSS

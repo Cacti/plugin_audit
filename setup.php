@@ -83,7 +83,22 @@ function audit_check_upgrade() {
 		}
 
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
-		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS outcome varchar(20) NOT NULL DEFAULT 'unknown' AFTER action");
+		if (db_column_exists('audit_log', 'outcome')) {
+			if (!db_column_exists('audit_log', 'request_status')) {
+				db_execute("ALTER TABLE audit_log CHANGE COLUMN outcome request_status varchar(20) NOT NULL DEFAULT 'unknown'");
+			} else {
+				db_execute("UPDATE audit_log SET request_status = outcome WHERE request_status = 'unknown'");
+				db_execute('ALTER TABLE audit_log DROP COLUMN outcome');
+			}
+		} elseif (!db_column_exists('audit_log', 'request_status')) {
+			db_execute("ALTER TABLE audit_log ADD COLUMN request_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER action");
+		}
+
+		db_execute("UPDATE audit_log SET request_status = CASE request_status
+			WHEN 'attempted' THEN 'started'
+			WHEN 'request_completed' THEN 'completed'
+			WHEN 'request_failed' THEN 'failed'
+			ELSE request_status END");
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data");
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status');
 
@@ -132,7 +147,22 @@ function audit_replicate_out($data) {
 		}
 
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB', true, $rcnn_id);
-		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS outcome varchar(20) NOT NULL DEFAULT 'unknown' AFTER action", true, $rcnn_id);
+		if (db_column_exists('audit_log', 'outcome', false, $rcnn_id)) {
+			if (!db_column_exists('audit_log', 'request_status', false, $rcnn_id)) {
+				db_execute("ALTER TABLE audit_log CHANGE COLUMN outcome request_status varchar(20) NOT NULL DEFAULT 'unknown'", true, $rcnn_id);
+			} else {
+				db_execute("UPDATE audit_log SET request_status = outcome WHERE request_status = 'unknown'", true, $rcnn_id);
+				db_execute('ALTER TABLE audit_log DROP COLUMN outcome', true, $rcnn_id);
+			}
+		} elseif (!db_column_exists('audit_log', 'request_status', false, $rcnn_id)) {
+			db_execute("ALTER TABLE audit_log ADD COLUMN request_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER action", true, $rcnn_id);
+		}
+
+		db_execute("UPDATE audit_log SET request_status = CASE request_status
+			WHEN 'attempted' THEN 'started'
+			WHEN 'request_completed' THEN 'completed'
+			WHEN 'request_failed' THEN 'failed'
+			ELSE request_status END", true, $rcnn_id);
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data", true, $rcnn_id);
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status', true, $rcnn_id);
 	}
@@ -170,7 +200,7 @@ function audit_setup_table() {
 		`page` varchar(40) DEFAULT NULL,
 		`user_id` int(10) unsigned DEFAULT NULL,
 		`action` varchar(20) DEFAULT NULL,
-		`outcome` varchar(20) NOT NULL DEFAULT 'unknown',
+		`request_status` varchar(20) NOT NULL DEFAULT 'unknown',
 		`ip_address` varchar(40) DEFAULT NULL,
 		`user_agent` varchar(256) DEFAULT NULL,
 		`event_time` timestamp DEFAULT CURRENT_TIMESTAMP,

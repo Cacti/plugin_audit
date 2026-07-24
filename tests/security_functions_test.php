@@ -81,13 +81,13 @@ audit_test_assert_same(
 );
 
 audit_test_assert_same(
-	'request_completed',
-	audit_request_outcome(null, 302),
+	'completed',
+	audit_request_status(null, 302),
 	'Successful redirects must finalize as completed requests.'
 );
 audit_test_assert_same(
-	'request_failed',
-	audit_request_outcome(array('type' => E_ERROR), 200),
+	'failed',
+	audit_request_status(array('type' => E_ERROR), 200),
 	'Fatal errors must finalize as failed requests.'
 );
 
