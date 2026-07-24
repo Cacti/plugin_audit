@@ -2,6 +2,12 @@
 
 --- develop ---
 
+* security: Escape stored audit data before rendering to prevent stored XSS
+* security: Require an authorized, CSRF-protected POST to purge the audit log
+* security: Recursively redact sensitive web and CLI values
+* security: Generate standards-compliant, spreadsheet-safe CSV exports
+* feature: Mark hook-time records explicitly as attempted actions
+* issue: Harden external file logging, retention, malformed records, and replication
 * issue#38: Graph Template table does not exist
 * issue: If the audit log does not exist or is not set, set it and create it
 * issue: Audit assumes that all selected_items are numeric resulting in fatal error

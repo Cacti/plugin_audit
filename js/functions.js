@@ -31,12 +31,12 @@
  * Apply filter to audit log
  */
 function audit_applyFilter() {
-	strURL = 'audit.php' +
-		'?filter='+$('#filter').val()+
-		'&rows='+$('#rows').val()+
-		'&page='+$('#page').val()+
-		'&event_page='+$('#event_page').val()+
-		'&user_id='+$('#user_id').val()+
+	var strURL = 'audit.php' +
+		'?filter='+encodeURIComponent($('#filter').val())+
+		'&rows='+encodeURIComponent($('#rows').val())+
+		'&page='+encodeURIComponent($('#page').val())+
+		'&event_page='+encodeURIComponent($('#event_page').val())+
+		'&user_id='+encodeURIComponent($('#user_id').val())+
 		'&header=false';
 	loadPageNoHeader(strURL);
 }
@@ -45,7 +45,7 @@ function audit_applyFilter() {
  * Clear all filters
  */
 function audit_clearFilter() {
-	strURL = 'audit.php?clear=1&header=false';
+	var strURL = 'audit.php?clear=1&header=false';
 	loadPageNoHeader(strURL);
 }
 
@@ -108,15 +108,20 @@ $(function() {
 	});
 
 	$('#purge').click(function() {
-		strURL = 'audit.php?action=purge&header=false';
-		loadPageNoHeader(strURL);
+		if (!window.confirm($(this).data('confirm'))) {
+			return;
+		}
+
+		loadPageUsingPost('audit.php?action=purge&header=false', {
+			__csrf_magic: csrfMagicToken
+		});
 	});
 
 	$('#export').click(function() {
 		document.location = 'audit.php?action=export' +
-			'&filter='+$('#filter').val()+
-			'&event_page='+$('#event_page').val()+
-			'&user_id='+$('#user_id').val();
+			'&filter='+encodeURIComponent($('#filter').val())+
+			'&event_page='+encodeURIComponent($('#event_page').val())+
+			'&user_id='+encodeURIComponent($('#user_id').val());
 	});
 
 	$('#form_audit').submit(function(event) {
@@ -128,7 +133,7 @@ $(function() {
 	$('span[id^="event"]').hover(function() {
 		audit_close_dialog();
 
-		id = $(this).attr('id').replace('event', '');
+		var id = $(this).attr('id').replace('event', '');
 
 		if (auditTimer != null) {
 			clearTimeout(auditTimer);

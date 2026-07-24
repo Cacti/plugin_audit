@@ -118,7 +118,79 @@ function audit_process_page_data($page, $drop_action, $selected_items) {
 		}
 	}
 
-	return json_encode($objects);
+	return audit_json_encode($objects);
+}
+
+function audit_is_sensitive_key($key) {
+	return preg_match('/(?:pass(?:word)?|phrase|token|secret|api[_-]?key|private[_-]?key|community|credential|authorization|authentication)/i', (string) $key);
+}
+
+function audit_redact_sensitive_data($data) {
+	if (!is_array($data)) {
+		return $data;
+	}
+
+	$redacted = array();
+
+	foreach ($data as $key => $value) {
+		if (audit_is_sensitive_key($key)) {
+			$redacted[$key] = '[REDACTED]';
+		} elseif (is_array($value)) {
+			$redacted[$key] = audit_redact_sensitive_data($value);
+		} else {
+			$redacted[$key] = $value;
+		}
+	}
+
+	return $redacted;
+}
+
+function audit_redact_cli_arguments($arguments) {
+	$redacted = array();
+	$redact_next = false;
+
+	foreach ($arguments as $argument) {
+		if ($redact_next) {
+			$redacted[] = '[REDACTED]';
+			$redact_next = false;
+			continue;
+		}
+
+		if (preg_match('/^(--?[^=]*(?:pass(?:word)?|phrase|token|secret|api[_-]?key|private[_-]?key|community|credential|authorization|authentication)[^=]*)=(.*)$/i', $argument, $matches)) {
+			$redacted[] = $matches[1] . '=[REDACTED]';
+			continue;
+		}
+
+		if (preg_match('/^--?[^=]*(?:pass(?:word)?|phrase|token|secret|api[_-]?key|private[_-]?key|community|credential|authorization|authentication)/i', $argument)) {
+			$redacted[] = $argument;
+			$redact_next = true;
+			continue;
+		}
+
+		$redacted[] = preg_replace('#^([a-z][a-z0-9+.-]*://[^:/@\s]+):[^@\s]+@#i', '$1:[REDACTED]@', $argument);
+	}
+
+	return $redacted;
+}
+
+function audit_json_encode($data) {
+	$json = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
+
+	if ($json === false) {
+		return json_encode(array('audit_encoding_error' => json_last_error_msg()));
+	}
+
+	return $json;
+}
+
+function audit_csv_safe_cell($value) {
+	$value = (string) $value;
+
+	if (preg_match('/^[=+\-@]/', ltrim($value))) {
+		return "'" . $value;
+	}
+
+	return $value;
 }
 
 
@@ -128,16 +200,13 @@ function audit_config_insert() {
 
 	if (audit_log_valid_event()) {
 		/* prepare post */
-		$post = $_REQUEST;
+		$post = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
+		$post = is_array($post) ? $post : array();
 
 		/* remove unsafe variables */
 		unset($post['__csrf_magic']);
 		unset($post['header']);
-		foreach ($post as $key => $value) {
-			if (preg_match('/pass|phrase/i', $key)) {
-				unset($post[$key]);
-			}
-		}
+		$post = audit_redact_sensitive_data($post);
 
 		/* check if drp_action is present and update action accordingly */
 		if (isset($post['drp_action']) && $post['drp_action'] == 1) {
@@ -147,15 +216,16 @@ function audit_config_insert() {
 		}
 
 		/* sanitize and serialize selected items */
-		if (isset($post['selected_items'])) {
-			$selected_items = unserialize(stripslashes($post['selected_items']), array('allowed_classes' => false));
-			$drop_action    = $post['drp_action'];
+		if (isset($post['selected_items']) && is_string($post['selected_items'])) {
+			$selected_items = @unserialize(stripslashes($post['selected_items']), array('allowed_classes' => false));
+			$selected_items = is_array($selected_items) ? $selected_items : array();
+			$drop_action    = $post['drp_action'] ?? false;
 		} else {
 			$selected_items = array();
 			$drop_action    = false;
 		}
 
-		$post        = json_encode($post);
+		$post        = audit_json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
 		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0);
 		$event_time  = date('Y-m-d H:i:s');
@@ -164,7 +234,7 @@ function audit_config_insert() {
 		$ip_address  = get_client_addr();
 
 		/* Get the User Agent */
-		$user_agent  = $_SERVER['HTTP_USER_AGENT'];
+		$user_agent  = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
 		if (empty($action) && isset_request_var('action')) {
 			$action = get_nfilter_request_var('action');
@@ -207,29 +277,36 @@ function audit_config_insert() {
 			$base = CACTI_PATH_BASE;
 		}
 
-		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
+		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, object_data)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, $object_data));
 
-		if ($audit_log == '') {
+		$external_logging = read_config_option('audit_log_external') == 'on';
+
+		if ($external_logging && $audit_log == '') {
 			set_config_option('audit_log_external_path', $base . '/log/audit.log');
 			$audit_log = $base . '/log/audit.log';
 		}
 
-		if ($audit_log != '' && !file_exists($audit_log)) {
+		if ($external_logging && $audit_log != '' && !file_exists($audit_log)) {
 			if (is_writable(dirname($audit_log))) {
 				cacti_log(sprintf('NOTE: The Audit Log file \'%s\' does not exist.  Creating it.', $audit_log), false, 'AUDIT');
-				touch($audit_log);
+				if (!touch($audit_log)) {
+					cacti_log(sprintf('ERROR: Unable to create Audit Log file \'%s\'.', $audit_log), false, 'AUDIT');
+				} else {
+					@chmod($audit_log, 0600);
+				}
 			} else {
 				cacti_log(sprintf('ERROR: Audit Log file path \'%s\' does not exist and the path is not writeable.', $audit_log), false, 'AUDIT');
 			}
 		}
 
-		if (read_config_option('audit_log_external') == 'on' && $audit_log != '' && file_exists($audit_log))  {
+		if ($external_logging && $audit_log != '' && is_file($audit_log) && !is_link($audit_log)) {
 			$log_data = array(
 				'page'        => $page,
 				'user_id'     => $user_id,
 				'action'      => $action,
+				'outcome'     => 'attempted',
 				'ip_address'  => $ip_address,
 				'user_agent'  => $user_agent,
 				'event_time'  => $event_time,
@@ -237,33 +314,35 @@ function audit_config_insert() {
 				'object_data' => $object_data
 			);
 
-			$log_msg = json_encode($log_data) . "\n";
-			$file    = fopen($audit_log, 'a');
+			$log_msg = audit_json_encode($log_data) . "\n";
+			$written = file_put_contents($audit_log, $log_msg, FILE_APPEND | LOCK_EX);
 
-			if ($file) {
-				fwrite($file, $log_msg);
-				fclose($file);
+			if ($written !== strlen($log_msg)) {
+				cacti_log(sprintf('ERROR: Unable to append a complete record to Audit Log file \'%s\'.', $audit_log), false, 'AUDIT');
 			}
+		} elseif ($external_logging && $audit_log != '') {
+			cacti_log(sprintf('ERROR: Audit Log file \'%s\' is not a regular file or is a symbolic link.', $audit_log), false, 'AUDIT');
 		}
-	} elseif (isset($_SERVER['argv'])) {
-		$page       = basename($_SERVER['argv'][0]);
+	} elseif (isset($_SERVER['argv']) && cacti_sizeof($_SERVER['argv'])) {
+		$arguments  = audit_redact_cli_arguments($_SERVER['argv']);
+		$page       = basename($arguments[0]);
 		$user_id    = 0;
 		$action     = 'cli';
 		$ip_address = getHostByName(php_uname('n'));
 		$user_agent = get_current_user();
 		$event_time = date('Y-m-d H:i:s');
-		$post       = implode(' ', $_SERVER['argv']);
+		$post       = implode(' ', $arguments);
 
 		/* don't insert poller records */
-		if (strpos($_SERVER['argv'][0], 'poller') === false &&
-			strpos($_SERVER['argv'][0], 'cmd.php') === false &&
-			strpos($_SERVER['argv'][0], '/scripts/') === false &&
-			strpos($_SERVER['argv'][0], 'script_server.php') === false &&
-			strpos($_SERVER['argv'][0], '_process.php') === false) {
+		if (strpos($arguments[0], 'poller') === false &&
+			strpos($arguments[0], 'cmd.php') === false &&
+			strpos($arguments[0], '/scripts/') === false &&
+			strpos($arguments[0], 'script_server.php') === false &&
+			strpos($arguments[0], '_process.php') === false) {
 
-			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post)
-				VALUES (?, ?, ?, ?, ?, ?, ?)',
-				array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post));
+			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+				array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post));
 		}
 	}
 }

@@ -180,6 +180,12 @@ jobs:
           echo "Syntax errors found!"
           exit 1
         fi
+
+    - name: Run Audit Security Helper Tests
+      run: |
+        cd ${{ github.workspace }}/cacti/plugins/audit
+        php tests/security_functions_test.php
+        php tests/controller_security_test.php
     
     
     - name: Run Cacti Poller
@@ -221,5 +227,3 @@ jobs:
           echo "No audit log entries found!"
           exit 1
         fi
-
-
