@@ -138,11 +138,57 @@ function audit_redact_sensitive_data($data) {
 		} elseif (is_array($value)) {
 			$redacted[$key] = audit_redact_sensitive_data($value);
 		} else {
-			$redacted[$key] = $value;
+			$redacted[$key] = audit_redact_sensitive_value($value);
 		}
 	}
 
 	return $redacted;
+}
+
+function audit_redact_sensitive_value($value) {
+	if (!is_string($value)) {
+		return $value;
+	}
+
+	if (preg_match('/-----BEGIN (?:[A-Z ]+ )?PRIVATE KEY-----/', $value) ||
+		preg_match('/^(?:Bearer|Basic)\s+[A-Za-z0-9+\/_=.-]+$/i', trim($value)) ||
+		preg_match('/^[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}$/', trim($value))) {
+		return '[REDACTED]';
+	}
+
+	return preg_replace('#^([a-z][a-z0-9+.-]*://[^:/@\s]+):[^@\s]+@#i', '$1:[REDACTED]@', $value);
+}
+
+function audit_bound_log_data($data, $depth = 0, $state = null) {
+	if ($state === null) {
+		$state = (object) array('fields' => 0);
+	}
+
+	if ($depth >= 12) {
+		return '[MAXIMUM DEPTH REACHED]';
+	}
+
+	if (is_array($data)) {
+		$bounded = array();
+
+		foreach ($data as $key => $value) {
+			if ($state->fields >= 1000) {
+				$bounded['audit_truncated'] = 'Additional fields were omitted.';
+				break;
+			}
+
+			$state->fields++;
+			$bounded[$key] = audit_bound_log_data($value, $depth + 1, $state);
+		}
+
+		return $bounded;
+	}
+
+	if (is_string($data) && strlen($data) > 65536) {
+		return substr($data, 0, 65536) . '[TRUNCATED]';
+	}
+
+	return $data;
 }
 
 function audit_redact_cli_arguments($arguments) {
@@ -174,13 +220,24 @@ function audit_redact_cli_arguments($arguments) {
 }
 
 function audit_json_encode($data) {
-	$json = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
+	$json = json_encode(audit_bound_log_data($data), JSON_INVALID_UTF8_SUBSTITUTE, 16);
 
 	if ($json === false) {
 		return json_encode(array('audit_encoding_error' => json_last_error_msg()));
 	}
 
 	return $json;
+}
+
+function audit_json_decode($json, &$error = null) {
+	$error = null;
+
+	try {
+		return json_decode($json, true, 16, JSON_THROW_ON_ERROR);
+	} catch (Throwable $exception) {
+		$error = $exception->getMessage();
+		return null;
+	}
 }
 
 function audit_csv_safe_cell($value) {
@@ -191,6 +248,96 @@ function audit_csv_safe_cell($value) {
 	}
 
 	return $value;
+}
+
+function audit_retention_cutoff($retention, $now = null) {
+	$now = $now instanceof DateTimeImmutable
+		? $now->setTimezone(new DateTimeZone('UTC'))
+		: new DateTimeImmutable('now', new DateTimeZone('UTC'));
+
+	return $now->sub(new DateInterval('P' . max(0, (int) $retention) . 'D'));
+}
+
+function audit_append_external_log($path, $message) {
+	if ($path == '' || !is_file($path) || is_link($path)) {
+		return array('status' => 'failed', 'error' => 'Destination is not a regular file or is a symbolic link.');
+	}
+
+	$written = file_put_contents($path, $message, FILE_APPEND | LOCK_EX);
+	if ($written !== strlen($message)) {
+		return array('status' => 'failed', 'error' => 'Unable to append a complete record.');
+	}
+
+	return array('status' => 'delivered', 'error' => '');
+}
+
+function audit_set_external_status($id, $status, $error = '') {
+	db_execute_prepared('UPDATE audit_log
+		SET external_status = ?, external_error = ?
+		WHERE id = ?',
+		array($status, $error, $id));
+}
+
+function audit_retry_external_logs() {
+	if (read_config_option('audit_log_external') != 'on') {
+		return;
+	}
+
+	$path = read_config_option('audit_log_external_path');
+	if ($path == '' || !is_file($path) || is_link($path)) {
+		return;
+	}
+
+	$events = db_fetch_assoc("SELECT *
+		FROM audit_log
+		WHERE external_status = 'failed'
+		ORDER BY id
+		LIMIT 100");
+
+	foreach ($events as $event) {
+		$log_data = array(
+			'page'        => $event['page'],
+			'user_id'     => $event['user_id'],
+			'action'      => $event['action'],
+			'outcome'     => $event['outcome'],
+			'ip_address'  => $event['ip_address'],
+			'user_agent'  => $event['user_agent'],
+			'event_time'  => $event['event_time'],
+			'post'        => $event['post'],
+			'object_data' => $event['object_data']
+		);
+
+		$message  = audit_json_encode($log_data) . "\n";
+		$delivery = audit_append_external_log($path, $message);
+		audit_set_external_status($event['id'], $delivery['status'], $delivery['error']);
+
+		if ($delivery['status'] != 'delivered') {
+			break;
+		}
+	}
+}
+
+function audit_request_outcome($error = null, $status_code = 200) {
+	$fatal_types = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR);
+
+	if ((is_array($error) && in_array($error['type'] ?? null, $fatal_types, true)) ||
+		$status_code >= 400) {
+		return 'request_failed';
+	}
+
+	return 'request_completed';
+}
+
+function audit_finalize_request($id) {
+	$status_code = http_response_code();
+	$status_code = is_int($status_code) ? $status_code : 200;
+	$outcome     = audit_request_outcome(error_get_last(), $status_code);
+
+	db_execute_prepared("UPDATE audit_log
+		SET outcome = ?
+		WHERE id = ?
+		AND outcome = 'attempted'",
+		array($outcome, $id));
 }
 
 
@@ -270,6 +417,8 @@ function audit_config_insert() {
 		}
 
 		$audit_log = read_config_option('audit_log_external_path');
+		$external_logging = read_config_option('audit_log_external') == 'on';
+		$external_status  = $external_logging ? 'pending' : 'disabled';
 
 		if (!defined('CACTI_PATH_BASE')) {
 			$base = $config['base_path'];
@@ -277,11 +426,11 @@ function audit_config_insert() {
 			$base = CACTI_PATH_BASE;
 		}
 
-		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, object_data)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, $object_data));
-
-		$external_logging = read_config_option('audit_log_external') == 'on';
+		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, object_data, external_status)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, $object_data, $external_status));
+		$audit_id = db_fetch_insert_id();
+		register_shutdown_function('audit_finalize_request', $audit_id);
 
 		if ($external_logging && $audit_log == '') {
 			set_config_option('audit_log_external_path', $base . '/log/audit.log');
@@ -315,12 +464,15 @@ function audit_config_insert() {
 			);
 
 			$log_msg = audit_json_encode($log_data) . "\n";
-			$written = file_put_contents($audit_log, $log_msg, FILE_APPEND | LOCK_EX);
+			$delivery = audit_append_external_log($audit_log, $log_msg);
+			audit_set_external_status($audit_id, $delivery['status'], $delivery['error']);
 
-			if ($written !== strlen($log_msg)) {
-				cacti_log(sprintf('ERROR: Unable to append a complete record to Audit Log file \'%s\'.', $audit_log), false, 'AUDIT');
+			if ($delivery['status'] != 'delivered') {
+				cacti_log(sprintf('ERROR: Unable to append a complete record to Audit Log file \'%s\': %s', $audit_log, $delivery['error']), false, 'AUDIT');
 			}
 		} elseif ($external_logging && $audit_log != '') {
+			$error = 'Destination is not a regular file or is a symbolic link.';
+			audit_set_external_status($audit_id, 'failed', $error);
 			cacti_log(sprintf('ERROR: Audit Log file \'%s\' is not a regular file or is a symbolic link.', $audit_log), false, 'AUDIT');
 		}
 	} elseif (isset($_SERVER['argv']) && cacti_sizeof($_SERVER['argv'])) {
@@ -340,9 +492,9 @@ function audit_config_insert() {
 			strpos($arguments[0], 'script_server.php') === false &&
 			strpos($arguments[0], '_process.php') === false) {
 
-			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-				array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post));
+			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, outcome, ip_address, user_agent, event_time, post, external_status)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				array($page, $user_id, $action, 'attempted', $ip_address, $user_agent, $event_time, $post, 'not_applicable'));
 		}
 	}
 }

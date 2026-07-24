@@ -82,6 +82,10 @@ function audit_render_event_details($data) {
 	$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . html_escape($data['event_time']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . html_escape($data['action']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Outcome:', 'audit') . '</b>  <i>' . html_escape($data['outcome']) . '</i></span>';
+	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
+	if ($data['external_error'] != '') {
+		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
+	}
 	$output .= '<hr>';
 
 	if ($data['action'] == 'cli') {
@@ -89,9 +93,9 @@ function audit_render_event_details($data) {
 		return $output . '</td></tr></table>';
 	}
 
-	$attribs = json_decode($data['post'], true);
+	$attribs = audit_json_decode($data['post'], $json_error);
 	$attribs = is_array($attribs) ? $attribs : array(
-		__('Stored Data', 'audit') => __('The stored request data is not valid JSON.', 'audit')
+		__('Stored Data', 'audit') => __('The stored request data is not valid JSON: %s', $json_error, 'audit')
 	);
 	ksort($attribs);
 
@@ -119,7 +123,7 @@ function audit_render_event_details($data) {
 		$output .= '<td></td><td></td></tr>';
 	}
 
-	$record_data = json_decode($data['object_data'], true);
+	$record_data = audit_json_decode($data['object_data'], $object_error);
 	if (is_array($record_data) && !empty($record_data)) {
 		$output .= '<tr><td colspan="' . ($columns * 2) . '"><hr></td></tr>';
 		$output .= '<tr><td colspan="' . ($columns * 2) . '"><b>' . __('Record Data:', 'audit') . '</b></td></tr>';
@@ -194,13 +198,13 @@ function audit_export_rows() {
 		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
-		fputcsv($output, array('page', 'user_id', 'username', 'action', 'outcome', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
+		fputcsv($output, array('page', 'user_id', 'username', 'action', 'outcome', 'external_status', 'external_error', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
 
 		foreach($events as $event) {
 			if ($event['action'] == 'cli') {
 				$poster = $event['post'];
 			} else {
-				$post   = json_decode($event['post'], true);
+				$post   = audit_json_decode($event['post'], $json_error);
 				$poster = is_array($post) ? json_encode($post, JSON_INVALID_UTF8_SUBSTITUTE) : $event['post'];
 			}
 
@@ -210,6 +214,8 @@ function audit_export_rows() {
 				get_username($event['user_id']),
 				$event['action'],
 				$event['outcome'],
+				$event['external_status'],
+				$event['external_error'],
 				$event['ip_address'],
 				$event['user_agent'],
 				$event['event_time'],
@@ -430,7 +436,13 @@ function audit_log() {
 				'display' => __('Outcome', 'audit'),
 				'align' => 'left',
 				'sort' => 'ASC',
-				'tip' => __('Whether this event records an attempted or confirmed action.', 'audit')
+				'tip' => __('Request processing state; completion does not guarantee that every operation succeeded.', 'audit')
+			),
+			'external_status' => array(
+				'display' => __('External Delivery', 'audit'),
+				'align' => 'left',
+				'sort' => 'ASC',
+				'tip' => __('Delivery state for the optional external audit log.', 'audit')
 		),
 		'user_agent'  => array(
 			'display' => __('User Agent', 'audit'),
@@ -463,6 +475,7 @@ function audit_log() {
 					form_selectable_ecell($e['user_agent'], $e['id']);
 					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
 					form_selectable_ecell($e['outcome'], $e['id']);
+					form_selectable_ecell($e['external_status'], $e['id']);
 					form_selectable_cell(__('N/A', 'audit'), $e['id']);
 					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');
 					form_selectable_ecell($e['event_time'], $e['id'], '', 'right');
@@ -473,6 +486,7 @@ function audit_log() {
 					form_selectable_ecell($e['username'], $e['id']);
 					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
 					form_selectable_ecell($e['outcome'], $e['id']);
+					form_selectable_ecell($e['external_status'], $e['id']);
 					form_selectable_ecell($e['user_agent'], $e['id']);
 					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');
 					form_selectable_ecell($e['event_time'], $e['id'], '', 'right');
@@ -480,7 +494,7 @@ function audit_log() {
 			}
 		}
 	} else {
-			print "<tr class='tableRow'><td colspan='7'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
+			print "<tr class='tableRow'><td colspan='8'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
 	}
 
 	html_end_box(false);

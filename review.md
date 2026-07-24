@@ -2,9 +2,14 @@
 
 > Remediation update (branch `code_audit`): the implementation now addresses
 > AUD-001 through AUD-010, adds focused security-helper coverage for AUD-011,
-> and bumps the plugin schema/version to 1.3. The findings below describe the
+> and bumps the plugin schema/version to 1.4. The findings below describe the
 > pre-remediation code that was reviewed and are retained as the audit record.
 > Full browser/database integration coverage is still recommended before release.
+> Generic requests are finalized as completed or failed, but operation-specific
+> success cannot be proven without corresponding completion hooks in each Cacti
+> page. Request collection uses recursive redaction and strict size/depth bounds;
+> converting every supported page to a field allowlist remains a future,
+> compatibility-sensitive change.
 
 ## Executive summary
 

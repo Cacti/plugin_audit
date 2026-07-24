@@ -84,6 +84,8 @@ function audit_check_upgrade() {
 
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS outcome varchar(20) NOT NULL DEFAULT 'unknown' AFTER action");
+		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data");
+		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status');
 
 		db_execute_prepared('UPDATE plugin_config
 			SET version = ?
@@ -126,14 +128,21 @@ function audit_replicate_out($data) {
 				}
 			}
 		} else {
-			cacti_log('INFO: Audit Log table exists skipping', false, 'REPLICATE');
+			cacti_log('INFO: Audit Log table exists, checking schema', false, 'REPLICATE');
 		}
+
+		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB', true, $rcnn_id);
+		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS outcome varchar(20) NOT NULL DEFAULT 'unknown' AFTER action", true, $rcnn_id);
+		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data", true, $rcnn_id);
+		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status', true, $rcnn_id);
 	}
 
 	return $data;
 }
 
 function audit_poller_bottom() {
+	audit_retry_external_logs();
+
 	$last_check = read_config_option('audit_last_check');
 	$now        = gmdate('Y-m-d');
 
@@ -141,8 +150,7 @@ function audit_poller_bottom() {
 		$retention = read_config_option('audit_retention');
 
 		if ($retention > 0) {
-			$cutoff = new DateTimeImmutable('now', new DateTimeZone('UTC'));
-			$cutoff = $cutoff->sub(new DateInterval('P' . (int) $retention . 'D'));
+			$cutoff = audit_retention_cutoff($retention);
 
 			db_execute_prepared('DELETE FROM audit_log WHERE event_time < ?', array($cutoff->format('Y-m-d H:i:s')));
 			$rows = db_affected_rows();
@@ -168,6 +176,8 @@ function audit_setup_table() {
 		`event_time` timestamp DEFAULT CURRENT_TIMESTAMP,
 		`post` longblob,
 		`object_data` longblob,
+		`external_status` varchar(20) NOT NULL DEFAULT 'unknown',
+		`external_error` varchar(1024) DEFAULT NULL,
 		PRIMARY KEY (`id`),
 		KEY `user_id` (`user_id`),
 		KEY `page` (`page`),

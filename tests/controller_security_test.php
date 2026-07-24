@@ -2,6 +2,7 @@
 
 $controller = file_get_contents(dirname(__DIR__) . '/audit.php');
 $javascript = file_get_contents(dirname(__DIR__) . '/js/functions.js');
+$setup      = file_get_contents(dirname(__DIR__) . '/setup.php');
 
 $required_controller_guards = array(
 	"\$_SERVER['REQUEST_METHOD'] !== 'POST'",
@@ -15,6 +16,23 @@ $required_controller_guards = array(
 foreach ($required_controller_guards as $guard) {
 	if (strpos($controller, $guard) === false) {
 		fwrite(STDERR, 'Missing controller security guard: ' . $guard . PHP_EOL);
+		exit(1);
+	}
+}
+
+$required_schema_fragments = array(
+	'api_plugin_register_realm(\'audit\', \'audit_manage.php\'',
+	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
+	'ADD COLUMN IF NOT EXISTS outcome',
+	'ADD COLUMN IF NOT EXISTS external_status',
+	'ADD COLUMN IF NOT EXISTS external_error',
+	'SHOW CREATE TABLE $table',
+	'audit_retry_external_logs()'
+);
+
+foreach ($required_schema_fragments as $fragment) {
+	if (strpos($setup, $fragment) === false) {
+		fwrite(STDERR, 'Missing schema or replication requirement: ' . $fragment . PHP_EOL);
 		exit(1);
 	}
 }
