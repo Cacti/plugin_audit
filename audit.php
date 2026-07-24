@@ -33,6 +33,17 @@ case 'export':
 
 	break;
 case 'purge':
+	if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+		http_response_code(405);
+		header('Allow: POST');
+		exit;
+	}
+
+	if (!api_plugin_user_realm_auth('audit_manage.php') || !csrf_check(false)) {
+		http_response_code(403);
+		exit;
+	}
+
 	audit_purge();
 
 	top_header();
@@ -40,95 +51,27 @@ case 'purge':
 	bottom_footer();
 
 	break;
-	case 'getdata':
-		$data = db_fetch_row_prepared('SELECT *
+case 'getdata':
+	$data = db_fetch_row_prepared('SELECT *
 			FROM audit_log
 			WHERE id = ?',
-			array(get_filter_request_var('id')));
+		array(get_filter_request_var('id')));
 
-		$output = '';
+	if (!cacti_sizeof($data)) {
+		http_response_code(404);
+		print html_escape(__('Audit event not found.', 'audit'));
+		break;
+	}
 
-		if ($data['action'] == 'cli') {
-			$width = 'wide';
-			$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-			$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
-			$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . $data['user_agent'] . '</i></span>';
-			$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-			$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-			$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
-			$output .= '<hr>';
-			$output .= '<span><b>' . __('Script:', 'audit') . '</b>  <i>' . $data['post'] . '</i></span>';
-		} elseif (cacti_sizeof($data)) {
-			$attribs = json_decode($data['post']);
+	audit_record_event('audit.event.viewed', array(
+		'event_category' => 'audit',
+		'target_type' => 'audit_event',
+		'target_id' => $data['event_uuid'] != '' ? $data['event_uuid'] : $data['id'],
+		'details' => array('record_id' => $data['id'])
+	));
 
-			$nattribs = array();
-			foreach($attribs as $field => $content) {
-				$nattribs[$field] = $content;
-			}
-			ksort($nattribs);
-
-			if (cacti_sizeof($nattribs) > 16) {
-				$width = 'wide';
-			} else {
-				$width = 'narrow';
-			}
-
-			$output .= '<table style="width:100%" class="' . $width . '"><tr><td>';
-			$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . $data['page'] . '</i></span>';
-			$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . get_username($data['user_id']) . '</i></span>';
-			$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . $data['ip_address'] . '</i></span>';
-			$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . $data['event_time'] . '</i></span>';
-			$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . $data['action'] . '</i></span>';
-			$output .= '<hr>';
-			$output .= '<table style="width:100%">';
-
-			if (cacti_sizeof($nattribs) > 16) {
-				$columns = 2;
-				$output .= '<tr class="tableHeader"><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th></tr>';
-			} else {
-				$columns = 1;
-				$output .= '<tr class="tableHeader"><th style="width:50%">' . __('Attrib', 'audit') . '</th><th style="width:50%">' . __('Value', 'audit') . '</th></tr>';
-			}
-
-			$i = 0;
-			if (cacti_sizeof($nattribs)) {
-				foreach($nattribs as $field => $content) {
-					if ($i % $columns == 0) {
-						$output .= ($output != '' ? '</tr>':'') . '<tr>';
-					}
-
-					if (is_array($content)) {
-						$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td">' . implode(',', $content) . '</td>';
-					} else {
-						$output .= '<td style="font-weight:bold;white-space:nowrap;">' . $field . '</td><td>' . $content . '</td>';
-					}
-
-					$i++;
-				}
-
-				if ($i % $columns > 0) {
-					$output . '<td></td><td></td></tr>';
-				}
-			}
-
-			// Display the Record Data under selected_items if it is not empty
-			$recordData = json_decode($data['object_data']);
-			if (!empty($recordData)) {
-				$output .= '</table>';
-				$output .= '<tr><td colspan="' . ($columns * 2) . '"><hr></td></tr>';
-				$output .= '<tr><td colspan="' . ($columns * 2) . '"><b>' . __('Record Data:', 'audit') . '</b></td></tr>';
-
-				foreach ($recordData as $record) {
-					$output .= '<tr><td colspan="' . ($columns * 2) . '"><pre>' . json_encode($record, JSON_PRETTY_PRINT) . '</pre></td></tr>';
-				}
-			} else {
-				$output .= '</table>';
-			}
-		}
-
-		// Output the final result
-		echo $output;
-
+	$output = audit_render_event_details($data);
+	echo $output;
 
 	break;
 default:
@@ -137,8 +80,95 @@ default:
 	bottom_footer();
 }
 
+function audit_render_event_details($data) {
+	$width  = 'wide';
+	$output = '<table style="width:100%" class="' . $width . '"><tr><td>';
+	$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . html_escape($data['page']) . '</i></span>';
+	$output .= '<br><span><b>' . __('User:', 'audit') . '</b>  <i>' . html_escape($data['action'] == 'cli' ? $data['user_agent'] : get_username($data['user_id'])) . '</i></span>';
+	$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . html_escape($data['ip_address']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . html_escape($data['event_time']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . html_escape($data['action']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Event Type:', 'audit') . '</b>  <i>' . html_escape($data['event_type']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Event ID:', 'audit') . '</b>  <i>' . html_escape($data['event_uuid']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Request Status:', 'audit') . '</b>  <i>' . html_escape($data['request_status']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Operation Outcome:', 'audit') . '</b>  <i>' . html_escape($data['operation_outcome']) . '</i></span>';
+	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
+	if ($data['external_error'] != '') {
+		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
+	}
+	$output .= '<hr>';
+
+	if ($data['action'] == 'cli') {
+		$output .= '<span><b>' . __('Script:', 'audit') . '</b>  <i>' . html_escape($data['post']) . '</i></span>';
+		return $output . '</td></tr></table>';
+	}
+
+	$attribs = audit_json_decode($data['post'], $json_error);
+	$attribs = is_array($attribs) ? $attribs : array(
+		__('Stored Data', 'audit') => __('The stored request data is not valid JSON: %s', $json_error, 'audit')
+	);
+	ksort($attribs);
+
+	$columns = cacti_sizeof($attribs) > 16 ? 2 : 1;
+	$output .= '<table style="width:100%">';
+	$output .= $columns == 2
+		? '<tr class="tableHeader"><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th><th style="width:25%">' . __('Attrib', 'audit') . '</th><th style="width:25%">' . __('Value', 'audit') . '</th></tr>'
+		: '<tr class="tableHeader"><th style="width:50%">' . __('Attrib', 'audit') . '</th><th style="width:50%">' . __('Value', 'audit') . '</th></tr>';
+
+	$i = 0;
+	foreach ($attribs as $field => $content) {
+		if ($i % $columns == 0) {
+			$output .= '<tr>';
+		}
+
+		$output .= '<td style="font-weight:bold;white-space:nowrap;">' . html_escape($field) . '</td><td>' . audit_render_value($content) . '</td>';
+		$i++;
+
+		if ($i % $columns == 0) {
+			$output .= '</tr>';
+		}
+	}
+
+	if ($i % $columns > 0) {
+		$output .= '<td></td><td></td></tr>';
+	}
+
+	$record_data = audit_json_decode($data['object_data'], $object_error);
+	if (is_array($record_data) && !empty($record_data)) {
+		$output .= '<tr><td colspan="' . ($columns * 2) . '"><hr></td></tr>';
+		$output .= '<tr><td colspan="' . ($columns * 2) . '"><b>' . __('Record Data:', 'audit') . '</b></td></tr>';
+
+		foreach ($record_data as $record) {
+			$output .= '<tr><td colspan="' . ($columns * 2) . '"><pre>' . html_escape(json_encode($record, JSON_PRETTY_PRINT | JSON_INVALID_UTF8_SUBSTITUTE)) . '</pre></td></tr>';
+		}
+	}
+
+	return $output . '</table></td></tr></table>';
+}
+
+function audit_render_value($value) {
+	if (is_array($value) || is_object($value)) {
+		return '<pre>' . html_escape(json_encode($value, JSON_PRETTY_PRINT | JSON_INVALID_UTF8_SUBSTITUTE)) . '</pre>';
+	}
+
+	if (is_bool($value)) {
+		$value = $value ? 'true' : 'false';
+	} elseif ($value === null) {
+		$value = 'null';
+	}
+
+	return html_escape((string) $value);
+}
+
 function audit_purge() {
 	db_execute('TRUNCATE TABLE audit_log');
+
+	audit_record_event('audit.log.purged', array(
+		'event_category' => 'audit',
+		'severity' => 'warning',
+		'action' => 'purge',
+		'target_type' => 'audit_log'
+	));
 
 	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
 
@@ -148,67 +178,100 @@ function audit_purge() {
 }
 
 function audit_export_rows() {
-	process_request_vars();
+	audit_process_request_vars();
 
 	/* form the 'where' clause for our main sql query */
+	$sql_clauses = array();
+	$sql_params  = array();
+
 	if (get_request_var('filter') != '') {
-		$sql_where = 'WHERE (
-			page LIKE '    . db_qstr('%' . get_request_var('filter') . '%') . '
-			OR post LIKE ' . db_qstr('%' . get_request_var('filter') . '%') . ')';
-	} else {
-		$sql_where = '';
+		$sql_clauses[] = '(page LIKE ? OR post LIKE ?)';
+		$sql_params[]  = '%' . get_request_var('filter') . '%';
+		$sql_params[]  = '%' . get_request_var('filter') . '%';
 	}
 
 	if (get_request_var('event_page') != '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' page = ' . db_qstr(get_request_var('event_page'));
+		$sql_clauses[] = 'page = ?';
+		$sql_params[]  = get_request_var('event_page');
 	}
 
 	if (!isempty_request_var('user_id') && get_request_var('user_id') > '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' user_id = ' . get_request_var('user_id');
+		$sql_clauses[] = 'user_id = ?';
+		$sql_params[]  = get_request_var('user_id');
 	}
 
-	$events = db_fetch_assoc("SELECT audit_log.*, user_auth.username
-		FROM audit_log
-		LEFT JOIN user_auth
-		ON audit_log.user_id=user_auth.id
-		$sql_where");
+	$sql_where = cacti_sizeof($sql_clauses) ? 'WHERE ' . implode(' AND ', $sql_clauses) : '';
+
+	$events = db_fetch_assoc_prepared("SELECT audit_log.*, user_auth.username
+			FROM audit_log
+			LEFT JOIN user_auth
+			ON audit_log.user_id=user_auth.id
+			$sql_where",
+		$sql_params);
+
+	audit_record_event('audit.log.exported', array(
+		'event_category' => 'audit',
+		'action' => 'export',
+		'target_type' => 'audit_log',
+		'details' => array(
+			'row_count' => cacti_sizeof($events),
+			'filter' => get_request_var('filter'),
+			'event_page' => get_request_var('event_page'),
+			'user_id' => get_request_var('user_id')
+		)
+	));
 
 	if (cacti_sizeof($events)) {
 		header('Content-Disposition: attachment; filename=audit_export.csv');
+		header('Content-Type: text/csv; charset=UTF-8');
+		header('X-Content-Type-Options: nosniff');
 
-		print __x('Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant.','page, user_id, username, action, ip_address, user_agent, event_time, post', 'audit') . "\n";
+		$output = fopen('php://output', 'w');
+		fputcsv($output, array('event_uuid', 'correlation_id', 'event_type', 'event_category', 'severity', 'page', 'user_id', 'username', 'action', 'request_status', 'operation_outcome', 'outcome_reason', 'target_type', 'target_id', 'external_status', 'external_error', 'ip_address', 'user_agent', 'http_method', 'http_status', 'event_time', 'completed_time', 'duration_ms', 'integrity_hash', 'post', 'details'), ',', '"', '');
 
 		foreach($events as $event) {
-			$post = json_decode($event['post']);
-			$poster = '';
-			foreach($post as $var => $value) {
-				if (is_array($value)) {
-					$poster .= ($poster != '' ? '|':'') . $var . ':' . implode('%', $value);
-				} else {
-					$poster .= ($poster != '' ? '|':'') . $var . ':' . $value;
-				}
+			if ($event['action'] == 'cli') {
+				$poster = $event['post'];
+			} else {
+				$post   = audit_json_decode($event['post'], $json_error);
+				$poster = is_array($post) ? json_encode($post, JSON_INVALID_UTF8_SUBSTITUTE) : $event['post'];
 			}
 
-			print
-				$event['page']                   . ', '  .
-				$event['user_id']                . ', '  .
-				get_username($event['user_id'])  . ', '  .
-				$event['action']                 . ', '  .
-				$event['ip_address']             . ', '  .
-				$event['user_agent']             . ', '  .
-				$event['event_time']             . ', ' .
-				$poster                          . "\n";
+				fputcsv($output, array_map('audit_csv_safe_cell', array(
+					$event['event_uuid'],
+					$event['correlation_id'],
+					$event['event_type'],
+					$event['event_category'],
+					$event['severity'],
+					$event['page'],
+				$event['user_id'],
+				get_username($event['user_id']),
+				$event['action'],
+					$event['request_status'],
+					$event['operation_outcome'],
+					$event['outcome_reason'],
+					$event['target_type'],
+					$event['target_id'],
+					$event['external_status'],
+				$event['external_error'],
+				$event['ip_address'],
+					$event['user_agent'],
+					$event['http_method'],
+					$event['http_status'],
+					$event['event_time'],
+					$event['completed_time'],
+					$event['duration_ms'],
+					$event['integrity_hash'],
+					$poster,
+					$event['details']
+				)), ',', '"', '');
 		}
+
+		fclose($output);
 	}
 }
 
-function audit_csv_escape($string) {
-	$string = str_replace('"', '', $string);
-	$string = str_replace(',', '|', $string);
-	return $string;
-}
-
-function process_request_vars() {
+function audit_process_request_vars() {
 	/* ================= input validation and session storage ================= */
 	$filters = array(
 		'rows' => array(
@@ -255,7 +318,20 @@ function process_request_vars() {
 function audit_log() {
 	global $item_rows;
 
-	process_request_vars();
+	audit_process_request_vars();
+	$has_filters = get_request_var('filter') != '' ||
+		get_request_var('event_page') != '-1' ||
+		(!isempty_request_var('user_id') && get_request_var('user_id') > '-1');
+	audit_record_event($has_filters ? 'audit.log.searched' : 'audit.log.viewed', array(
+		'event_category' => 'audit',
+		'action' => $has_filters ? 'search' : 'view',
+		'target_type' => 'audit_log',
+		'details' => array(
+			'filter' => get_request_var('filter'),
+			'event_page' => get_request_var('event_page'),
+			'user_id' => get_request_var('user_id')
+		)
+	));
 
 	if (get_request_var('rows') == '-1') {
 		$rows = read_config_option('num_rows_table');
@@ -284,10 +360,10 @@ function audit_log() {
 						<select id='event_page'>
 							<option value='-1'<?php print (get_request_var('event_page') == '-1' ? ' selected>':'>') . __('All', 'audit');?></option>
 							<?php
-							$pages = array_rekey(db_fetch_assoc('SELECT DISTINCT page FROM audit_log ORDER BY page'), 'page', 'page');
-							if (cacti_sizeof($pages)) {
-								foreach ($pages as $page) {
-									print "<option value='" . $page . "'"; if (get_request_var('event_page') == $page) { print ' selected'; } print '>' . htmlspecialchars($page) . "</option>\n";
+								$pages = array_rekey(db_fetch_assoc('SELECT DISTINCT page FROM audit_log ORDER BY page'), 'page', 'page');
+								if (cacti_sizeof($pages)) {
+									foreach ($pages as $page) {
+										print "<option value='" . html_escape($page) . "'"; if (get_request_var('event_page') == $page) { print ' selected'; } print '>' . html_escape($page) . "</option>\n";
 								}
 							}
 							?>
@@ -305,11 +381,12 @@ function audit_log() {
 							if (cacti_sizeof($users)) {
 								foreach ($users as $user) {
 									if ($user == 0) continue;
-									print "<option value='" . $user . "'"; if (get_request_var('user_id') == $user) { print ' selected'; } print '>' . htmlspecialchars(get_username($user)) . "</option>\n";
+									print "<option value='" . (int) $user . "'"; if (get_request_var('user_id') == $user) { print ' selected'; } print '>' . html_escape(get_username($user)) . "</option>\n";
 								}
 							}
 							?>
 						</select>
+					</td>
 					<td>
 						<?php print __('Events', 'audit');?>
 					</td>
@@ -319,7 +396,7 @@ function audit_log() {
 							<?php
 							if (cacti_sizeof($item_rows)) {
 								foreach ($item_rows as $key => $value) {
-									print "<option value='" . $key . "'"; if (get_request_var('rows') == $key) { print ' selected'; } print '>' . htmlspecialchars($value) . "</option>\n";
+									print "<option value='" . (int) $key . "'"; if (get_request_var('rows') == $key) { print ' selected'; } print '>' . html_escape($value) . "</option>\n";
 								}
 							}
 							?>
@@ -330,13 +407,14 @@ function audit_log() {
 							<button type='submit' id='refresh' class='ui-button ui-corner-all ui-widget ui-state-active' title='<?php print __esc('Set/Refresh Filters', 'audit');?>'><?php print __esc('Go', 'audit');?></button>
 							<button type='button' id='clear' class='ui-button ui-corner-all ui-widget' title='<?php print __esc('Clear Filters', 'audit');?>'><?php print __esc('Clear', 'audit');?></button>
 							<button type='button' id='export' class='ui-button ui-corner-all ui-widget' title='<?php print __esc('Export Log Events', 'audit');?>'><?php print __esc('Export', 'audit');?></button>
-							<button type='button' id='purge' class='ui-button ui-corner-all ui-widget' title='<?php print __esc('Purge Log Events', 'audit');?>'><?php print __esc('Purge', 'audit');?></button>
+							<?php if (api_plugin_user_realm_auth('audit_manage.php')) {?>
+							<button type='button' id='purge' class='ui-button ui-corner-all ui-widget' data-confirm='<?php print __esc('Permanently purge all audit log events?', 'audit');?>' title='<?php print __esc('Purge Log Events', 'audit');?>'><?php print __esc('Purge', 'audit');?></button>
+							<?php }?>
 						</span>
 					</td>
-				</tr>
-				</tr>
-			</table>
-			<input type='hidden' id='page' value='<?php print get_request_var('page');?>'>
+					</tr>
+				</table>
+				<input type='hidden' id='page' value='<?php print (int) get_request_var('page');?>'>
 			</form>
 		</td>
 	</tr>
@@ -345,43 +423,50 @@ function audit_log() {
 	html_end_box();
 
 	/* form the 'where' clause for our main sql query */
+	$sql_clauses = array();
+	$sql_params  = array();
+
 	if (get_request_var('filter') != '') {
-		$sql_where = 'WHERE (
-			page LIKE '    . db_qstr('%' . get_request_var('filter') . '%') . '
-			OR post LIKE ' . db_qstr('%' . get_request_var('filter') . '%') . ')';
-	} else {
-		$sql_where = '';
+		$sql_clauses[] = '(page LIKE ? OR post LIKE ?)';
+		$sql_params[]  = '%' . get_request_var('filter') . '%';
+		$sql_params[]  = '%' . get_request_var('filter') . '%';
 	}
 
 	if (get_request_var('event_page') != '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' page = ' . db_qstr(get_request_var('event_page'));
+		$sql_clauses[] = 'page = ?';
+		$sql_params[]  = get_request_var('event_page');
 	}
 
 	if (!isempty_request_var('user_id') && get_request_var('user_id') > '-1') {
-		$sql_where .= ($sql_where != '' ? ' AND ':'WHERE ') . ' user_id = ' . get_request_var('user_id');
+		$sql_clauses[] = 'user_id = ?';
+		$sql_params[]  = get_request_var('user_id');
 	}
 
-	$total_rows = db_fetch_cell("SELECT
-		COUNT(*)
-		FROM audit_log
-		LEFT JOIN user_auth
-		ON audit_log.user_id=user_auth.id
-		$sql_where");
+	$sql_where = cacti_sizeof($sql_clauses) ? 'WHERE ' . implode(' AND ', $sql_clauses) : '';
+
+	$total_rows = db_fetch_cell_prepared("SELECT
+			COUNT(*)
+			FROM audit_log
+			LEFT JOIN user_auth
+			ON audit_log.user_id=user_auth.id
+			$sql_where",
+		$sql_params);
 
 	$sql_order = get_order_string();
 	$sql_limit = ' LIMIT ' . ($rows*(get_request_var('page')-1)) . ',' . $rows;
 
-	$events = db_fetch_assoc("SELECT audit_log.*, user_auth.username
-		FROM audit_log
-		LEFT JOIN user_auth
-		ON audit_log.user_id=user_auth.id
-		$sql_where
-		$sql_order
-		$sql_limit");
+	$events = db_fetch_assoc_prepared("SELECT audit_log.*, user_auth.username
+			FROM audit_log
+			LEFT JOIN user_auth
+			ON audit_log.user_id=user_auth.id
+			$sql_where
+			$sql_order
+			$sql_limit",
+		$sql_params);
 
-    $nav = html_nav_bar('audit.php?filter=' . get_request_var('filter'), MAX_DISPLAY_PAGES, get_request_var('page'), $rows, $total_rows, 5, __('Audit Events', 'audit'), 'page', 'main');
+	$nav = html_nav_bar('audit.php?filter=' . rawurlencode(get_request_var('filter')), MAX_DISPLAY_PAGES, get_request_var('page'), $rows, $total_rows, 5, __('Audit Events', 'audit'), 'page', 'main');
 
-    print $nav;
+	print $nav;
 
 	html_start_box('', '100%', '', '3', 'center', '');
 
@@ -398,11 +483,23 @@ function audit_log() {
 			'sort' => 'ASC',
 			'tip' => __('The user who generated the event.', 'audit')
 		),
-		'action' => array(
-			'display' => __('Action', 'audit'),
-			'align' => 'left',
-			'sort' => 'ASC',
-			'tip' => __('The Cacti Action requested.  Hover over action to see $_POST data.', 'audit')
+			'action' => array(
+				'display' => __('Requested Action', 'audit'),
+				'align' => 'left',
+				'sort' => 'ASC',
+				'tip' => __('The requested Cacti action. Hover over the action to see request data.', 'audit')
+			),
+			'request_status' => array(
+				'display' => __('Request Status', 'audit'),
+				'align' => 'left',
+				'sort' => 'ASC',
+				'tip' => __('Request processing state; completion does not guarantee that every operation succeeded.', 'audit')
+			),
+			'external_status' => array(
+				'display' => __('External Delivery', 'audit'),
+				'align' => 'left',
+				'sort' => 'ASC',
+				'tip' => __('Delivery state for the optional external audit log.', 'audit')
 		),
 		'user_agent'  => array(
 			'display' => __('User Agent', 'audit'),
@@ -428,29 +525,33 @@ function audit_log() {
 
 	$i = 0;
 	if (cacti_sizeof($events)) {
-		foreach ($events as $e) {
-			if ($e['action'] == 'cli') {
-				form_alternate_row('line' . $e['id'], false);
-				form_selectable_cell($e['page'], $e['id']);
-				form_selectable_cell($e['user_agent'], $e['id']);
-				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-				form_selectable_cell(__('N/A', 'audit'), $e['id']);
-				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
-				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
-				form_end_row();
-			} else {
-				form_alternate_row('line' . $e['id'], false);
-				form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
-				form_selectable_cell($e['username'], $e['id']);
-				form_selectable_cell('<span id="event' . $e['id'] . '" class="linkEditMain">' . ucfirst($e['action']) . '</span>', $e['id']);
-				form_selectable_cell($e['user_agent'], $e['id']);
-				form_selectable_cell($e['ip_address'], $e['id'], '', 'right');
-				form_selectable_cell($e['event_time'], $e['id'], '', 'right');
+			foreach ($events as $e) {
+				if ($e['action'] == 'cli') {
+					form_alternate_row('line' . $e['id'], false);
+					form_selectable_ecell($e['page'], $e['id']);
+					form_selectable_ecell($e['user_agent'], $e['id']);
+					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
+					form_selectable_ecell($e['request_status'], $e['id']);
+					form_selectable_ecell($e['external_status'], $e['id']);
+					form_selectable_cell(__('N/A', 'audit'), $e['id']);
+					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');
+					form_selectable_ecell($e['event_time'], $e['id'], '', 'right');
+					form_end_row();
+				} else {
+					form_alternate_row('line' . $e['id'], false);
+					form_selectable_cell(filter_value($e['page'], get_request_var('filter')), $e['id']);
+					form_selectable_ecell($e['username'], $e['id']);
+					form_selectable_cell('<span id="event' . (int) $e['id'] . '" class="linkEditMain">' . html_escape(ucfirst($e['action'])) . '</span>', $e['id']);
+					form_selectable_ecell($e['request_status'], $e['id']);
+					form_selectable_ecell($e['external_status'], $e['id']);
+					form_selectable_ecell($e['user_agent'], $e['id']);
+					form_selectable_ecell($e['ip_address'], $e['id'], '', 'right');
+					form_selectable_ecell($e['event_time'], $e['id'], '', 'right');
 				form_end_row();
 			}
 		}
 	} else {
-		print "<tr class='tableRow'><td colspan='5'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
+			print "<tr class='tableRow'><td colspan='8'><em>" . __('No Audit Log Events Found', 'audit') . "</em></td></tr>\n";
 	}
 
 	html_end_box(false);
@@ -463,4 +564,3 @@ function audit_log() {
 	<script type='text/javascript' src='plugins/audit/js/functions.js'></script>
 	<?php
 }
-
