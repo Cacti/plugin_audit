@@ -64,6 +64,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: Cacti/cacti
+        ref: 1.2.x
         path: cacti
     
     - name: Checkout audit Plugin
@@ -86,7 +87,7 @@ jobs:
       run: sudo apt-get update
     
     - name: Install System Dependencies
-      run: sudo apt-get install -y apache2 snmp snmpd rrdtool fping libapache2-mod-php${{ matrix.php }}
+      run: sudo apt-get install -y apache2 snmp snmpd rrdtool fping
     
     - name: Start SNMPD Agent and Test
       run: |
@@ -243,7 +244,7 @@ jobs:
         fi
 
         CLI_STATUS=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select request_status from audit_log where action = 'cli' order by id desc limit 1;")
-        if [ "$CLI_STATUS" != "started" ]; then
+        if [ "$CLI_STATUS" != "completed" ]; then
           echo "Unexpected CLI request status: $CLI_STATUS"
           exit 1
         fi
