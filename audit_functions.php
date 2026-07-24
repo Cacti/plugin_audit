@@ -219,8 +219,8 @@ function audit_redact_cli_arguments($arguments) {
 	return $redacted;
 }
 
-function audit_json_encode($data) {
-	$json = json_encode(audit_bound_log_data($data), JSON_INVALID_UTF8_SUBSTITUTE, 16);
+function audit_json_encode($data, $options = 0) {
+	$json = json_encode(audit_bound_log_data($data), JSON_INVALID_UTF8_SUBSTITUTE | $options, 16);
 
 	if ($json === false) {
 		return json_encode(array('audit_encoding_error' => json_last_error_msg()));
@@ -264,7 +264,17 @@ function audit_external_log_format($data, $format = 'json') {
 		return implode(' ', $fields) . "\n";
 	}
 
-	return audit_json_encode($data) . "\n";
+	foreach (array('post', 'object_data') as $name) {
+		if (isset($data[$name]) && is_string($data[$name])) {
+			$decoded = audit_json_decode($data[$name], $error);
+
+			if ($error === null) {
+				$data[$name] = $decoded;
+			}
+		}
+	}
+
+	return audit_json_encode($data, JSON_UNESCAPED_SLASHES) . "\n";
 }
 
 function audit_csv_safe_cell($value) {

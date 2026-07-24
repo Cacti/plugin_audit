@@ -94,19 +94,30 @@ audit_test_assert_same(
 $external_record = array(
 	'event_time' => '2026-07-24 10:00:00',
 	'action' => "Update\nDevice",
-	'post' => array('id' => 42)
+	'post' => '{"id":42}',
+	'object_data' => '[]'
 );
 $json_record = audit_external_log_format($external_record, 'json');
 audit_test_assert_same("\n", substr($json_record, -1), 'JSON external records must end with a newline.');
 audit_test_assert_same(
-	$external_record,
+	array(
+		'event_time' => '2026-07-24 10:00:00',
+		'action' => "Update\nDevice",
+		'post' => array('id' => 42),
+		'object_data' => array()
+	),
 	json_decode(trim($json_record), true),
-	'JSON external records must contain the complete event.'
+	'JSON external records must expose stored JSON fields as native structures.'
 );
 audit_test_assert_same(
-	'event_time="2026-07-24 10:00:00" action="Update\nDevice" post="{\"id\":42}"' . "\n",
+	'event_time="2026-07-24 10:00:00" action="Update\nDevice" post="{\"id\":42}" object_data="[]"' . "\n",
 	audit_external_log_format($external_record, 'text'),
 	'Text external records must be single-line key/value data with escaped values.'
+);
+audit_test_assert_same(
+	'{"post":"not-json"}' . "\n",
+	audit_external_log_format(array('post' => 'not-json'), 'json'),
+	'Malformed stored JSON fields must remain available as strings.'
 );
 audit_test_assert_same(
 	$json_record,

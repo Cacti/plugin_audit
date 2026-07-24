@@ -33,7 +33,9 @@ You can also enable file-based logging for ingestion by SIEM or log-analysis
 tools such as Splunk. External records can be written as newline-delimited JSON
 (one JSON object per line) or as single-line text using quoted `key="value"`
 fields. Control characters in text values are escaped so every event remains on
-one line. JSON is the default to preserve the format used by earlier releases.
+one line. In JSON output, `post` and `object_data` are native nested structures,
+not JSON-encoded strings. JSON is the default to preserve the format used by
+earlier releases.
 
 External file delivery is tracked on each database record. Failed appends are
 retried by the poller in batches and therefore have at-least-once delivery
