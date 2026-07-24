@@ -240,6 +240,84 @@ function audit_json_decode($json, &$error = null) {
 	}
 }
 
+function audit_uuid_v4() {
+	$bytes = random_bytes(16);
+	$bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40);
+	$bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80);
+	$hex = bin2hex($bytes);
+
+	return substr($hex, 0, 8) . '-' . substr($hex, 8, 4) . '-' .
+		substr($hex, 12, 4) . '-' . substr($hex, 16, 4) . '-' . substr($hex, 20);
+}
+
+function audit_request_correlation_id() {
+	static $correlation_id;
+
+	if ($correlation_id === null) {
+		$correlation_id = audit_uuid_v4();
+	}
+
+	return $correlation_id;
+}
+
+function audit_utc_time($microtime = null) {
+	$microtime = $microtime === null ? microtime(true) : $microtime;
+	$seconds   = (int) $microtime;
+	$micros    = (int) round(($microtime - $seconds) * 1000000);
+
+	if ($micros >= 1000000) {
+		$seconds++;
+		$micros = 0;
+	}
+
+	return gmdate('Y-m-d H:i:s', $seconds) . '.' . sprintf('%06d', $micros);
+}
+
+function audit_event_integrity_hash($event) {
+	$material = array(
+		'event_uuid'       => $event['event_uuid'] ?? '',
+		'correlation_id'   => $event['correlation_id'] ?? '',
+		'event_type'       => $event['event_type'] ?? '',
+		'user_id'          => $event['user_id'] ?? 0,
+		'action'           => $event['action'] ?? '',
+		'event_time'       => $event['event_time'] ?? '',
+		'operation_outcome'=> $event['operation_outcome'] ?? '',
+		'target_type'      => $event['target_type'] ?? '',
+		'target_id'        => $event['target_id'] ?? '',
+		'details'          => $event['details'] ?? ''
+	);
+
+	return hash('sha256', audit_json_encode($material, JSON_UNESCAPED_SLASHES));
+}
+
+function audit_event_type_for_request($page, $action) {
+	$page_name = preg_replace('/\.php$/', '', (string) $page);
+	$page_name = preg_replace('/[^a-z0-9_]+/i', '_', $page_name);
+	$verb      = preg_replace('/[^a-z0-9_]+/i', '_', strtolower((string) $action));
+	$verb      = trim($verb, '_');
+
+	return 'cacti.' . ($page_name !== '' ? $page_name : 'request') . '.' .
+		($verb !== '' && $verb !== 'none' ? $verb : 'submitted');
+}
+
+function audit_external_event_data($event) {
+	$fields = array(
+		'id', 'event_uuid', 'correlation_id', 'event_type', 'event_category',
+		'severity', 'actor_type', 'page', 'user_id', 'action', 'request_status',
+		'operation_outcome', 'outcome_reason', 'target_type', 'target_id',
+		'ip_address', 'user_agent', 'http_method', 'http_status', 'event_time',
+		'completed_time', 'duration_ms', 'post', 'object_data', 'details',
+		'previous_hash', 'integrity_hash'
+	);
+	$data = array();
+
+	foreach ($fields as $field) {
+		$data[$field] = $event[$field] ?? null;
+	}
+
+	return $data;
+}
+
 function audit_external_log_format($data, $format = 'json') {
 	if ($format === 'text') {
 		$fields = array();
@@ -264,7 +342,7 @@ function audit_external_log_format($data, $format = 'json') {
 		return implode(' ', $fields) . "\n";
 	}
 
-	foreach (array('post', 'object_data') as $name) {
+	foreach (array('post', 'object_data', 'details') as $name) {
 		if (isset($data[$name]) && is_string($data[$name])) {
 			$decoded = audit_json_decode($data[$name], $error);
 
@@ -310,9 +388,35 @@ function audit_append_external_log($path, $message) {
 
 function audit_set_external_status($id, $status, $error = '') {
 	db_execute_prepared('UPDATE audit_log
-		SET external_status = ?, external_error = ?
+		SET external_status = ?,
+			external_error = ?,
+			external_attempts = external_attempts + 1,
+			external_last_attempt = UTC_TIMESTAMP(6),
+			external_delivered_time = CASE WHEN ? = "delivered" THEN UTC_TIMESTAMP(6) ELSE external_delivered_time END
 		WHERE id = ?',
-		array($status, $error, $id));
+		array($status, $error, $status, $id));
+}
+
+function audit_deliver_external_event($id) {
+	if (read_config_option('audit_log_external') != 'on') {
+		return;
+	}
+
+	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', array($id));
+	if (!cacti_sizeof($event) || $event['request_status'] == 'started') {
+		return;
+	}
+
+	$path = read_config_option('audit_log_external_path');
+	if ($path == '' || !is_file($path) || is_link($path)) {
+		audit_set_external_status($id, 'failed', 'Destination is not a regular file or is a symbolic link.');
+		return;
+	}
+
+	$format   = read_config_option('audit_log_external_format') === 'text' ? 'text' : 'json';
+	$message  = audit_external_log_format(audit_external_event_data($event), $format);
+	$delivery = audit_append_external_log($path, $message);
+	audit_set_external_status($id, $delivery['status'], $delivery['error']);
 }
 
 function audit_retry_external_logs() {
@@ -330,24 +434,13 @@ function audit_retry_external_logs() {
 
 	$events = db_fetch_assoc("SELECT *
 		FROM audit_log
-		WHERE external_status = 'failed'
+		WHERE external_status IN ('pending', 'failed')
+		AND request_status <> 'started'
 		ORDER BY id
 		LIMIT 100");
 
 	foreach ($events as $event) {
-		$log_data = array(
-			'page'        => $event['page'],
-			'user_id'     => $event['user_id'],
-			'action'      => $event['action'],
-			'request_status' => $event['request_status'],
-			'ip_address'  => $event['ip_address'],
-			'user_agent'  => $event['user_agent'],
-			'event_time'  => $event['event_time'],
-			'post'        => $event['post'],
-			'object_data' => $event['object_data']
-		);
-
-		$message  = audit_external_log_format($log_data, $format);
+		$message  = audit_external_log_format(audit_external_event_data($event), $format);
 		$delivery = audit_append_external_log($path, $message);
 		audit_set_external_status($event['id'], $delivery['status'], $delivery['error']);
 
@@ -368,16 +461,89 @@ function audit_request_status($error = null, $status_code = 200) {
 	return 'completed';
 }
 
-function audit_finalize_request($id) {
+function audit_finalize_request($id, $started_at = null) {
 	$status_code = http_response_code();
 	$status_code = is_int($status_code) ? $status_code : 200;
 	$request_status = audit_request_status(error_get_last(), $status_code);
+	$outcome = $request_status == 'failed' ? 'failure' : 'unknown';
+	$duration_ms = $started_at === null ? null : max(0, (int) round((microtime(true) - $started_at) * 1000));
+	$completed_time = audit_utc_time();
 
 	db_execute_prepared("UPDATE audit_log
-		SET request_status = ?
+		SET request_status = ?,
+			operation_outcome = CASE WHEN operation_outcome = 'unknown' THEN ? ELSE operation_outcome END,
+			http_status = ?,
+			completed_time = ?,
+			duration_ms = ?
 		WHERE id = ?
 		AND request_status = 'started'",
-		array($request_status, $id));
+		array($request_status, $outcome, $status_code, $completed_time, $duration_ms, $id));
+
+	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', array($id));
+	if (cacti_sizeof($event)) {
+		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
+			array(audit_event_integrity_hash($event), $id));
+	}
+
+	audit_deliver_external_event($id);
+}
+
+function audit_record_event($event_type, $options = array()) {
+	if (read_config_option('audit_enabled') != 'on') {
+		return 0;
+	}
+
+	$event_uuid     = audit_uuid_v4();
+	$correlation_id = $options['correlation_id'] ?? audit_request_correlation_id();
+	$user_id        = $options['user_id'] ?? ($_SESSION['sess_user_id'] ?? 0);
+	$page           = $options['page'] ?? basename($_SERVER['SCRIPT_NAME'] ?? 'cli');
+	$event_suffix   = strrchr($event_type, '.');
+	$action         = $options['action'] ?? ($event_suffix === false ? $event_type : substr($event_suffix, 1));
+	$event_time     = $options['event_time'] ?? audit_utc_time();
+	$details        = audit_json_encode(audit_redact_sensitive_data($options['details'] ?? array()));
+	$external       = read_config_option('audit_log_external') == 'on';
+	$ip_address     = $options['ip_address'] ?? (function_exists('get_client_addr') ? get_client_addr() : '');
+	$user_agent     = $options['user_agent'] ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
+
+	db_execute_prepared('INSERT INTO audit_log (
+			page, user_id, action, request_status, ip_address, user_agent, event_time,
+			post, object_data, external_status, event_uuid, correlation_id, event_type,
+			event_category, severity, actor_type, target_type, target_id,
+			operation_outcome, outcome_reason, http_method, http_status,
+			completed_time, duration_ms, details
+		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+		array(
+			$page, $user_id, $action, 'completed', $ip_address, $user_agent, $event_time,
+			'{}', '[]', $external ? 'pending' : 'disabled', $event_uuid, $correlation_id,
+			$event_type, $options['event_category'] ?? 'security',
+			$options['severity'] ?? 'info', $options['actor_type'] ?? ($user_id ? 'user' : 'system'),
+			$options['target_type'] ?? null, isset($options['target_id']) ? (string) $options['target_id'] : null,
+			$options['operation_outcome'] ?? 'success', $options['outcome_reason'] ?? null,
+			$options['http_method'] ?? ($_SERVER['REQUEST_METHOD'] ?? null),
+			$options['http_status'] ?? null, $options['completed_time'] ?? $event_time,
+			$options['duration_ms'] ?? 0, $details
+		));
+
+	$id    = db_fetch_insert_id();
+	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', array($id));
+	if (cacti_sizeof($event)) {
+		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
+			array(audit_event_integrity_hash($event), $id));
+	}
+	audit_deliver_external_event($id);
+
+	return $id;
+}
+
+function audit_logout_pre_session_destroy() {
+	$reason = get_nfilter_request_var('action', 'user');
+	$type   = $reason == 'timeout' ? 'authentication.session.expired' : 'authentication.logout';
+
+	audit_record_event($type, array(
+		'event_category' => 'authentication',
+		'action' => $reason == 'timeout' ? 'timeout' : 'logout',
+		'details' => array('reason' => $reason)
+	));
 }
 
 
@@ -386,6 +552,7 @@ function audit_config_insert() {
 	global $action, $config;
 
 	if (audit_log_valid_event()) {
+		$started_at = microtime(true);
 		/* prepare post */
 		$post = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
 		$post = is_array($post) ? $post : array();
@@ -412,10 +579,11 @@ function audit_config_insert() {
 			$drop_action    = false;
 		}
 
+		$target_id   = $post['id'] ?? null;
 		$post        = audit_json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
 		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0);
-		$event_time  = date('Y-m-d H:i:s');
+		$event_time  = audit_utc_time($started_at);
 
 		/* Retrieve IP address */
 		$ip_address  = get_client_addr();
@@ -459,8 +627,6 @@ function audit_config_insert() {
 		$audit_log = read_config_option('audit_log_external_path');
 		$external_logging = read_config_option('audit_log_external') == 'on';
 		$external_status  = $external_logging ? 'pending' : 'disabled';
-		$external_format  = read_config_option('audit_log_external_format');
-		$external_format  = $external_format === 'text' ? 'text' : 'json';
 
 		if (!defined('CACTI_PATH_BASE')) {
 			$base = $config['base_path'];
@@ -468,11 +634,25 @@ function audit_config_insert() {
 			$base = CACTI_PATH_BASE;
 		}
 
-		db_execute_prepared('INSERT INTO audit_log (page, user_id, action, request_status, ip_address, user_agent, event_time, post, object_data, external_status)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($page, $user_id, $action, 'started', $ip_address, $user_agent, $event_time, $post, $object_data, $external_status));
+		$event_uuid     = audit_uuid_v4();
+		$correlation_id = audit_request_correlation_id();
+		$event_type     = audit_event_type_for_request($page, $action);
+		$category       = in_array($page, array('user_admin.php', 'user_group_admin.php'), true) ? 'identity_access' : 'configuration';
+		db_execute_prepared('INSERT INTO audit_log (
+				page, user_id, action, request_status, ip_address, user_agent, event_time,
+				post, object_data, external_status, event_uuid, correlation_id, event_type,
+				event_category, severity, actor_type, target_type, target_id,
+				operation_outcome, http_method
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array(
+				$page, $user_id, $action, 'started', $ip_address, $user_agent, $event_time,
+				$post, $object_data, $external_status, $event_uuid, $correlation_id,
+				$event_type, $category, 'info', $user_id ? 'user' : 'system',
+				preg_replace('/\.php$/', '', $page), $target_id, 'unknown',
+				$_SERVER['REQUEST_METHOD'] ?? null
+			));
 		$audit_id = db_fetch_insert_id();
-		register_shutdown_function('audit_finalize_request', $audit_id);
+		register_shutdown_function('audit_finalize_request', $audit_id, $started_at);
 
 		if ($external_logging && $audit_log == '') {
 			set_config_option('audit_log_external_path', $base . '/log/audit.log');
@@ -492,39 +672,20 @@ function audit_config_insert() {
 			}
 		}
 
-		if ($external_logging && $audit_log != '' && is_file($audit_log) && !is_link($audit_log)) {
-			$log_data = array(
-				'page'        => $page,
-				'user_id'     => $user_id,
-				'action'      => $action,
-				'request_status' => 'started',
-				'ip_address'  => $ip_address,
-				'user_agent'  => $user_agent,
-				'event_time'  => $event_time,
-				'post'        => $post,
-				'object_data' => $object_data
-			);
-
-			$log_msg = audit_external_log_format($log_data, $external_format);
-			$delivery = audit_append_external_log($audit_log, $log_msg);
-			audit_set_external_status($audit_id, $delivery['status'], $delivery['error']);
-
-			if ($delivery['status'] != 'delivered') {
-				cacti_log(sprintf('ERROR: Unable to append a complete record to Audit Log file \'%s\': %s', $audit_log, $delivery['error']), false, 'AUDIT');
-			}
-		} elseif ($external_logging && $audit_log != '') {
+		if ($external_logging && $audit_log != '' && (!is_file($audit_log) || is_link($audit_log))) {
 			$error = 'Destination is not a regular file or is a symbolic link.';
 			audit_set_external_status($audit_id, 'failed', $error);
 			cacti_log(sprintf('ERROR: Audit Log file \'%s\' is not a regular file or is a symbolic link.', $audit_log), false, 'AUDIT');
 		}
 	} elseif (isset($_SERVER['argv']) && cacti_sizeof($_SERVER['argv'])) {
+		$started_at = microtime(true);
 		$arguments  = audit_redact_cli_arguments($_SERVER['argv']);
 		$page       = basename($arguments[0]);
 		$user_id    = 0;
 		$action     = 'cli';
 		$ip_address = getHostByName(php_uname('n'));
 		$user_agent = get_current_user();
-		$event_time = date('Y-m-d H:i:s');
+		$event_time = audit_utc_time($started_at);
 		$post       = implode(' ', $arguments);
 
 		/* don't insert poller records */
@@ -534,9 +695,21 @@ function audit_config_insert() {
 			strpos($arguments[0], 'script_server.php') === false &&
 			strpos($arguments[0], '_process.php') === false) {
 
-			db_execute_prepared('INSERT INTO audit_log (page, user_id, action, request_status, ip_address, user_agent, event_time, post, external_status)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-				array($page, $user_id, $action, 'started', $ip_address, $user_agent, $event_time, $post, 'not_applicable'));
+			$external_status = read_config_option('audit_log_external') == 'on' ? 'pending' : 'disabled';
+			db_execute_prepared('INSERT INTO audit_log (
+					page, user_id, action, request_status, ip_address, user_agent, event_time,
+					post, object_data, external_status, event_uuid, correlation_id, event_type,
+					event_category, severity, actor_type, target_type, target_id,
+					operation_outcome
+				) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+				array(
+					$page, $user_id, $action, 'started', $ip_address, $user_agent,
+					$event_time, $post, '[]', $external_status, audit_uuid_v4(),
+					audit_request_correlation_id(), 'cacti.cli.executed', 'system',
+					'info', 'system', 'cli_command', $page, 'unknown'
+				));
+			$audit_id = db_fetch_insert_id();
+			register_shutdown_function('audit_finalize_request', $audit_id, $started_at);
 		}
 	}
 }

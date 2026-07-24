@@ -27,7 +27,11 @@ $required_schema_fragments = array(
 	'ADD COLUMN IF NOT EXISTS external_status',
 	'ADD COLUMN IF NOT EXISTS external_error',
 	'SHOW CREATE TABLE $table',
-	'audit_retry_external_logs()'
+	'audit_retry_external_logs()',
+	'logout_pre_session_destroy',
+	'event_uuid char(36)',
+	'operation_outcome',
+	'external_attempts'
 );
 
 foreach ($required_schema_fragments as $fragment) {

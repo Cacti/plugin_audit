@@ -32,6 +32,7 @@ function plugin_audit_install() {
 	api_plugin_register_hook('audit', 'draw_navigation_text', 'audit_draw_navigation_text', 'setup.php');
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 	api_plugin_register_hook('audit', 'is_console_page',      'audit_is_console_page',      'setup.php');
+	api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php');
 
 	/* hook for table replication */
 	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
@@ -101,6 +102,7 @@ function audit_check_upgrade() {
 			ELSE request_status END");
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data");
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status');
+		audit_upgrade_event_schema();
 
 		db_execute_prepared('UPDATE plugin_config
 			SET version = ?
@@ -118,6 +120,7 @@ function audit_check_upgrade() {
 		/* hook for table replication */
 		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', '1');
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
+		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
 		api_plugin_register_realm('audit', 'audit_manage.php', __('Manage Cacti Audit Log', 'audit'), 1);
 	}
 }
@@ -165,6 +168,7 @@ function audit_replicate_out($data) {
 			ELSE request_status END", true, $rcnn_id);
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data", true, $rcnn_id);
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status', true, $rcnn_id);
+		audit_upgrade_event_schema($rcnn_id);
 	}
 
 	return $data;
@@ -208,16 +212,89 @@ function audit_setup_table() {
 		`object_data` longblob,
 		`external_status` varchar(20) NOT NULL DEFAULT 'unknown',
 		`external_error` varchar(1024) DEFAULT NULL,
+		`event_uuid` char(36) DEFAULT NULL,
+		`correlation_id` char(36) DEFAULT NULL,
+		`event_type` varchar(100) NOT NULL DEFAULT 'cacti.request',
+		`event_category` varchar(40) NOT NULL DEFAULT 'configuration',
+		`severity` varchar(12) NOT NULL DEFAULT 'info',
+		`actor_type` varchar(20) NOT NULL DEFAULT 'user',
+		`target_type` varchar(64) DEFAULT NULL,
+		`target_id` varchar(128) DEFAULT NULL,
+		`operation_outcome` varchar(20) NOT NULL DEFAULT 'unknown',
+		`outcome_reason` varchar(255) DEFAULT NULL,
+		`http_method` varchar(10) DEFAULT NULL,
+		`http_status` smallint unsigned DEFAULT NULL,
+		`completed_time` datetime(6) DEFAULT NULL,
+		`duration_ms` bigint unsigned DEFAULT NULL,
+		`details` longblob,
+		`previous_hash` char(64) DEFAULT NULL,
+		`integrity_hash` char(64) DEFAULT NULL,
+		`external_attempts` int unsigned NOT NULL DEFAULT 0,
+		`external_last_attempt` datetime(6) DEFAULT NULL,
+		`external_delivered_time` datetime(6) DEFAULT NULL,
 		PRIMARY KEY (`id`),
 		KEY `user_id` (`user_id`),
 		KEY `page` (`page`),
 		KEY `ip_address` (`ip_address`),
 		KEY `event_time` (`event_time`),
-		KEY `action` (`action`))
+		KEY `action` (`action`),
+		UNIQUE KEY `event_uuid` (`event_uuid`),
+		KEY `correlation_id` (`correlation_id`),
+		KEY `event_type` (`event_type`),
+		KEY `operation_outcome` (`operation_outcome`),
+		KEY `external_status` (`external_status`))
 		ENGINE=InnoDB
 		COMMENT='Audit Log for all GUI activities'");
 
 	return true;
+}
+
+function audit_upgrade_event_schema($rcnn_id = false) {
+	$remote = $rcnn_id !== false;
+	$args   = $remote ? array(true, $rcnn_id) : array();
+	$columns = array(
+		"event_uuid char(36) DEFAULT NULL",
+		"correlation_id char(36) DEFAULT NULL",
+		"event_type varchar(100) NOT NULL DEFAULT 'cacti.request'",
+		"event_category varchar(40) NOT NULL DEFAULT 'configuration'",
+		"severity varchar(12) NOT NULL DEFAULT 'info'",
+		"actor_type varchar(20) NOT NULL DEFAULT 'user'",
+		"target_type varchar(64) DEFAULT NULL",
+		"target_id varchar(128) DEFAULT NULL",
+		"operation_outcome varchar(20) NOT NULL DEFAULT 'unknown'",
+		"outcome_reason varchar(255) DEFAULT NULL",
+		"http_method varchar(10) DEFAULT NULL",
+		"http_status smallint unsigned DEFAULT NULL",
+		"completed_time datetime(6) DEFAULT NULL",
+		"duration_ms bigint unsigned DEFAULT NULL",
+		"details longblob",
+		"previous_hash char(64) DEFAULT NULL",
+		"integrity_hash char(64) DEFAULT NULL",
+		"external_attempts int unsigned NOT NULL DEFAULT 0",
+		"external_last_attempt datetime(6) DEFAULT NULL",
+		"external_delivered_time datetime(6) DEFAULT NULL"
+	);
+
+	foreach ($columns as $definition) {
+		call_user_func_array('db_execute', array_merge(
+			array('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS ' . $definition),
+			$args
+		));
+	}
+
+	$indexes = array(
+		'event_uuid' => array('UNIQUE INDEX', array('event_uuid')),
+		'correlation_id' => array('INDEX', array('correlation_id')),
+		'event_type' => array('INDEX', array('event_type')),
+		'operation_outcome' => array('INDEX', array('operation_outcome')),
+		'external_status' => array('INDEX', array('external_status'))
+	);
+
+	foreach ($indexes as $name => $definition) {
+		if (!db_index_exists('audit_log', $name, false, $remote ? $rcnn_id : false)) {
+			db_add_index('audit_log', $definition[0], $name, $definition[1], true, $remote ? $rcnn_id : false);
+		}
+	}
 }
 
 function plugin_audit_version() {

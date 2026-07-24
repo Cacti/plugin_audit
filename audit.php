@@ -63,6 +63,13 @@ case 'getdata':
 		break;
 	}
 
+	audit_record_event('audit.event.viewed', array(
+		'event_category' => 'audit',
+		'target_type' => 'audit_event',
+		'target_id' => $data['event_uuid'] != '' ? $data['event_uuid'] : $data['id'],
+		'details' => array('record_id' => $data['id'])
+	));
+
 	$output = audit_render_event_details($data);
 	echo $output;
 
@@ -81,7 +88,10 @@ function audit_render_event_details($data) {
 	$output .= '<br><span><b>' . __('IP Address:', 'audit') . '</b>  <i>' . html_escape($data['ip_address']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Date:', 'audit') . '</b>  <i>' . html_escape($data['event_time']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Action:', 'audit') . '</b>  <i>' . html_escape($data['action']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Event Type:', 'audit') . '</b>  <i>' . html_escape($data['event_type']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Event ID:', 'audit') . '</b>  <i>' . html_escape($data['event_uuid']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Request Status:', 'audit') . '</b>  <i>' . html_escape($data['request_status']) . '</i></span>';
+	$output .= '<br><span><b>' . __('Operation Outcome:', 'audit') . '</b>  <i>' . html_escape($data['operation_outcome']) . '</i></span>';
 	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
 	if ($data['external_error'] != '') {
 		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
@@ -153,6 +163,13 @@ function audit_render_value($value) {
 function audit_purge() {
 	db_execute('TRUNCATE TABLE audit_log');
 
+	audit_record_event('audit.log.purged', array(
+		'event_category' => 'audit',
+		'severity' => 'warning',
+		'action' => 'purge',
+		'target_type' => 'audit_log'
+	));
+
 	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
 
 	cacti_log('NOTE: Audit Log Purged by ' . get_username($_SESSION['sess_user_id']), false, 'WEBUI');
@@ -192,13 +209,25 @@ function audit_export_rows() {
 			$sql_where",
 		$sql_params);
 
+	audit_record_event('audit.log.exported', array(
+		'event_category' => 'audit',
+		'action' => 'export',
+		'target_type' => 'audit_log',
+		'details' => array(
+			'row_count' => cacti_sizeof($events),
+			'filter' => get_request_var('filter'),
+			'event_page' => get_request_var('event_page'),
+			'user_id' => get_request_var('user_id')
+		)
+	));
+
 	if (cacti_sizeof($events)) {
 		header('Content-Disposition: attachment; filename=audit_export.csv');
 		header('Content-Type: text/csv; charset=UTF-8');
 		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
-		fputcsv($output, array('page', 'user_id', 'username', 'action', 'request_status', 'external_status', 'external_error', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
+		fputcsv($output, array('event_uuid', 'correlation_id', 'event_type', 'event_category', 'severity', 'page', 'user_id', 'username', 'action', 'request_status', 'operation_outcome', 'outcome_reason', 'target_type', 'target_id', 'external_status', 'external_error', 'ip_address', 'user_agent', 'http_method', 'http_status', 'event_time', 'completed_time', 'duration_ms', 'integrity_hash', 'post', 'details'), ',', '"', '');
 
 		foreach($events as $event) {
 			if ($event['action'] == 'cli') {
@@ -208,19 +237,34 @@ function audit_export_rows() {
 				$poster = is_array($post) ? json_encode($post, JSON_INVALID_UTF8_SUBSTITUTE) : $event['post'];
 			}
 
-			fputcsv($output, array_map('audit_csv_safe_cell', array(
-				$event['page'],
+				fputcsv($output, array_map('audit_csv_safe_cell', array(
+					$event['event_uuid'],
+					$event['correlation_id'],
+					$event['event_type'],
+					$event['event_category'],
+					$event['severity'],
+					$event['page'],
 				$event['user_id'],
 				get_username($event['user_id']),
 				$event['action'],
-				$event['request_status'],
-				$event['external_status'],
+					$event['request_status'],
+					$event['operation_outcome'],
+					$event['outcome_reason'],
+					$event['target_type'],
+					$event['target_id'],
+					$event['external_status'],
 				$event['external_error'],
 				$event['ip_address'],
-				$event['user_agent'],
-				$event['event_time'],
-				$poster
-			)), ',', '"', '');
+					$event['user_agent'],
+					$event['http_method'],
+					$event['http_status'],
+					$event['event_time'],
+					$event['completed_time'],
+					$event['duration_ms'],
+					$event['integrity_hash'],
+					$poster,
+					$event['details']
+				)), ',', '"', '');
 		}
 
 		fclose($output);
@@ -275,6 +319,19 @@ function audit_log() {
 	global $item_rows;
 
 	audit_process_request_vars();
+	$has_filters = get_request_var('filter') != '' ||
+		get_request_var('event_page') != '-1' ||
+		(!isempty_request_var('user_id') && get_request_var('user_id') > '-1');
+	audit_record_event($has_filters ? 'audit.log.searched' : 'audit.log.viewed', array(
+		'event_category' => 'audit',
+		'action' => $has_filters ? 'search' : 'view',
+		'target_type' => 'audit_log',
+		'details' => array(
+			'filter' => get_request_var('filter'),
+			'event_page' => get_request_var('event_page'),
+			'user_id' => get_request_var('user_id')
+		)
+	));
 
 	if (get_request_var('rows') == '-1') {
 		$rows = read_config_option('num_rows_table');

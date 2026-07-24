@@ -91,6 +91,40 @@ audit_test_assert_same(
 	'Fatal errors must finalize as failed requests.'
 );
 
+$uuid = audit_uuid_v4();
+if (!preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $uuid)) {
+	fwrite(STDERR, 'Event identifiers must be RFC 4122 version 4 UUIDs.' . PHP_EOL);
+	exit(1);
+}
+
+audit_test_assert_same(
+	'cacti.user_admin.save',
+	audit_event_type_for_request('user_admin.php', 'Save'),
+	'Request event types must be normalized for downstream consumers.'
+);
+audit_test_assert_same(
+	'cacti.host.submitted',
+	audit_event_type_for_request('host.php', 'none'),
+	'Requests without a specific action must use the submitted event verb.'
+);
+
+$hash_event = array(
+	'event_uuid' => $uuid,
+	'correlation_id' => audit_uuid_v4(),
+	'event_type' => 'cacti.test.completed',
+	'user_id' => 1,
+	'action' => 'test',
+	'event_time' => '2026-07-24 10:00:00',
+	'operation_outcome' => 'success',
+	'details' => '{}'
+);
+$first_hash = audit_event_integrity_hash($hash_event);
+$hash_event['operation_outcome'] = 'failure';
+if ($first_hash === audit_event_integrity_hash($hash_event)) {
+	fwrite(STDERR, 'Integrity hashes must change when protected event fields change.' . PHP_EOL);
+	exit(1);
+}
+
 $external_record = array(
 	'event_time' => '2026-07-24 10:00:00',
 	'action' => "Update\nDevice",

@@ -41,6 +41,23 @@ External file delivery is tracked on each database record. Failed appends are
 retried by the poller in batches and therefore have at-least-once delivery
 semantics; downstream ingestion should deduplicate when necessary.
 
+Version 1.4 records a stable event UUID and request correlation UUID on new
+events. External records are written only after request finalization, so SIEM
+consumers receive the final request status instead of the earlier transient
+`started` state. Consumers should deduplicate on `event_uuid`.
+
+The normalized fields distinguish request processing from the result of the
+requested Cacti operation. `request_status=completed` means that PHP request
+processing completed without a fatal error or an HTTP error response. It does
+not by itself prove that page-specific validation or database work succeeded.
+`operation_outcome` remains `unknown` unless an authoritative Cacti 1.2.x hook
+or plugin-owned operation supplies the result.
+
+The plugin also audits access to its own event list, searches, event details,
+exports and purge operations. Logout and session-timeout events are captured
+through Cacti's supported `logout_pre_session_destroy` hook. Database-level
+changes, API activity and MFA events are outside the current Cacti 1.2.x scope.
+
 ## Possible Bugs
 
 If you figure out this problem, see the Cacti forums!

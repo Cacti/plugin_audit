@@ -2,6 +2,11 @@
 
 --- develop ---
 
+* feature: Add normalized compliance event identifiers, categories, actors, targets, outcomes, timing, and integrity metadata
+* feature: Deliver finalized request outcomes to external log consumers
+* feature: Audit audit-log views, searches, event detail access, exports, and purges
+* feature: Capture Cacti 1.2.x logout and session-timeout events through the supported logout hook
+* feature: Finalize captured CLI activity and make it available to external log delivery
 * feature: Add selectable text or JSON formats for external audit logging
 * feature: Rename outcome to request_status with started/completed/failed values
 * feature: Track and retry failed external audit-log delivery
