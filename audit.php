@@ -194,7 +194,7 @@ function audit_export_rows() {
 		header('X-Content-Type-Options: nosniff');
 
 		$output = fopen('php://output', 'w');
-		fputcsv($output, array('page', 'user_id', 'username', 'action', 'outcome', 'ip_address', 'user_agent', 'event_time', 'post'));
+		fputcsv($output, array('page', 'user_id', 'username', 'action', 'outcome', 'ip_address', 'user_agent', 'event_time', 'post'), ',', '"', '');
 
 		foreach($events as $event) {
 			if ($event['action'] == 'cli') {
@@ -214,7 +214,7 @@ function audit_export_rows() {
 				$event['user_agent'],
 				$event['event_time'],
 				$poster
-			)));
+			)), ',', '"', '');
 		}
 
 		fclose($output);
