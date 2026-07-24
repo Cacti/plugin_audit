@@ -240,6 +240,33 @@ function audit_json_decode($json, &$error = null) {
 	}
 }
 
+function audit_external_log_format($data, $format = 'json') {
+	if ($format === 'text') {
+		$fields = array();
+
+		foreach ($data as $name => $value) {
+			if (is_array($value) || is_object($value)) {
+				$value = audit_json_encode($value);
+			} elseif ($value === null) {
+				$value = '';
+			} elseif (is_bool($value)) {
+				$value = $value ? 'true' : 'false';
+			}
+
+			$value = str_replace(
+				array('\\', "\r", "\n", "\t", '"'),
+				array('\\\\', '\r', '\n', '\t', '\"'),
+				(string) $value
+			);
+			$fields[] = $name . '="' . $value . '"';
+		}
+
+		return implode(' ', $fields) . "\n";
+	}
+
+	return audit_json_encode($data) . "\n";
+}
+
 function audit_csv_safe_cell($value) {
 	$value = (string) $value;
 
@@ -288,6 +315,9 @@ function audit_retry_external_logs() {
 		return;
 	}
 
+	$format = read_config_option('audit_log_external_format');
+	$format = $format === 'text' ? 'text' : 'json';
+
 	$events = db_fetch_assoc("SELECT *
 		FROM audit_log
 		WHERE external_status = 'failed'
@@ -307,7 +337,7 @@ function audit_retry_external_logs() {
 			'object_data' => $event['object_data']
 		);
 
-		$message  = audit_json_encode($log_data) . "\n";
+		$message  = audit_external_log_format($log_data, $format);
 		$delivery = audit_append_external_log($path, $message);
 		audit_set_external_status($event['id'], $delivery['status'], $delivery['error']);
 
@@ -419,6 +449,8 @@ function audit_config_insert() {
 		$audit_log = read_config_option('audit_log_external_path');
 		$external_logging = read_config_option('audit_log_external') == 'on';
 		$external_status  = $external_logging ? 'pending' : 'disabled';
+		$external_format  = read_config_option('audit_log_external_format');
+		$external_format  = $external_format === 'text' ? 'text' : 'json';
 
 		if (!defined('CACTI_PATH_BASE')) {
 			$base = $config['base_path'];
@@ -463,7 +495,7 @@ function audit_config_insert() {
 				'object_data' => $object_data
 			);
 
-			$log_msg = audit_json_encode($log_data) . "\n";
+			$log_msg = audit_external_log_format($log_data, $external_format);
 			$delivery = audit_append_external_log($audit_log, $log_msg);
 			audit_set_external_status($audit_id, $delivery['status'], $delivery['error']);
 

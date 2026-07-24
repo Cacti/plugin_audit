@@ -2,6 +2,7 @@
 
 --- develop ---
 
+* feature: Add selectable text or JSON formats for external audit logging
 * feature: Rename outcome to request_status with started/completed/failed values
 * feature: Track and retry failed external audit-log delivery
 * security: Bound nested request depth, field counts, string sizes, and JSON parsing

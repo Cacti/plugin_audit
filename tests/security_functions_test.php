@@ -91,6 +91,29 @@ audit_test_assert_same(
 	'Fatal errors must finalize as failed requests.'
 );
 
+$external_record = array(
+	'event_time' => '2026-07-24 10:00:00',
+	'action' => "Update\nDevice",
+	'post' => array('id' => 42)
+);
+$json_record = audit_external_log_format($external_record, 'json');
+audit_test_assert_same("\n", substr($json_record, -1), 'JSON external records must end with a newline.');
+audit_test_assert_same(
+	$external_record,
+	json_decode(trim($json_record), true),
+	'JSON external records must contain the complete event.'
+);
+audit_test_assert_same(
+	'event_time="2026-07-24 10:00:00" action="Update\nDevice" post="{\"id\":42}"' . "\n",
+	audit_external_log_format($external_record, 'text'),
+	'Text external records must be single-line key/value data with escaped values.'
+);
+audit_test_assert_same(
+	$json_record,
+	audit_external_log_format($external_record, 'unsupported'),
+	'Unknown external formats must safely fall back to JSON.'
+);
+
 $temporary_log = tempnam(sys_get_temp_dir(), 'audit-test-');
 $delivery      = audit_append_external_log($temporary_log, "test-record\n");
 audit_test_assert_same('delivered', $delivery['status'], 'A complete external log write must report delivery.');

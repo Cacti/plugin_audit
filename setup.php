@@ -334,6 +334,16 @@ function audit_config_settings() {
 			'method' => 'checkbox',
 			'default' => 'off'
 		),
+		'audit_log_external_format' => array(
+			'friendly_name' => __('External Audit Log Format', 'audit'),
+			'description' => __('Select the output format for external audit log records.', 'audit'),
+			'method' => 'drop_array',
+			'default' => 'json',
+			'array' => array(
+				'text' => __('Text', 'audit'),
+				'json' => __('JSON', 'audit')
+			)
+		),
 		'audit_log_external_path' => array(
 			'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
 			'description' => __('Enter the path to the external audit log file.', 'audit'),

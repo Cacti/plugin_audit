@@ -29,7 +29,11 @@ directory is named 'audit' and not 'plugin_audit'.
 Once this is done, you have to goto Configuration -> Settings -> Audit and define
 data retention and turn on auditing.
 
-You can also enable file based logging for ingestion by Siem or Log analysis tools such as splunk
+You can also enable file-based logging for ingestion by SIEM or log-analysis
+tools such as Splunk. External records can be written as newline-delimited JSON
+(one JSON object per line) or as single-line text using quoted `key="value"`
+fields. Control characters in text values are escaped so every event remains on
+one line. JSON is the default to preserve the format used by earlier releases.
 
 External file delivery is tracked on each database record. Failed appends are
 retried by the poller in batches and therefore have at-least-once delivery
