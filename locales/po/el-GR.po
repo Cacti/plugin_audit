@@ -284,5 +284,74 @@ msgstr "Αρχείο ελέγχου"
 msgid "Audit Event Log"
 msgstr "Αρχείο καταγραφής συμβάντων ελέγχου"
 
+#: audit.php
+#, fuzzy
+#| msgid "Audit Event Log"
+msgid "Audit event not found."
+msgstr "Αρχείο καταγραφής συμβάντων ελέγχου"
+
+#: audit.php
+msgid "External Delivery:"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "External Audit Log"
+msgid "External Error:"
+msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
+
+#: audit.php
+#, fuzzy
+#| msgid "Record Data:"
+msgid "Stored Data"
+msgstr "Δεδομένα εγγραφής:"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr ""
+
+#: audit.php
+msgid "Requested Action"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Η ενέργεια του Κάκτι ζήτησε. Τοποθετήστε το δείκτη του ποντικιού πάνω από τη δράση για να δείτε δεδομένα $ _POST."
+
+#: audit.php
+msgid "Request Status"
+msgstr ""
+
+#: audit.php
+msgid "Request Status:"
+msgstr ""
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr ""
+
+#: audit.php
+msgid "External Delivery"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "Enter the path to the external audit log file."
+msgid "Delivery state for the optional external audit log."
+msgstr "Εισαγάγετε τη διαδρομή προς το αρχείο καταγραφής εξωτερικού ελέγχου."
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr ""
+
+#: setup.php
+#, fuzzy
+#| msgid "View Cacti Audit Log"
+msgid "Manage Cacti Audit Log"
+msgstr "Προβολή αρχείου καταγραφής ελέγχου Cacti"
+
 #~ msgid "Misc"
 #~ msgstr "Διάφορα"

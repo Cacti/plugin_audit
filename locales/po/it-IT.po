@@ -284,5 +284,74 @@ msgstr "Audit"
 msgid "Audit Event Log"
 msgstr "Registro eventi dell'audit"
 
+#: audit.php
+#, fuzzy
+#| msgid "Audit Event Log"
+msgid "Audit event not found."
+msgstr "Registro eventi dell'audit"
+
+#: audit.php
+msgid "External Delivery:"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "External Audit Log"
+msgid "External Error:"
+msgstr "Abilita registro di controllo"
+
+#: audit.php
+#, fuzzy
+#| msgid "Record Data:"
+msgid "Stored Data"
+msgstr "Dati del record:"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr ""
+
+#: audit.php
+msgid "Requested Action"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "L'azione Cactus richiesta.  Passare sopra l'azione per vedere i dati $_POST."
+
+#: audit.php
+msgid "Request Status"
+msgstr ""
+
+#: audit.php
+msgid "Request Status:"
+msgstr ""
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr ""
+
+#: audit.php
+msgid "External Delivery"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "Enter the path to the external audit log file."
+msgid "Delivery state for the optional external audit log."
+msgstr "Immettere il percorso del file di registro di controllo esterno."
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr ""
+
+#: setup.php
+#, fuzzy
+#| msgid "View Cacti Audit Log"
+msgid "Manage Cacti Audit Log"
+msgstr "Visualizza il registro dell'audit dei cactus"
+
 #~ msgid "Misc"
 #~ msgstr "Varie"

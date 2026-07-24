@@ -284,5 +284,74 @@ msgstr "監査"
 msgid "Audit Event Log"
 msgstr "監査イベントログ"
 
+#: audit.php
+#, fuzzy
+#| msgid "Audit Event Log"
+msgid "Audit event not found."
+msgstr "監査イベントログ"
+
+#: audit.php
+msgid "External Delivery:"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "External Audit Log"
+msgid "External Error:"
+msgstr "監査ログを有効にする"
+
+#: audit.php
+#, fuzzy
+#| msgid "Record Data:"
+msgid "Stored Data"
+msgstr "レコードデータ:"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr ""
+
+#: audit.php
+msgid "Requested Action"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "サボテンアクションは要求しました。 $ _POSTデータを表示するためのアクションにカーソルを合わせます。"
+
+#: audit.php
+msgid "Request Status"
+msgstr ""
+
+#: audit.php
+msgid "Request Status:"
+msgstr ""
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr ""
+
+#: audit.php
+msgid "External Delivery"
+msgstr ""
+
+#: audit.php
+#, fuzzy
+#| msgid "Enter the path to the external audit log file."
+msgid "Delivery state for the optional external audit log."
+msgstr "外部監査ログ ファイルへのパスを入力します。"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr ""
+
+#: setup.php
+#, fuzzy
+#| msgid "View Cacti Audit Log"
+msgid "Manage Cacti Audit Log"
+msgstr "サボテン監査ログを表示する"
+
 #~ msgid "Misc"
 #~ msgstr "その他"
