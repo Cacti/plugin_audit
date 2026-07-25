@@ -1,0 +1,38 @@
+{
+    "name": "cacti/plugin-audit",
+    "description": "Cacti Audit Plugin - logs GUI and CLI activities to an audit trail.",
+    "type": "cacti-plugin",
+    "license": "GPL-2.0-only",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-sockets": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.86",
+        "pestphp/pest": "^2.0",
+        "pestphp/pest-plugin-drift": "^2.0",
+        "phpstan/phpstan": "^2.2"
+    },
+    "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --dry-run --diff --config=./.php-cs-fixer.php",
+        "php-cs-fixit": "php-cs-fixer fix --config=./.php-cs-fixer.php",
+        "phpstan": "phpstan analyse --memory-limit=512M",
+        "test": "pest --display-warnings"
+    },
+    "authors": [
+        {
+            "name": "The Cacti Group",
+            "email": "developers@cacti.net"
+        }
+    ],
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

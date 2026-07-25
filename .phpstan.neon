@@ -1,0 +1,41 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    parallel:
+        maximumNumberOfProcesses: 8
+    paths:
+        - setup.php
+        - audit.php
+        - audit_functions.php
+        - audit_syslog.php
+        - index.php
+        - locales/index.php
+        - locales/LC_MESSAGES/index.php
+        - tests/
+    excludePaths:
+        analyse:
+            - locales/*
+            - js/*
+            - vendor/*
+            - '*.mo'
+            - '*.po'
+            - '*.pot'
+    scanFiles:
+        - phpstan/stubs/cacti.stubs.php
+    level: 8
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: if.alwaysFalse
+        - identifier: notEqual.alwaysFalse
+        - identifier: notEqual.alwaysTrue
+        - identifier: equal.alwaysTrue
+        - identifier: if.alwaysTrue
+        - identifier: while.alwaysTrue
+        - identifier: greater.alwaysFalse
+        - identifier: identical.alwaysTrue
+        - identifier: identical.alwaysFalse
+        - identifier: booleanAnd.leftAlwaysTrue
+        - identifier: booleanAnd.leftAlwaysFalse
+        - identifier: function.alreadyNarrowedType
