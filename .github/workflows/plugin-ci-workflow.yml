@@ -61,14 +61,14 @@ jobs:
     
     steps:
     - name: Checkout Cacti
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: Cacti/cacti
         ref: 1.2.x
         path: cacti
     
     - name: Checkout audit Plugin
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         path: cacti/plugins/audit
     
@@ -81,7 +81,6 @@ jobs:
     
     - name: Check PHP version
       run: php -v
-    
     
     - name: Run apt-get update
       run: sudo apt-get update
@@ -142,8 +141,6 @@ jobs:
         sed -r "s/'cactiuser'/'cactiuser'/g" > ${{ github.workspace }}/cacti/include/config.php
         sudo chmod 664 ${{ github.workspace }}/cacti/include/config.php
     
-
-    
     - name: Configure Apache
       run: |
         cat << 'EOF' | sed 's#GITHUB_WORKSPACE#${{ github.workspace }}#g' > /tmp/cacti.conf
@@ -202,7 +199,6 @@ jobs:
         php tests/security_functions_test.php
         php tests/controller_security_test.php
     
-    
     - name: Run Cacti Poller
       run: |
         cd ${{ github.workspace }}/cacti
@@ -212,7 +208,6 @@ jobs:
           cat log/cacti.log
           exit 1
         fi
-    
     
     - name: View Cacti Logs
       if: always()
