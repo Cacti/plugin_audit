@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 /*
  +-------------------------------------------------------------------------+
  | Copyright (C) 2004-2026 The Cacti Group                                 |
@@ -25,7 +26,7 @@ describe('audit setup.php structure', function () {
 	});
 
 	it('reads plugin info from INFO file', function () use ($source) {
-		expect($source)->toContain("parse_ini_file");
+		expect($source)->toContain('parse_ini_file');
 		expect($source)->toContain("'info'");
 	});
 

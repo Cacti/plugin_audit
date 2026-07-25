@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 if (!defined('POLLER_ID')) {
 	define('POLLER_ID', 7);
