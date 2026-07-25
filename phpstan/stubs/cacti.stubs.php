@@ -88,10 +88,10 @@ global $item_rows;
 
 // ----- Plugin / Hook API ---------------------------------------------
 
-function api_plugin_register_hook(string $plugin, string $hook, string $function, string $file): void {
+function api_plugin_register_hook(string $plugin, string $hook, string $function, string $file, int $install = 0): void {
 }
 
-function api_plugin_register_realm(string $plugin, array $file, array $display, int $install = 0): void {
+function api_plugin_register_realm(string $plugin, array|string $file, array|string $display, int $install = 0): void {
 }
 
 function api_plugin_is_enabled(string $plugin): bool {
@@ -177,7 +177,7 @@ function db_index_exists(string $table, string $index, bool $log = true, mixed $
 	return false;
 }
 
-function db_add_index(string $table, string $type, string $name, string $definition, bool $log = true, mixed $db_conn = false): void {
+function db_add_index(string $table, string $type, string $name, mixed $definition, bool $log = true, mixed $db_conn = false): void {
 }
 
 // ----- Config / Options ---------------------------------------------
@@ -192,14 +192,17 @@ function set_config_option(string $name, string $value): bool {
 
 // ----- Localization --------------------------------------------------
 
-function __(string $text, string $domain = ''): string {
+/**
+ * @param mixed ...$args sprintf arguments or domain
+ */
+function __(string $text, mixed ...$args): string {
 	return $text;
 }
 
 /**
- * @param mixed ...$args
+ * @param mixed ...$args sprintf arguments or domain
  */
-function __esc(string $text, string $domain = ''): string {
+function __esc(string $text, mixed ...$args): string {
 	return $text;
 }
 
@@ -238,7 +241,7 @@ function sanitize_search_string(mixed $string): string {
 	return '';
 }
 
-function html_escape_request_var(string $name): void {
+function html_escape_request_var(string $name): string {
 }
 
 // ----- Logging / Misc ------------------------------------------------
@@ -288,12 +291,12 @@ function html_nav_bar(string $base_url, int $max_pages, int $current_page, int $
 }
 
 /**
- * @param array<string,string> $display_text
+ * @param array<string,string|array<string,string>> $display_text
  */
 function html_header_sort(array $display_text, string $sort_column, string $sort_direction, bool $last_column = false): void {
 }
 
-function html_escape(string $string): string {
+function html_escape(mixed $string): string {
 	return '';
 }
 
@@ -303,7 +306,7 @@ function form_alternate_row(string $id, bool $light = false): void {
 function form_selectable_cell(string $text, int $id, string $class = '', string $title = ''): void {
 }
 
-function form_selectable_ecell(string $text, int $id): void {
+function form_selectable_ecell(string $text, int $id, string $class = '', string $title = ''): void {
 }
 
 function form_end_row(): void {

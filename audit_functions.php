@@ -6,6 +6,9 @@ function audit_user_is_admin(): bool {
 	return api_plugin_user_realm_auth('audit_manage.php');
 }
 
+/**
+ * @param array<int,string> $selected_items
+ */
 function audit_process_page_data(string $page, mixed $drop_action, array $selected_items): string {
 	$objects = [];
 
@@ -45,9 +48,11 @@ function audit_process_page_data(string $page, mixed $drop_action, array $select
 							WHERE id IN (?)',
 						[$item]);
 
-					foreach ($result as &$row) {
-						$row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
-						$row['up']   = ($row['up'] == 1) ? 'Yes' : 'No';
+					if (is_array($result)) {
+						foreach ($result as &$row) {
+							$row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
+							$row['up']   = ($row['up'] == 1) ? 'Yes' : 'No';
+						}
 					}
 
 					$objects[] = $result;
@@ -182,6 +187,7 @@ function audit_bound_log_data(mixed $data, int $depth = 0, ?object $state = null
 		$bounded = [];
 
 		foreach ($data as $key => $value) {
+			// @phpstan-ignore-next-line (property.notFound: dynamic property on stdClass state object)
 			if ($state->fields >= 1000) {
 				$bounded['audit_truncated'] = 'Additional fields were omitted.';
 
@@ -202,6 +208,10 @@ function audit_bound_log_data(mixed $data, int $depth = 0, ?object $state = null
 	return $data;
 }
 
+/**
+ * @param  array<int,string> $arguments
+ * @return array<int,string>
+ */
 function audit_redact_cli_arguments(array $arguments): array {
 	$redacted    = [];
 	$redact_next = false;
@@ -227,7 +237,7 @@ function audit_redact_cli_arguments(array $arguments): array {
 			continue;
 		}
 
-		$redacted[] = preg_replace('#^([a-z][a-z0-9+.-]*://[^:/@\s]+):[^@\s]+@#i', '$1:[REDACTED]@', $argument);
+		$redacted[] = preg_replace('#^([a-z][a-z0-9+.-]*://[^:/@\s]+):[^@\s]+@#i', '$1:[REDACTED]@', $argument) ?? $argument;
 	}
 
 	return $redacted;
@@ -237,7 +247,9 @@ function audit_json_encode(mixed $data, int $options = 0): string {
 	$json = json_encode(audit_bound_log_data($data), JSON_INVALID_UTF8_SUBSTITUTE | $options, 16);
 
 	if ($json === false) {
-		return json_encode(['audit_encoding_error' => json_last_error_msg()]);
+		$fallback = json_encode(['audit_encoding_error' => json_last_error_msg()]);
+
+		return $fallback !== false ? $fallback : '{}';
 	}
 
 	return $json;
@@ -288,6 +300,9 @@ function audit_utc_time(?float $microtime = null): string {
 	return gmdate('Y-m-d H:i:s', $seconds) . '.' . sprintf('%06d', $micros);
 }
 
+/**
+ * @param array<string,mixed> $event
+ */
 function audit_event_integrity_hash(array $event): string {
 	$material = [
 		'event_uuid'       => $event['event_uuid'] ?? '',
@@ -307,14 +322,18 @@ function audit_event_integrity_hash(array $event): string {
 
 function audit_event_type_for_request(mixed $page, mixed $action): string {
 	$page_name = preg_replace('/\.php$/', '', (string) $page);
-	$page_name = preg_replace('/[^a-z0-9_]+/i', '_', $page_name);
+	$page_name = preg_replace('/[^a-z0-9_]+/i', '_', $page_name ?? '');
 	$verb      = preg_replace('/[^a-z0-9_]+/i', '_', strtolower((string) $action));
-	$verb      = trim($verb, '_');
+	$verb      = trim($verb ?? '', '_');
 
 	return 'cacti.' . ($page_name !== '' ? $page_name : 'request') . '.' .
 		($verb !== '' && $verb !== 'none' ? $verb : 'submitted');
 }
 
+/**
+ * @param  array<string,mixed> $event
+ * @return array<string,mixed>
+ */
 function audit_external_event_data(array $event): array {
 	$fields = [
 		'id', 'event_uuid', 'correlation_id', 'event_type', 'event_category',
@@ -333,6 +352,9 @@ function audit_external_event_data(array $event): array {
 	return $data;
 }
 
+/**
+ * @param array<string,mixed> $data
+ */
 function audit_external_log_format(array $data, string $format = 'json'): string {
 	if ($format === 'text') {
 		$fields = [];
@@ -388,6 +410,9 @@ function audit_retention_cutoff(mixed $retention, ?DateTimeImmutable $now = null
 	return $now->sub(new DateInterval('P' . max(0, (int) $retention) . 'D'));
 }
 
+/**
+ * @return array<string,string>
+ */
 function audit_append_external_log(string $path, string $message): array {
 	if ($path == '' || !is_file($path) || is_link($path)) {
 		return ['status' => 'failed', 'error' => 'Destination is not a regular file or is a symbolic link.'];
@@ -420,7 +445,7 @@ function audit_deliver_external_event(int $id): void {
 
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
-	if (!cacti_sizeof($event) || $event['request_status'] == 'started') {
+	if (is_array($event) && $event['request_status'] == 'started') {
 		return;
 	}
 
@@ -433,7 +458,7 @@ function audit_deliver_external_event(int $id): void {
 	}
 
 	$format   = read_config_option('audit_log_external_format') === 'text' ? 'text' : 'json';
-	$message  = audit_external_log_format(audit_external_event_data($event), $format);
+	$message  = audit_external_log_format(audit_external_event_data(is_array($event) ? $event : []), $format);
 	$delivery = audit_append_external_log($path, $message);
 	audit_set_external_status($id, $delivery['status'], $delivery['error']);
 }
@@ -459,17 +484,22 @@ function audit_retry_external_logs(): void {
 		ORDER BY id
 		LIMIT 100");
 
-	foreach ($events as $event) {
-		$message  = audit_external_log_format(audit_external_event_data($event), $format);
-		$delivery = audit_append_external_log($path, $message);
-		audit_set_external_status($event['id'], $delivery['status'], $delivery['error']);
+	if (is_array($events)) {
+		foreach ($events as $event) {
+			$message  = audit_external_log_format(audit_external_event_data($event), $format);
+			$delivery = audit_append_external_log($path, $message);
+			audit_set_external_status($event['id'], $delivery['status'], $delivery['error']);
 
-		if ($delivery['status'] != 'delivered') {
-			break;
+			if ($delivery['status'] != 'delivered') {
+				break;
+			}
 		}
 	}
 }
 
+/**
+ * @param array<string,mixed> $error
+ */
 function audit_request_status(?array $error = null, int $status_code = 200): string {
 	$fatal_types = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR];
 
@@ -481,6 +511,10 @@ function audit_request_status(?array $error = null, int $status_code = 200): str
 	return 'completed';
 }
 
+/**
+ * @param  array<string,mixed>      $post
+ * @return array<string,mixed>|null
+ */
 function audit_operation_verifier_for_request(string $page, array $post): ?array {
 	if ($page != 'user_admin.php' || !array_key_exists('save_component_realm_perms', $post)) {
 		return null;
@@ -525,6 +559,9 @@ function audit_operation_verifier_for_request(string $page, array $post): ?array
 	];
 }
 
+/**
+ * @return array<string,mixed>
+ */
 function audit_verify_operation(mixed $verifier): array {
 	if (!is_array($verifier) || empty($verifier['type'])) {
 		return ['outcome' => 'unknown', 'reason' => null];
@@ -583,6 +620,9 @@ function audit_verify_operation(mixed $verifier): array {
 	return ['outcome' => 'failure', 'reason' => 'realm_permissions_mismatch'];
 }
 
+/**
+ * @param array<string,mixed>|null $verifier
+ */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
 	$status_code    = http_response_code();
 	$status_code    = is_int($status_code) ? $status_code : 200;
@@ -612,7 +652,7 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
 
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
-	if (cacti_sizeof($event)) {
+	if (is_array($event)) {
 		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
 			[audit_event_integrity_hash($event), $id]);
 	}
@@ -621,6 +661,9 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
 	audit_enqueue_syslog_event($id);
 }
 
+/**
+ * @param array<string,mixed> $options
+ */
 function audit_record_event(string $event_type, array $options = []): int {
 	if (read_config_option('audit_enabled') != 'on') {
 		return 0;
@@ -660,7 +703,7 @@ function audit_record_event(string $event_type, array $options = []): int {
 	$id    = db_fetch_insert_id();
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
-	if (cacti_sizeof($event)) {
+	if (is_array($event)) {
 		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
 			[audit_event_integrity_hash($event), $id]);
 	}
@@ -741,7 +784,7 @@ function audit_enforce_syslog_settings_request(): void {
 
 	$config      = audit_syslog_config($overrides);
 	$enabling    = isset($post['audit_syslog_enabled']) && $post['audit_syslog_enabled'] === 'on';
-	$configuring = trim($overrides['receiver']) !== '';
+	$configuring = trim($overrides['receiver'] ?? '') !== '';
 
 	if (($enabling || $configuring) && !$config['valid']) {
 		audit_record_event('audit.syslog.configuration.rejected', [

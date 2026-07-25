@@ -25,6 +25,9 @@ function audit_syslog_read_setting(string $name, mixed $default): mixed {
 	return $value === '' || $value === null ? $default : $value;
 }
 
+/**
+ * @param array<int,string> $errors
+ */
 function audit_syslog_bounded_integer(mixed $value, int $default, int $minimum, int $maximum, array &$errors, string $name): int {
 	if (!is_scalar($value) || !preg_match('/^[0-9]+$/', (string) $value)) {
 		$errors[] = $name . '_invalid';
@@ -79,6 +82,9 @@ function audit_syslog_valid_header_value(string $value, int $maximum): bool {
 		!preg_match('/[^\\x21-\\x7e]|[\\[\\]="]/', $value);
 }
 
+/**
+ * @param array<int,string> $errors
+ */
 function audit_syslog_validate_optional_file(string $path, string $name, array &$errors): string {
 	if ($path === '') {
 		return '';
@@ -91,6 +97,10 @@ function audit_syslog_validate_optional_file(string $path, string $name, array &
 	return $path;
 }
 
+/**
+ * @param  array<string,mixed> $overrides
+ * @return array<string,mixed>
+ */
 function audit_syslog_config(array $overrides = []): array {
 	$defaults = [
 		'receiver'            => '',
@@ -122,20 +132,20 @@ function audit_syslog_config(array $overrides = []): array {
 	}
 
 	$errors   = [];
-	$receiver = trim((string) $values['receiver']);
+	$receiver = trim((string) ($values['receiver'] ?? ''));
 
 	if (!audit_syslog_valid_receiver($receiver)) {
 		$errors[] = 'receiver_invalid';
 	}
 
-	$transport = strtolower((string) $values['transport']);
+	$transport = strtolower((string) ($values['transport'] ?? ''));
 
 	if (!in_array($transport, ['udp', 'tcp', 'tls'], true)) {
 		$errors[]  = 'transport_invalid';
 		$transport = 'udp';
 	}
 
-	$format = strtolower((string) $values['format']);
+	$format = strtolower((string) ($values['format'] ?? ''));
 
 	if (!in_array($format, ['rfc5424', 'cef', 'json'], true)) {
 		$errors[] = 'format_invalid';
@@ -143,47 +153,47 @@ function audit_syslog_config(array $overrides = []): array {
 	}
 
 	$facility_map = audit_syslog_facilities();
-	$facility     = strtolower((string) $values['facility']);
+	$facility     = strtolower((string) ($values['facility'] ?? ''));
 
 	if (!isset($facility_map[$facility])) {
 		$errors[] = 'facility_invalid';
 		$facility = 'local0';
 	}
 
-	$application = trim((string) $values['application']);
+	$application = trim((string) ($values['application'] ?? ''));
 
 	if (!audit_syslog_valid_header_value($application, 48)) {
 		$errors[]    = 'application_invalid';
 		$application = 'cacti-audit';
 	}
 
-	$node_id = trim((string) $values['node_id']);
+	$node_id = trim((string) ($values['node_id'] ?? ''));
 
 	if (!audit_syslog_valid_header_value($node_id, 255)) {
 		$errors[] = 'node_id_invalid';
 		$node_id  = 'cacti';
 	}
 
-	$port = trim((string) $values['port']) === ''
+	$port = trim((string) ($values['port'] ?? '')) === ''
 		? ($transport === 'tls' ? 6514 : 514)
-		: audit_syslog_bounded_integer($values['port'], $transport === 'tls' ? 6514 : 514, 1, 65535, $errors, 'port');
-	$timeout             = audit_syslog_bounded_integer($values['timeout'], 5, 1, 30, $errors, 'timeout');
-	$udp_max_size        = audit_syslog_bounded_integer($values['udp_max_size'], 8192, 512, 65507, $errors, 'udp_max_size');
-	$retry_base          = audit_syslog_bounded_integer($values['retry_base'], 30, 1, 3600, $errors, 'retry_base');
-	$retry_max           = audit_syslog_bounded_integer($values['retry_max'], 3600, 1, 86400, $errors, 'retry_max');
-	$max_attempts        = audit_syslog_bounded_integer($values['max_attempts'], 10, 1, 100, $errors, 'max_attempts');
-	$batch_size          = audit_syslog_bounded_integer($values['batch_size'], 100, 1, 1000, $errors, 'batch_size');
-	$pending_age_warning = audit_syslog_bounded_integer($values['pending_age_warning'], 900, 60, 604800, $errors, 'pending_age_warning');
-	$dead_letter_warning = audit_syslog_bounded_integer($values['dead_letter_warning'], 1, 1, 1000000, $errors, 'dead_letter_warning');
+		: audit_syslog_bounded_integer($values['port'] ?? '', $transport === 'tls' ? 6514 : 514, 1, 65535, $errors, 'port');
+	$timeout             = audit_syslog_bounded_integer($values['timeout'] ?? 5, 5, 1, 30, $errors, 'timeout');
+	$udp_max_size        = audit_syslog_bounded_integer($values['udp_max_size'] ?? 8192, 8192, 512, 65507, $errors, 'udp_max_size');
+	$retry_base          = audit_syslog_bounded_integer($values['retry_base'] ?? 30, 30, 1, 3600, $errors, 'retry_base');
+	$retry_max           = audit_syslog_bounded_integer($values['retry_max'] ?? 3600, 3600, 1, 86400, $errors, 'retry_max');
+	$max_attempts        = audit_syslog_bounded_integer($values['max_attempts'] ?? 10, 10, 1, 100, $errors, 'max_attempts');
+	$batch_size          = audit_syslog_bounded_integer($values['batch_size'] ?? 100, 100, 1, 1000, $errors, 'batch_size');
+	$pending_age_warning = audit_syslog_bounded_integer($values['pending_age_warning'] ?? 900, 900, 60, 604800, $errors, 'pending_age_warning');
+	$dead_letter_warning = audit_syslog_bounded_integer($values['dead_letter_warning'] ?? 1, 1, 1, 1000000, $errors, 'dead_letter_warning');
 
 	if ($retry_max < $retry_base) {
 		$errors[]  = 'retry_max_less_than_base';
 		$retry_max = $retry_base;
 	}
 
-	$tls_ca_file     = trim((string) $values['tls_ca_file']);
-	$tls_client_cert = trim((string) $values['tls_client_cert']);
-	$tls_client_key  = trim((string) $values['tls_client_key']);
+	$tls_ca_file     = trim((string) ($values['tls_ca_file'] ?? ''));
+	$tls_client_cert = trim((string) ($values['tls_client_cert'] ?? ''));
+	$tls_client_key  = trim((string) ($values['tls_client_key'] ?? ''));
 
 	if ($transport === 'tls') {
 		audit_syslog_validate_optional_file($tls_ca_file, 'tls_ca_file', $errors);
@@ -225,6 +235,9 @@ function audit_syslog_config(array $overrides = []): array {
 	return $config;
 }
 
+/**
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_destination_fingerprint(array $config): string {
 	$identity = [
 		'receiver'        => $config['receiver'],
@@ -241,6 +254,9 @@ function audit_syslog_destination_fingerprint(array $config): string {
 	return hash('sha256', audit_json_encode($identity, JSON_UNESCAPED_SLASHES));
 }
 
+/**
+ * @return array<string,int>
+ */
 function audit_syslog_facilities(): array {
 	return [
 		'kern'   => 0, 'user' => 1, 'mail' => 2, 'daemon' => 3,
@@ -265,7 +281,7 @@ function audit_syslog_severity_code(mixed $severity): int {
 
 function audit_syslog_header_token(mixed $value, int $maximum, string $fallback): string {
 	$value = preg_replace('/[^\\x21-\\x3c\\x3e-\\x5a\\x5e-\\x7e]/', '_', (string) $value);
-	$value = substr($value, 0, $maximum);
+	$value = substr($value ?? '', 0, $maximum);
 
 	return $value === '' ? $fallback : $value;
 }
@@ -273,7 +289,7 @@ function audit_syslog_header_token(mixed $value, int $maximum, string $fallback)
 function audit_syslog_structured_value(mixed $value): string {
 	$value = preg_replace('/[\\x00-\\x1f\\x7f]/', ' ', (string) $value);
 
-	return str_replace(['\\', '"', ']'], ['\\\\', '\\"', '\\]'], $value);
+	return str_replace(['\\', '"', ']'], ['\\\\', '\\"', '\\]'], $value ?? '');
 }
 
 function audit_syslog_timestamp(mixed $value): string {
@@ -286,6 +302,11 @@ function audit_syslog_timestamp(mixed $value): string {
 	return gmdate('Y-m-d\\TH:i:s\\Z');
 }
 
+/**
+ * @param  array<string,mixed> $event
+ * @param  array<string,mixed> $config
+ * @return array<string,mixed>
+ */
 function audit_syslog_normalized_data(array $event, array $config): array {
 	$data              = audit_external_event_data($event);
 	$data['node_id']   = $config['node_id'];
@@ -345,6 +366,10 @@ function audit_syslog_cef_event_field(mixed $value): string {
 	return audit_redact_sensitive_value((string) $value);
 }
 
+/**
+ * @param array<string,mixed> $event
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_cef_payload(array $event, array $config): string {
 	$severity = audit_syslog_cef_severity($event['severity'] ?? 'info');
 	$header   = [
@@ -387,6 +412,10 @@ function audit_syslog_cef_payload(array $event, array $config): string {
 	return implode('|', $encoded_header) . '|' . implode(' ', $encoded_extension);
 }
 
+/**
+ * @param array<string,mixed> $event
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_message_payload(array $event, array $config): string {
 	if ($config['format'] === 'cef') {
 		return audit_syslog_cef_payload($event, $config);
@@ -399,6 +428,11 @@ function audit_syslog_message_payload(array $event, array $config): string {
 	return 'Audit event ' . (string) ($event['event_uuid'] ?? '');
 }
 
+/**
+ * @param  array<string,mixed> $event
+ * @param  array<string,mixed> $config
+ * @return array<string,mixed>
+ */
 function audit_syslog_record(array $event, array $config): array {
 	if (empty($config['valid'])) {
 		return [
@@ -477,6 +511,9 @@ function audit_syslog_frame(string $record, string $transport): string {
 	return $record;
 }
 
+/**
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_socket_target(array $config): string {
 	$receiver = $config['receiver'];
 
@@ -489,7 +526,7 @@ function audit_syslog_socket_target(array $config): string {
 	return $scheme . '://' . $receiver . ':' . $config['port'];
 }
 
-function audit_syslog_stream_operation(callable $operation, ?string &$warning = null): mixed {
+function audit_syslog_stream_operation(callable $operation, string &$warning = ''): mixed {
 	$warning = '';
 	$handler = function ($severity, $message) use (&$warning) {
 		$warning = audit_syslog_bounded_error($message);
@@ -510,6 +547,10 @@ function audit_syslog_stream_operation(callable $operation, ?string &$warning = 
 	}
 }
 
+/**
+ * @param  array<string,mixed> $config
+ * @return array<string,mixed>
+ */
 function audit_syslog_open_socket(array $config): array {
 	$context_options = [];
 
@@ -576,15 +617,18 @@ function audit_syslog_open_socket(array $config): array {
 function audit_syslog_bounded_error(mixed $error): string {
 	$error = preg_replace('/[\\x00-\\x1f\\x7f]+/', ' ', (string) $error);
 
-	return substr(trim($error), 0, 1024);
+	return substr(trim($error ?? ''), 0, 1024);
 }
 
-function audit_syslog_fwrite(mixed $socket, string $message, ?string &$warning = null): int|false {
+function audit_syslog_fwrite(mixed $socket, string $message, string &$warning = ''): int|false {
 	return audit_syslog_stream_operation(function () use ($socket, $message) {
 		return fwrite($socket, $message);
 	}, $warning);
 }
 
+/**
+ * @return array<string,mixed>
+ */
 function audit_syslog_write(mixed $socket, string $message, string $transport): array {
 	if (!is_resource($socket)) {
 		return ['status' => 'failed', 'error_code' => 'socket_unavailable', 'error' => 'Syslog socket is unavailable.'];
@@ -625,6 +669,11 @@ function audit_syslog_write(mixed $socket, string $message, string $transport): 
 	return ['status' => 'sent_unconfirmed', 'error_code' => '', 'error' => ''];
 }
 
+/**
+ * @param  array<string,mixed> $event
+ * @param  array<string,mixed> $config
+ * @return array<string,mixed>
+ */
 function audit_syslog_send_event(array $event, array $config, mixed &$socket = null): array {
 	$formatted = audit_syslog_record($event, $config);
 
@@ -669,7 +718,7 @@ function audit_enqueue_syslog_event(int $audit_id): void {
 		WHERE id = ?',
 		[$audit_id]);
 
-	if (!cacti_sizeof($event) || $event['request_status'] === 'started' || $event['event_uuid'] === '') {
+	if (!is_array($event) || $event['request_status'] === 'started' || $event['event_uuid'] === '') {
 		return;
 	}
 
@@ -687,6 +736,11 @@ function audit_enqueue_syslog_event(int $audit_id): void {
 		]);
 }
 
+/**
+ * @param  array<string,mixed> $config
+ * @param  array<string,mixed> $delivery
+ * @return array<string,mixed>
+ */
 function audit_syslog_delivery_config(array $config, array $delivery): array {
 	if (isset($delivery['delivery_node_id']) && $delivery['delivery_node_id'] !== '') {
 		$config['node_id'] = $delivery['delivery_node_id'];
@@ -701,6 +755,9 @@ function audit_syslog_delivery_config(array $config, array $delivery): array {
 	return $config;
 }
 
+/**
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_retry_delay(mixed $attempt, array $config): int {
 	$exponent = min(max(0, (int) $attempt - 1), 30);
 	$delay    = $config['retry_base'] * pow(2, $exponent);
@@ -708,6 +765,11 @@ function audit_syslog_retry_delay(mixed $attempt, array $config): int {
 	return (int) min($config['retry_max'], $delay);
 }
 
+/**
+ * @param array<string,mixed> $delivery
+ * @param array<string,mixed> $result
+ * @param array<string,mixed> $config
+ */
 function audit_syslog_update_delivery(array $delivery, array $result, array $config): void {
 	$attempts = (int) $delivery['attempts'] + 1;
 	$error    = isset($result['error']) ? audit_syslog_bounded_error($result['error']) : '';
@@ -774,13 +836,15 @@ function audit_process_syslog_queue(): void {
 		[]);
 	$socket = null;
 
-	foreach ($deliveries as $delivery) {
-		$delivery_config = audit_syslog_delivery_config($config, $delivery);
-		$result          = audit_syslog_send_event($delivery, $delivery_config, $socket);
-		audit_syslog_update_delivery($delivery, $result, $delivery_config);
+	if (is_array($deliveries)) {
+		foreach ($deliveries as $delivery) {
+			$delivery_config = audit_syslog_delivery_config($config, $delivery);
+			$result          = audit_syslog_send_event($delivery, $delivery_config, $socket);
+			audit_syslog_update_delivery($delivery, $result, $delivery_config);
 
-		if ($result['status'] !== 'sent_unconfirmed' && empty($result['permanent'])) {
-			break;
+			if ($result['status'] !== 'sent_unconfirmed' && empty($result['permanent'])) {
+				break;
+			}
 		}
 	}
 
@@ -791,6 +855,9 @@ function audit_process_syslog_queue(): void {
 	audit_syslog_check_health($config);
 }
 
+/**
+ * @return array<string,mixed>
+ */
 function audit_syslog_health(): array {
 	if (!db_table_exists('audit_syslog_delivery')) {
 		return [
@@ -829,6 +896,9 @@ function audit_syslog_health(): array {
 	];
 }
 
+/**
+ * @param array<string,mixed>|null $config
+ */
 function audit_syslog_check_health(?array $config = null): void {
 	if (!audit_syslog_enabled()) {
 		return;
@@ -851,6 +921,9 @@ function audit_syslog_check_health(?array $config = null): void {
 	}
 }
 
+/**
+ * @param array<int,int> $delivery_ids
+ */
 function audit_syslog_retry_dead_letters(array $delivery_ids = []): int {
 	if (!db_table_exists('audit_syslog_delivery')) {
 		return 0;
@@ -895,6 +968,9 @@ function audit_syslog_retry_dead_letters(array $delivery_ids = []): int {
 	return db_affected_rows();
 }
 
+/**
+ * @return array<string,mixed>
+ */
 function audit_syslog_test_delivery(): array {
 	$config = audit_syslog_config();
 	$event  = [

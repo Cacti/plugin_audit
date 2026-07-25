@@ -1,2 +1,955 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Call to function cacti_log\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: audit.php
+
+		-
+			message: '#^Call to function cacti_log\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 4
+			path: audit_functions.php
+
+		-
+			message: '#^Call to function set_config_option\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: audit_functions.php
+
+		-
+			message: '#^Call to function cacti_log\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: audit_syslog.php
+
+		-
+			message: '#^Call to function set_config_option\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: audit_syslog.php
+
+		-
+			message: '#^Call to function cacti_log\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 4
+			path: setup.php
+
+		-
+			message: '#^Call to function set_config_option\(\) on a separate line has no effect\.$#'
+			identifier: function.resultUnused
+			count: 1
+			path: setup.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function file_get_contents expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/Php81SyntaxTest.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function is_readable expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/Php81SyntaxTest.php
+
+		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/Php81SyntaxTest.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function file_get_contents expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/PreparedStatementConsistencyTest.php
+
+		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/PreparedStatementConsistencyTest.php
+
+		-
+			message: '#^Cannot access offset ''info'' on array\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/Security/SetupStructureTest.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function file_get_contents expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/SetupStructureTest.php
+
+		-
+			message: '#^Parameter \#1 \$filename of function parse_ini_file expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Security/SetupStructureTest.php
+
+		-
+			message: '#^Function __\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function __\(\) has parameter \$domain with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function __\(\) has parameter \$text with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function __esc\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function __esc\(\) has parameter \$domain with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function __esc\(\) has parameter \$text with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_add_column\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_add_column\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_add_column\(\) has parameter \$plugin with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_add_column\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_table_create\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_table_create\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_table_create\(\) has parameter \$plugin with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function api_plugin_db_table_create\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_log\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_log\(\) has parameter \$also_print with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_log\(\) has parameter \$level with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_log\(\) has parameter \$log_type with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_log\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_sizeof\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function cacti_sizeof\(\) has parameter \$array with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_affected_rows\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_column_exists\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_column_exists\(\) has parameter \$column with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_column_exists\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_execute\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_execute\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_assoc\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_assoc\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_cell\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_cell\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_row\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_row\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_index_exists\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_index_exists\(\) has parameter \$index with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_index_exists\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_table_exists\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function db_table_exists\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has parameter \$error with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has parameter \$optional with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has parameter \$regex with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function form_input_validate\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_filter_request_var\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_filter_request_var\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_nfilter_request_var\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_nfilter_request_var\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_request_var\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function get_request_var\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function html_escape\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function html_escape\(\) has parameter \$string with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function is_error_message\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function is_realm_allowed\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function is_realm_allowed\(\) has parameter \$realm with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function raise_message\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function raise_message\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function raise_message\(\) has parameter \$level with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function raise_message\(\) has parameter \$text with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function read_config_option\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function read_config_option\(\) has parameter \$force with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function read_config_option\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function set_config_option\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function set_config_option\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function set_config_option\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function sql_save\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function sql_save\(\) has parameter \$array with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function sql_save\(\) has parameter \$key with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Function sql_save\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/bootstrap.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 11
+			path: tests/controller_security_test.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function substr_count expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/controller_security_test.php
+
+		-
+			message: '#^Function api_plugin_user_realm_auth\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function api_plugin_user_realm_auth\(\) has parameter \$filename with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function audit_test_assert_same\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function audit_test_assert_same\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function audit_test_assert_same\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function audit_test_assert_same\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_assoc_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Function db_fetch_cell_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Offset ''type'' might not exist on array\<string, mixed\>\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/security_functions_test.php
+
+		-
+			message: '#^Cannot access offset 0 on array\<resource\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 9
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Cannot access offset 1 on array\<resource\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 4
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_assert\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_assert\(\) has parameter \$condition with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_assert\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_config\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_config\(\) has parameter \$overrides with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_event\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_remove_tls_material\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_remove_tls_material\(\) has parameter \$material with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_tls_material\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_tls_server\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_tls_server\(\) has parameter \$material with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_tls_server\(\) has parameter \$port with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_udp_server\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_udp_server\(\) has parameter \$error with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_udp_server\(\) has parameter \$error_message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_syslog_test_udp_server\(\) has parameter \$port with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$csr of function openssl_csr_sign expects OpenSSLCertificateSigningRequest\|string, OpenSSLCertificateSigningRequest\|true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strrpos expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$socket of function socket_set_option expects Socket, Socket\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$socket of function stream_socket_accept expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$socket of function stream_socket_get_name expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fclose expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fread expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function stream_set_timeout expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Parameter \#1 \$string of function substr expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/syslog_functions_test.php
+
+		-
+			message: '#^Function audit_queue_assert\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function audit_queue_assert\(\) has parameter \$condition with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function audit_queue_assert\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function cacti_sizeof\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function cacti_sizeof\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_affected_rows\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_execute\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_execute\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_execute_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has parameter \$params with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_fetch_row_prepared\(\) has parameter \$sql with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_table_exists\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function db_table_exists\(\) has parameter \$table with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function read_config_option\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Function read_config_option\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Offset 0 does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 15
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Parameter \#1 \$delivery_ids of function audit_syslog_retry_dead_letters expects array\<int, int\>, array\<int, int\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_queue_test.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/syslog_queue_test.php

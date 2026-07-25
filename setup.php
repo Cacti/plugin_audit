@@ -62,11 +62,13 @@ function audit_setup_realms(bool $grant_installing_user = false): void {
 				AND file IN (?, ?)',
 				['audit', 'audit.php', 'audit_manage.php']);
 
-			foreach ($realm_ids as $realm) {
-				db_execute_prepared('REPLACE INTO user_auth_realm
+			if (is_array($realm_ids)) {
+				foreach ($realm_ids as $realm) {
+					db_execute_prepared('REPLACE INTO user_auth_realm
 					(user_id, realm_id)
 					VALUES (?, ?)',
-					[$admin_user, $realm['realm_id']]);
+						[$admin_user, $realm['realm_id']]);
+				}
 			}
 		}
 	}
@@ -79,20 +81,22 @@ function audit_remove_deprecated_realms(): void {
 		AND file = ?',
 		['audit', 'audit_purge.php']);
 
-	foreach ($realms as $realm) {
-		$realm_id = $realm['id'] + 100;
+	if (is_array($realms)) {
+		foreach ($realms as $realm) {
+			$realm_id = $realm['id'] + 100;
 
-		db_execute_prepared('DELETE FROM user_auth_realm
-			WHERE realm_id = ?',
-			[$realm_id]);
+			db_execute_prepared('DELETE FROM user_auth_realm
+				WHERE realm_id = ?',
+				[$realm_id]);
 
-		db_execute_prepared('DELETE FROM user_auth_group_realm
-			WHERE realm_id = ?',
-			[$realm_id]);
+			db_execute_prepared('DELETE FROM user_auth_group_realm
+				WHERE realm_id = ?',
+				[$realm_id]);
 
-		db_execute_prepared('DELETE FROM plugin_realms
-			WHERE id = ?',
-			[$realm['id']]);
+			db_execute_prepared('DELETE FROM plugin_realms
+				WHERE id = ?',
+				[$realm['id']]);
+		}
 	}
 
 	if (cacti_sizeof($realms)) {
@@ -183,12 +187,16 @@ function audit_check_upgrade(): void {
 			[$info['version'], $info['longname'], $info['author'], $info['homepage'], $info['name']]);
 
 		// hook for table replication
-		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', '1');
+		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
 	}
 }
 
+/**
+ * @param  array<string,mixed> $data
+ * @return array<string,mixed>
+ */
 function audit_replicate_out(array $data): array {
 	$rcnn_id          = $data['rcnn_id'];
 	$class            = $data['class'];
@@ -408,11 +416,14 @@ function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
 	}
 }
 
+/**
+ * @return array<string,mixed>
+ */
 function plugin_audit_version(): array {
 	global $config;
 	$info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
 
-	return $info['info'];
+	return is_array($info) ? $info['info'] : [];
 }
 
 function audit_log_valid_event(): bool {
@@ -728,6 +739,10 @@ function audit_config_settings(): void {
 	}
 }
 
+/**
+ * @param  array<string,mixed> $nav
+ * @return array<string,mixed>
+ */
 function audit_draw_navigation_text(array $nav): array {
 	$nav['audit.php:'] = [
 		'title'   => __('Audit Event Log', 'audit'),

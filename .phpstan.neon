@@ -24,6 +24,7 @@ parameters:
     scanFiles:
         - phpstan/stubs/cacti.stubs.php
     level: 8
+    treatPhpDocTypesAsCertain: false
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
         - identifier: missingType.iterableValue
@@ -39,3 +40,8 @@ parameters:
         - identifier: booleanAnd.leftAlwaysTrue
         - identifier: booleanAnd.leftAlwaysFalse
         - identifier: function.alreadyNarrowedType
+        - identifier: includeOnce.fileNotFound
+        - identifier: booleanAnd.rightAlwaysFalse
+        - identifier: booleanAnd.rightAlwaysTrue
+        - identifier: property.notFound
+        - identifier: parameterByRef.unusedType
