@@ -22,8 +22,8 @@ foreach ($required_controller_guards as $guard) {
 }
 
 $required_schema_fragments = array(
-	"'audit.php'        => __('Audit Log User'",
-	"'audit_manage.php' => __('Audit Log Admin'",
+	"'audit.php'        => __('Audit Plugin User'",
+	"'audit_manage.php' => __('Audit Plugin Admin'",
 	"'audit_purge.php'  => __('Purge Audit Log Events'",
 	'audit_setup_realms(true)',
 	'audit_setup_realms()',

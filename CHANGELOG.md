@@ -2,7 +2,7 @@
 
 --- develop ---
 
-* security: Separate Audit Log User, Audit Log Admin, and delegated purge permissions
+* security: Separate Audit Plugin User, Audit Plugin Admin, and delegated purge permissions
 * feature: Add normalized compliance event identifiers, categories, actors, targets, outcomes, timing, and integrity metadata
 * feature: Deliver finalized request outcomes to external log consumers
 * feature: Audit audit-log views, searches, event detail access, exports, and purges
