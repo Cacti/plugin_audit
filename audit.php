@@ -152,7 +152,7 @@ switch(get_request_var('action')) {
 		bottom_footer();
 }
 
-function audit_render_event_details($data) {
+function audit_render_event_details(array $data): string {
 	$width  = 'wide';
 	$output = '<table style="width:100%" class="' . $width . '"><tr><td>';
 	$output .= '<span><b>' . __('Page:', 'audit') . '</b>  <i>' . html_escape($data['page']) . '</i></span>';
@@ -248,7 +248,7 @@ function audit_render_event_details($data) {
 	return $output . '</table></td></tr></table>';
 }
 
-function audit_render_value($value) {
+function audit_render_value(mixed $value): string {
 	if (is_array($value) || is_object($value)) {
 		return '<pre>' . html_escape(json_encode($value, JSON_PRETTY_PRINT | JSON_INVALID_UTF8_SUBSTITUTE)) . '</pre>';
 	}
@@ -262,7 +262,7 @@ function audit_render_value($value) {
 	return html_escape((string) $value);
 }
 
-function audit_purge() {
+function audit_purge(): void {
 	$protected = db_fetch_cell("SELECT COUNT(*)
 		FROM audit_log
 		WHERE EXISTS (
@@ -300,7 +300,7 @@ function audit_purge() {
 	raise_message('audit_message');
 }
 
-function audit_export_rows() {
+function audit_export_rows(): void {
 	audit_process_request_vars();
 
 	// form the 'where' clause for our main sql query
@@ -394,7 +394,7 @@ function audit_export_rows() {
 	}
 }
 
-function audit_process_request_vars() {
+function audit_process_request_vars(): void {
 	// ================= input validation and session storage =================
 	$filters = [
 		'rows' => [
@@ -438,7 +438,7 @@ function audit_process_request_vars() {
 	// ================= input validation =================
 }
 
-function audit_log() {
+function audit_log(): void {
 	global $item_rows;
 
 	audit_process_request_vars();
@@ -709,7 +709,7 @@ function audit_log() {
 	<?php
 }
 
-function audit_render_syslog_health() {
+function audit_render_syslog_health(): void {
 	$config    = audit_syslog_config();
 	$health    = audit_syslog_health();
 	$enabled   = audit_syslog_enabled();
