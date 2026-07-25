@@ -14,13 +14,12 @@
 
 describe('prepared statement consistency in audit', function () {
 	it('documents database helper usage in all plugin files', function () {
-		$targetFiles = array(
+		$targetFiles = [
 		'audit.php',
 		'audit_functions.php',
 		'audit_syslog.php',
 		'setup.php',
-		);
-
+		];
 
 		foreach ($targetFiles as $relativeFile) {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);

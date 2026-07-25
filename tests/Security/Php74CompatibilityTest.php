@@ -13,12 +13,12 @@
  */
 
 describe('PHP 7.4 compatibility in audit', function () {
-	$files = array(
+	$files = [
 		'audit.php',
 		'audit_functions.php',
 		'audit_syslog.php',
 		'setup.php',
-	);
+	];
 
 	beforeEach(function () use ($files) {
 		foreach ($files as $relativeFile) {

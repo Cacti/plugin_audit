@@ -5,19 +5,19 @@ $functions  = file_get_contents(dirname(__DIR__) . '/audit_functions.php');
 $javascript = file_get_contents(dirname(__DIR__) . '/js/functions.js');
 $setup      = file_get_contents(dirname(__DIR__) . '/setup.php');
 
-$required_controller_guards = array(
+$required_controller_guards = [
 	"\$_SERVER['REQUEST_METHOD'] !== 'POST'",
 	'audit_user_is_admin()',
 	'csrf_check(false)',
 	'html_escape($data',
 	"__('Outcome Reason:', 'audit')",
 	"header('Content-Type: text/csv; charset=UTF-8')",
-	"fputcsv(",
+	'fputcsv(',
 	"case 'syslog_test':",
 	"case 'syslog_retry':",
 	'audit_syslog_test_delivery()',
 	'audit_syslog_retry_dead_letters($delivery_ids)'
-);
+];
 
 foreach ($required_controller_guards as $guard) {
 	if (strpos($controller, $guard) === false) {
@@ -26,13 +26,13 @@ foreach ($required_controller_guards as $guard) {
 	}
 }
 
-$required_schema_fragments = array(
+$required_schema_fragments = [
 	"'audit.php'        => __('Audit Log User'",
 	"'audit_manage.php' => __('Audit Log Admin'",
 	'audit_setup_realms(true)',
 	'audit_setup_realms()',
 	'audit_remove_deprecated_realms()',
-	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php'))",
+	"auth_augment_roles(__('Audit Plugin', 'audit'), ['audit.php', 'audit_manage.php'])",
 	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
 	'request_status',
 	'ADD COLUMN IF NOT EXISTS external_status',
@@ -46,8 +46,8 @@ $required_schema_fragments = array(
 	'external_attempts',
 	'CREATE TABLE IF NOT EXISTS `audit_syslog_delivery`',
 	'DROP TABLE IF EXISTS audit_syslog_delivery',
-	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php'))"
-);
+	"auth_augment_roles(__('Audit Plugin', 'audit'), ['audit.php', 'audit_manage.php'])"
+];
 
 foreach ($required_schema_fragments as $fragment) {
 	if (strpos($setup, $fragment) === false) {
@@ -56,12 +56,12 @@ foreach ($required_schema_fragments as $fragment) {
 	}
 }
 
-$required_verifier_fragments = array(
+$required_verifier_fragments = [
 	'audit_operation_verifier_for_request',
 	"'user_realm_permissions'",
 	"'realm_permissions_verified'",
 	"register_shutdown_function('audit_finalize_request', \$audit_id, \$started_at, \$verifier)"
-);
+];
 
 foreach ($required_verifier_fragments as $fragment) {
 	if (strpos($functions, $fragment) === false) {
@@ -91,7 +91,7 @@ if (substr_count($controller, 'csrf_check(false)') < 3) {
 }
 
 if (strpos($functions, 'audit_enforce_syslog_settings_request()') === false ||
-	strpos($functions, "'audit.syslog.configuration.denied'") === false) {
+	strpos($functions, "'audit.syslog.configuration.denied'")        === false) {
 	fwrite(STDERR, 'Remote Syslog settings must enforce Audit Log Admin on save.' . PHP_EOL);
 	exit(1);
 }
@@ -107,7 +107,7 @@ if (strpos($javascript, "loadPageUsingPost('audit.php?action=purge") === false) 
 }
 
 if (strpos($javascript, "loadPageUsingPost('audit.php?action=syslog_test") === false ||
-	strpos($javascript, "loadPageUsingPost('audit.php?action=syslog_retry") === false) {
+	strpos($javascript, "loadPageUsingPost('audit.php?action=syslog_retry")   === false) {
 	fwrite(STDERR, 'Syslog administration actions must use POST request paths.' . PHP_EOL);
 	exit(1);
 }

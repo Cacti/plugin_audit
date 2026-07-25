@@ -7,9 +7,7 @@
  +-------------------------------------------------------------------------+
 */
 
-/*
- * Verify setup.php defines required plugin hooks and info function.
- */
+// Verify setup.php defines required plugin hooks and info function.
 
 describe('audit setup.php structure', function () {
 	$source = file_get_contents(realpath(__DIR__ . '/../../setup.php'));
@@ -26,11 +24,19 @@ describe('audit setup.php structure', function () {
 		expect($source)->toContain('function plugin_audit_uninstall');
 	});
 
-	it('returns version array with name key', function () use ($source) {
-		expect($source)->toMatch('/[\'\""]name[\'\""]\s*=>/');
+	it('reads plugin info from INFO file', function () use ($source) {
+		expect($source)->toContain("parse_ini_file");
+		expect($source)->toContain("'info'");
 	});
 
-	it('returns version array with version key', function () use ($source) {
-		expect($source)->toMatch('/[\'\""]version[\'\""]\s*=>/');
+	it('INFO file defines name and version keys', function () {
+		$info_file = realpath(__DIR__ . '/../../INFO');
+		expect($info_file)->not->toBeFalse('INFO file must exist');
+
+		$info = parse_ini_file($info_file, true);
+		expect($info)->not->toBeFalse('INFO file must be valid INI');
+		expect($info)->toHaveKey('info');
+		expect($info['info'])->toHaveKey('name');
+		expect($info['info'])->toHaveKey('version');
 	});
 });
