@@ -75,6 +75,11 @@ All records use an RFC 5424 header. TCP and TLS records use RFC 6587
 octet-count framing. TLS always verifies the receiver certificate and hostname;
 there is no setting to disable verification.
 
+CEF records include the same redacted submitted request data, captured object
+data, and event details available to JSON consumers in the `cs4`, `cs5`, and
+`cs6` custom string fields. The corresponding labels are `Submitted Data`,
+`Object Data`, and `Details`.
+
 UDP sends one complete event per datagram. If a formatted event is larger than
 the configured UDP maximum, it is moved to dead-letter instead of being
 truncated or split. TCP or TLS is recommended when events can be large or when

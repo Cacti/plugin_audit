@@ -307,6 +307,32 @@ function audit_syslog_cef_severity($severity) {
 	return isset($map[$severity]) ? $map[$severity] : 3;
 }
 
+function audit_syslog_cef_event_field($value) {
+	if (is_string($value) && $value !== '') {
+		$decoded = audit_json_decode($value, $error);
+		if ($error === null) {
+			$value = $decoded;
+		}
+	}
+
+	if (is_array($value)) {
+		return audit_json_encode(
+			audit_redact_sensitive_data($value),
+			JSON_UNESCAPED_SLASHES
+		);
+	}
+
+	if ($value === null) {
+		return '';
+	}
+
+	if (is_bool($value)) {
+		return $value ? 'true' : 'false';
+	}
+
+	return audit_redact_sensitive_value((string) $value);
+}
+
 function audit_syslog_cef_payload($event, $config) {
 	$severity = audit_syslog_cef_severity($event['severity'] ?? 'info');
 	$header = array(
@@ -331,7 +357,13 @@ function audit_syslog_cef_payload($event, $config) {
 		'cs3Label' => 'Node ID',
 		'cs3' => $config['node_id'],
 		'cn1Label' => 'Poller ID',
-		'cn1' => $config['poller_id']
+		'cn1' => $config['poller_id'],
+		'cs4Label' => 'Submitted Data',
+		'cs4' => audit_syslog_cef_event_field($event['post'] ?? ''),
+		'cs5Label' => 'Object Data',
+		'cs5' => audit_syslog_cef_event_field($event['object_data'] ?? ''),
+		'cs6Label' => 'Details',
+		'cs6' => audit_syslog_cef_event_field($event['details'] ?? '')
 	);
 	$encoded_header = array_map('audit_syslog_cef_escape_header', $header);
 	$encoded_extension = array();

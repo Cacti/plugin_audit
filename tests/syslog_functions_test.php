@@ -56,6 +56,8 @@ function audit_syslog_test_event() {
 		'target_id' => '4',
 		'ip_address' => '192.0.2.10',
 		'event_time' => '2026-07-24 15:16:17.123456',
+		'post' => '{"id":4,"description":"new value","password":"must-not-leak"}',
+		'object_data' => '[{"id":4,"description":"old value"}]',
 		'details' => '{"test":true}',
 		'integrity_hash' => str_repeat('a', 64)
 	);
@@ -226,6 +228,14 @@ audit_syslog_test_assert(strpos($cef['record'], 'CEF:0|Cacti|Audit Plugin|1.5|ca
 	'CEF payloads must contain normalized vendor, product, event, action, and severity fields.');
 audit_syslog_test_assert(strpos($cef['record'], 'externalId=32e0a97d-d9e8-4abc-8f41-2bbbc50793ca') !== false,
 	'CEF payloads must expose the stable event UUID for deduplication.');
+audit_syslog_test_assert(strpos($cef['record'], 'cs4Label=Submitted Data cs4={"id":4,"description":"new value","password":"[REDACTED]"}') !== false,
+	'CEF payloads must expose redacted submitted data for investigation.');
+audit_syslog_test_assert(strpos($cef['record'], 'cs5Label=Object Data cs5=[{"id":4,"description":"old value"}]') !== false,
+	'CEF payloads must expose the stored object data available to JSON consumers.');
+audit_syslog_test_assert(strpos($cef['record'], 'cs6Label=Details cs6={"test":true}') !== false,
+	'CEF payloads must expose normalized event details.');
+audit_syslog_test_assert(strpos($cef['record'], 'must-not-leak') === false,
+	'CEF payloads must defensively redact sensitive submitted fields.');
 
 $rfc_config = audit_syslog_test_config(array('format' => 'rfc5424'));
 $rfc = audit_syslog_record($event, $rfc_config);
