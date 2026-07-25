@@ -22,11 +22,12 @@ foreach ($required_controller_guards as $guard) {
 }
 
 $required_schema_fragments = array(
-	"'audit.php'        => __('Audit Plugin User'",
-	"'audit_manage.php' => __('Audit Plugin Admin'",
+	"'audit.php'        => __('Audit Log User'",
+	"'audit_manage.php' => __('Audit Log Admin'",
 	"'audit_purge.php'  => __('Purge Audit Log Events'",
 	'audit_setup_realms(true)',
 	'audit_setup_realms()',
+	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php', 'audit_purge.php'))",
 	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
 	'request_status',
 	'ADD COLUMN IF NOT EXISTS external_status',

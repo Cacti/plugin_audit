@@ -44,8 +44,8 @@ function plugin_audit_install() {
 
 function audit_setup_realms($grant_installing_user = false) {
 	$realms = array(
-		'audit.php'        => __('Audit Plugin User', 'audit'),
-		'audit_manage.php' => __('Audit Plugin Admin', 'audit'),
+		'audit.php'        => __('Audit Log User', 'audit'),
+		'audit_manage.php' => __('Audit Log Admin', 'audit'),
 		'audit_purge.php'  => __('Purge Audit Log Events', 'audit')
 	);
 
@@ -408,7 +408,7 @@ function audit_config_arrays() {
 	$menu[__('Utilities')]['plugins/audit/audit.php'] = __('Audit Log', 'audit');
 
 	if (function_exists('auth_augment_roles')) {
-		auth_augment_roles(__('System Administration'), array('audit.php', 'audit_manage.php'));
+		auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php', 'audit_purge.php'));
 	}
 
 	audit_check_upgrade();
