@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 
 $controller = file_get_contents(dirname(__DIR__) . '/audit.php');
 $functions  = file_get_contents(dirname(__DIR__) . '/audit_functions.php');

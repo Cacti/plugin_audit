@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 
 $audit_queue_settings = [
 	'audit_syslog_enabled'             => 'on',

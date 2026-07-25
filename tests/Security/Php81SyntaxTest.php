@@ -10,6 +10,7 @@
 /*
  * Verify plugin source files use PHP 8.1+ syntax conventions.
  * The audit plugin targets PHP 8.1+ (matching Cacti develop).
+ * Note: strict_types is intentionally omitted until Cacti 1.3.
  */
 
 describe('PHP 8.1+ syntax in audit', function () {
@@ -26,18 +27,6 @@ describe('PHP 8.1+ syntax in audit', function () {
 			$path = realpath(__DIR__ . '/../../' . $relativeFile);
 			expect($path)->not->toBeFalse("Required plugin file is missing: {$relativeFile}");
 			expect(is_readable($path))->toBeTrue("Required plugin file is unreadable: {$relativeFile}");
-		}
-	});
-
-	it('declares strict_types in every plugin file', function () use ($files) {
-		foreach ($files as $relativeFile) {
-			$path     = realpath(__DIR__ . '/../../' . $relativeFile);
-			$contents = file_get_contents($path);
-			expect($contents)->not->toBeFalse("Unable to read {$relativeFile}");
-
-			expect(strpos($contents, 'declare(strict_types'))->not->toBeFalse(
-				"{$relativeFile} must declare strict_types=1"
-			);
 		}
 	});
 
