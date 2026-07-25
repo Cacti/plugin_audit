@@ -37,10 +37,40 @@ function plugin_audit_install() {
 	/* hook for table replication */
 	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
 
-	api_plugin_register_realm('audit', 'audit.php', __('View Cacti Audit Log', 'audit'), 1);
-	api_plugin_register_realm('audit', 'audit_manage.php', __('Manage Cacti Audit Log', 'audit'), 1);
+	audit_setup_realms(true);
 
 	audit_setup_table();
+}
+
+function audit_setup_realms($grant_installing_user = false) {
+	$realms = array(
+		'audit.php'        => __('Audit Plugin User', 'audit'),
+		'audit_manage.php' => __('Audit Plugin Administrator', 'audit'),
+		'audit_purge.php'  => __('Purge Audit Log Events', 'audit')
+	);
+
+	foreach ($realms as $file => $display) {
+		api_plugin_register_realm('audit', $file, $display, $grant_installing_user ? 1 : 0);
+	}
+
+	if (!$grant_installing_user) {
+		$admin_user = (int) read_config_option('admin_user');
+
+		if ($admin_user > 0) {
+			$realm_ids = db_fetch_assoc_prepared('SELECT id + 100 AS realm_id
+				FROM plugin_realms
+				WHERE plugin = ?
+				AND file IN (?, ?, ?)',
+				array('audit', 'audit.php', 'audit_manage.php', 'audit_purge.php'));
+
+			foreach ($realm_ids as $realm) {
+				db_execute_prepared('REPLACE INTO user_auth_realm
+					(user_id, realm_id)
+					VALUES (?, ?)',
+					array($admin_user, $realm['realm_id']));
+			}
+		}
+	}
 }
 
 function plugin_audit_uninstall() {
@@ -121,7 +151,7 @@ function audit_check_upgrade() {
 		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', '1');
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
-		api_plugin_register_realm('audit', 'audit_manage.php', __('Manage Cacti Audit Log', 'audit'), 1);
+		audit_setup_realms();
 	}
 }
 
@@ -378,7 +408,7 @@ function audit_config_arrays() {
 	$menu[__('Utilities')]['plugins/audit/audit.php'] = __('Audit Log', 'audit');
 
 	if (function_exists('auth_augment_roles')) {
-		auth_augment_roles(__('System Administration'), array('audit.php'));
+		auth_augment_roles(__('System Administration'), array('audit.php', 'audit_manage.php'));
 	}
 
 	audit_check_upgrade();

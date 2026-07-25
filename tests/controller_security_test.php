@@ -1,12 +1,13 @@
 <?php
 
 $controller = file_get_contents(dirname(__DIR__) . '/audit.php');
+$functions  = file_get_contents(dirname(__DIR__) . '/audit_functions.php');
 $javascript = file_get_contents(dirname(__DIR__) . '/js/functions.js');
 $setup      = file_get_contents(dirname(__DIR__) . '/setup.php');
 
 $required_controller_guards = array(
 	"\$_SERVER['REQUEST_METHOD'] !== 'POST'",
-	"api_plugin_user_realm_auth('audit_manage.php')",
+	'audit_user_can_purge()',
 	'csrf_check(false)',
 	'html_escape($data',
 	"header('Content-Type: text/csv; charset=UTF-8')",
@@ -21,7 +22,11 @@ foreach ($required_controller_guards as $guard) {
 }
 
 $required_schema_fragments = array(
-	'api_plugin_register_realm(\'audit\', \'audit_manage.php\'',
+	"'audit.php'        => __('Audit Plugin User'",
+	"'audit_manage.php' => __('Audit Plugin Administrator'",
+	"'audit_purge.php'  => __('Purge Audit Log Events'",
+	'audit_setup_realms(true)',
+	'audit_setup_realms()',
 	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
 	'request_status',
 	'ADD COLUMN IF NOT EXISTS external_status',
@@ -39,6 +44,23 @@ foreach ($required_schema_fragments as $fragment) {
 		fwrite(STDERR, 'Missing schema or replication requirement: ' . $fragment . PHP_EOL);
 		exit(1);
 	}
+}
+
+$required_purge_permissions = array(
+	"api_plugin_user_realm_auth('audit_manage.php')",
+	"api_plugin_user_realm_auth('audit_purge.php')"
+);
+
+foreach ($required_purge_permissions as $permission) {
+	if (strpos($functions, $permission) === false) {
+		fwrite(STDERR, 'Missing purge permission: ' . $permission . PHP_EOL);
+		exit(1);
+	}
+}
+
+if (substr_count($controller, 'audit_user_can_purge()') < 2) {
+	fwrite(STDERR, 'Purge authorization must protect both the action and its UI control.' . PHP_EOL);
+	exit(1);
 }
 
 if (strpos($javascript, "loadPageNoHeader('audit.php?action=purge") !== false) {

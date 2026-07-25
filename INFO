@@ -21,7 +21,7 @@
 
 [info]
 name = audit
-version = 1.4
+version = 1.5
 longname = Audit Plugin for Cacti
 author = The Cacti Group
 email = 

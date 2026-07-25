@@ -2,6 +2,14 @@
 
 require_once dirname(__DIR__) . '/audit_functions.php';
 
+$audit_test_realms = array();
+
+function api_plugin_user_realm_auth($filename = '') {
+	global $audit_test_realms;
+
+	return !empty($audit_test_realms[$filename]);
+}
+
 function audit_test_assert_same($expected, $actual, $message) {
 	if ($expected !== $actual) {
 		fwrite(STDERR, $message . PHP_EOL);
@@ -10,6 +18,13 @@ function audit_test_assert_same($expected, $actual, $message) {
 		exit(1);
 	}
 }
+
+audit_test_assert_same(false, audit_user_can_purge(), 'Audit users must not be able to purge by default.');
+$audit_test_realms['audit_manage.php'] = true;
+audit_test_assert_same(true, audit_user_can_purge(), 'Audit plugin administrators must be able to purge.');
+$audit_test_realms = array('audit_purge.php' => true);
+audit_test_assert_same(true, audit_user_can_purge(), 'Delegated audit purge permission must allow purge.');
+$audit_test_realms = array();
 
 $request = array(
 	'username' => 'operator',

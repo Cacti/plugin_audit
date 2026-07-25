@@ -58,6 +58,14 @@ exports and purge operations. Logout and session-timeout events are captured
 through Cacti's supported `logout_pre_session_destroy` hook. Database-level
 changes, API activity and MFA events are outside the current Cacti 1.2.x scope.
 
+## Permissions
+
+The plugin registers separate Cacti realms for Audit Plugin User, Audit Plugin
+Administrator, and Purge Audit Log Events. Audit Plugin User permits access to
+the audit log. Purging additionally requires either Audit Plugin Administrator
+or the explicitly delegated Purge Audit Log Events permission. The Cacti System
+Administration role includes Audit Plugin User and Audit Plugin Administrator.
+
 ## Possible Bugs
 
 If you figure out this problem, see the Cacti forums!

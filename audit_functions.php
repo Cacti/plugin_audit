@@ -1,5 +1,10 @@
 <?php
 
+function audit_user_can_purge() {
+	return api_plugin_user_realm_auth('audit_manage.php') ||
+		api_plugin_user_realm_auth('audit_purge.php');
+}
+
 function audit_process_page_data($page, $drop_action, $selected_items) {
 	$objects = array();
 	if ($drop_action !== false) {
