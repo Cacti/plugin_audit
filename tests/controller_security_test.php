@@ -12,7 +12,11 @@ $required_controller_guards = array(
 	'html_escape($data',
 	"__('Outcome Reason:', 'audit')",
 	"header('Content-Type: text/csv; charset=UTF-8')",
-	"fputcsv("
+	"fputcsv(",
+	"case 'syslog_test':",
+	"case 'syslog_retry':",
+	'audit_syslog_test_delivery()',
+	'audit_syslog_retry_dead_letters($delivery_ids)'
 );
 
 foreach ($required_controller_guards as $guard) {
@@ -35,10 +39,14 @@ $required_schema_fragments = array(
 	'ADD COLUMN IF NOT EXISTS external_error',
 	'SHOW CREATE TABLE $table',
 	'audit_retry_external_logs()',
+	'audit_process_syslog_queue()',
 	'logout_pre_session_destroy',
 	'event_uuid char(36)',
 	'operation_outcome',
-	'external_attempts'
+	'external_attempts',
+	'CREATE TABLE IF NOT EXISTS `audit_syslog_delivery`',
+	'DROP TABLE IF EXISTS audit_syslog_delivery',
+	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php'))"
 );
 
 foreach ($required_schema_fragments as $fragment) {
@@ -77,6 +85,17 @@ if (substr_count($controller, 'audit_user_is_admin()') < 2) {
 	exit(1);
 }
 
+if (substr_count($controller, 'csrf_check(false)') < 3) {
+	fwrite(STDERR, 'Purge, Syslog test, and Syslog retry actions must each validate CSRF.' . PHP_EOL);
+	exit(1);
+}
+
+if (strpos($functions, 'audit_enforce_syslog_settings_request()') === false ||
+	strpos($functions, "'audit.syslog.configuration.denied'") === false) {
+	fwrite(STDERR, 'Remote Syslog settings must enforce Audit Log Admin on save.' . PHP_EOL);
+	exit(1);
+}
+
 if (strpos($javascript, "loadPageNoHeader('audit.php?action=purge") !== false) {
 	fwrite(STDERR, 'Purge must not use the legacy GET request path.' . PHP_EOL);
 	exit(1);
@@ -84,6 +103,12 @@ if (strpos($javascript, "loadPageNoHeader('audit.php?action=purge") !== false) {
 
 if (strpos($javascript, "loadPageUsingPost('audit.php?action=purge") === false) {
 	fwrite(STDERR, 'Purge must use the POST request path.' . PHP_EOL);
+	exit(1);
+}
+
+if (strpos($javascript, "loadPageUsingPost('audit.php?action=syslog_test") === false ||
+	strpos($javascript, "loadPageUsingPost('audit.php?action=syslog_retry") === false) {
+	fwrite(STDERR, 'Syslog administration actions must use POST request paths.' . PHP_EOL);
 	exit(1);
 }
 

@@ -117,6 +117,22 @@ $(function() {
 		});
 	});
 
+	$('#syslog_test').click(function() {
+		loadPageUsingPost('audit.php?action=syslog_test&header=false', {
+			__csrf_magic: csrfMagicToken
+		});
+	});
+
+	$('#syslog_retry').click(function() {
+		if (!window.confirm($(this).data('confirm'))) {
+			return;
+		}
+
+		loadPageUsingPost('audit.php?action=syslog_retry&header=false', {
+			__csrf_magic: csrfMagicToken
+		});
+	});
+
 	$('#export').click(function() {
 		document.location = 'audit.php?action=export' +
 			'&filter='+encodeURIComponent($('#filter').val())+

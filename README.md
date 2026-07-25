@@ -46,6 +46,58 @@ events. External records are written only after request finalization, so SIEM
 consumers receive the final request status instead of the earlier transient
 `started` state. Consumers should deduplicate on `event_uuid`.
 
+## Remote Syslog
+
+Version 1.5 adds standards-based Remote Syslog as the plugin's only remote
+network transport. The plugin does not implement product-specific webhooks,
+Splunk HEC, or Microsoft Sentinel APIs. Splunk, Sentinel, and other SIEM
+products can ingest the existing audit file or receive Syslog through their
+normal collector or forwarder.
+
+Remote Syslog is configured under Configuration -> Settings -> Audit by a user
+with the Audit Log Admin permission. It is independent of the existing
+external-file option, so either destination or both destinations may be
+enabled.
+
+The available settings include:
+
+* Receiver hostname or IP address and an optional explicit port.
+* UDP, TCP, or TLS transport. A blank port uses 514 for UDP/TCP or 6514 for TLS.
+* RFC 5424 structured data, CEF, or compact JSON message payload.
+* Syslog facility, application name, stable Cacti node identity, and poller
+  identity.
+* Bounded connection/write timeout, poller batch size, retry attempts, and
+  exponential-backoff delays.
+* Maximum UDP record size and health-warning thresholds.
+* Optional TLS CA bundle and mutual-TLS client certificate/key paths.
+
+All records use an RFC 5424 header. TCP and TLS records use RFC 6587
+octet-count framing. TLS always verifies the receiver certificate and hostname;
+there is no setting to disable verification.
+
+UDP sends one complete event per datagram. If a formatted event is larger than
+the configured UDP maximum, it is moved to dead-letter instead of being
+truncated or split. TCP or TLS is recommended when events can be large or when
+transport reliability matters.
+
+Remote network I/O does not run in the originating web request. Finalized events
+are added to `audit_syslog_delivery` and sent in bounded batches by the Cacti
+poller. Transient connection and write errors use bounded exponential backoff.
+Permanent formatting/configuration errors and exhausted retries enter
+dead-letter state. Audit Log Admin can test the stored configuration and reset
+dead-letter events from the Audit Log page; both actions require CSRF-protected
+POST requests and are audited.
+
+A successful UDP, TCP, or TLS socket write is shown as `sent_unconfirmed`. This
+means the local operating system accepted the complete record; standard Syslog
+does not confirm that a receiver durably stored it. Every transmission retains
+the same `event_uuid`, which receivers should use as their deduplication key.
+
+The Audit Log page reports pending, retry, sent-unconfirmed, and dead-letter
+counts, oldest pending age, last attempt, last socket write, and the latest
+bounded error. Scheduled retention and manual purge preserve events with
+pending, retry, or dead-letter Syslog delivery.
+
 The normalized fields distinguish request processing from the result of the
 requested Cacti operation. `request_status=completed` means that PHP request
 processing completed without a fatal error or an HTTP error response. It does

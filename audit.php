@@ -32,6 +32,77 @@ case 'export':
 	audit_export_rows();
 
 	break;
+case 'syslog_test':
+	if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+		http_response_code(405);
+		header('Allow: POST');
+		exit;
+	}
+
+	if (!audit_user_is_admin() || !csrf_check(false)) {
+		http_response_code(403);
+		exit;
+	}
+
+	$result = audit_syslog_test_delivery();
+	$success = $result['status'] === 'sent_unconfirmed';
+	audit_record_event('audit.syslog.test', array(
+		'event_category' => 'audit',
+		'severity' => $success ? 'notice' : 'warning',
+		'action' => 'test',
+		'target_type' => 'syslog_receiver',
+		'operation_outcome' => $success ? 'success' : 'failure',
+		'outcome_reason' => $success ? 'socket_write_completed' : ($result['error_code'] ?? 'delivery_failed'),
+		'details' => array(
+			'transport' => audit_syslog_config()['transport'],
+			'status' => $result['status'],
+			'error_code' => $result['error_code'] ?? ''
+		)
+	));
+	$_SESSION['audit_message'] = $success
+		? __('Syslog test record was written to the local socket. Receiver storage is unconfirmed.', 'audit')
+		: __('Syslog test failed: %s', html_escape($result['error'] ?? 'Unknown error'), 'audit');
+	raise_message('audit_message');
+
+	top_header();
+	audit_log();
+	bottom_footer();
+
+	break;
+case 'syslog_retry':
+	if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+		http_response_code(405);
+		header('Allow: POST');
+		exit;
+	}
+
+	if (!audit_user_is_admin() || !csrf_check(false)) {
+		http_response_code(403);
+		exit;
+	}
+
+	$post = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
+	$post = is_array($post) ? $post : array();
+	$delivery_ids = isset($post['delivery_ids']) && is_array($post['delivery_ids'])
+		? $post['delivery_ids']
+		: array();
+	$retried = audit_syslog_retry_dead_letters($delivery_ids);
+	audit_record_event('audit.syslog.dead_letter.retried', array(
+		'event_category' => 'audit',
+		'severity' => 'notice',
+		'action' => 'retry',
+		'target_type' => 'syslog_delivery',
+		'operation_outcome' => 'success',
+		'details' => array('row_count' => $retried)
+	));
+	$_SESSION['audit_message'] = __('Reset %d dead-letter Syslog deliveries for retry.', $retried, 'audit');
+	raise_message('audit_message');
+
+	top_header();
+	audit_log();
+	bottom_footer();
+
+	break;
 case 'purge':
 	if (!isset($_SERVER['REQUEST_METHOD']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
 		http_response_code(405);
@@ -95,9 +166,29 @@ function audit_render_event_details($data) {
 	if ($data['outcome_reason'] != '') {
 		$output .= '<br><span><b>' . __('Outcome Reason:', 'audit') . '</b>  <i>' . html_escape($data['outcome_reason']) . '</i></span>';
 	}
-	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
+	$output .= '<br><span><b>' . __('External File Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
 	if ($data['external_error'] != '') {
-		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
+		$output .= '<br><span><b>' . __('External File Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
+	}
+
+	if (db_table_exists('audit_syslog_delivery')) {
+		$syslog = db_fetch_row_prepared('SELECT state, attempts, last_attempt, sent_time, last_error
+			FROM audit_syslog_delivery
+			WHERE audit_id = ?
+			ORDER BY id DESC
+			LIMIT 1',
+			array($data['id']));
+
+		if (cacti_sizeof($syslog)) {
+			$output .= '<br><span><b>' . __('Remote Syslog Delivery:', 'audit') . '</b>  <i>' . html_escape($syslog['state']) . '</i></span>';
+			$output .= '<br><span><b>' . __('Syslog Attempts:', 'audit') . '</b>  <i>' . (int) $syslog['attempts'] . '</i></span>';
+			if ($syslog['sent_time'] != '') {
+				$output .= '<br><span><b>' . __('Syslog Socket Write:', 'audit') . '</b>  <i>' . html_escape($syslog['sent_time']) . '</i></span>';
+			}
+			if ($syslog['last_error'] != '') {
+				$output .= '<br><span><b>' . __('Syslog Error:', 'audit') . '</b>  <i>' . html_escape($syslog['last_error']) . '</i></span>';
+			}
+		}
 	}
 	$output .= '<hr>';
 
@@ -164,16 +255,37 @@ function audit_render_value($value) {
 }
 
 function audit_purge() {
-	db_execute('TRUNCATE TABLE audit_log');
+	$protected = db_fetch_cell("SELECT COUNT(*)
+		FROM audit_log
+		WHERE EXISTS (
+			SELECT 1
+			FROM audit_syslog_delivery
+			WHERE audit_syslog_delivery.audit_id = audit_log.id
+			AND audit_syslog_delivery.state IN ('pending', 'retry', 'dead_letter')
+		)");
+
+	db_execute("DELETE FROM audit_log
+		WHERE NOT EXISTS (
+			SELECT 1
+			FROM audit_syslog_delivery
+			WHERE audit_syslog_delivery.audit_id = audit_log.id
+			AND audit_syslog_delivery.state IN ('pending', 'retry', 'dead_letter')
+		)");
+	$purged = db_affected_rows();
 
 	audit_record_event('audit.log.purged', array(
 		'event_category' => 'audit',
 		'severity' => 'warning',
 		'action' => 'purge',
-		'target_type' => 'audit_log'
+		'target_type' => 'audit_log',
+		'details' => array(
+			'purged_count' => $purged,
+			'protected_count' => (int) $protected
+		)
 	));
 
-	$_SESSION['audit_message'] = __('Audit Log Purged by %s', get_username($_SESSION['sess_user_id']), 'audit');
+	$_SESSION['audit_message'] = __('Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery.',
+		get_username($_SESSION['sess_user_id']), $purged, (int) $protected, 'audit');
 
 	cacti_log('NOTE: Audit Log Purged by ' . get_username($_SESSION['sess_user_id']), false, 'WEBUI');
 
@@ -342,6 +454,10 @@ function audit_log() {
 		$rows = get_request_var('rows');
 	}
 
+	if (audit_user_is_admin()) {
+		audit_render_syslog_health();
+	}
+
 	html_start_box(__('Audit Log', 'audit'), '100%', '', '3', 'center', '');
 
 	?>
@@ -499,10 +615,10 @@ function audit_log() {
 				'tip' => __('Request processing state; completion does not guarantee that every operation succeeded.', 'audit')
 			),
 			'external_status' => array(
-				'display' => __('External Delivery', 'audit'),
+				'display' => __('External File Delivery', 'audit'),
 				'align' => 'left',
 				'sort' => 'ASC',
-				'tip' => __('Delivery state for the optional external audit log.', 'audit')
+				'tip' => __('Delivery state for the optional external audit log file. Remote Syslog health is shown separately.', 'audit')
 		),
 		'user_agent'  => array(
 			'display' => __('User Agent', 'audit'),
@@ -566,4 +682,48 @@ function audit_log() {
 	?>
 	<script type='text/javascript' src='plugins/audit/js/functions.js'></script>
 	<?php
+}
+
+function audit_render_syslog_health() {
+	$config = audit_syslog_config();
+	$health = audit_syslog_health();
+	$enabled = audit_syslog_enabled();
+	$unhealthy = $enabled && (
+		!$config['valid'] ||
+		$health['dead_letter'] >= $config['dead_letter_warning'] ||
+		$health['oldest_pending_seconds'] >= $config['pending_age_warning']
+	);
+
+	html_start_box(__('Remote Syslog Delivery', 'audit'), '100%', '', '3', 'center', '');
+
+	print "<tr class='" . ($unhealthy ? 'error' : 'even') . "'>";
+	print '<td><b>' . __('Status', 'audit') . '</b></td>';
+	print '<td>' . html_escape(!$enabled ? __('Disabled', 'audit') : ($unhealthy ? __('Unhealthy', 'audit') : __('Healthy', 'audit'))) . '</td>';
+	print '<td><b>' . __('Pending', 'audit') . '</b></td><td>' . (int) $health['pending'] . '</td>';
+	print '<td><b>' . __('Retry', 'audit') . '</b></td><td>' . (int) $health['retry'] . '</td>';
+	print '<td><b>' . __('Dead-letter', 'audit') . '</b></td><td>' . (int) $health['dead_letter'] . '</td>';
+	print '<td><b>' . __('Sent (Unconfirmed)', 'audit') . '</b></td><td>' . (int) $health['sent_unconfirmed'] . '</td>';
+	print '</tr>';
+
+	print "<tr class='odd'>";
+	print '<td><b>' . __('Oldest Pending', 'audit') . '</b></td><td>' . (int) $health['oldest_pending_seconds'] . ' ' . html_escape(__('seconds', 'audit')) . '</td>';
+	print '<td><b>' . __('Last Attempt', 'audit') . '</b></td><td>' . html_escape($health['last_attempt'] ?? __('Never', 'audit')) . '</td>';
+	print '<td><b>' . __('Last Socket Write', 'audit') . '</b></td><td>' . html_escape($health['last_sent'] ?? __('Never', 'audit')) . '</td>';
+	print '<td colspan="4">';
+	print "<button type='button' id='syslog_test' class='ui-button ui-corner-all ui-widget'>" . __esc('Test Syslog', 'audit') . '</button> ';
+	if ($health['dead_letter'] > 0) {
+		print "<button type='button' id='syslog_retry' class='ui-button ui-corner-all ui-widget' data-confirm='" .
+			__esc('Retry all dead-letter Syslog events?', 'audit') . "'>" . __esc('Retry Dead-letter', 'audit') . '</button>';
+	}
+	print '</td></tr>';
+
+	if ($enabled && !$config['valid']) {
+		print "<tr class='error'><td colspan='10'><b>" . __esc('Configuration Error:', 'audit') . '</b> ' .
+			html_escape(implode(', ', $config['errors'])) . '</td></tr>';
+	} elseif ($health['last_error'] !== null) {
+		print "<tr class='error'><td colspan='10'><b>" . __esc('Last Error:', 'audit') . '</b> ' .
+			html_escape($health['last_error']) . '</td></tr>';
+	}
+
+	html_end_box();
 }

@@ -16,6 +16,7 @@ describe('PHP 7.4 compatibility in audit', function () {
 	$files = array(
 		'audit.php',
 		'audit_functions.php',
+		'audit_syslog.php',
 		'setup.php',
 	);
 

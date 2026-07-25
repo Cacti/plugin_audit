@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__) . '/audit_syslog.php';
+
 function audit_user_is_admin() {
 	return api_plugin_user_realm_auth('audit_manage.php');
 }
@@ -598,6 +600,7 @@ function audit_finalize_request($id, $started_at = null, $verifier = null) {
 	}
 
 	audit_deliver_external_event($id);
+	audit_enqueue_syslog_event($id);
 }
 
 function audit_record_event($event_type, $options = array()) {
@@ -643,6 +646,7 @@ function audit_record_event($event_type, $options = array()) {
 			array(audit_event_integrity_hash($event), $id));
 	}
 	audit_deliver_external_event($id);
+	audit_enqueue_syslog_event($id);
 
 	return $id;
 }
@@ -658,10 +662,92 @@ function audit_logout_pre_session_destroy() {
 	));
 }
 
+function audit_enforce_syslog_settings_request() {
+	$page = basename($_SERVER['SCRIPT_NAME'] ?? '');
+	$method = $_SERVER['REQUEST_METHOD'] ?? '';
+
+	if ($page !== 'settings.php' || $method !== 'POST') {
+		return;
+	}
+
+	$post = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW);
+	$post = is_array($post) ? $post : array();
+	if (($post['action'] ?? '') !== 'save' || ($post['tab'] ?? '') !== 'audit') {
+		return;
+	}
+
+	$has_syslog_fields = false;
+	foreach ($post as $name => $value) {
+		if (strpos((string) $name, 'audit_syslog_') === 0) {
+			$has_syslog_fields = true;
+			break;
+		}
+	}
+
+	if (!$has_syslog_fields) {
+		return;
+	}
+
+	if (!audit_user_is_admin()) {
+		audit_record_event('audit.syslog.configuration.denied', array(
+			'event_category' => 'audit',
+			'severity' => 'warning',
+			'action' => 'save',
+			'target_type' => 'syslog_configuration',
+			'operation_outcome' => 'failure',
+			'outcome_reason' => 'audit_admin_required'
+		));
+		http_response_code(403);
+		exit;
+	}
+
+	$names = array(
+		'receiver', 'port', 'transport', 'format', 'facility', 'application',
+		'node_id', 'timeout', 'udp_max_size', 'retry_base', 'retry_max',
+		'max_attempts', 'batch_size', 'pending_age_warning',
+		'dead_letter_warning', 'tls_ca_file', 'tls_client_cert',
+		'tls_client_key'
+	);
+	$overrides = array();
+
+	foreach ($names as $name) {
+		$setting = 'audit_syslog_' . $name;
+		$overrides[$name] = isset($post[$setting]) && is_scalar($post[$setting])
+			? (string) $post[$setting]
+			: '';
+	}
+
+	$config = audit_syslog_config($overrides);
+	$enabling = isset($post['audit_syslog_enabled']) && $post['audit_syslog_enabled'] === 'on';
+	$configuring = trim($overrides['receiver']) !== '';
+
+	if (($enabling || $configuring) && !$config['valid']) {
+		audit_record_event('audit.syslog.configuration.rejected', array(
+			'event_category' => 'audit',
+			'severity' => 'warning',
+			'action' => 'save',
+			'target_type' => 'syslog_configuration',
+			'operation_outcome' => 'failure',
+			'outcome_reason' => 'configuration_invalid',
+			'details' => array('errors' => $config['errors'])
+		));
+
+		raise_message(
+			'audit_syslog_configuration',
+			__('Remote Syslog settings were not saved: %s', implode(', ', $config['errors']), 'audit'),
+			MESSAGE_LEVEL_ERROR
+		);
+		header('Location: settings.php?tab=audit');
+		exit;
+	}
+}
+
 
 
 function audit_config_insert() {
 	global $action, $config;
+
+	audit_enforce_syslog_settings_request();
 
 	if (audit_log_valid_event()) {
 		$started_at = microtime(true);

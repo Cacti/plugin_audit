@@ -184,6 +184,17 @@ jobs:
           echo "Audit schema security columns are missing"
           exit 1
         fi
+
+        SYSLOG_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'cacti'
+            AND table_name = 'audit_syslog_delivery';
+        ")
+        if [ "$SYSLOG_TABLE_COUNT" -ne 1 ]; then
+          echo "Audit Syslog delivery queue table is missing"
+          exit 1
+        fi
     
     - name: Check PHP Syntax for Plugin
       run: |
@@ -198,6 +209,8 @@ jobs:
         cd ${{ github.workspace }}/cacti/plugins/audit
         php tests/security_functions_test.php
         php tests/controller_security_test.php
+        php tests/syslog_functions_test.php
+        php tests/syslog_queue_test.php
     
     - name: Run Cacti Poller
       run: |

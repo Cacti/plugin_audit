@@ -76,6 +76,18 @@ if (!function_exists('db_column_exists')) {
 	}
 }
 
+if (!function_exists('db_table_exists')) {
+	function db_table_exists($table) {
+		return true;
+	}
+}
+
+if (!function_exists('db_affected_rows')) {
+	function db_affected_rows() {
+		return 0;
+	}
+}
+
 if (!function_exists('api_plugin_db_add_column')) {
 	function api_plugin_db_add_column($plugin, $table, $data) {
 		return true;

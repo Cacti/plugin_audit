@@ -101,6 +101,7 @@ function audit_remove_deprecated_realms() {
 }
 
 function plugin_audit_uninstall() {
+	db_execute('DROP TABLE IF EXISTS audit_syslog_delivery');
 	db_execute('DROP TABLE IF EXISTS audit_log');
 	return true;
 }
@@ -160,6 +161,7 @@ function audit_check_upgrade() {
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data");
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status');
 		audit_upgrade_event_schema();
+		audit_setup_syslog_table();
 		audit_setup_realms();
 		audit_remove_deprecated_realms();
 
@@ -234,6 +236,7 @@ function audit_replicate_out($data) {
 
 function audit_poller_bottom() {
 	audit_retry_external_logs();
+	audit_process_syslog_queue();
 
 	$last_check = read_config_option('audit_last_check');
 	$now        = gmdate('Y-m-d');
@@ -244,7 +247,15 @@ function audit_poller_bottom() {
 		if ($retention > 0) {
 			$cutoff = audit_retention_cutoff($retention);
 
-			db_execute_prepared('DELETE FROM audit_log WHERE event_time < ?', array($cutoff->format('Y-m-d H:i:s')));
+			db_execute_prepared("DELETE FROM audit_log
+				WHERE event_time < ?
+				AND NOT EXISTS (
+					SELECT 1
+					FROM audit_syslog_delivery
+					WHERE audit_syslog_delivery.audit_id = audit_log.id
+					AND audit_syslog_delivery.state IN ('pending', 'retry', 'dead_letter')
+				)",
+				array($cutoff->format('Y-m-d H:i:s')));
 			$rows = db_affected_rows();
 			cacti_log('NOTE: Purged ' . $rows . ' Audit Log Records from Cacti', false, 'POLLER');
 		}
@@ -304,7 +315,44 @@ function audit_setup_table() {
 		ENGINE=InnoDB
 		COMMENT='Audit Log for all GUI activities'");
 
+	audit_setup_syslog_table();
+
 	return true;
+}
+
+function audit_setup_syslog_table() {
+	db_execute("CREATE TABLE IF NOT EXISTS `audit_syslog_delivery` (
+		`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+		`audit_id` bigint(20) unsigned NOT NULL,
+		`event_uuid` char(36) NOT NULL,
+		`destination_fingerprint` char(64) NOT NULL,
+		`node_id` varchar(255) NOT NULL,
+		`poller_id` varchar(64) DEFAULT NULL,
+		`state` varchar(20) NOT NULL DEFAULT 'pending',
+		`attempts` int unsigned NOT NULL DEFAULT 0,
+		`next_attempt` datetime(6) NOT NULL,
+		`last_attempt` datetime(6) DEFAULT NULL,
+		`sent_time` datetime(6) DEFAULT NULL,
+		`last_error` varchar(1024) DEFAULT NULL,
+		`created_time` datetime(6) NOT NULL,
+		`updated_time` datetime(6) NOT NULL,
+		PRIMARY KEY (`id`),
+		UNIQUE KEY `audit_destination` (`audit_id`, `destination_fingerprint`),
+		KEY `event_uuid` (`event_uuid`),
+		KEY `state_next_attempt` (`state`, `next_attempt`),
+		KEY `destination_state` (`destination_fingerprint`, `state`),
+		CONSTRAINT `fk_audit_syslog_event`
+			FOREIGN KEY (`audit_id`) REFERENCES `audit_log` (`id`)
+			ON DELETE CASCADE)
+		ENGINE=InnoDB
+		COMMENT='Remote Syslog delivery queue for audit events'");
+
+	db_execute("ALTER TABLE audit_syslog_delivery
+		ADD COLUMN IF NOT EXISTS node_id varchar(255) NOT NULL DEFAULT 'cacti'
+		AFTER destination_fingerprint");
+	db_execute("ALTER TABLE audit_syslog_delivery
+		ADD COLUMN IF NOT EXISTS poller_id varchar(64) DEFAULT NULL
+		AFTER node_id");
 }
 
 function audit_upgrade_event_schema($rcnn_id = false) {
@@ -487,6 +535,182 @@ function audit_config_settings() {
 			'max_length' => '255'
 		),
 	);
+
+	if (php_sapi_name() === 'cli' || audit_user_is_admin()) {
+		$facility_options = array();
+		foreach (audit_syslog_facilities() as $facility => $code) {
+			$facility_options[$facility] = strtoupper($facility) . ' (' . $code . ')';
+		}
+
+		$syslog = array(
+			'audit_syslog_header' => array(
+				'friendly_name' => __('Remote Syslog', 'audit'),
+				'method' => 'spacer'
+			),
+			'audit_syslog_enabled' => array(
+				'friendly_name' => __('Enable Remote Syslog', 'audit'),
+				'description' => __('Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent.', 'audit'),
+				'method' => 'checkbox',
+				'default' => 'off'
+			),
+			'audit_syslog_receiver' => array(
+				'friendly_name' => __('Syslog Receiver', 'audit'),
+				'description' => __('Enter a receiver hostname or IP address without a URI scheme, path, or credentials.', 'audit'),
+				'method' => 'textbox',
+				'default' => '',
+				'max_length' => '253',
+				'size' => '60'
+			),
+			'audit_syslog_port' => array(
+				'friendly_name' => __('Syslog Port', 'audit'),
+				'description' => __('Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS.', 'audit'),
+				'method' => 'textbox',
+				'default' => '',
+				'max_length' => '5',
+				'size' => '8'
+			),
+			'audit_syslog_transport' => array(
+				'friendly_name' => __('Syslog Transport', 'audit'),
+				'description' => __('UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing.', 'audit'),
+				'method' => 'drop_array',
+				'default' => 'udp',
+				'array' => array(
+					'udp' => __('UDP', 'audit'),
+					'tcp' => __('TCP', 'audit'),
+					'tls' => __('TLS', 'audit')
+				)
+			),
+			'audit_syslog_format' => array(
+				'friendly_name' => __('Syslog Payload Format', 'audit'),
+				'description' => __('All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message.', 'audit'),
+				'method' => 'drop_array',
+				'default' => 'json',
+				'array' => array(
+					'rfc5424' => __('RFC 5424', 'audit'),
+					'cef' => __('CEF', 'audit'),
+					'json' => __('JSON', 'audit')
+				)
+			),
+			'audit_syslog_facility' => array(
+				'friendly_name' => __('Syslog Facility', 'audit'),
+				'description' => __('Select the facility used to calculate the RFC 5424 priority.', 'audit'),
+				'method' => 'drop_array',
+				'default' => 'local0',
+				'array' => $facility_options
+			),
+			'audit_syslog_application' => array(
+				'friendly_name' => __('Syslog Application Name', 'audit'),
+				'description' => __('RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters.', 'audit'),
+				'method' => 'textbox',
+				'default' => 'cacti-audit',
+				'max_length' => '48',
+				'size' => '30'
+			),
+			'audit_syslog_node_id' => array(
+				'friendly_name' => __('Audit Node Identity', 'audit'),
+				'description' => __('Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart.', 'audit'),
+				'method' => 'textbox',
+				'default' => php_uname('n'),
+				'max_length' => '255',
+				'size' => '60'
+			),
+			'audit_syslog_timeout' => array(
+				'friendly_name' => __('Connection and Write Timeout', 'audit'),
+				'description' => __('Timeout in seconds, from 1 through 30.', 'audit'),
+				'method' => 'textbox',
+				'default' => '5',
+				'max_length' => '2',
+				'size' => '8'
+			),
+			'audit_syslog_udp_max_size' => array(
+				'friendly_name' => __('Maximum UDP Record Size', 'audit'),
+				'description' => __('Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events.', 'audit'),
+				'method' => 'textbox',
+				'default' => '8192',
+				'max_length' => '5',
+				'size' => '10'
+			),
+			'audit_syslog_tls_header' => array(
+				'friendly_name' => __('Syslog TLS', 'audit'),
+				'method' => 'spacer'
+			),
+			'audit_syslog_tls_ca_file' => array(
+				'friendly_name' => __('TLS CA File', 'audit'),
+				'description' => __('Optional PEM CA bundle. Peer and hostname verification are always enabled.', 'audit'),
+				'method' => 'filepath',
+				'default' => '',
+				'max_length' => '255'
+			),
+			'audit_syslog_tls_client_cert' => array(
+				'friendly_name' => __('TLS Client Certificate', 'audit'),
+				'description' => __('Optional PEM client certificate. A client key must also be configured.', 'audit'),
+				'method' => 'filepath',
+				'default' => '',
+				'max_length' => '255'
+			),
+			'audit_syslog_tls_client_key' => array(
+				'friendly_name' => __('TLS Client Private Key', 'audit'),
+				'description' => __('Optional readable PEM private-key path. The key contents are never stored in audit events.', 'audit'),
+				'method' => 'filepath',
+				'default' => '',
+				'max_length' => '255'
+			),
+			'audit_syslog_delivery_header' => array(
+				'friendly_name' => __('Syslog Delivery Queue', 'audit'),
+				'method' => 'spacer'
+			),
+			'audit_syslog_retry_base' => array(
+				'friendly_name' => __('Retry Base Delay', 'audit'),
+				'description' => __('Initial retry delay in seconds, from 1 through 3600.', 'audit'),
+				'method' => 'textbox',
+				'default' => '30',
+				'max_length' => '4',
+				'size' => '8'
+			),
+			'audit_syslog_retry_max' => array(
+				'friendly_name' => __('Maximum Retry Delay', 'audit'),
+				'description' => __('Maximum retry delay in seconds, from the base delay through 86400.', 'audit'),
+				'method' => 'textbox',
+				'default' => '3600',
+				'max_length' => '5',
+				'size' => '8'
+			),
+			'audit_syslog_max_attempts' => array(
+				'friendly_name' => __('Maximum Delivery Attempts', 'audit'),
+				'description' => __('Move a record to dead-letter after this many attempts, from 1 through 100.', 'audit'),
+				'method' => 'textbox',
+				'default' => '10',
+				'max_length' => '3',
+				'size' => '8'
+			),
+			'audit_syslog_batch_size' => array(
+				'friendly_name' => __('Poller Batch Size', 'audit'),
+				'description' => __('Maximum due records processed per poller cycle, from 1 through 1000.', 'audit'),
+				'method' => 'textbox',
+				'default' => '100',
+				'max_length' => '4',
+				'size' => '8'
+			),
+			'audit_syslog_pending_age_warning' => array(
+				'friendly_name' => __('Pending Age Warning', 'audit'),
+				'description' => __('Show an unhealthy warning when the oldest queued record reaches this age in seconds.', 'audit'),
+				'method' => 'textbox',
+				'default' => '900',
+				'max_length' => '6',
+				'size' => '10'
+			),
+			'audit_syslog_dead_letter_warning' => array(
+				'friendly_name' => __('Dead-letter Warning Count', 'audit'),
+				'description' => __('Show an unhealthy warning when this many records are dead-lettered.', 'audit'),
+				'method' => 'textbox',
+				'default' => '1',
+				'max_length' => '7',
+				'size' => '10'
+			)
+		);
+
+		$temp = array_merge($temp, $syslog);
+	}
 
 	$tabs['audit'] = __('Audit', 'audit');
 
