@@ -44,8 +44,8 @@ function plugin_audit_install() {
 
 function audit_setup_realms($grant_installing_user = false) {
 	$realms = array(
-		'audit.php'        => __('Audit Plugin User', 'audit'),
-		'audit_manage.php' => __('Audit Plugin Administrator', 'audit'),
+		'audit.php'        => __('Audit Log User', 'audit'),
+		'audit_manage.php' => __('Audit Log Admin', 'audit'),
 		'audit_purge.php'  => __('Purge Audit Log Events', 'audit')
 	);
 
