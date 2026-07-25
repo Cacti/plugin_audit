@@ -3,11 +3,42 @@
 require_once dirname(__DIR__) . '/audit_functions.php';
 
 $audit_test_realms = array();
+$audit_test_existing_users = array();
+$audit_test_user_realms = array();
+$audit_test_user_query_failure = false;
+$audit_test_realm_query_failure = false;
 
 function api_plugin_user_realm_auth($filename = '') {
 	global $audit_test_realms;
 
 	return !empty($audit_test_realms[$filename]);
+}
+
+function db_fetch_cell_prepared($sql, $params = array()) {
+	global $audit_test_existing_users, $audit_test_user_query_failure;
+
+	if ($audit_test_user_query_failure) {
+		return false;
+	}
+
+	$user_id = (int) ($params[0] ?? 0);
+
+	return in_array($user_id, $audit_test_existing_users, true) ? 1 : 0;
+}
+
+function db_fetch_assoc_prepared($sql, $params = array()) {
+	global $audit_test_user_realms, $audit_test_realm_query_failure;
+
+	if ($audit_test_realm_query_failure) {
+		return false;
+	}
+
+	$user_id = (int) ($params[0] ?? 0);
+	$realm_ids = $audit_test_user_realms[$user_id] ?? array();
+
+	return array_map(function($realm_id) {
+		return array('realm_id' => $realm_id);
+	}, $realm_ids);
 }
 
 function audit_test_assert_same($expected, $actual, $message) {
@@ -23,6 +54,79 @@ audit_test_assert_same(false, audit_user_is_admin(), 'Audit users must not be tr
 $audit_test_realms['audit_manage.php'] = true;
 audit_test_assert_same(true, audit_user_is_admin(), 'Audit plugin administrators must be able to purge.');
 $audit_test_realms = array();
+
+$verifier = audit_operation_verifier_for_request('user_admin.php', array(
+	'action' => 'save',
+	'id' => '4',
+	'save_component_realm_perms' => '1',
+	'section110' => 'on',
+	'section106' => 'on'
+));
+audit_test_assert_same(
+	array(
+		'type' => 'user_realm_permissions',
+		'target_user_id' => 4,
+		'expected_realm_ids' => array(106, 110)
+	),
+	$verifier,
+	'User realm permission saves must capture a normalized post-condition verifier.'
+);
+
+audit_test_assert_same(
+	null,
+	audit_operation_verifier_for_request('host.php', array('id' => '4')),
+	'Unrelated requests must not receive a user realm verifier.'
+);
+
+$invalid_verifier = audit_operation_verifier_for_request('user_admin.php', array(
+	'id' => 'invalid',
+	'save_component_realm_perms' => '1'
+));
+audit_test_assert_same(
+	'invalid',
+	$invalid_verifier['type'],
+	'Invalid realm permission requests must not be verified as successful.'
+);
+
+$audit_test_existing_users = array(4);
+$audit_test_user_realms = array(4 => array(110, 106));
+audit_test_assert_same(
+	array('outcome' => 'success', 'reason' => 'realm_permissions_verified'),
+	audit_verify_operation($verifier),
+	'Matching stored realm permissions must produce a verified success outcome.'
+);
+
+$audit_test_user_realms = array(4 => array(106));
+audit_test_assert_same(
+	array('outcome' => 'failure', 'reason' => 'realm_permissions_mismatch'),
+	audit_verify_operation($verifier),
+	'Mismatched stored realm permissions must produce a failure outcome.'
+);
+
+$audit_test_existing_users = array();
+audit_test_assert_same(
+	array('outcome' => 'failure', 'reason' => 'target_user_not_found'),
+	audit_verify_operation($verifier),
+	'A missing target user must produce a failure outcome.'
+);
+
+$audit_test_existing_users = array(4);
+$audit_test_user_query_failure = true;
+audit_test_assert_same(
+	array('outcome' => 'unknown', 'reason' => 'realm_permissions_verification_failed'),
+	audit_verify_operation($verifier),
+	'A failed target-user query must preserve an unknown outcome.'
+);
+$audit_test_user_query_failure = false;
+
+$audit_test_existing_users = array(4);
+$audit_test_realm_query_failure = true;
+audit_test_assert_same(
+	array('outcome' => 'unknown', 'reason' => 'realm_permissions_verification_failed'),
+	audit_verify_operation($verifier),
+	'A failed verification query must preserve an unknown outcome.'
+);
+$audit_test_realm_query_failure = false;
 
 $request = array(
 	'username' => 'operator',

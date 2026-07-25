@@ -10,6 +10,7 @@ $required_controller_guards = array(
 	'audit_user_is_admin()',
 	'csrf_check(false)',
 	'html_escape($data',
+	"__('Outcome Reason:', 'audit')",
 	"header('Content-Type: text/csv; charset=UTF-8')",
 	"fputcsv("
 );
@@ -43,6 +44,20 @@ $required_schema_fragments = array(
 foreach ($required_schema_fragments as $fragment) {
 	if (strpos($setup, $fragment) === false) {
 		fwrite(STDERR, 'Missing schema or replication requirement: ' . $fragment . PHP_EOL);
+		exit(1);
+	}
+}
+
+$required_verifier_fragments = array(
+	'audit_operation_verifier_for_request',
+	"'user_realm_permissions'",
+	"'realm_permissions_verified'",
+	"register_shutdown_function('audit_finalize_request', \$audit_id, \$started_at, \$verifier)"
+);
+
+foreach ($required_verifier_fragments as $fragment) {
+	if (strpos($functions, $fragment) === false) {
+		fwrite(STDERR, 'Missing operation verification requirement: ' . $fragment . PHP_EOL);
 		exit(1);
 	}
 }

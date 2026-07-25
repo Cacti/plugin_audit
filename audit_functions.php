@@ -465,23 +465,131 @@ function audit_request_status($error = null, $status_code = 200) {
 	return 'completed';
 }
 
-function audit_finalize_request($id, $started_at = null) {
+function audit_operation_verifier_for_request($page, $post) {
+	if ($page != 'user_admin.php' || !array_key_exists('save_component_realm_perms', $post)) {
+		return null;
+	}
+
+	$target_user_id = $post['id'] ?? null;
+	if (!is_scalar($target_user_id) ||
+		!preg_match('/^[1-9][0-9]*$/', (string) $target_user_id)) {
+		return array(
+			'type' => 'invalid',
+			'outcome_reason' => 'realm_permissions_request_invalid'
+		);
+	}
+
+	$expected_realm_ids = array();
+	foreach ($post as $field => $value) {
+		$field = (string) $field;
+
+		if (strpos($field, 'section') !== 0) {
+			continue;
+		}
+
+		if (!preg_match('/^section([1-9][0-9]*)$/', $field, $matches)) {
+			return array(
+				'type' => 'invalid',
+				'outcome_reason' => 'realm_permissions_request_invalid'
+			);
+		}
+
+		$expected_realm_ids[] = (int) $matches[1];
+	}
+
+	$expected_realm_ids = array_values(array_unique($expected_realm_ids));
+	sort($expected_realm_ids, SORT_NUMERIC);
+
+	return array(
+		'type' => 'user_realm_permissions',
+		'target_user_id' => (int) $target_user_id,
+		'expected_realm_ids' => $expected_realm_ids
+	);
+}
+
+function audit_verify_operation($verifier) {
+	if (!is_array($verifier) || empty($verifier['type'])) {
+		return array('outcome' => 'unknown', 'reason' => null);
+	}
+
+	if ($verifier['type'] == 'invalid') {
+		return array(
+			'outcome' => 'unknown',
+			'reason' => $verifier['outcome_reason'] ?? 'verification_request_invalid'
+		);
+	}
+
+	if ($verifier['type'] != 'user_realm_permissions') {
+		return array('outcome' => 'unknown', 'reason' => 'verification_type_unsupported');
+	}
+
+	$target_user_id = (int) ($verifier['target_user_id'] ?? 0);
+	$expected_realm_ids = $verifier['expected_realm_ids'] ?? array();
+	$user_count = db_fetch_cell_prepared('SELECT COUNT(*) FROM user_auth WHERE id = ?', array($target_user_id));
+
+	if ($user_count === false) {
+		return array('outcome' => 'unknown', 'reason' => 'realm_permissions_verification_failed');
+	}
+
+	if ((int) $user_count !== 1) {
+		return array('outcome' => 'failure', 'reason' => 'target_user_not_found');
+	}
+
+	$rows = db_fetch_assoc_prepared('SELECT realm_id
+		FROM user_auth_realm
+		WHERE user_id = ?
+		ORDER BY realm_id',
+		array($target_user_id));
+
+	if (!is_array($rows)) {
+		return array('outcome' => 'unknown', 'reason' => 'realm_permissions_verification_failed');
+	}
+
+	$actual_realm_ids = array();
+	foreach ($rows as $row) {
+		if (!isset($row['realm_id']) || !is_numeric($row['realm_id'])) {
+			return array('outcome' => 'unknown', 'reason' => 'realm_permissions_verification_failed');
+		}
+
+		$actual_realm_ids[] = (int) $row['realm_id'];
+	}
+
+	$actual_realm_ids = array_values(array_unique($actual_realm_ids));
+	sort($actual_realm_ids, SORT_NUMERIC);
+
+	if ($actual_realm_ids === $expected_realm_ids) {
+		return array('outcome' => 'success', 'reason' => 'realm_permissions_verified');
+	}
+
+	return array('outcome' => 'failure', 'reason' => 'realm_permissions_mismatch');
+}
+
+function audit_finalize_request($id, $started_at = null, $verifier = null) {
 	$status_code = http_response_code();
 	$status_code = is_int($status_code) ? $status_code : 200;
 	$request_status = audit_request_status(error_get_last(), $status_code);
 	$outcome = $request_status == 'failed' ? 'failure' : 'unknown';
+	$outcome_reason = $request_status == 'failed' ? 'request_failed' : null;
+
+	if ($request_status == 'completed' && $verifier !== null) {
+		$verification = audit_verify_operation($verifier);
+		$outcome = $verification['outcome'];
+		$outcome_reason = $verification['reason'];
+	}
+
 	$duration_ms = $started_at === null ? null : max(0, (int) round((microtime(true) - $started_at) * 1000));
 	$completed_time = audit_utc_time();
 
 	db_execute_prepared("UPDATE audit_log
 		SET request_status = ?,
+			outcome_reason = CASE WHEN operation_outcome = 'unknown' THEN ? ELSE outcome_reason END,
 			operation_outcome = CASE WHEN operation_outcome = 'unknown' THEN ? ELSE operation_outcome END,
 			http_status = ?,
 			completed_time = ?,
 			duration_ms = ?
 		WHERE id = ?
 		AND request_status = 'started'",
-		array($request_status, $outcome, $status_code, $completed_time, $duration_ms, $id));
+		array($request_status, $outcome_reason, $outcome, $status_code, $completed_time, $duration_ms, $id));
 
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', array($id));
 	if (cacti_sizeof($event)) {
@@ -584,8 +692,9 @@ function audit_config_insert() {
 		}
 
 		$target_id   = $post['id'] ?? null;
-		$post        = audit_json_encode($post);
 		$page        = basename($_SERVER['SCRIPT_NAME']);
+		$verifier    = audit_operation_verifier_for_request($page, $post);
+		$post        = audit_json_encode($post);
 		$user_id     = (isset($_SESSION['sess_user_id']) ? $_SESSION['sess_user_id'] : 0);
 		$event_time  = audit_utc_time($started_at);
 
@@ -656,7 +765,7 @@ function audit_config_insert() {
 				$_SERVER['REQUEST_METHOD'] ?? null
 			));
 		$audit_id = db_fetch_insert_id();
-		register_shutdown_function('audit_finalize_request', $audit_id, $started_at);
+		register_shutdown_function('audit_finalize_request', $audit_id, $started_at, $verifier);
 
 		if ($external_logging && $audit_log == '') {
 			set_config_option('audit_log_external_path', $base . '/log/audit.log');

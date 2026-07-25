@@ -53,6 +53,11 @@ not by itself prove that page-specific validation or database work succeeded.
 `operation_outcome` remains `unknown` unless an authoritative Cacti 1.2.x hook
 or plugin-owned operation supplies the result.
 
+For direct user realm permission saves, the plugin verifies the resulting
+`user_auth_realm` rows against the submitted realm set after Cacti processes the
+request. Matching state is recorded as `success` with outcome reason
+`realm_permissions_verified`; a mismatch is recorded as `failure`.
+
 The plugin also audits access to its own event list, searches, event details,
 exports and purge operations. Logout and session-timeout events are captured
 through Cacti's supported `logout_pre_session_destroy` hook. Database-level

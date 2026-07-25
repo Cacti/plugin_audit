@@ -92,6 +92,9 @@ function audit_render_event_details($data) {
 	$output .= '<br><span><b>' . __('Event ID:', 'audit') . '</b>  <i>' . html_escape($data['event_uuid']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Request Status:', 'audit') . '</b>  <i>' . html_escape($data['request_status']) . '</i></span>';
 	$output .= '<br><span><b>' . __('Operation Outcome:', 'audit') . '</b>  <i>' . html_escape($data['operation_outcome']) . '</i></span>';
+	if ($data['outcome_reason'] != '') {
+		$output .= '<br><span><b>' . __('Outcome Reason:', 'audit') . '</b>  <i>' . html_escape($data['outcome_reason']) . '</i></span>';
+	}
 	$output .= '<br><span><b>' . __('External Delivery:', 'audit') . '</b>  <i>' . html_escape($data['external_status']) . '</i></span>';
 	if ($data['external_error'] != '') {
 		$output .= '<br><span><b>' . __('External Error:', 'audit') . '</b>  <i>' . html_escape($data['external_error']) . '</i></span>';
