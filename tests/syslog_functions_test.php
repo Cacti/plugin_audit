@@ -183,6 +183,22 @@ audit_syslog_test_assert(
 	'A blank TLS port must use the standard default of 6514.'
 );
 
+$outer_warning_called = false;
+$captured_warning = '';
+set_error_handler(function() use (&$outer_warning_called) {
+	$outer_warning_called = true;
+	return true;
+});
+$warning_result = audit_syslog_stream_operation(function() {
+	trigger_error("expected stream warning\nwith control text", E_USER_WARNING);
+	return false;
+}, $captured_warning);
+restore_error_handler();
+audit_syslog_test_assert($warning_result === false && !$outer_warning_called,
+	'Expected stream warnings must not leak into Cacti global error handling.');
+audit_syslog_test_assert($captured_warning === 'expected stream warning with control text',
+	'Captured stream warnings must be normalized into a bounded one-line delivery error.');
+
 $invalid = audit_syslog_test_config(array('receiver' => 'udp://user:secret@example.test'));
 audit_syslog_test_assert(!$invalid['valid'], 'Receiver URIs and embedded credentials must be rejected.');
 

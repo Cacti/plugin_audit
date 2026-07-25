@@ -7,6 +7,7 @@
 * feature: Queue remote delivery in the poller with exponential backoff, dead-letter handling, health reporting, and audited admin actions
 * security: Restrict Syslog settings, tests, and dead-letter retries to Audit Log Admin with validated destinations and CSRF-protected POST actions
 * security: Preserve unfinished Syslog evidence during scheduled retention and manual purge
+* issue: Capture expected Syslog connection and write warnings without leaking PHP notices into the Cacti poller log
 * feature: Verify user realm permission saves against the resulting database state
 * security: Group Audit Log User and Audit Log Admin permissions under Audit Plugin
 * feature: Add normalized compliance event identifiers, categories, actors, targets, outcomes, timing, and integrity metadata

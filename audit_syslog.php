@@ -444,6 +444,25 @@ function audit_syslog_socket_target($config) {
 	return $scheme . '://' . $receiver . ':' . $config['port'];
 }
 
+function audit_syslog_stream_operation($operation, &$warning = null) {
+	$warning = '';
+	$handler = function($severity, $message) use (&$warning) {
+		$warning = audit_syslog_bounded_error($message);
+		return true;
+	};
+
+	set_error_handler($handler);
+
+	try {
+		return call_user_func($operation);
+	} catch (Throwable $exception) {
+		$warning = audit_syslog_bounded_error($exception->getMessage());
+		return false;
+	} finally {
+		restore_error_handler();
+	}
+}
+
 function audit_syslog_open_socket($config) {
 	$context_options = array();
 
@@ -471,20 +490,33 @@ function audit_syslog_open_socket($config) {
 	$error_number = 0;
 	$error_message = '';
 	$flags = STREAM_CLIENT_CONNECT;
-	$socket = @stream_socket_client(
-		audit_syslog_socket_target($config),
-		$error_number,
-		$error_message,
-		$config['timeout'],
+	$stream_warning = '';
+	$socket = audit_syslog_stream_operation(function() use (
+		$config,
+		&$error_number,
+		&$error_message,
 		$flags,
 		$context
-	);
+	) {
+		return stream_socket_client(
+			audit_syslog_socket_target($config),
+			$error_number,
+			$error_message,
+			$config['timeout'],
+			$flags,
+			$context
+		);
+	}, $stream_warning);
 
 	if ($socket === false) {
+		$error = $error_message !== ''
+			? $error_message
+			: ($stream_warning !== '' ? $stream_warning : 'Unable to connect to Syslog receiver.');
+
 		return array(
 			'socket' => null,
 			'error_code' => 'connection_failed',
-			'error' => audit_syslog_bounded_error($error_message !== '' ? $error_message : 'Unable to connect to Syslog receiver.')
+			'error' => audit_syslog_bounded_error($error)
 		);
 	}
 
@@ -500,25 +532,39 @@ function audit_syslog_bounded_error($error) {
 	return substr(trim($error), 0, 1024);
 }
 
+function audit_syslog_fwrite($socket, $message, &$warning = null) {
+	return audit_syslog_stream_operation(function() use ($socket, $message) {
+		return fwrite($socket, $message);
+	}, $warning);
+}
+
 function audit_syslog_write($socket, $message, $transport) {
 	if (!is_resource($socket)) {
 		return array('status' => 'failed', 'error_code' => 'socket_unavailable', 'error' => 'Syslog socket is unavailable.');
 	}
 
 	if ($transport === 'udp') {
-		$written = @fwrite($socket, $message);
+		$stream_warning = '';
+		$written = audit_syslog_fwrite($socket, $message, $stream_warning);
 		if ($written !== strlen($message)) {
-			return array('status' => 'failed', 'error_code' => 'write_failed', 'error' => 'Unable to write the complete Syslog datagram.');
+			$error = $stream_warning !== ''
+				? $stream_warning
+				: 'Unable to write the complete Syslog datagram.';
+
+			return array('status' => 'failed', 'error_code' => 'write_failed', 'error' => $error);
 		}
 	} else {
 		$length = strlen($message);
 		$offset = 0;
 
 		while ($offset < $length) {
-			$written = @fwrite($socket, substr($message, $offset));
+			$stream_warning = '';
+			$written = audit_syslog_fwrite($socket, substr($message, $offset), $stream_warning);
 			if ($written === false || $written === 0) {
 				$metadata = stream_get_meta_data($socket);
-				$error = !empty($metadata['timed_out']) ? 'Syslog write timed out.' : 'Unable to write the complete Syslog record.';
+				$error = !empty($metadata['timed_out'])
+					? 'Syslog write timed out.'
+					: ($stream_warning !== '' ? $stream_warning : 'Unable to write the complete Syslog record.');
 
 				return array('status' => 'failed', 'error_code' => 'write_failed', 'error' => $error);
 			}

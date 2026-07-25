@@ -17,6 +17,10 @@ configurable base delay, maximum delay, maximum attempts, and batch size.
 - **WHEN** TCP or TLS connection establishment fails transiently
 - **THEN** attempts increment, a bounded error is stored, and `next_attempt` is scheduled in the future
 
+#### Scenario: Socket operation emits an expected warning
+- **WHEN** a Syslog connection or write is refused, reset, or otherwise fails through a PHP stream warning
+- **THEN** the warning is captured as a bounded delivery error and is not forwarded to Cacti's global PHP error handler
+
 #### Scenario: Retry is not yet due
 - **WHEN** the poller selects queued deliveries
 - **THEN** it excludes retry rows whose `next_attempt` is in the future
