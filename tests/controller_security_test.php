@@ -7,7 +7,7 @@ $setup      = file_get_contents(dirname(__DIR__) . '/setup.php');
 
 $required_controller_guards = array(
 	"\$_SERVER['REQUEST_METHOD'] !== 'POST'",
-	'audit_user_can_purge()',
+	'audit_user_is_admin()',
 	'csrf_check(false)',
 	'html_escape($data',
 	"header('Content-Type: text/csv; charset=UTF-8')",
@@ -24,10 +24,10 @@ foreach ($required_controller_guards as $guard) {
 $required_schema_fragments = array(
 	"'audit.php'        => __('Audit Log User'",
 	"'audit_manage.php' => __('Audit Log Admin'",
-	"'audit_purge.php'  => __('Purge Audit Log Events'",
 	'audit_setup_realms(true)',
 	'audit_setup_realms()',
-	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php', 'audit_purge.php'))",
+	'audit_remove_deprecated_realms()',
+	"auth_augment_roles(__('Audit Plugin', 'audit'), array('audit.php', 'audit_manage.php'))",
 	'api_plugin_register_hook(\'audit\', \'replicate_out\'',
 	'request_status',
 	'ADD COLUMN IF NOT EXISTS external_status',
@@ -47,19 +47,17 @@ foreach ($required_schema_fragments as $fragment) {
 	}
 }
 
-$required_purge_permissions = array(
-	"api_plugin_user_realm_auth('audit_manage.php')",
-	"api_plugin_user_realm_auth('audit_purge.php')"
-);
-
-foreach ($required_purge_permissions as $permission) {
-	if (strpos($functions, $permission) === false) {
-		fwrite(STDERR, 'Missing purge permission: ' . $permission . PHP_EOL);
-		exit(1);
-	}
+if (strpos($functions, "api_plugin_user_realm_auth('audit_manage.php')") === false) {
+	fwrite(STDERR, 'Audit administrators must be authorized to purge.' . PHP_EOL);
+	exit(1);
 }
 
-if (substr_count($controller, 'audit_user_can_purge()') < 2) {
+if (strpos($functions, "api_plugin_user_realm_auth('audit_purge.php')") !== false) {
+	fwrite(STDERR, 'The deprecated delegated purge permission must not authorize purge.' . PHP_EOL);
+	exit(1);
+}
+
+if (substr_count($controller, 'audit_user_is_admin()') < 2) {
 	fwrite(STDERR, 'Purge authorization must protect both the action and its UI control.' . PHP_EOL);
 	exit(1);
 }

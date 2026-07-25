@@ -19,11 +19,9 @@ function audit_test_assert_same($expected, $actual, $message) {
 	}
 }
 
-audit_test_assert_same(false, audit_user_can_purge(), 'Audit users must not be able to purge by default.');
+audit_test_assert_same(false, audit_user_is_admin(), 'Audit users must not be treated as audit administrators.');
 $audit_test_realms['audit_manage.php'] = true;
-audit_test_assert_same(true, audit_user_can_purge(), 'Audit plugin administrators must be able to purge.');
-$audit_test_realms = array('audit_purge.php' => true);
-audit_test_assert_same(true, audit_user_can_purge(), 'Delegated audit purge permission must allow purge.');
+audit_test_assert_same(true, audit_user_is_admin(), 'Audit plugin administrators must be able to purge.');
 $audit_test_realms = array();
 
 $request = array(

@@ -39,7 +39,7 @@ case 'purge':
 		exit;
 	}
 
-	if (!audit_user_can_purge() || !csrf_check(false)) {
+	if (!audit_user_is_admin() || !csrf_check(false)) {
 		http_response_code(403);
 		exit;
 	}
@@ -407,7 +407,7 @@ function audit_log() {
 							<button type='submit' id='refresh' class='ui-button ui-corner-all ui-widget ui-state-active' title='<?php print __esc('Set/Refresh Filters', 'audit');?>'><?php print __esc('Go', 'audit');?></button>
 							<button type='button' id='clear' class='ui-button ui-corner-all ui-widget' title='<?php print __esc('Clear Filters', 'audit');?>'><?php print __esc('Clear', 'audit');?></button>
 							<button type='button' id='export' class='ui-button ui-corner-all ui-widget' title='<?php print __esc('Export Log Events', 'audit');?>'><?php print __esc('Export', 'audit');?></button>
-							<?php if (audit_user_can_purge()) {?>
+							<?php if (audit_user_is_admin()) {?>
 							<button type='button' id='purge' class='ui-button ui-corner-all ui-widget' data-confirm='<?php print __esc('Permanently purge all audit log events?', 'audit');?>' title='<?php print __esc('Purge Log Events', 'audit');?>'><?php print __esc('Purge', 'audit');?></button>
 							<?php }?>
 						</span>

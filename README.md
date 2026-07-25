@@ -60,10 +60,9 @@ changes, API activity and MFA events are outside the current Cacti 1.2.x scope.
 
 ## Permissions
 
-The plugin groups its Cacti realms under the Audit Plugin permissions section:
-Audit Log User, Audit Log Admin, and Purge Audit Log Events. Audit Log User
-permits access to the audit log. Purging additionally requires either Audit Log
-Admin or the explicitly delegated Purge Audit Log Events permission.
+The plugin groups its Cacti realms under the Audit Plugin permissions section.
+Audit Log User permits access to the audit log. Audit Log Admin permits plugin
+administration and purging audit events.
 
 ## Possible Bugs
 
