@@ -962,10 +962,10 @@ function audit_poll_user_log(): void {
 					CONCAT(ul.username, "|", ul.user_id, "|", ul.time),
 					256
 				)
-			)
-			ORDER BY ul.time ASC, ul.username ASC, ul.user_id ASC
-			LIMIT ?',
-		[$cutoff, $batch_size]
+				)
+				ORDER BY ul.time ASC, ul.username ASC, ul.user_id ASC
+				LIMIT ' . $batch_size,
+		[$cutoff]
 	);
 
 	if (!is_array($rows) || cacti_sizeof($rows) === 0) {

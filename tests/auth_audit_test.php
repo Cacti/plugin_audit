@@ -233,8 +233,9 @@ function db_fetch_assoc_prepared(string $sql, array $params = []): array {
 		return $a['user_id'] <=> $b['user_id'];
 	});
 
-	$limit_idx = count($params) - 1;
-	$limit     = (int) ($params[$limit_idx] ?? 1000);
+	$limit = preg_match('/LIMIT\\s+(\\d+)/i', $sql, $matches)
+		? (int) $matches[1]
+		: 1000;
 
 	return array_slice($filtered, 0, $limit);
 }
