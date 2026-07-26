@@ -40,6 +40,7 @@ jobs:
       matrix:
         php: ['8.4']
         os: [ubuntu-latest]
+        cacti_branch: ['1.2.x', 'develop']
     
     services:
       mysql:
@@ -57,14 +58,14 @@ jobs:
           --health-timeout=5s
           --health-retries=3
     
-    name: PHP ${{ matrix.php }} Integration Test on ${{ matrix.os }}
+    name: PHP ${{ matrix.php }} Integration Test (Cacti ${{ matrix.cacti_branch }}) on ${{ matrix.os }}
     
     steps:
     - name: Checkout Cacti
       uses: actions/checkout@v7
       with:
         repository: Cacti/cacti
-        ref: 1.2.x
+        ref: ${{ matrix.cacti_branch }}
         path: cacti
     
     - name: Checkout audit Plugin
@@ -195,6 +196,39 @@ jobs:
           echo "Audit Syslog delivery queue table is missing"
           exit 1
         fi
+
+        AUTH_STATE_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'cacti'
+            AND table_name = 'audit_user_log_state';
+        ")
+        if [ "$AUTH_STATE_TABLE_COUNT" -ne 1 ]; then
+          echo "Authentication deduplication state table is missing"
+          exit 1
+        fi
+
+        AUTH_STATE_FK_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.table_constraints
+          WHERE constraint_schema = 'cacti'
+            AND table_name = 'audit_user_log_state'
+            AND constraint_type = 'FOREIGN KEY';
+        ")
+        if [ "$AUTH_STATE_FK_COUNT" -ne 0 ]; then
+          echo "Authentication deduplication state must survive audit-log purges"
+          exit 1
+        fi
+
+        THROTTLE_SETTING_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM settings
+          WHERE name = 'audit_brute_force_last_alert';
+        ")
+        if [ "$THROTTLE_SETTING_COUNT" -ne 1 ]; then
+          echo "Brute-force throttle setting was not initialized"
+          exit 1
+        fi
     
     - name: Check PHP Syntax for Plugin
       run: |
@@ -211,6 +245,7 @@ jobs:
         php tests/controller_security_test.php
         php tests/syslog_functions_test.php
         php tests/syslog_queue_test.php
+        php tests/auth_audit_test.php
     
     - name: Run Cacti Poller
       run: |
@@ -240,6 +275,58 @@ jobs:
       run: |
         cd ${{ github.workspace }}/cacti
         sudo php cli/add_device.php --description=test --ip=1
+
+    - name: Exercise authentication ingestion
+      run: |
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "
+          INSERT INTO user_log (username, user_id, time, result, ip)
+          VALUES ('audit_ci_login', 0, NOW(), 0, '192.0.2.10')
+          ON DUPLICATE KEY UPDATE result = VALUES(result), ip = VALUES(ip);
+        "
+        cd ${{ github.workspace }}/cacti
+        sudo php poller.php --poller=1 --force --debug
+
+        AUTH_EVENT_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        ")
+        AUTH_STATE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_user_log_state
+          WHERE source_hash = SHA2(
+            CONCAT('audit_ci_login', '|', 0, '|', (
+              SELECT time FROM user_log
+              WHERE username = 'audit_ci_login' AND user_id = 0
+              ORDER BY time DESC LIMIT 1
+            )),
+            256
+          );
+        ")
+
+        if [ "$AUTH_EVENT_COUNT" -ne 1 ] || [ "$AUTH_STATE_COUNT" -ne 1 ]; then
+          echo "Authentication ingestion did not atomically create one event and one state marker"
+          exit 1
+        fi
+
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "
+          DELETE FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        "
+        sudo php poller.php --poller=1 --force --debug
+
+        REPLAYED_EVENT_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        ")
+        if [ "$REPLAYED_EVENT_COUNT" -ne 0 ]; then
+          echo "Authentication source row was replayed after audit-log deletion"
+          exit 1
+        fi
 
     - name: check audit log entries
       run: |

@@ -85,4 +85,5 @@ jobs:
           php tests/security_functions_test.php
           php tests/controller_security_test.php
           php tests/syslog_queue_test.php
+          php tests/auth_audit_test.php
           timeout 60 php tests/syslog_functions_test.php

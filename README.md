@@ -117,8 +117,52 @@ request. Matching state is recorded as `success` with outcome reason
 
 The plugin also audits access to its own event list, searches, event details,
 exports and purge operations. Logout and session-timeout events are captured
-through Cacti's supported `logout_pre_session_destroy` hook. Database-level
-changes, API activity and MFA events are outside the current Cacti 1.2.x scope.
+through Cacti's supported `logout_pre_session_destroy` hook, and session
+teardown is confirmed through the `logout_post_session_destroy` hook.
+
+Login failure, token (remember-me and 2FA), credentials-accepted, and
+authorization-denied events are captured by polling Cacti's `user_log` table
+from the poller and through the `custom_denied` hook. The `user_log` table is
+the authoritative source across all Cacti authentication methods (local, LDAP,
+basic, and domains) and is stable across the 1.2.x and develop branches, so
+the plugin does not rely on the local-auth-only `login_process` hook.
+
+Cacti writes `user_log` `result = 1` before verifying that the account is
+enabled, authorized for any realm, or has completed 2FA. The plugin therefore
+records this as `cacti.auth.login.credentials_accepted` with
+`operation_outcome = unknown`, not as a confirmed successful login. Cacti's
+password-change inserts and the develop branch's failed-2FA inserts both write
+`result = 3` with `user_id = 0`, so `user_log` alone cannot disambiguate them;
+the plugin records these as `cacti.auth.password_change_or_2fa_failed` with
+`operation_outcome = unknown`. Unsupported result codes are recorded as
+`cacti.auth.login.unknown` with `operation_outcome = unknown`.
+
+Ingestion runs every poller cycle with a bounded workload (default 1000 rows
+per cycle, configurable via `audit_user_log_batch_size`). Deduplication is
+durable and database-backed: each processed `user_log` primary-key tuple is
+recorded in an `audit_user_log_state` table as a deterministic SHA-256 hash,
+so repeated and concurrent pollers cannot double-record the same source row.
+Each bounded query selects recent source rows without a durable marker, so
+failed inserts and late commits remain discoverable. The audit row and state
+marker are committed in one transaction before external delivery; a
+concurrent loser rolls back its duplicate audit row. State markers survive
+audit-log purges and are retired only after their source rows fall outside
+the configured retention window.
+
+Every ingestion query applies the audit retention cutoff
+(`NOW() - audit_retention` days, or 90 days if retention is indefinite), so
+arbitrary historical `user_log` rows are not replayed and stale records are
+not exported.
+
+Brute-force detection runs every poller cycle and emits a
+`cacti.auth.brute_force_suspected` critical event when failed logins exceed a
+configurable threshold within a rolling window. Alert emission is atomically
+throttled to one event per window via a conditional `UPDATE` on the settings
+table, so concurrent pollers cannot emit duplicate alerts. The throttle marker
+is only persisted after a confirmed audit insert. Authentication auditing and
+brute-force detection settings are restricted to Audit Log Admin users.
+Database-level changes and API activity remain outside the current Cacti 1.2.x
+scope.
 
 ## Permissions
 

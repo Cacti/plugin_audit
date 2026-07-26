@@ -33,6 +33,8 @@ function plugin_audit_install(): void {
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 	api_plugin_register_hook('audit', 'is_console_page',      'audit_is_console_page',      'setup.php');
 	api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php');
+	api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php');
+	api_plugin_register_hook('audit', 'custom_denied',        'audit_custom_denied',        'audit_functions.php');
 
 	// hook for table replication
 	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
@@ -40,6 +42,35 @@ function plugin_audit_install(): void {
 	audit_setup_realms(true);
 
 	audit_setup_table();
+	audit_persist_auth_defaults();
+}
+
+/**
+ * Persist authentication auditing defaults without overwriting existing
+ * administrator choices. Called on fresh install and upgrade so that
+ * ordinary-user logout and authorization-denied hooks work with the
+ * advertised default even though the configuration controls remain hidden
+ * from non-Audit-Admin users.
+ */
+function audit_persist_auth_defaults(): void {
+	$defaults = [
+		'audit_auth_log_enabled'           => 'on',
+		'audit_brute_force_enabled'        => 'on',
+		'audit_brute_force_window_minutes' => '5',
+		'audit_brute_force_threshold'      => '10',
+		'audit_brute_force_last_alert'     => ''
+	];
+
+	foreach ($defaults as $name => $value) {
+		$exists = (int) db_fetch_cell_prepared(
+			'SELECT COUNT(*) FROM settings WHERE name = ?',
+			[$name]
+		);
+
+		if ($exists === 0) {
+			set_config_option($name, $value);
+		}
+	}
 }
 
 function audit_setup_realms(bool $grant_installing_user = false): void {
@@ -105,6 +136,7 @@ function audit_remove_deprecated_realms(): void {
 }
 
 function plugin_audit_uninstall(): bool {
+	db_execute('DROP TABLE IF EXISTS audit_user_log_state');
 	db_execute('DROP TABLE IF EXISTS audit_syslog_delivery');
 	db_execute('DROP TABLE IF EXISTS audit_log');
 
@@ -170,6 +202,8 @@ function audit_check_upgrade(): void {
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status');
 		audit_upgrade_event_schema();
 		audit_setup_syslog_table();
+		audit_setup_user_log_state_table();
+		audit_persist_auth_defaults();
 		audit_setup_realms();
 		audit_remove_deprecated_realms();
 
@@ -190,6 +224,8 @@ function audit_check_upgrade(): void {
 		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
+		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php', 1);
+		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'audit_functions.php', 1);
 	}
 }
 
@@ -242,6 +278,9 @@ function audit_replicate_out(array $data): array {
 		db_execute("ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_status varchar(20) NOT NULL DEFAULT 'unknown' AFTER object_data", true, $rcnn_id);
 		db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS external_error varchar(1024) DEFAULT NULL AFTER external_status', true, $rcnn_id);
 		audit_upgrade_event_schema($rcnn_id);
+
+		// Replicate and migrate durable user_log deduplication state.
+		audit_setup_user_log_state_table($rcnn_id);
 	}
 
 	return $data;
@@ -250,6 +289,19 @@ function audit_replicate_out(array $data): array {
 function audit_poller_bottom(): void {
 	audit_retry_external_logs();
 	audit_process_syslog_queue();
+
+	// Brute-force detection runs every poller cycle so short bursts are
+	// caught in near-real-time. Only alert emission is throttled inside the
+	// function via audit_brute_force_last_alert.
+	audit_detect_brute_force();
+
+	// Authentication events are captured by polling Cacti's user_log table,
+	// which is authoritative across all auth methods (local, LDAP, basic,
+	// domains) and stable across the 1.2.x and develop branches. Ingestion
+	// runs every poller cycle with a bounded workload so login failures and
+	// authorization events appear promptly; the deduplication table prevents
+	// duplicate events across repeated and concurrent pollers.
+	audit_poll_user_log();
 
 	$last_check = read_config_option('audit_last_check');
 	$now        = gmdate('Y-m-d');
@@ -271,6 +323,16 @@ function audit_poller_bottom(): void {
 				[$cutoff->format('Y-m-d H:i:s')]);
 			$rows = db_affected_rows();
 			cacti_log('NOTE: Purged ' . $rows . ' Audit Log Records from Cacti', false, 'POLLER');
+
+			// Deduplication state intentionally survives audit_log deletion so
+			// recent user_log rows are not imported again. Markers older than
+			// this cutoff can be removed safely because polling never selects
+			// source rows outside the same retention window.
+			if (db_table_exists('audit_user_log_state')) {
+				db_execute_prepared('DELETE FROM audit_user_log_state
+					WHERE source_time < ?',
+					[$cutoff->format('Y-m-d H:i:s')]);
+			}
 		}
 	}
 
@@ -329,8 +391,62 @@ function audit_setup_table(): bool {
 		COMMENT='Audit Log for all GUI activities'");
 
 	audit_setup_syslog_table();
+	audit_setup_user_log_state_table();
 
 	return true;
+}
+
+/**
+ * Durable, database-backed deduplication table for user_log ingestion.
+ *
+ * Each processed user_log primary-key tuple (username, user_id, time) is
+ * recorded as a deterministic SHA-256 hash so repeated and concurrent
+ * pollers cannot double-record the same source row. audit_id is deliberately
+ * not a foreign key: deduplication state must survive audit-log retention and
+ * manual purges, otherwise recent user_log rows would be imported again.
+ */
+function audit_setup_user_log_state_table(mixed $cnn_id = false): void {
+	db_execute("CREATE TABLE IF NOT EXISTS `audit_user_log_state` (
+		`source_hash` char(64) NOT NULL,
+		`source_key` varchar(160) NOT NULL DEFAULT '',
+		`source_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		`audit_id` bigint(20) unsigned NOT NULL,
+		`processed_time` datetime(6) NOT NULL,
+		PRIMARY KEY (`source_hash`),
+		KEY `source_time_key` (`source_time`, `source_key`))
+		ENGINE=InnoDB
+		COMMENT='Durable deduplication state for user_log ingestion'",
+		true,
+		$cnn_id
+	);
+
+	$has_foreign_key = (int) db_fetch_cell_prepared(
+		'SELECT COUNT(*)
+			FROM information_schema.TABLE_CONSTRAINTS
+			WHERE CONSTRAINT_SCHEMA = DATABASE()
+			AND TABLE_NAME = ?
+			AND CONSTRAINT_NAME = ?
+			AND CONSTRAINT_TYPE = ?',
+		['audit_user_log_state', 'fk_audit_user_log_state_event', 'FOREIGN KEY'],
+		'',
+		true,
+		$cnn_id
+	);
+
+	if ($has_foreign_key > 0) {
+		db_execute(
+			'ALTER TABLE audit_user_log_state
+				DROP FOREIGN KEY fk_audit_user_log_state_event',
+			true,
+			$cnn_id
+		);
+	}
+
+	db_execute('ALTER TABLE audit_user_log_state
+		ADD COLUMN IF NOT EXISTS source_key varchar(160) NOT NULL DEFAULT "" AFTER source_hash',
+		true,
+		$cnn_id
+	);
 }
 
 function audit_setup_syslog_table(): void {
@@ -554,6 +670,49 @@ function audit_config_settings(): void {
 	];
 
 	if (php_sapi_name() === 'cli' || audit_user_is_admin()) {
+		$auth_settings = [
+			'audit_auth_header' => [
+				'friendly_name' => __('Authentication Auditing', 'audit'),
+				'method'        => 'spacer',
+			],
+			'audit_auth_log_enabled' => [
+				'friendly_name' => __('Enable Authentication Auditing', 'audit'),
+				'description'   => __('Check this box to capture login, logout, token, password-change, and authorization-denied events by polling the Cacti user_log table and supported hooks.', 'audit'),
+				'method'        => 'checkbox',
+				'default'       => 'on'
+			],
+			'audit_brute_force_enabled' => [
+				'friendly_name' => __('Enable Brute-force Detection', 'audit'),
+				'description'   => __('Check this box to emit a critical audit event when failed logins exceed the threshold within the configured window.', 'audit'),
+				'method'        => 'checkbox',
+				'default'       => 'on'
+			],
+			'audit_brute_force_window_minutes' => [
+				'friendly_name' => __('Brute-force Window (minutes)', 'audit'),
+				'description'   => __('Rolling window in minutes, from 1 through 1440, used to count failed logins.', 'audit'),
+				'method'        => 'textbox',
+				'default'       => '5',
+				'max_length'    => '4',
+				'size'          => '8'
+			],
+			'audit_brute_force_threshold' => [
+				'friendly_name' => __('Brute-force Threshold', 'audit'),
+				'description'   => __('Number of failed logins within the window, from 1 through 1000, that triggers a brute-force alert.', 'audit'),
+				'method'        => 'textbox',
+				'default'       => '10',
+				'max_length'    => '4',
+				'size'          => '8'
+			],
+		'audit_user_log_batch_size' => [
+			'friendly_name' => __('User Log Ingestion Batch Size', 'audit'),
+			'description'   => __('Maximum user_log rows ingested per poller cycle, from 1 through 5000. Larger batches process backlogs faster but increase poller runtime.', 'audit'),
+			'method'        => 'textbox',
+			'default'       => '1000',
+			'max_length'    => '4',
+			'size'          => '8'
+		],
+	];
+
 		$facility_options = [];
 
 		foreach (audit_syslog_facilities() as $facility => $code) {

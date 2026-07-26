@@ -2,6 +2,19 @@
 
 --- develop ---
 
+* feature: Capture login failure, token, credentials-accepted, and authorization-denied events by polling the Cacti user_log table across all authentication methods
+* feature: Ingest user_log every poller cycle with bounded anti-join paging and transactionally durable database-backed deduplication via audit_user_log_state
+* feature: Apply the audit retention cutoff to every ingestion batch so historical rows are not replayed
+* feature: Detect brute-force login patterns every poller cycle with atomically throttled critical alerts across concurrent pollers
+* feature: Capture authorization-denied events through Cacti's custom_denied hook without taking over the denied-page rendering, with referer query strings redacted
+* feature: Confirm session teardown through the logout_post_session_destroy hook, correlated with the existing pre-destroy logout event
+* security: Record user_log result=1 as credentials_accepted with unknown outcome, not a confirmed login success
+* security: Record ambiguous user_log result=3/user_id=0 and unsupported result codes as unknown rather than misclassifying them
+* security: Restrict authentication auditing and brute-force detection settings to Audit Log Admin users and enforce authorization on save
+* security: Gate the original logout event behind the authentication auditing master switch
+* security: Persist authentication defaults on install and upgrade without overwriting existing administrator choices
+* issue: Test integration CI against both Cacti 1.2.x and develop branches
+
 * feature: Add standards-based remote Syslog delivery over UDP, TCP, and verified TLS
 * feature: Add RFC 5424 headers with RFC 5424, CEF, or compact JSON message formats
 * feature: Queue remote delivery in the poller with exponential backoff, dead-letter handling, health reporting, and audited admin actions

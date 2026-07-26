@@ -41,6 +41,16 @@ $required_schema_fragments = [
 	'audit_retry_external_logs()',
 	'audit_process_syslog_queue()',
 	'logout_pre_session_destroy',
+	'logout_post_session_destroy',
+	'custom_denied',
+	'audit_poll_user_log()',
+	'audit_detect_brute_force()',
+	'audit_auth_log_enabled',
+	'audit_brute_force_enabled',
+	'audit_user_log_batch_size',
+	'audit_persist_auth_defaults',
+	'CREATE TABLE IF NOT EXISTS `audit_user_log_state`',
+	'DROP TABLE IF EXISTS audit_user_log_state',
 	'event_uuid char(36)',
 	'operation_outcome',
 	'external_attempts',
@@ -62,6 +72,37 @@ $required_verifier_fragments = [
 	"'realm_permissions_verified'",
 	"register_shutdown_function('audit_finalize_request', \$audit_id, \$started_at, \$verifier)"
 ];
+
+$required_auth_fragments = [
+	'function audit_poll_user_log',
+	'function audit_detect_brute_force',
+	'function audit_custom_denied',
+	'function audit_logout_post_session_destroy',
+	'function audit_user_log_event_descriptor',
+	"'cacti.auth.login.failed'",
+	"'cacti.auth.login.credentials_accepted'",
+	"'cacti.auth.login.token'",
+	"'cacti.auth.password.changed'",
+	"'cacti.auth.password_change_or_2fa_failed'",
+	"'cacti.auth.login.unknown'",
+	"'cacti.auth.brute_force_suspected'",
+	"'cacti.auth.authorization.denied'",
+	"'authentication.logout.completed'",
+	"'audit.configuration.denied'",
+	"'START TRANSACTION'",
+	"'ROLLBACK'",
+	"'COMMIT'",
+	"'defer_delivery'",
+	'FROM audit_user_log_state AS auls',
+	'INSERT IGNORE INTO settings (name, value)'
+];
+
+foreach ($required_auth_fragments as $fragment) {
+	if (strpos($functions, $fragment) === false) {
+		fwrite(STDERR, 'Missing authentication audit requirement: ' . $fragment . PHP_EOL);
+		exit(1);
+	}
+}
 
 foreach ($required_verifier_fragments as $fragment) {
 	if (strpos($functions, $fragment) === false) {
