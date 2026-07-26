@@ -55,6 +55,8 @@ $required_schema_fragments = [
 	'audit_auth_log_enabled',
 	'audit_brute_force_enabled',
 	'audit_user_log_batch_size',
+	'array_merge($temp, $auth_settings, $syslog)',
+	"'audit_user_log_batch_size'        => '1000'",
 	'audit_persist_auth_defaults',
 	'CREATE TABLE IF NOT EXISTS `audit_user_log_state`',
 	'DROP TABLE IF EXISTS audit_user_log_state',

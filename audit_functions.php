@@ -1243,7 +1243,11 @@ function audit_enforce_syslog_settings_request(): void {
 
 		if (strpos($name, 'audit_syslog_') === 0) {
 			$has_syslog_fields = true;
-		} elseif (strpos($name, 'audit_auth_') === 0 || strpos($name, 'audit_brute_force_') === 0) {
+		} elseif (
+			strpos($name, 'audit_auth_')        === 0 ||
+			strpos($name, 'audit_brute_force_') === 0 ||
+			$name                               === 'audit_user_log_batch_size'
+		) {
 			$has_auth_fields = true;
 		}
 	}

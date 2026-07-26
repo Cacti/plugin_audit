@@ -58,7 +58,8 @@ function audit_persist_auth_defaults(): void {
 		'audit_brute_force_enabled'        => 'on',
 		'audit_brute_force_window_minutes' => '5',
 		'audit_brute_force_threshold'      => '10',
-		'audit_brute_force_last_alert'     => ''
+		'audit_brute_force_last_alert'     => '',
+		'audit_user_log_batch_size'        => '1000'
 	];
 
 	foreach ($defaults as $name => $value) {
@@ -707,15 +708,15 @@ function audit_config_settings(): void {
 				'max_length'    => '4',
 				'size'          => '8'
 			],
-		'audit_user_log_batch_size' => [
-			'friendly_name' => __('User Log Ingestion Batch Size', 'audit'),
-			'description'   => __('Maximum user_log rows ingested per poller cycle, from 1 through 5000. Larger batches process backlogs faster but increase poller runtime.', 'audit'),
-			'method'        => 'textbox',
-			'default'       => '1000',
-			'max_length'    => '4',
-			'size'          => '8'
-		],
-	];
+			'audit_user_log_batch_size' => [
+				'friendly_name' => __('User Log Ingestion Batch Size', 'audit'),
+				'description'   => __('Maximum user_log rows ingested per poller cycle, from 1 through 5000. Larger batches process backlogs faster but increase poller runtime.', 'audit'),
+				'method'        => 'textbox',
+				'default'       => '1000',
+				'max_length'    => '4',
+				'size'          => '8'
+			],
+		];
 
 		$facility_options = [];
 
@@ -890,7 +891,7 @@ function audit_config_settings(): void {
 			]
 		];
 
-		$temp = array_merge($temp, $syslog);
+		$temp = array_merge($temp, $auth_settings, $syslog);
 	}
 
 	$tabs['audit'] = __('Audit', 'audit');

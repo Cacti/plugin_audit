@@ -665,6 +665,12 @@ audit_test_assert_same([], $audit_auth_executed_sql, 'Late callbacks must not qu
 // source assertion that the auth-only unauthorized path emits the generic
 // audit.configuration.denied event, distinct from the syslog-specific one.
 $functions_source = file_get_contents(dirname(__DIR__) . '/audit_functions.php');
+
+if (!is_string($functions_source)) {
+	fwrite(STDERR, 'Unable to read audit_functions.php for settings authorization checks.' . PHP_EOL);
+	exit(1);
+}
+
 audit_test_assert_true(
 	strpos($functions_source, "'audit.configuration.denied'") !== false,
 	'The generic audit.configuration.denied event must be present for unauthorized auth-settings saves.'
@@ -678,6 +684,10 @@ audit_test_assert_true(
 	strpos($functions_source, 'audit.configuration.denied') !== false
 	&& strpos($functions_source, 'audit_admin_required') !== false,
 	'The unauthorized auth-settings save must record an audit_admin_required denied event.'
+);
+audit_test_assert_true(
+	preg_match('/\\$name\\s*===\\s*[\'"]audit_user_log_batch_size[\'"]/', $functions_source) === 1,
+	'The user_log ingestion batch-size setting must receive the same Audit Log Admin protection as authentication settings.'
 );
 
 print "Auth audit tests passed.\n";
