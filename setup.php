@@ -139,6 +139,10 @@ function plugin_audit_uninstall(): bool {
 	db_execute('DROP TABLE IF EXISTS audit_user_log_state');
 	db_execute('DROP TABLE IF EXISTS audit_syslog_delivery');
 	db_execute('DROP TABLE IF EXISTS audit_log');
+	db_execute_prepared(
+		'DELETE FROM settings WHERE LEFT(name, 6) = ?',
+		['audit_']
+	);
 
 	return true;
 }

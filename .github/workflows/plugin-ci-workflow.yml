@@ -343,3 +343,23 @@ jobs:
           echo "Unexpected CLI request status: $CLI_STATUS"
           exit 1
         fi
+
+    - name: Verify plugin uninstall cleanup
+      run: |
+        cd ${{ github.workspace }}/cacti
+        sudo php cli/plugin_manage.php --plugin=audit --disable --uninstall
+
+        AUDIT_SETTING_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*) FROM settings WHERE LEFT(name, 6) = 'audit_';
+        ")
+        AUDIT_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'cacti'
+            AND table_name IN ('audit_log', 'audit_syslog_delivery', 'audit_user_log_state');
+        ")
+
+        if [ "$AUDIT_SETTING_COUNT" -ne 0 ] || [ "$AUDIT_TABLE_COUNT" -ne 0 ]; then
+          echo "Audit plugin uninstall left settings or tables behind"
+          exit 1
+        fi

@@ -709,7 +709,9 @@ function audit_syslog_send_event(array $event, array $config, mixed &$socket = n
 }
 
 function audit_enqueue_syslog_event(int $audit_id): void {
-	if (!audit_syslog_enabled() || !db_table_exists('audit_syslog_delivery')) {
+	if (!audit_syslog_enabled() ||
+		!db_table_exists('audit_log') ||
+		!db_table_exists('audit_syslog_delivery')) {
 		return;
 	}
 

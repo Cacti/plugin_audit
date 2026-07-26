@@ -6,6 +6,10 @@ function audit_user_is_admin(): bool {
 	return api_plugin_user_realm_auth('audit_manage.php');
 }
 
+function audit_log_table_available(): bool {
+	return function_exists('db_table_exists') && db_table_exists('audit_log');
+}
+
 /**
  * @param array<int,string> $selected_items
  */
@@ -428,6 +432,10 @@ function audit_append_external_log(string $path, string $message): array {
 }
 
 function audit_set_external_status(int $id, string $status, string $error = ''): void {
+	if (!audit_log_table_available()) {
+		return;
+	}
+
 	db_execute_prepared('UPDATE audit_log
 		SET external_status = ?,
 			external_error = ?,
@@ -439,7 +447,7 @@ function audit_set_external_status(int $id, string $status, string $error = ''):
 }
 
 function audit_deliver_external_event(int $id): void {
-	if (read_config_option('audit_log_external') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
 	}
 
@@ -464,7 +472,7 @@ function audit_deliver_external_event(int $id): void {
 }
 
 function audit_retry_external_logs(): void {
-	if (read_config_option('audit_log_external') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
 	}
 
@@ -624,6 +632,10 @@ function audit_verify_operation(mixed $verifier): array {
  * @param array<string,mixed>|null $verifier
  */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
+	if (!audit_log_table_available()) {
+		return;
+	}
+
 	$status_code    = http_response_code();
 	$status_code    = is_int($status_code) ? $status_code : 200;
 	$request_status = audit_request_status(error_get_last(), $status_code);
@@ -665,7 +677,7 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
  * @param array<string,mixed> $options
  */
 function audit_record_event(string $event_type, array $options = []): int {
-	if (read_config_option('audit_enabled') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_enabled') != 'on') {
 		return 0;
 	}
 

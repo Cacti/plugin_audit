@@ -51,6 +51,8 @@ $required_schema_fragments = [
 	'audit_persist_auth_defaults',
 	'CREATE TABLE IF NOT EXISTS `audit_user_log_state`',
 	'DROP TABLE IF EXISTS audit_user_log_state',
+	"'DELETE FROM settings WHERE LEFT(name, 6) = ?'",
+	"['audit_']",
 	'event_uuid char(36)',
 	'operation_outcome',
 	'external_attempts',

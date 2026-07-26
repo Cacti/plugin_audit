@@ -32,6 +32,8 @@ $audit_auth_fail_usernames  = [];
 $audit_auth_state_conflict  = false;
 $audit_auth_affected_rows   = 0;
 $audit_auth_transaction     = null;
+$audit_auth_log_exists      = true;
+$audit_auth_executed_sql    = [];
 
 function read_config_option(string $name, bool $force = false): string {
 	global $audit_auth_config, $audit_auth_settings_rows;
@@ -51,7 +53,9 @@ function set_config_option(string $name, string $value): void {
 }
 
 function db_execute_prepared(string $sql, array $params = []): bool {
-	global $audit_auth_recorded_events, $audit_auth_state_rows, $audit_auth_settings_rows, $audit_auth_insert_fails, $audit_auth_fail_usernames, $audit_auth_state_conflict, $audit_auth_affected_rows, $audit_auth_transaction;
+	global $audit_auth_recorded_events, $audit_auth_state_rows, $audit_auth_settings_rows, $audit_auth_insert_fails, $audit_auth_fail_usernames, $audit_auth_state_conflict, $audit_auth_affected_rows, $audit_auth_transaction, $audit_auth_executed_sql;
+
+	$audit_auth_executed_sql[] = $sql;
 
 	if (strpos($sql, 'START TRANSACTION') !== false) {
 		$audit_auth_transaction = [
@@ -263,6 +267,12 @@ function db_affected_rows(): int {
 }
 
 function db_table_exists(string $table): bool {
+	global $audit_auth_log_exists;
+
+	if ($table === 'audit_log') {
+		return $audit_auth_log_exists;
+	}
+
 	return in_array($table, ['user_log', 'audit_user_log_state'], true);
 }
 
@@ -310,7 +320,7 @@ function audit_test_assert_true(bool $condition, string $message): void {
 }
 
 function audit_test_reset_state(): void {
-	global $audit_auth_recorded_events, $audit_auth_state_rows, $audit_auth_set_options, $audit_auth_settings_rows, $audit_auth_insert_fails, $audit_auth_fail_usernames, $audit_auth_state_conflict, $audit_auth_affected_rows, $audit_auth_transaction;
+	global $audit_auth_recorded_events, $audit_auth_state_rows, $audit_auth_set_options, $audit_auth_settings_rows, $audit_auth_insert_fails, $audit_auth_fail_usernames, $audit_auth_state_conflict, $audit_auth_affected_rows, $audit_auth_transaction, $audit_auth_log_exists, $audit_auth_executed_sql;
 	$audit_auth_recorded_events = [];
 	$audit_auth_state_rows      = [];
 	$audit_auth_set_options     = [];
@@ -320,6 +330,8 @@ function audit_test_reset_state(): void {
 	$audit_auth_state_conflict  = false;
 	$audit_auth_affected_rows   = 0;
 	$audit_auth_transaction     = null;
+	$audit_auth_log_exists      = true;
+	$audit_auth_executed_sql    = [];
 }
 
 // ---------------------------------------------------------------------------
@@ -631,7 +643,20 @@ audit_test_assert_same(0, count($audit_auth_recorded_events), 'Pre-destroy must 
 $audit_auth_config['audit_auth_log_enabled'] = 'on';
 
 // ---------------------------------------------------------------------------
-// 11. Unauthorized auth-settings save uses the generic event type
+// 11. Uninstall lifecycle: shutdown callbacks tolerate removed tables
+// ---------------------------------------------------------------------------
+
+audit_test_reset_state();
+$audit_auth_log_exists = false;
+
+audit_test_assert_same(0, audit_record_event('audit.test.after_uninstall'), 'Recording must no-op after audit_log is removed.');
+audit_finalize_request(123);
+audit_deliver_external_event(123);
+audit_retry_external_logs();
+audit_test_assert_same([], $audit_auth_executed_sql, 'Late callbacks must not query audit_log after plugin uninstall.');
+
+// ---------------------------------------------------------------------------
+// 12. Unauthorized auth-settings save uses the generic event type
 // ---------------------------------------------------------------------------
 
 // audit_enforce_syslog_settings_request() reads POST via filter_input_array
