@@ -16,7 +16,14 @@ $required_controller_guards = [
 	"case 'syslog_test':",
 	"case 'syslog_retry':",
 	'audit_syslog_test_delivery()',
-	'audit_syslog_retry_dead_letters($delivery_ids)'
+	'audit_syslog_retry_dead_letters($delivery_ids)',
+	"if (!audit_syslog_enabled()) {\n\t\treturn;",
+	"if (audit_syslog_enabled() && db_table_exists('audit_syslog_delivery'))",
+	'cacti_sizeof($syslog) > 0',
+	'$syslog[\'state\'] ?? \'unknown\'',
+	'$syslog[\'attempts\'] ?? 0',
+	'$syslog[\'sent_time\'] ?? \'\'',
+	'$syslog[\'last_error\'] ?? \'\''
 ];
 
 foreach ($required_controller_guards as $guard) {

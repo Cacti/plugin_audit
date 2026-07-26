@@ -13,9 +13,6 @@
 * security: Restrict authentication auditing and brute-force detection settings to Audit Log Admin users and enforce authorization on save
 * security: Gate the original logout event behind the authentication auditing master switch
 * security: Persist authentication defaults on install and upgrade without overwriting existing administrator choices
-* issue: Remove all plugin-owned audit settings during uninstall
-* issue: Make late request-finalization callbacks safe after plugin tables are removed
-* issue: Test integration CI against both Cacti 1.2.x and develop branches
 
 * feature: Add standards-based remote Syslog delivery over UDP, TCP, and verified TLS
 * feature: Add RFC 5424 headers with RFC 5424, CEF, or compact JSON message formats
