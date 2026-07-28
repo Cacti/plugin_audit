@@ -29,6 +29,11 @@ describe('audit setup.php structure', function () {
 		expect($source)->toContain("'info'");
 	});
 
+	it('returns an array when plugin info is missing or malformed', function () use ($source) {
+		expect($source)->toContain("\$info['info'] ?? null");
+		expect($source)->toContain('is_array($plugin_info) ? $plugin_info : []');
+	});
+
 	it('INFO file defines name and version keys', function () {
 		$info_file = realpath(__DIR__ . '/../../INFO');
 		expect($info_file)->not->toBeFalse('INFO file must exist');

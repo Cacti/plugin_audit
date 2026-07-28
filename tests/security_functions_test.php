@@ -2,11 +2,15 @@
 
 require_once dirname(__DIR__) . '/audit_functions.php';
 
-$audit_test_realms              = [];
-$audit_test_existing_users      = [];
-$audit_test_user_realms         = [];
-$audit_test_user_query_failure  = false;
-$audit_test_realm_query_failure = false;
+$audit_test_realms                = [];
+$audit_test_existing_users        = [];
+$audit_test_user_realms           = [];
+$audit_test_user_query_failure    = false;
+$audit_test_realm_query_failure   = false;
+$audit_test_object_query_failure  = false;
+$audit_test_external_event        = false;
+$audit_test_external_updates      = [];
+$audit_test_config_options        = [];
 
 function api_plugin_user_realm_auth($filename = '') {
 	global $audit_test_realms;
@@ -27,9 +31,9 @@ function db_fetch_cell_prepared($sql, $params = []) {
 }
 
 function db_fetch_assoc_prepared($sql, $params = []) {
-	global $audit_test_user_realms, $audit_test_realm_query_failure;
+	global $audit_test_user_realms, $audit_test_realm_query_failure, $audit_test_object_query_failure;
 
-	if ($audit_test_realm_query_failure) {
+	if ($audit_test_realm_query_failure || $audit_test_object_query_failure) {
 		return false;
 	}
 
@@ -39,6 +43,26 @@ function db_fetch_assoc_prepared($sql, $params = []) {
 	return array_map(function ($realm_id) {
 		return ['realm_id' => $realm_id];
 	}, $realm_ids);
+}
+
+function db_fetch_row_prepared(string $sql, array $params = []): array|false {
+	global $audit_test_external_event;
+
+	return $audit_test_external_event;
+}
+
+function db_execute_prepared(string $sql, array $params = []): bool {
+	global $audit_test_external_updates;
+
+	$audit_test_external_updates[] = ['sql' => $sql, 'params' => $params];
+
+	return true;
+}
+
+function read_config_option(string $name): mixed {
+	global $audit_test_config_options;
+
+	return $audit_test_config_options[$name] ?? '';
 }
 
 function audit_test_assert_same($expected, $actual, $message) {
@@ -127,6 +151,14 @@ audit_test_assert_same(
 	'A failed verification query must preserve an unknown outcome.'
 );
 $audit_test_realm_query_failure = false;
+
+$audit_test_object_query_failure = true;
+audit_test_assert_same(
+	[],
+	json_decode(audit_process_page_data('automation_devices.php', '1', ['42']), true),
+	'Failed automation-device queries must not add false entries to object data.'
+);
+$audit_test_object_query_failure = false;
 
 $request = [
 	'username' => 'operator',
@@ -285,6 +317,24 @@ $temporary_log = tempnam(sys_get_temp_dir(), 'audit-test-');
 $delivery      = audit_append_external_log($temporary_log, "test-record\n");
 audit_test_assert_same('delivered', $delivery['status'], 'A complete external log write must report delivery.');
 audit_test_assert_same("test-record\n", file_get_contents($temporary_log), 'External log content must be complete.');
+
+$audit_test_config_options = [
+	'audit_log_external'        => 'on',
+	'audit_log_external_path'   => $temporary_log,
+	'audit_log_external_format' => 'json'
+];
+$audit_test_external_event   = false;
+$audit_test_external_updates = [];
+file_put_contents($temporary_log, '');
+audit_deliver_external_event(999);
+audit_test_assert_same('', file_get_contents($temporary_log), 'Missing audit events must not create external records.');
+audit_test_assert_same([], $audit_test_external_updates, 'Missing audit events must not update delivery status.');
+
+$audit_test_external_event = [];
+audit_deliver_external_event(999);
+audit_test_assert_same('', file_get_contents($temporary_log), 'Empty audit events must not create external records.');
+audit_test_assert_same([], $audit_test_external_updates, 'Empty audit events must not update delivery status.');
+
 unlink($temporary_log);
 
 print "Security helper tests passed.\n";

@@ -43,42 +43,53 @@ jobs:
     name: PHP ${{ matrix.php }} Code Quality
 
     steps:
+      - name: Checkout Cacti
+        uses: actions/checkout@v4
+        with:
+          repository: Cacti/cacti
+          ref: develop
+          path: cacti
+
       - name: Checkout audit Plugin
         uses: actions/checkout@v4
+        with:
+          path: cacti/plugins/audit
 
       - name: Install PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: intl, mbstring, dom, xml, json, sockets
+          extensions: intl, mysql, gd, ldap, gmp, mbstring, dom, xml, json, sockets
           coverage: none
           ini-values: "memory_limit=512M"
 
       - name: Check PHP version
         run: php -v
 
-      - name: Validate composer.json
+      - name: Validate Cacti Composer files
         run: composer validate --strict
+        working-directory: cacti
 
-      - name: Install Composer Dependencies
-        run: composer install --prefer-dist --no-progress --ignore-platform-reqs
+      - name: Install Cacti development dependencies
+        run: composer install --prefer-dist --no-progress
+        working-directory: cacti
 
-      - name: Check PHP Syntax
-        run: |
-          if find . -name '*.php' -not -path './vendor/*' -not -path './locales/*' -exec php -l {} \; 2>&1 | grep -iv 'no syntax errors detected'; then
-            echo "Syntax errors found!"
-            exit 1
-          fi
+      - name: Lint audit Plugin
+        run: include/vendor/bin/phplint --no-cache --exclude=locales plugins/audit
+        working-directory: cacti
 
       - name: Run PHP-CS-Fixer (dry-run)
-        run: vendor/bin/php-cs-fixer fix --dry-run --diff --config=./.php-cs-fixer.php --allow-unsupported-php-version=yes
+        run: include/vendor/bin/php-cs-fixer fix --dry-run --diff --config=plugins/audit/.php-cs-fixer.php --allow-unsupported-php-version=yes
+        working-directory: cacti
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse --memory-limit=512M --no-progress
+        run: include/vendor/bin/phpstan analyse --configuration=plugins/audit/.phpstan.neon --memory-limit=512M --no-progress
+        working-directory: cacti
 
       - name: Run Pest Tests
         if: ${{ matrix.php != '8.1' }}
-        run: vendor/bin/pest tests/Security --display-warnings
+        run: include/vendor/bin/pest plugins/audit/tests/Security --display-warnings
+        working-directory: cacti
 
       - name: Run Audit Security Helper Tests
         run: |
@@ -86,3 +97,4 @@ jobs:
           php tests/controller_security_test.php
           php tests/syslog_queue_test.php
           timeout 60 php tests/syslog_functions_test.php
+        working-directory: cacti/plugins/audit

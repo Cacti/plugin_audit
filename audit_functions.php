@@ -53,9 +53,9 @@ function audit_process_page_data(string $page, mixed $drop_action, array $select
 							$row['snmp'] = ($row['snmp'] == 1) ? 'UP' : 'Down';
 							$row['up']   = ($row['up'] == 1) ? 'Yes' : 'No';
 						}
-					}
 
-					$objects[] = $result;
+						$objects[] = $result;
+					}
 				}
 
 				break;
@@ -445,7 +445,7 @@ function audit_deliver_external_event(int $id): void {
 
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
-	if (is_array($event) && $event['request_status'] == 'started') {
+	if (!is_array($event) || $event === [] || ($event['request_status'] ?? '') === 'started') {
 		return;
 	}
 
@@ -458,7 +458,7 @@ function audit_deliver_external_event(int $id): void {
 	}
 
 	$format   = read_config_option('audit_log_external_format') === 'text' ? 'text' : 'json';
-	$message  = audit_external_log_format(audit_external_event_data(is_array($event) ? $event : []), $format);
+	$message  = audit_external_log_format(audit_external_event_data($event), $format);
 	$delivery = audit_append_external_log($path, $message);
 	audit_set_external_status($id, $delivery['status'], $delivery['error']);
 }

@@ -23,9 +23,6 @@
 
 locales/po/*.mo
 
-# Composer
-vendor/
-
 # PHPStan
 phpstan.cache/
 .phpstan-baseline.neon.local
