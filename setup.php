@@ -542,9 +542,10 @@ function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
  */
 function plugin_audit_version(): array {
 	global $config;
-	$info = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
+	$info        = parse_ini_file($config['base_path'] . '/plugins/audit/INFO', true);
+	$plugin_info = is_array($info) ? ($info['info'] ?? null) : null;
 
-	return is_array($info) ? $info['info'] : [];
+	return is_array($plugin_info) ? $plugin_info : [];
 }
 
 function audit_log_valid_event(): bool {

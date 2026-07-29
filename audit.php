@@ -128,7 +128,7 @@ switch(get_request_var('action')) {
 			WHERE id = ?',
 			[get_filter_request_var('id')]);
 
-		if (!is_array($data)) {
+		if (!is_array($data) || $data === []) {
 			http_response_code(404);
 			print html_escape(__('Audit event not found.', 'audit'));
 

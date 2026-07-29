@@ -17,6 +17,7 @@ $required_controller_guards = [
 	"case 'syslog_retry':",
 	'audit_syslog_test_delivery()',
 	'audit_syslog_retry_dead_letters($delivery_ids)',
+	'if (!is_array($data) || $data === [])',
 	"if (!audit_syslog_enabled()) {\n\t\treturn;",
 	"if (audit_syslog_enabled() && db_table_exists('audit_syslog_delivery'))",
 	'cacti_sizeof($syslog) > 0',
