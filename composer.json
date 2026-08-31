@@ -1,0 +1,24 @@
+{
+    "name": "cacti/plugin_audit",
+    "description": "plugin_audit plugin for Cacti",
+    "license": "GPL-2.0-or-later",
+    "require-dev": {
+        "pestphp/pest": "^1.23"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4.33"
+        },
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "autoload-dev": {
+        "files": [
+            "tests/bootstrap.php"
+        ]
+    },
+    "scripts": {
+        "test": "vendor/bin/pest"
+    }
+}

@@ -190,7 +190,8 @@ if (!function_exists('sql_save')) {
 }
 
 if (!defined('CACTI_PATH_BASE')) {
-	define('CACTI_PATH_BASE', '/var/www/html/cacti');
+	$test_root = realpath(__DIR__ . '/..');
+	define('CACTI_PATH_BASE', $test_root !== false ? $test_root : dirname(__DIR__));
 }
 
 if (!defined('POLLER_VERBOSITY_LOW')) {
@@ -211,4 +212,22 @@ if (!defined('POLLER_VERBOSITY_NONE')) {
 
 if (!defined('MESSAGE_LEVEL_ERROR')) {
 	define('MESSAGE_LEVEL_ERROR', 1);
+}
+
+if (!function_exists('plugin_test_read_source')) {
+	function plugin_test_read_source(string $relative_file) : string {
+		$path = realpath(__DIR__ . '/../' . $relative_file);
+
+		if ($path === false) {
+			throw new RuntimeException("Unable to resolve required file: {$relative_file}");
+		}
+
+		$contents = file_get_contents($path);
+
+		if ($contents === false) {
+			throw new RuntimeException("Unable to read required file: {$relative_file}");
+		}
+
+		return $contents;
+	}
 }
