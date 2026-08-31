@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 require_once __DIR__ . '/audit_syslog.php';
 
 function audit_user_is_admin(): bool {
@@ -11,6 +13,10 @@ function audit_user_is_admin(): bool {
  */
 function audit_process_page_data(string $page, mixed $drop_action, array $selected_items): string {
 	$objects = [];
+
+	if ($page === '') {
+		return audit_json_encode($objects);
+	}
 
 	if ($drop_action !== false) {
 		switch ($page) {
