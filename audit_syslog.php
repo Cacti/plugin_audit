@@ -709,7 +709,9 @@ function audit_syslog_send_event(array $event, array $config, mixed &$socket = n
 }
 
 function audit_enqueue_syslog_event(int $audit_id): void {
-	if (!audit_syslog_enabled() || !db_table_exists('audit_syslog_delivery')) {
+	if (!audit_syslog_enabled() ||
+		!audit_log_table_available() ||
+		!db_table_exists('audit_syslog_delivery')) {
 		return;
 	}
 
@@ -808,7 +810,7 @@ function audit_syslog_update_delivery(array $delivery, array $result, array $con
 }
 
 function audit_process_syslog_queue(): void {
-	if (!audit_syslog_enabled() || !db_table_exists('audit_syslog_delivery')) {
+	if (!audit_log_table_available() || !audit_syslog_enabled() || !db_table_exists('audit_syslog_delivery')) {
 		return;
 	}
 

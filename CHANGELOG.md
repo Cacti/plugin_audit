@@ -1,6 +1,22 @@
 # ChangeLog
 
---- develop ---
+--- 1.6 ---
+
+* feature: Capture login failure, token, credentials-accepted, and authorization-denied events by polling the Cacti user_log table across all authentication methods
+* feature: Ingest user_log every poller cycle with bounded high-water paging and retry-safe claim-first deduplication via audit_user_log_state
+* feature: Apply the audit retention cutoff to every ingestion batch so historical rows are not replayed
+* feature: Detect installation-wide failed-login volume anomalies every poller cycle with explicit global scope, source cardinality, and atomically throttled alerts
+* performance: Add index-backed access paths for bounded user_log ingestion and failed-login aggregation
+* feature: Capture authorization-denied events through Cacti's custom_denied hook without taking over the denied-page rendering, with referer paths and query strings redacted
+* feature: Confirm session teardown through the logout_post_session_destroy hook, correlated with the existing pre-destroy logout event
+* security: Record user_log result=1 as credentials_accepted with unknown outcome, not a confirmed login success
+* security: Record ambiguous user_log result=3/user_id=0 and unsupported result codes as unknown rather than misclassifying them
+* security: Restrict authentication auditing and brute-force detection settings to Audit Log Admin users and enforce authorization on save
+* security: Make authentication auditing opt-in, seed upgrades at the current epoch, and preserve existing administrator choices
+* security: Bound failed-row retries, reserve ingestion capacity for new rows, and recover interrupted finalization through deterministic event UUIDs
+* security: Make marker cleanup replay-safe and rate-proportional, with terminal-loss evidence retained in the Cacti log when audit table writes fail
+* security: Restrict the audit master switch, retention, and external file controls to Audit Log Admin users
+* performance: Create and remove plugin-owned user_log indexes only when authentication auditing is enabled or disabled
 
 * feature: Add standards-based remote Syslog delivery over UDP, TCP, and verified TLS
 * feature: Add RFC 5424 headers with RFC 5424, CEF, or compact JSON message formats
