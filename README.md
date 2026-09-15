@@ -117,8 +117,78 @@ request. Matching state is recorded as `success` with outcome reason
 
 The plugin also audits access to its own event list, searches, event details,
 exports and purge operations. Logout and session-timeout events are captured
-through Cacti's supported `logout_pre_session_destroy` hook. Database-level
-changes, API activity and MFA events are outside the current Cacti 1.2.x scope.
+through Cacti's supported `logout_pre_session_destroy` hook, and session
+teardown is confirmed through the `logout_post_session_destroy` hook.
+
+Login failure, token (remember-me and 2FA), credentials-accepted, and
+authorization-denied events are captured by polling Cacti's `user_log` table
+from the poller and through the `custom_denied` hook. The `user_log` table is
+the authoritative source across all Cacti authentication methods (local, LDAP,
+basic, and domains) and is stable across the 1.2.x and develop branches, so
+the plugin does not rely on the local-auth-only `login_process` hook.
+Authentication ingestion and failed-login volume detection are opt-in. The
+install/upgrade watermark starts at the current time, so enabling the feature
+does not backfill historical login records.
+
+Cacti writes `user_log` `result = 1` before verifying that the account is
+enabled, authorized for any realm, or has completed 2FA. The plugin therefore
+records this as `cacti.auth.login.credentials_accepted` with
+`operation_outcome = unknown`, not as a confirmed successful login. Cacti's
+password-change inserts and the develop branch's failed-2FA inserts both write
+`result = 3` with `user_id = 0`, so `user_log` alone cannot disambiguate them;
+the plugin records these as `cacti.auth.password_change_or_2fa_failed` with
+`operation_outcome = unknown`. Unsupported result codes are recorded as
+`cacti.auth.login.unknown` with `operation_outcome = unknown`.
+
+Ingestion runs every poller cycle with a bounded workload (default 1000 rows
+per cycle, configurable via `audit_user_log_batch_size`). Deduplication is
+durable and database-backed: each processed `user_log` primary-key tuple is
+recorded once in typed `audit_user_log_state` columns, so repeated and
+concurrent pollers cannot double-record the same source row. The source
+timestamp is stored as a Unix epoch, so changing the MySQL session timezone
+does not change event identity. A zero-valued marker claims a source
+row before event creation; after the event is durable, the marker is finalized
+with its audit ID. A deterministic event UUID reconnects an event inserted
+before an interrupted finalization, preventing duplicates after a process
+restart. Failed rows stop retrying after five attempts, while half of each
+batch remains available for new rows. State markers survive audit-log purges
+and expired markers are reclaimed every poller cycle at the configured
+ingestion rate. Marker age is measured from claim time; completed markers
+inside the five-minute replay floor remain in place, preventing duplicate
+external delivery on quiet installations. Terminal retry markers are reported
+to the Cacti log and become replayable after the fixed seven-day horizon.
+
+The state key mirrors Cacti's own `user_log` primary key
+(`username`, `user_id`, `time`). Source rows that Cacti considers identical,
+including same-second duplicates under the table's collation, cannot coexist in
+`user_log` and therefore cannot be collapsed by plugin-side deduplication.
+
+Before enabling authentication auditing, an Audit Log Admin must explicitly
+run `php plugins/audit/audit_auth_indexes.php`. The command verifies Cacti's
+`user_log` identity contract and installs dedicated local indexes for
+time-ordered ingestion and failed-login aggregation. Checkbox and poller paths
+never run DDL against the core table. Uninstall removes only allowlisted,
+plugin-owned indexes; remote collector schemas are not modified.
+
+Every ingestion query applies the later of the audit-retention cutoff and a
+durable high-water mark minus a five-minute retry grace period. This bounds
+steady-state work, keeps recent failed rows retryable, and prevents a retention
+increase from replaying previously audited history. Pending retries are queried
+separately and never lower that floor. Source epochs are rendered as UTC before
+they are written to `audit_log.event_time`.
+
+Failed-login volume detection runs every poller cycle and emits a
+`cacti.auth.failed_login_volume_anomaly` critical event when installation-wide
+failed logins exceed a configurable threshold within a rolling window. The
+event is explicitly global and reports distinct username and source-IP counts;
+it does not attribute unrelated failures to one attacker. Alert emission is
+atomically throttled to one event per window via a conditional `UPDATE` on the
+settings table, so concurrent pollers cannot emit duplicate alerts. The
+throttle marker is only persisted after a confirmed audit insert.
+The audit master switch, retention, external-file, authentication-auditing,
+and remote Syslog settings are restricted to Audit Log Admin users.
+Database-level changes and API activity remain outside the current Cacti 1.2.x
+scope.
 
 ## Permissions
 

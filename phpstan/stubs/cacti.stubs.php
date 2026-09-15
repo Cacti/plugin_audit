@@ -161,6 +161,7 @@ function db_fetch_insert_id(string $table = ''): int {
 	return 0;
 }
 
+/** @phpstan-impure */
 function db_affected_rows(mixed $db_conn = false): int {
 	return 0;
 }
@@ -173,6 +174,7 @@ function db_table_exists(string $table, bool $log = true, mixed $db_conn = false
 	return false;
 }
 
+/** @phpstan-impure */
 function db_index_exists(string $table, string $index, bool $log = true, mixed $db_conn = false): bool {
 	return false;
 }
@@ -186,6 +188,7 @@ function read_config_option(string $name, bool $global = false): mixed {
 	return false;
 }
 
+/** @phpstan-impure */
 function set_config_option(string $name, string $value): bool {
 	return false;
 }
@@ -246,6 +249,7 @@ function html_escape_request_var(string $name): string {
 
 // ----- Logging / Misc ------------------------------------------------
 
+/** @phpstan-impure */
 function cacti_log(string $string, bool $output = false, string $environment = '', int $level = 1, bool $force = false): bool {
 	return false;
 }

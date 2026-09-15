@@ -335,6 +335,14 @@ audit_deliver_external_event(999);
 audit_test_assert_same('', file_get_contents($temporary_log), 'Empty audit events must not create external records.');
 audit_test_assert_same([], $audit_test_external_updates, 'Empty audit events must not update delivery status.');
 
+$audit_test_external_event = [
+	'request_status'  => 'completed',
+	'external_status' => 'delivered'
+];
+audit_deliver_external_event(999);
+audit_test_assert_same('', file_get_contents($temporary_log), 'A delivered event must not be appended to the external file again.');
+audit_test_assert_same([], $audit_test_external_updates, 'A delivered event must not update delivery status again.');
+
 unlink($temporary_log);
 
 print "Security helper tests passed.\n";

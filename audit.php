@@ -128,7 +128,7 @@ switch(get_request_var('action')) {
 			WHERE id = ?',
 			[get_filter_request_var('id')]);
 
-		if (!is_array($data)) {
+		if ($data === false || cacti_sizeof($data) === 0) {
 			http_response_code(404);
 			print html_escape(__('Audit event not found.', 'audit'));
 
@@ -185,16 +185,21 @@ function audit_render_event_details(array $data): string {
 			LIMIT 1',
 			[$data['id']]);
 
-		if (is_array($syslog)) {
-			$output .= '<br><span><b>' . __('Remote Syslog Delivery:', 'audit') . '</b>  <i>' . html_escape($syslog['state']) . '</i></span>';
-			$output .= '<br><span><b>' . __('Syslog Attempts:', 'audit') . '</b>  <i>' . (int) $syslog['attempts'] . '</i></span>';
+		if (cacti_sizeof($syslog) > 0) {
+			$state      = (string) ($syslog['state'] ?? 'unknown');
+			$attempts   = (int) ($syslog['attempts'] ?? 0);
+			$sent_time  = (string) ($syslog['sent_time'] ?? '');
+			$last_error = (string) ($syslog['last_error'] ?? '');
 
-			if ($syslog['sent_time'] != '') {
-				$output .= '<br><span><b>' . __('Syslog Socket Write:', 'audit') . '</b>  <i>' . html_escape($syslog['sent_time']) . '</i></span>';
+			$output .= '<br><span><b>' . __('Remote Syslog Delivery:', 'audit') . '</b>  <i>' . html_escape($state) . '</i></span>';
+			$output .= '<br><span><b>' . __('Syslog Attempts:', 'audit') . '</b>  <i>' . $attempts . '</i></span>';
+
+			if ($sent_time != '') {
+				$output .= '<br><span><b>' . __('Syslog Socket Write:', 'audit') . '</b>  <i>' . html_escape($sent_time) . '</i></span>';
 			}
 
-			if ($syslog['last_error'] != '') {
-				$output .= '<br><span><b>' . __('Syslog Error:', 'audit') . '</b>  <i>' . html_escape($syslog['last_error']) . '</i></span>';
+			if ($last_error != '') {
+				$output .= '<br><span><b>' . __('Syslog Error:', 'audit') . '</b>  <i>' . html_escape($last_error) . '</i></span>';
 			}
 		}
 	}

@@ -15,7 +15,7 @@ parameters:
 		-
 			message: '#^Call to function set_config_option\(\) on a separate line has no effect\.$#'
 			identifier: function.resultUnused
-			count: 1
+			count: 3
 			path: audit_functions.php
 
 		-
@@ -39,7 +39,7 @@ parameters:
 		-
 			message: '#^Call to function set_config_option\(\) on a separate line has no effect\.$#'
 			identifier: function.resultUnused
-			count: 1
+			count: 2
 			path: setup.php
 
 		-
@@ -89,6 +89,48 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: tests/Security/SetupStructureTest.php
+
+		-
+			message: '#^Call to function in_array\(\) with arguments ''old'', array\{\} and true will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
+			count: 1
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Offset ''audit_brute_force…'' on array\{audit_brute_force_last_alert\: ''''\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Offset 0 does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 9
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Offset 1 does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Offset 3 does not exist on array\{\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: tests/auth_audit_test.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/auth_audit_test.php
 
 		-
 			message: '#^Function __\(\) has no return type specified\.$#'
@@ -579,7 +621,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$haystack of function strpos expects string, string\|false given\.$#'
 			identifier: argument.type
-			count: 11
+			count: 12
 			path: tests/controller_security_test.php
 
 		-

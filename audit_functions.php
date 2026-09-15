@@ -6,6 +6,12 @@ function audit_user_is_admin(): bool {
 	return api_plugin_user_realm_auth('audit_manage.php');
 }
 
+function audit_log_table_available(): bool {
+	// Cacti 1.2.20 and develop both use a request-scoped static cache in
+	// lib/database.php::db_table_exists() outside install mode.
+	return function_exists('db_table_exists') && db_table_exists('audit_log');
+}
+
 /**
  * @param array<int,string> $selected_items
  */
@@ -428,6 +434,10 @@ function audit_append_external_log(string $path, string $message): array {
 }
 
 function audit_set_external_status(int $id, string $status, string $error = ''): void {
+	if (!audit_log_table_available()) {
+		return;
+	}
+
 	db_execute_prepared('UPDATE audit_log
 		SET external_status = ?,
 			external_error = ?,
@@ -439,13 +449,15 @@ function audit_set_external_status(int $id, string $status, string $error = ''):
 }
 
 function audit_deliver_external_event(int $id): void {
-	if (read_config_option('audit_log_external') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
 	}
 
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
-	if (!is_array($event) || $event === [] || ($event['request_status'] ?? '') === 'started') {
+	if (!is_array($event) || $event    === [] ||
+		($event['request_status'] ?? '')  === 'started' ||
+		($event['external_status'] ?? '') === 'delivered') {
 		return;
 	}
 
@@ -464,7 +476,7 @@ function audit_deliver_external_event(int $id): void {
 }
 
 function audit_retry_external_logs(): void {
-	if (read_config_option('audit_log_external') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
 	}
 
@@ -624,6 +636,10 @@ function audit_verify_operation(mixed $verifier): array {
  * @param array<string,mixed>|null $verifier
  */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
+	if (!audit_log_table_available()) {
+		return;
+	}
+
 	$status_code    = http_response_code();
 	$status_code    = is_int($status_code) ? $status_code : 200;
 	$request_status = audit_request_status(error_get_last(), $status_code);
@@ -665,11 +681,11 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
  * @param array<string,mixed> $options
  */
 function audit_record_event(string $event_type, array $options = []): int {
-	if (read_config_option('audit_enabled') != 'on') {
+	if (!audit_log_table_available() || read_config_option('audit_enabled') != 'on') {
 		return 0;
 	}
 
-	$event_uuid     = audit_uuid_v4();
+	$event_uuid     = $options['event_uuid'] ?? audit_uuid_v4();
 	$correlation_id = $options['correlation_id'] ?? audit_request_correlation_id();
 	$user_id        = $options['user_id'] ?? ($_SESSION['sess_user_id'] ?? 0);
 	$page           = $options['page'] ?? basename($_SERVER['SCRIPT_NAME'] ?? 'cli');
@@ -681,7 +697,7 @@ function audit_record_event(string $event_type, array $options = []): int {
 	$ip_address     = $options['ip_address'] ?? (function_exists('get_client_addr') ? get_client_addr() : '');
 	$user_agent     = $options['user_agent'] ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
 
-	db_execute_prepared('INSERT INTO audit_log (
+	$inserted = db_execute_prepared('INSERT INTO audit_log (
 			page, user_id, action, request_status, ip_address, user_agent, event_time,
 			post, object_data, external_status, event_uuid, correlation_id, event_type,
 			event_category, severity, actor_type, target_type, target_id,
@@ -700,28 +716,769 @@ function audit_record_event(string $event_type, array $options = []): int {
 			$options['duration_ms'] ?? 0, $details
 		]);
 
-	$id    = db_fetch_insert_id();
+	if (!$inserted) {
+		return 0;
+	}
+
+	$id = (int) db_fetch_insert_id();
+
+	if ($id <= 0) {
+		return 0;
+	}
+
 	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
 
 	if (is_array($event)) {
 		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
 			[audit_event_integrity_hash($event), $id]);
 	}
-	audit_deliver_external_event($id);
-	audit_enqueue_syslog_event($id);
+
+	if (empty($options['defer_delivery'])) {
+		audit_deliver_external_event($id);
+		audit_enqueue_syslog_event($id);
+	}
 
 	return $id;
 }
 
 function audit_logout_pre_session_destroy(): void {
+	// Stash the logging-out user identity and request correlation id so the
+	// post-destroy hook can confirm session teardown after $_SESSION is gone.
+	// This runs regardless of the auth-audit switch so the stash is available
+	// if the switch is toggled on between the two hooks (unlikely but safe).
+	audit_logout_stash([
+		'user_id'        => (int) ($_SESSION['sess_user_id'] ?? 0),
+		'correlation_id' => audit_request_correlation_id(),
+		'reason'         => get_nfilter_request_var('action', 'user')
+	]);
+
 	$reason = get_nfilter_request_var('action', 'user');
-	$type   = $reason == 'timeout' ? 'authentication.session.expired' : 'authentication.logout';
+	$type   = $reason === 'timeout' ? 'authentication.session.expired' : 'authentication.logout';
 
 	audit_record_event($type, [
 		'event_category' => 'authentication',
-		'action'         => $reason == 'timeout' ? 'timeout' : 'logout',
+		'action'         => $reason === 'timeout' ? 'timeout' : 'logout',
 		'details'        => ['reason' => $reason]
 	]);
+}
+
+/**
+ * Per-request stash shared between the pre- and post-destroy logout hooks.
+ *
+ * @param  array<string,mixed>|null $set
+ * @return array<string,mixed>
+ */
+function audit_logout_stash(?array $set = null): array {
+	static $stash = [];
+
+	if (is_array($set)) {
+		$stash = $set;
+	}
+
+	return $stash;
+}
+
+function audit_logout_post_session_destroy(): void {
+	if (read_config_option('audit_enabled') !== 'on') {
+		return;
+	}
+
+	if (read_config_option('audit_auth_log_enabled') !== 'on') {
+		return;
+	}
+
+	$stash = audit_logout_stash();
+
+	if (empty($stash)) {
+		return;
+	}
+
+	audit_record_event('authentication.logout.completed', [
+		'event_category'    => 'authentication',
+		'action'            => 'logout_completed',
+		'user_id'           => $stash['user_id'] ?? 0,
+		'correlation_id'    => $stash['correlation_id'] ?? audit_request_correlation_id(),
+		'operation_outcome' => 'success',
+		'details'           => [
+			'reason'            => $stash['reason'] ?? 'user',
+			'session_destroyed' => true
+		]
+	]);
+
+	audit_logout_stash([]);
+}
+
+/**
+ * Map a Cacti user_log result code to an audit event descriptor.
+ *
+ * Cacti writes user_log rows with result codes:
+ *   0 = Failed login
+ *   1 = Credentials accepted (written BEFORE enabled/realm/2FA checks)
+ *   2 = Success - Token (remember-me or 2FA)
+ *   3 = Password Change OR failed 2FA (user_id is omitted, defaulting to 0)
+ *
+ * Cacti writes result=1 before verifying that the account is enabled,
+ * authorized for any realm, or has completed 2FA, so it does not prove an
+ * authenticated session was established. It is recorded as credentials
+ * accepted with operation_outcome=unknown, not success.
+ *
+ * Cacti's password-change inserts and the develop branch's failed-2FA inserts
+ * both write result=3 with user_id=0, so user_log alone cannot disambiguate
+ * them; that combination is recorded as an ambiguous event with
+ * operation_outcome=unknown. No current Cacti path writes result=3 with
+ * user_id>0, but a future version may; that is treated defensively as a
+ * password change with outcome=unknown rather than claiming a confirmed
+ * password change.
+ *
+ * Any unsupported result code is recorded as an explicit unknown event rather
+ * than falling through to a password-change or 2FA event.
+ *
+ * @return array{event_type:string,severity:string,outcome:string,action:string,details:array<string,mixed>}
+ */
+function audit_user_log_event_descriptor(int $result, int $user_id): array {
+	return match (true) {
+		$result === 0 => [
+			'event_type' => 'cacti.auth.login.failed',
+			'severity'   => 'warning',
+			'outcome'    => 'failure',
+			'action'     => 'login_failed',
+			'details'    => []
+		],
+		$result === 1 => [
+			'event_type' => 'cacti.auth.login.credentials_accepted',
+			'severity'   => 'info',
+			'outcome'    => 'unknown',
+			'action'     => 'credentials_accepted',
+			'details'    => [
+				'note' => __('Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established.', 'audit')
+			]
+		],
+		$result === 2 => [
+			'event_type' => 'cacti.auth.login.token',
+			'severity'   => 'info',
+			'outcome'    => 'success',
+			'action'     => 'login_token',
+			'details'    => []
+		],
+		$result === 3 && $user_id > 0 => [
+			'event_type' => 'cacti.auth.password.changed',
+			'severity'   => 'info',
+			'outcome'    => 'unknown',
+			'action'     => 'password_changed',
+			'details'    => [
+				'note' => __('No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome.', 'audit')
+			]
+		],
+		$result === 3 => [
+			'event_type' => 'cacti.auth.password_change_or_2fa_failed',
+			'severity'   => 'info',
+			'outcome'    => 'unknown',
+			'action'     => 'password_change_or_2fa_failed',
+			'details'    => [
+				'ambiguous' => true,
+				'note'      => __('Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate.', 'audit')
+			]
+		],
+		default => [
+			'event_type' => 'cacti.auth.login.unknown',
+			'severity'   => 'info',
+			'outcome'    => 'unknown',
+			'action'     => 'unknown_result',
+			'details'    => [
+				'unsupported_result_code' => $result
+			]
+		]
+	};
+}
+
+function audit_user_log_event_uuid(string $username, int $user_id, int $source_epoch): string {
+	$hex     = hash('sha256', "cacti-audit-user-log\0{$username}\0{$user_id}\0{$source_epoch}");
+	$variant = dechex((hexdec($hex[16]) & 0x3) | 0x8);
+
+	return substr($hex, 0, 8) . '-' .
+		substr($hex, 8, 4) . '-5' .
+		substr($hex, 13, 3) . '-' . $variant .
+		substr($hex, 17, 3) . '-' .
+		substr($hex, 20, 12);
+}
+
+function audit_log_ingestion_warning(string $message): void {
+	cacti_log('WARNING: ' . $message, false, 'POLLER');
+}
+
+function audit_report_ingestion_unavailable(string $reason): void {
+	audit_log_ingestion_warning('Authentication audit ingestion unavailable: ' . $reason);
+
+	$now  = time();
+	$last = (int) read_config_option('audit_auth_ingestion_last_alert', true);
+
+	if ($last > 0 && ($now - $last) < 3600) {
+		return;
+	}
+
+	set_config_option('audit_auth_ingestion_last_alert', (string) $now);
+	audit_record_event('audit.authentication.ingestion.unavailable', [
+		'event_category'    => 'audit',
+		'severity'          => 'warning',
+		'action'            => 'ingest',
+		'target_type'       => 'authentication_auditing',
+		'operation_outcome' => 'failure',
+		'outcome_reason'    => $reason
+	]);
+}
+
+function audit_report_dropped_user_log_row(string $username, int $user_id, int $source_epoch, int $result): void {
+	$details = compact('username', 'user_id', 'source_epoch', 'result');
+
+	// The primary evidence channel must remain available when audit_log writes
+	// are the failure that exhausted retries. The structured event is best effort.
+	cacti_log(
+		'ERROR: Authentication audit dropped user_log row after retry exhaustion ' . audit_json_encode($details),
+		false,
+		'POLLER'
+	);
+	audit_record_event('audit.authentication.ingestion.dropped', [
+		'event_category'    => 'audit',
+		'severity'          => 'error',
+		'action'            => 'drop',
+		'target_type'       => 'user_log_row',
+		'target_id'         => $username,
+		'operation_outcome' => 'failure',
+		'outcome_reason'    => 'maximum_retries_exhausted',
+		'details'           => $details
+	]);
+}
+
+function audit_cleanup_user_log_state(int $max_retries = 5, ?int $budget = null, bool $report_terminal = false): void {
+	if (!db_table_exists('audit_user_log_state')) {
+		return;
+	}
+
+	$budget       = max(1, min(5000, $budget ?? (int) read_config_option('audit_user_log_batch_size')));
+	$watermark    = max(0, (int) read_config_option('audit_user_log_watermark_epoch', true));
+	$replay_floor = max(0, $watermark - 300);
+
+	if ($report_terminal) {
+		$terminal_count = (int) db_fetch_cell_prepared(
+			'SELECT COUNT(*) FROM audit_user_log_state WHERE audit_id = 0 AND retry_count >= ?',
+			[$max_retries]
+		);
+
+		if ($terminal_count > 0) {
+			cacti_log(
+				'WARNING: Authentication audit has ' . $terminal_count . ' terminal retry marker(s)',
+				false,
+				'POLLER'
+			);
+		}
+	}
+
+	// Reap at least one ingestion batch per poller cycle. Marker age is based on
+	// claim time, while source_epoch remains the immutable source-row identity.
+	db_execute_prepared('DELETE FROM audit_user_log_state
+			WHERE audit_id = 0
+			AND retry_count >= ?
+			AND source_time < DATE_SUB(UTC_TIMESTAMP(), INTERVAL 7 DAY)
+			LIMIT ' . (int) $budget,
+		[$max_retries]);
+
+	db_execute_prepared('DELETE FROM audit_user_log_state
+			WHERE audit_id > 0
+			AND source_epoch < ?
+			AND source_time < DATE_SUB(UTC_TIMESTAMP(), INTERVAL 7 DAY)
+			LIMIT ' . (int) $budget,
+		[$replay_floor]);
+}
+
+/**
+ * Poll Cacti's user_log table for new login/logout/token/password-change
+ * outcomes and record them as audit events. The user_log table is the
+ * authoritative source across all auth methods (local, LDAP, basic, domains)
+ * and is stable across the 1.2.x and develop branches, so this avoids
+ * relying on the local-auth-only login_process hook.
+ *
+ * Deduplication is durable and database-backed: each processed user_log
+ * primary-key tuple (username, user_id, UNIX_TIMESTAMP(time)) is recorded in
+ * audit_user_log_state. Explicit typed columns define identity once; a marker
+ * with audit_id=0 claims the source row before event creation without relying
+ * on transactions that Cacti's per-statement retry layer cannot preserve.
+ *
+ * Each cycle selects a bounded batch of stale retry markers followed by new
+ * rows above the high-water floor. Pending markers never lower that floor.
+ */
+function audit_poll_user_log(): void {
+	$auth_enabled = read_config_option('audit_enabled') === 'on' &&
+		read_config_option('audit_auth_log_enabled')       === 'on';
+	$last_state   = (string) read_config_option('audit_auth_log_last_state', true);
+
+	if (!$auth_enabled) {
+		if ($last_state !== 'off') {
+			set_config_option('audit_auth_log_last_state', 'off');
+		}
+
+		return;
+	}
+
+	if (!function_exists('db_table_exists') || !db_table_exists('user_log')) {
+		audit_report_ingestion_unavailable('user_log_missing');
+
+		return;
+	}
+
+	if (!db_table_exists('audit_user_log_state')) {
+		audit_report_ingestion_unavailable('audit_user_log_state_missing');
+
+		return;
+	}
+
+	if (!audit_user_log_identity_supported()) {
+		audit_report_ingestion_unavailable('user_log_identity_unsupported');
+
+		return;
+	}
+
+	if ($last_state !== 'on') {
+		if (!audit_user_log_indexes_available()) {
+			audit_report_ingestion_unavailable('user_log_indexes_unavailable');
+
+			return;
+		}
+
+		$activation_epoch = (int) db_fetch_cell_prepared('SELECT UNIX_TIMESTAMP()');
+
+		if ($activation_epoch <= 0) {
+			audit_report_ingestion_unavailable('database_clock_unavailable');
+
+			return;
+		}
+
+		set_config_option('audit_auth_log_last_state', 'on');
+		set_config_option('audit_user_log_watermark_epoch', (string) $activation_epoch);
+		set_config_option('audit_user_log_activation_epoch', (string) $activation_epoch);
+
+		// Begin on the next cycle so every selected row is strictly newer than
+		// the activation watermark.
+		return;
+	}
+
+	$batch_size = (int) read_config_option('audit_user_log_batch_size');
+
+	if ($batch_size < 1) {
+		$batch_size = 1000;
+	} elseif ($batch_size > 5000) {
+		$batch_size = 5000;
+	}
+
+	$retention = (int) read_config_option('audit_retention');
+
+	if ($retention <= 0) {
+		$retention = 90;
+	}
+
+	$retention_epoch  = audit_retention_cutoff($retention)->getTimestamp();
+	$watermark        = max(0, (int) read_config_option('audit_user_log_watermark_epoch', true));
+	$replay_floor     = $watermark > 0 ? $watermark - 300 : 0;
+	$activation_floor = max(0, (int) read_config_option('audit_user_log_activation_epoch', true));
+	$lower_bound      = max($retention_epoch, $replay_floor, $activation_floor);
+	$max_retries      = 5;
+	$pending_limit    = $batch_size > 1 ? max(1, intdiv($batch_size, 2)) : 1;
+	// MySQL LIMIT placeholders may be string-bound under emulated prepares.
+	// These integers are fixed or clamped above before interpolation.
+	$pending_rows    = db_fetch_assoc_prepared(
+		'SELECT ul.username, ul.user_id, ul.result, ul.ip,
+				UNIX_TIMESTAMP(ul.time) AS source_epoch,
+				auls.audit_id AS state_audit_id,
+				auls.retry_count
+			FROM audit_user_log_state AS auls
+			INNER JOIN user_log AS ul
+				ON ul.username = auls.source_username
+				AND ul.user_id = auls.source_user_id
+				AND UNIX_TIMESTAMP(ul.time) = auls.source_epoch
+			WHERE auls.audit_id = 0
+			AND auls.retry_count < ?
+			AND auls.processed_time < DATE_SUB(UTC_TIMESTAMP(6), INTERVAL 5 MINUTE)
+				ORDER BY ul.time ASC, ul.username ASC, ul.user_id ASC
+				LIMIT ' . (int) $pending_limit,
+		[$max_retries]
+	);
+
+	if ($pending_rows === false) {
+		audit_log_ingestion_warning('Authentication audit retry query failed');
+
+		return;
+	}
+
+	$remaining = max(0, $batch_size - count($pending_rows));
+	$new_rows  = [];
+
+	if ($remaining > 0) {
+		$new_rows = db_fetch_assoc_prepared(
+			'SELECT ul.username, ul.user_id, ul.result, ul.ip,
+					UNIX_TIMESTAMP(ul.time) AS source_epoch,
+					auls.audit_id AS state_audit_id
+				FROM user_log AS ul
+				LEFT JOIN audit_user_log_state AS auls
+					ON auls.source_username = ul.username
+					AND auls.source_user_id = ul.user_id
+					AND auls.source_epoch = UNIX_TIMESTAMP(ul.time)
+				WHERE ul.time > FROM_UNIXTIME(?)
+				AND auls.source_username IS NULL
+				ORDER BY ul.time ASC, ul.username ASC, ul.user_id ASC
+				LIMIT ' . (int) $remaining,
+			[$lower_bound]
+		);
+
+		if ($new_rows === false) {
+			audit_log_ingestion_warning('Authentication audit new-row query failed');
+
+			return;
+		}
+	}
+
+	$rows = array_merge($pending_rows, $new_rows);
+
+	if ($rows === []) {
+		return;
+	}
+
+	$retry_failures  = 0;
+	$retry_exhausted = 0;
+
+	foreach ($rows as $row) {
+		$result       = (int) $row['result'];
+		$user_id      = (int) $row['user_id'];
+		$source_epoch = (int) $row['source_epoch'];
+		$username     = (string) $row['username'];
+
+		if (isset($row['state_audit_id'])) {
+			$claimed = db_execute_prepared('UPDATE audit_user_log_state
+				SET processed_time = UTC_TIMESTAMP(6),
+					retry_count = retry_count + 1
+				WHERE source_username = ?
+				AND source_user_id = ?
+				AND source_epoch = ?
+				AND audit_id = 0
+				AND processed_time < DATE_SUB(UTC_TIMESTAMP(6), INTERVAL 5 MINUTE)',
+				[$username, $user_id, $source_epoch]);
+		} else {
+			$claimed = db_execute_prepared('INSERT IGNORE INTO audit_user_log_state
+				(source_username, source_user_id, source_epoch, source_time, audit_id, retry_count, processed_time)
+				VALUES (?, ?, ?, UTC_TIMESTAMP(), 0, 0, UTC_TIMESTAMP(6))',
+				[$username, $user_id, $source_epoch]);
+		}
+
+		if (!$claimed) {
+			audit_log_ingestion_warning('Authentication audit source-row claim failed; ingestion cycle stopped');
+
+			return;
+		}
+
+		if (db_affected_rows() !== 1) {
+			continue;
+		}
+
+		$descriptor = audit_user_log_event_descriptor($result, $user_id);
+		$event_uuid = audit_user_log_event_uuid($username, $user_id, $source_epoch);
+		$audit_id   = (int) db_fetch_cell_prepared(
+			'SELECT id FROM audit_log WHERE event_uuid = ?',
+			[$event_uuid]
+		);
+		$created = false;
+
+		if ($audit_id <= 0) {
+			$audit_id = audit_record_event($descriptor['event_type'], [
+				'event_uuid'        => $event_uuid,
+				'event_category'    => 'authentication',
+				'action'            => $descriptor['action'],
+				'severity'          => $descriptor['severity'],
+				'operation_outcome' => $descriptor['outcome'],
+				'actor_type'        => $user_id > 0 ? 'user' : 'anonymous',
+				'target_type'       => 'user_account',
+				'target_id'         => $user_id > 0 ? (string) $user_id : $username,
+				'ip_address'        => (string) ($row['ip'] ?? ''),
+				'user_agent'        => '',
+				'page'              => 'user_log.php',
+				'event_time'        => gmdate('Y-m-d H:i:s', $source_epoch),
+				'defer_delivery'    => true,
+				'details'           => [
+					'username'     => $username,
+					'result_code'  => $result,
+					'source_table' => 'user_log',
+					'descriptor'   => $descriptor['details']
+				]
+			]);
+			$created = $audit_id > 0;
+		}
+
+		if ($audit_id <= 0) {
+			$retry_increment = isset($row['state_audit_id']) ? 0 : 1;
+			db_execute_prepared('UPDATE audit_user_log_state
+				SET retry_count = retry_count + ?,
+					processed_time = UTC_TIMESTAMP(6)
+				WHERE source_username = ?
+				AND source_user_id = ?
+				AND source_epoch = ?
+				AND audit_id = 0',
+				[$retry_increment, $username, $user_id, $source_epoch]);
+			$retry_failures++;
+
+			if ((int) ($row['retry_count'] ?? 0) + 1 >= $max_retries) {
+				$retry_exhausted++;
+				audit_report_dropped_user_log_row($username, $user_id, $source_epoch, $result);
+			}
+
+			continue;
+		}
+
+		$finalized = db_execute_prepared(
+			'UPDATE audit_user_log_state
+				SET audit_id = ?
+				WHERE source_username = ?
+				AND source_user_id = ?
+				AND source_epoch = ?
+				AND audit_id = 0',
+			[$audit_id, $username, $user_id, $source_epoch]
+		);
+
+		if (!$finalized || db_affected_rows() !== 1) {
+			if ($created) {
+				db_execute_prepared('DELETE FROM audit_log WHERE id = ?', [$audit_id]);
+			}
+
+			$retry_increment = isset($row['state_audit_id']) ? 0 : 1;
+			db_execute_prepared('UPDATE audit_user_log_state
+				SET retry_count = retry_count + ?,
+					processed_time = UTC_TIMESTAMP(6)
+				WHERE source_username = ?
+				AND source_user_id = ?
+				AND source_epoch = ?
+				AND audit_id = 0',
+				[$retry_increment, $username, $user_id, $source_epoch]);
+			$retry_failures++;
+
+			if ((int) ($row['retry_count'] ?? 0) + 1 >= $max_retries) {
+				$retry_exhausted++;
+				audit_report_dropped_user_log_row($username, $user_id, $source_epoch, $result);
+			}
+
+			continue;
+		}
+
+		db_execute_prepared(
+			'INSERT INTO settings (name, value) VALUES (?, ?)
+				ON DUPLICATE KEY UPDATE value = GREATEST(CAST(value AS UNSIGNED), VALUES(value))',
+			['audit_user_log_watermark_epoch', (string) $source_epoch]
+		);
+
+		audit_deliver_external_event($audit_id);
+		audit_enqueue_syslog_event($audit_id);
+	}
+
+	if ($retry_failures > 0) {
+		audit_log_ingestion_warning(sprintf(
+			'Authentication audit retained %d source row(s) for retry; %d exhausted the %d-attempt limit',
+			$retry_failures,
+			$retry_exhausted,
+			$max_retries
+		));
+	}
+}
+
+/**
+ * Detect a global failed-login volume anomaly within a rolling window.
+ * This intentionally describes aggregate installation-wide activity rather
+ * than attributing unrelated failures to one attacker.
+ */
+function audit_detect_failed_login_volume(): void {
+	if (read_config_option('audit_enabled') !== 'on') {
+		return;
+	}
+
+	if (read_config_option('audit_auth_log_enabled') !== 'on') {
+		return;
+	}
+
+	if (read_config_option('audit_brute_force_enabled') !== 'on') {
+		return;
+	}
+
+	if (!function_exists('db_table_exists') || !db_table_exists('user_log')) {
+		return;
+	}
+
+	$window = (int) read_config_option('audit_brute_force_window_minutes');
+
+	if ($window < 1) {
+		$window = 5;
+	} elseif ($window > 1440) {
+		$window = 1440;
+	}
+
+	$threshold = (int) read_config_option('audit_brute_force_threshold');
+
+	if ($threshold < 1) {
+		$threshold = 10;
+	} elseif ($threshold > 1000) {
+		$threshold = 1000;
+	}
+
+	$metrics = db_fetch_row_prepared(
+		'SELECT COUNT(*) AS failed_attempts,
+				COUNT(DISTINCT username) AS distinct_usernames,
+				COUNT(DISTINCT ip) AS distinct_ips
+			FROM user_log
+			WHERE result = 0
+			AND time >= DATE_SUB(NOW(), INTERVAL ? MINUTE)',
+		[$window]
+	);
+	$count = (int) ($metrics['failed_attempts'] ?? 0);
+
+	if ($count < $threshold) {
+		return;
+	}
+
+	// Atomically claim the alert slot so two concurrent pollers cannot both
+	// emit for the same window. The conditional UPDATE only succeeds if the
+	// last alert is empty or older than the window; the affected-row count
+	// proves ownership. The settings row is created defensively first so a
+	// fresh install can participate in the same atomic claim.
+	$now = gmdate('Y-m-d H:i:s');
+
+	$initialized = db_execute_prepared(
+		'INSERT IGNORE INTO settings (name, value) VALUES (?, ?)',
+		['audit_brute_force_last_alert', '']
+	);
+
+	if (!$initialized) {
+		return;
+	}
+
+	$claimed = db_execute_prepared(
+		"UPDATE settings
+			SET value = ?
+			WHERE name = 'audit_brute_force_last_alert'
+			AND (value = '' OR value = '0'
+				OR STR_TO_DATE(value, '%Y-%m-%d %H:%i:%s') < DATE_SUB(?, INTERVAL ? MINUTE))",
+		[$now, $now, $window]
+	);
+
+	if (!$claimed || db_affected_rows() < 1) {
+		return;
+	}
+
+	$audit_id = audit_record_event('cacti.auth.failed_login_volume_anomaly', [
+		'event_category'    => 'authentication',
+		'action'            => 'failed_login_volume_anomaly',
+		'severity'          => 'critical',
+		'operation_outcome' => 'failure',
+		'actor_type'        => 'system',
+		'target_type'       => 'authentication_environment',
+		'target_id'         => 'global',
+		'details'           => [
+			'scope'              => 'global',
+			'failed_attempts'    => $count,
+			'distinct_usernames' => (int) ($metrics['distinct_usernames'] ?? 0),
+			'distinct_ips'       => (int) ($metrics['distinct_ips'] ?? 0),
+			'window_minutes'     => $window,
+			'threshold'          => $threshold
+		]
+	]);
+
+	// Keep the claimed timestamp after a confirmed successful audit insert.
+	// If the insert failed, release the slot so the next poller can retry.
+	if ($audit_id > 0) {
+		set_config_option('audit_brute_force_last_alert', $now);
+	} else {
+		set_config_option('audit_brute_force_last_alert', '');
+	}
+}
+
+/**
+ * Hook handler for Cacti's custom_denied hook. Records an authorization-
+ * denied event and returns the input mode unchanged so Cacti continues
+ * rendering its default permission-denied page.
+ *
+ * @param  mixed $mode
+ * @return mixed
+ */
+function audit_custom_denied(mixed $mode): mixed {
+	if (read_config_option('audit_enabled') !== 'on') {
+		return $mode;
+	}
+
+	if (read_config_option('audit_auth_log_enabled') !== 'on') {
+		return $mode;
+	}
+
+	$page     = basename($_SERVER['SCRIPT_NAME'] ?? '');
+	$referer  = $_SERVER['HTTP_REFERER'] ?? '';
+	$user_id  = (int) ($_SESSION['sess_user_id'] ?? 0);
+
+	// Record only the referer origin. Paths and query strings can both contain
+	// tokens, reset hashes, OAuth state, or session identifiers.
+	$safe_referer = '';
+
+	if ($referer !== '') {
+		$parsed   = parse_url((string) $referer);
+		$safe_ref = '';
+
+		if (is_array($parsed)) {
+			if (isset($parsed['scheme']) && isset($parsed['host'])) {
+				$safe_ref = $parsed['scheme'] . '://' . $parsed['host'];
+
+				if (isset($parsed['port'])) {
+					$safe_ref .= ':' . $parsed['port'];
+				}
+			}
+		}
+
+		$safe_referer = $safe_ref !== '' ? $safe_ref : '[unparseable]';
+	}
+
+	audit_record_event('cacti.auth.authorization.denied', [
+		'event_category'    => 'authentication',
+		'action'            => 'authorization_denied',
+		'severity'          => 'warning',
+		'operation_outcome' => 'failure',
+		'actor_type'        => $user_id > 0 ? 'user' : 'anonymous',
+		'target_type'       => 'page',
+		'target_id'         => $page,
+		'page'              => $page,
+		'details'           => [
+			'requested_page'   => $page,
+			'referer_origin'   => $safe_referer,
+			'referer_redacted' => $referer !== $safe_referer
+		]
+	]);
+
+	return $mode;
+}
+
+/**
+ * @param  array<string,mixed>          $post
+ * @return array{syslog:bool,auth:bool}
+ */
+function audit_settings_field_groups(array $post): array {
+	$groups = ['syslog' => false, 'auth' => false];
+
+	foreach ($post as $name => $value) {
+		$name = (string) $name;
+
+		if (str_starts_with($name, 'audit_syslog_')) {
+			$groups['syslog'] = true;
+		} elseif (
+			str_starts_with($name, 'audit_auth_') ||
+			str_starts_with($name, 'audit_brute_force_') ||
+			str_starts_with($name, 'audit_log_external') ||
+			$name === 'audit_enabled' ||
+			$name === 'audit_retention' ||
+			$name === 'audit_user_log_batch_size'
+		) {
+			$groups['auth'] = true;
+		}
+	}
+
+	return $groups;
 }
 
 function audit_enforce_syslog_settings_request(): void {
@@ -739,30 +1496,56 @@ function audit_enforce_syslog_settings_request(): void {
 		return;
 	}
 
-	$has_syslog_fields = false;
+	$groups            = audit_settings_field_groups($post);
+	$has_syslog_fields = $groups['syslog'];
+	$has_auth_fields   = $groups['auth'];
 
-	foreach ($post as $name => $value) {
-		if (strpos((string) $name, 'audit_syslog_') === 0) {
-			$has_syslog_fields = true;
-
-			break;
-		}
-	}
-
-	if (!$has_syslog_fields) {
+	if (!$has_syslog_fields && !$has_auth_fields) {
 		return;
 	}
 
 	if (!audit_user_is_admin()) {
-		audit_record_event('audit.syslog.configuration.denied', [
-			'event_category'    => 'audit',
-			'severity'          => 'warning',
-			'action'            => 'save',
-			'target_type'       => 'syslog_configuration',
-			'operation_outcome' => 'failure',
-			'outcome_reason'    => 'audit_admin_required'
-		]);
-		http_response_code(403);
+		// Preserve the syslog-specific denied event when syslog fields are
+		// part of the unauthorized save; use a generic audit-configuration
+		// event when only authentication/brute-force fields are present.
+		if ($has_syslog_fields) {
+			audit_record_event('audit.syslog.configuration.denied', [
+				'event_category'    => 'audit',
+				'severity'          => 'warning',
+				'action'            => 'save',
+				'target_type'       => 'syslog_configuration',
+				'operation_outcome' => 'failure',
+				'outcome_reason'    => 'audit_admin_required'
+			]);
+		} else {
+			audit_record_event('audit.configuration.denied', [
+				'event_category'    => 'audit',
+				'severity'          => 'warning',
+				'action'            => 'save',
+				'target_type'       => 'audit_configuration',
+				'operation_outcome' => 'failure',
+				'outcome_reason'    => 'audit_admin_required'
+			]);
+		}
+
+		raise_message(
+			'audit_configuration_authorization',
+			__('Audit administration permission is required to save these settings.', 'audit'),
+			MESSAGE_LEVEL_ERROR
+		);
+		header('Location: settings.php?tab=audit');
+		exit;
+	}
+
+	$enabling_auth = isset($post['audit_auth_log_enabled']) && $post['audit_auth_log_enabled'] === 'on';
+
+	if ($enabling_auth && (!audit_user_log_identity_supported() || !audit_user_log_indexes_available())) {
+		raise_message(
+			'audit_authentication_prerequisites',
+			__('Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first.', 'audit'),
+			MESSAGE_LEVEL_ERROR
+		);
+		header('Location: settings.php?tab=audit');
 		exit;
 	}
 

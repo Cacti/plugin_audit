@@ -31,7 +31,7 @@ function read_config_option($name) {
 }
 
 function db_table_exists($table) {
-	return $table === 'audit_syslog_delivery';
+	return in_array($table, ['audit_log', 'audit_syslog_delivery'], true);
 }
 
 function db_fetch_row_prepared($sql, $params = []) {
