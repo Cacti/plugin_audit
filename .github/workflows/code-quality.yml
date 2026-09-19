@@ -44,14 +44,14 @@ jobs:
 
     steps:
       - name: Checkout Cacti
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: Cacti/cacti
           ref: develop
           path: cacti
 
       - name: Checkout audit Plugin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: cacti/plugins/audit
 
