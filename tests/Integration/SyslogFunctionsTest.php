@@ -18,11 +18,11 @@
  * a single test to preserve the original sequential/stateful behavior
  * (later steps reuse $event/$config/$formatted from earlier steps) instead
  * of being split into independent, order-dependent cases.
+ *
+ * POLLER_ID is defined by tests/bootstrap-unit.php (as 1) before this file
+ * loads, so that value - not a locally redefined one - is what appears in
+ * formatted records below.
  */
-
-if (!defined('POLLER_ID')) {
-	define('POLLER_ID', 7);
-}
 
 require_once dirname(__DIR__, 2) . '/audit_functions.php';
 
@@ -216,11 +216,11 @@ it('covers Syslog configuration, RFC 5424/CEF/JSON formatting, framing, and UDP/
 	$event     = audit_syslog_test_event();
 	$formatted = audit_syslog_record($event, $config);
 	expect($formatted['status'])->toBe('ready', 'A valid event must produce a Syslog record.');
-	expect(strpos($formatted['record'], '<134>1 2026-07-24T15:16:17.123456Z cacti-node-1 cacti-audit 7 cacti.user_admin.save ') === 0)
+	expect(strpos($formatted['record'], '<134>1 2026-07-24T15:16:17.123456Z cacti-node-1 cacti-audit 1 cacti.user_admin.save ') === 0)
 		->toBeTrue('RFC 5424 headers must contain the calculated priority, UTC timestamp, node, app, poller, and message ID.');
-	expect($formatted['record'])->toContain('eventUuid="32e0a97d-d9e8-4abc-8f41-2bbbc50793ca"', 'RFC 5424 structured data must contain the event UUID.');
-	expect($formatted['record'])->toContain('[cactiAudit@23925 ', 'RFC 5424 enterprise structured data must use the IANA-registered Cacti private enterprise number.');
-	expect($formatted['record'])->toContain('"node_id":"cacti-node-1"', 'JSON payloads must contain stable node identity.');
+	expect($formatted['record'])->toContain('eventUuid="32e0a97d-d9e8-4abc-8f41-2bbbc50793ca"');
+	expect($formatted['record'])->toContain('[cactiAudit@23925 ');
+	expect($formatted['record'])->toContain('"node_id":"cacti-node-1"');
 
 	$frame = audit_syslog_frame($formatted['record'], 'tcp');
 	expect($frame)->toBe(strlen($formatted['record']) . ' ' . $formatted['record'], 'TCP and TLS must use RFC 6587 octet-count framing.');
@@ -228,21 +228,21 @@ it('covers Syslog configuration, RFC 5424/CEF/JSON formatting, framing, and UDP/
 
 	$cef_config = audit_syslog_test_config(['format' => 'cef']);
 	$cef        = audit_syslog_record($event, $cef_config);
-	expect($cef['record'])->toContain('CEF:0|Cacti|Audit Plugin|1.5|cacti.user_admin.save|save|3|', 'CEF payloads must contain normalized vendor, product, event, action, and severity fields.');
-	expect($cef['record'])->toContain('externalId=32e0a97d-d9e8-4abc-8f41-2bbbc50793ca', 'CEF payloads must expose the stable event UUID for deduplication.');
-	expect($cef['record'])->toContain('cs4Label=Submitted Data cs4={"id":4,"description":"new value","password":"[REDACTED]"}', 'CEF payloads must expose redacted submitted data for investigation.');
-	expect($cef['record'])->toContain('cs5Label=Object Data cs5=[{"id":4,"description":"old value"}]', 'CEF payloads must expose the stored object data available to JSON consumers.');
-	expect($cef['record'])->toContain('cs6Label=Details cs6={"test":true}', 'CEF payloads must expose normalized event details.');
-	expect($cef['record'])->not->toContain('must-not-leak', 'CEF payloads must defensively redact sensitive submitted fields.');
+	expect($cef['record'])->toContain('CEF:0|Cacti|Audit Plugin|1.5|cacti.user_admin.save|save|3|');
+	expect($cef['record'])->toContain('externalId=32e0a97d-d9e8-4abc-8f41-2bbbc50793ca');
+	expect($cef['record'])->toContain('cs4Label=Submitted Data cs4={"id":4,"description":"new value","password":"[REDACTED]"}');
+	expect($cef['record'])->toContain('cs5Label=Object Data cs5=[{"id":4,"description":"old value"}]');
+	expect($cef['record'])->toContain('cs6Label=Details cs6={"test":true}');
+	expect($cef['record'])->not->toContain('must-not-leak');
 
 	$rfc_config = audit_syslog_test_config(['format' => 'rfc5424']);
 	$rfc        = audit_syslog_record($event, $rfc_config);
-	expect($rfc['record'])->toContain('Audit event 32e0a97d-d9e8-4abc-8f41-2bbbc50793ca', 'RFC 5424-only payloads must remain identifiable.');
+	expect($rfc['record'])->toContain('Audit event 32e0a97d-d9e8-4abc-8f41-2bbbc50793ca');
 
 	$escaped_event              = $event;
 	$escaped_event['target_id'] = "value\\\"]\nnext";
 	$escaped                    = audit_syslog_record($escaped_event, $config);
-	expect($escaped['record'])->toContain('targetId="value\\\\\\"\\] next"', 'RFC 5424 structured data must escape backslashes, quotes, brackets, and control characters.');
+	expect($escaped['record'])->toContain('targetId="value\\\\\\"\\] next"');
 
 	$small_udp              = audit_syslog_test_config(['udp_max_size' => '512']);
 	$large_event            = $event;

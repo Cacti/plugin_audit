@@ -91,7 +91,7 @@ it('enqueues a Syslog delivery row with the event, uuid, node identity, and pend
 	audit_enqueue_syslog_event(42);
 
 	expect($calls)->toHaveCount(1, 'Finalization must enqueue one Syslog delivery row.');
-	expect($calls[0]['sql'])->toContain('INSERT IGNORE INTO audit_syslog_delivery', 'Queue insertion must be idempotent for one event and destination.');
+	expect($calls[0]['sql'])->toContain('INSERT IGNORE INTO audit_syslog_delivery');
 	expect($calls[0]['params'][0])->toBe(42, 'Queue insertion must retain the audit event ID.');
 	expect($calls[0]['params'][1])->toBe('32e0a97d-d9e8-4abc-8f41-2bbbc50793ca', 'Queue insertion must retain the stable event UUID.');
 	expect($calls[0]['params'][3])->toBe('queue-test-node', 'Queue insertion must snapshot the stable node identity.');
@@ -129,7 +129,7 @@ it('transitions failed deliveries between retry, dead-letter, and sent states', 
 	expect($calls[0]['params'][0])->toBe('retry', 'A transient failure before maximum attempts must enter retry state.');
 	expect($calls[0]['params'][2])->toBe(1, 'A failed delivery must increment attempts.');
 	expect($calls[0]['params'][3] === 5 && $calls[0]['params'][4] === 5)->toBeTrue('A transient failure must schedule the bounded exponential delay.');
-	expect($calls[0]['params'][5])->not->toContain("\n", 'Stored delivery errors must be bounded to one safe line.');
+	expect($calls[0]['params'][5])->not->toContain("\n");
 
 	$calls                = [];
 	$delivery['attempts'] = 4;
@@ -150,7 +150,7 @@ it('transitions failed deliveries between retry, dead-letter, and sent states', 
 	$success = ['status' => 'sent_unconfirmed', 'error_code' => '', 'error' => '', 'permanent' => false];
 	audit_queue_test_track_calls($calls);
 	audit_syslog_update_delivery($delivery, $success, $config);
-	expect($calls[0]['sql'])->toContain("state = 'sent_unconfirmed'", 'A complete socket write must enter sent_unconfirmed state.');
+	expect($calls[0]['sql'])->toContain("state = 'sent_unconfirmed'");
 });
 
 it('manually retries de-duplicated positive dead-letter delivery IDs and reports the affected row count', function () {
@@ -162,14 +162,13 @@ it('manually retries de-duplicated positive dead-letter delivery IDs and reports
 
 	expect($retried)->toBe(2, 'Manual retry must report the affected row count.');
 	expect($calls[0]['params'])->toBe([2, 7], 'Manual retry must accept only unique positive selected delivery IDs.');
-	expect($calls[0]['sql'])->toContain("WHERE state = 'dead_letter'", 'Manual retry must never reset a non-dead-letter delivery.');
+	expect($calls[0]['sql'])->toContain("WHERE state = 'dead_letter'");
 });
 
 it('stops poller batches after one transient receiver failure to bound outage latency', function () {
 	$syslog_source = plugin_test_read_source('audit_syslog.php');
 
 	expect($syslog_source)->toContain(
-		"\$result['status'] !== 'sent_unconfirmed' && empty(\$result['permanent'])",
-		'Poller batches must stop after one transient receiver failure to bound outage latency.'
+		"\$result['status'] !== 'sent_unconfirmed' && empty(\$result['permanent'])"
 	);
 });
