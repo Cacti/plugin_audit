@@ -213,6 +213,9 @@ jobs:
           exit 1
         fi
 
+    - name: Set expected Cacti version for unit tests
+      run: echo -n "${{ env.CACTI }}" | sudo tee ${{ github.workspace }}/cacti/plugins/audit/tests/.cacti-version > /dev/null
+
     - name: Run Pest Unit Tests
       env:
         COMPOSER_ROOT_VERSION: 1.3.0-dev
