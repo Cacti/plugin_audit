@@ -1,100 +1,177 @@
-# Cacti Audit Plugin AI Instructions
+# GitHub Copilot Instructions
 
-## Architecture Overview
-This is a Cacti plugin that logs GUI and CLI activities to an audit trail. The plugin hooks into Cacti's event system to capture user actions.
+## Priority Guidelines
 
-**Core Components:**
-- [`setup.php`](../setup.php): Plugin lifecycle (install/uninstall/upgrade) and hook registration via `api_plugin_register_hook()`
-- [`audit.php`](../audit.php): Web UI for viewing/exporting/purging audit logs; handles actions via `switch(get_request_var('action'))`
-- [`audit_functions.php`](../audit_functions.php): Core logging logic in `audit_config_insert()` and page-specific data extraction in `audit_process_page_data()`
-- Database: Single `audit_log` table with columns: `page`, `user_id`, `action`, `ip_address`, `user_agent`, `event_time`, `post` (JSON), `object_data` (JSON)
+When generating code for this repository:
 
-**Data Flow:**
-1. Cacti triggers `config_insert` hook on POST requests → `audit_config_insert()` executes
-2. Function validates event via `audit_log_valid_event()`, sanitizes `$_POST`, removes passwords
-3. If `selected_items` present, `audit_process_page_data()` extracts object details from DB
-4. Event logged to `audit_log` table + optional external JSON file
+1. **Version Compatibility**: This is a Cacti plugin (`audit`, version 1.5) targeting Cacti 1.2.20+
+2. **Context Files**: Prioritize patterns and standards defined in this file (`.github/copilot-instructions.md`)
+3. **Codebase Patterns**: When context files don't provide specific guidance, scan the codebase for established patterns
+4. **Architectural Consistency**: Maintain plugin-based architecture extending Cacti core
+5. **Code Quality**: Prioritize security, maintainability, and compatibility in all generated code
 
-## Critical Conventions
+## Technology Stack
 
-### Function Naming
-ALL functions MUST use `audit_` or `plugin_audit_` prefix to avoid namespace collisions with Cacti core.
+### Core Technologies
+- **PHP**: 8.1-8.3 (CI matrix)
+- **Platform**: Cacti Plugin Architecture (Cacti 1.2.20+) — logs GUI and CLI activities to an audit trail
+- **Database**: MySQL 8.0 (CI) / MariaDB, InnoDB engine
 
-### Input Handling (Security Critical)
-**NEVER** access `$_GET`/`$_POST` directly. Always use:
-- `get_request_var('name')` - for basic input
-- `get_filter_request_var('name')` - for validated/filtered input  
-- `get_nfilter_request_var('name')` - for non-filtered input
-- `isset_request_var('name')` - to check existence
+### Key Dependencies
+- Cacti core framework (`api_plugin_*`, `db_*`, `get_request_var()`)
+- `phpstan/` static analysis config; `js/` client-side helpers
 
-Example from [`audit.php`](../audit.php#L30):
-```php
-switch(get_request_var('action')) {
-case 'export':
-    audit_export_rows();
-    break;
+## Project Structure
+
+```
+audit/                    # Repository root (install to plugins/audit/ in Cacti)
+├── js/                     # Client-side helpers
+├── locales/                  # Internationalization files
+├── phpstan/                     # PHPStan configuration/baseline
+├── tests/                          # Test suite
+├── audit.php                         # Web UI for viewing/exporting/purging audit logs
+├── audit_functions.php                 # audit_config_insert() (main logger), audit_process_page_data()
+├── audit_syslog.php                      # Syslog delivery integration
+├── INFO                                    # Plugin metadata (name, version, compat)
+├── README.md
+└── setup.php                                 # Plugin lifecycle (install/uninstall/upgrade) and hook registration
 ```
 
-### Database Operations (Security Critical)
-**ALWAYS** use prepared statements, NEVER string concatenation:
-- `db_execute_prepared($sql, $params)` - for INSERT/UPDATE/DELETE
-- `db_fetch_assoc_prepared($sql, $params)` - for SELECT returning rows
-- `db_fetch_row_prepared($sql, $params)` - for single row
-- `db_fetch_cell($sql)` - only for queries without user input
+## Naming Conventions
 
-Example from [`audit_functions.php`](../audit_functions.php#L210-L212):
+### Function Names
+ALL functions MUST use the `audit_` or `plugin_audit_` prefix to avoid namespace collisions with Cacti core: `plugin_audit_install()`, `audit_config_insert()`, `audit_process_page_data()`.
+
+### Database Tables
+Primary table: `audit_log` — columns include `page`, `user_id`, `action`, `ip_address`, `user_agent`, `event_time`, `post` (JSON), `object_data` (JSON), plus security columns `request_status`, `external_status`, `external_error`. A secondary `audit_syslog_delivery` table queues Syslog delivery.
+
+## Code Style
+
+### Indentation and Formatting
+- **Tabs**: Use tabs (not spaces) for indentation throughout all PHP files.
+- **Braces**: Opening brace on the same line for functions and control structures.
+- **Spacing**: Space after control structure keywords (`if`, `foreach`, `while`).
+
+### File Headers
+ALL PHP files MUST include the standard GPL v2 license header used throughout this repository (see `setup.php`), crediting "The Cacti Group".
+
+## Security Standards
+
+### Input Handling — Critical
+**NEVER** access `$_GET`/`$_POST` directly. Always use:
+- `get_request_var('name')` — for basic input
+- `get_filter_request_var('name')` — for validated/filtered input
+- `get_nfilter_request_var('name')` — for non-filtered input
+- `isset_request_var('name')` — to check existence
+
+```php
+switch (get_request_var('action')) {
+case 'export':
+	audit_export_rows();
+	break;
+```
+
+`get_filter_request_var()` (and its `gfrv()` shorthand, where available) called with only the
+`$name` argument (no regex/filter as the 2nd/3rd argument) already validates the value as numeric
+and returns it as a **string** -- it does not return an int, and it halts execution if the request
+value is not numeric. Because of this, do NOT cast its output to `(int)` when the result is only
+used for string output (e.g. `print`/`echo`, string concatenation, embedding in HTML/JS); the cast
+is redundant. Only cast when the value is genuinely used in an integer/numeric context (e.g.
+arithmetic, strict `===` comparisons).
+
+### Database Operations — Critical
+**ALWAYS** use prepared statements, NEVER string concatenation:
+- `db_execute_prepared($sql, $params)` — INSERT/UPDATE/DELETE
+- `db_fetch_assoc_prepared($sql, $params)` — SELECT returning rows
+- `db_fetch_row_prepared($sql, $params)` — single row
+- `db_fetch_cell($sql)` — only for queries without user input
+
 ```php
 db_execute_prepared('INSERT INTO audit_log (page, user_id, action, ip_address, user_agent, event_time, post, object_data)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+	array($page, $user_id, $action, $ip_address, $user_agent, $event_time, $post, $object_data));
 ```
 
-### Localization
-Wrap ALL user-facing strings in `__('String', 'audit')`. The second parameter `'audit'` is the text domain.
+### Sensitive Data Handling
+`audit_config_insert()` sanitizes `$_POST` and **removes passwords** before logging — preserve this redaction behavior when touching the logging path; never let a new field capture raw credential values into `audit_log.post`.
 
-Example: `__('View Audit Log', 'audit')`
+## Database Operations
 
-For plurals: `__('%d Months', 2, 'audit')`
+### Upgrades & Schema Changes
+When adding DB columns, update `audit_check_upgrade()` in `setup.php`:
+
+```php
+db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
+```
+This runs on plugin version change detection.
+
+## Internationalization
+
+Wrap ALL user-facing strings in `__('String', 'audit')`. For plurals: `__('%d Months', 2, 'audit')`.
+
+## Plugin Architecture
+
+### Data Flow
+1. Cacti triggers the `config_insert` hook on POST requests → `audit_config_insert()` executes.
+2. The function validates the event via `audit_log_valid_event()`, sanitizes `$_POST`, and removes passwords.
+3. If `selected_items` is present, `audit_process_page_data()` extracts object details from the DB.
+4. The event is logged to `audit_log` (plus an optional external JSON file / Syslog delivery queue).
+
+### Plugin Hooks
+Hooks registered in `plugin_audit_install()`:
+- `config_insert` — main logging trigger (fires on POST requests)
+- `poller_bottom` — daily cleanup of old records based on retention setting
+- `config_arrays` — inject menu items and configuration arrays
+- `config_settings` — add the admin settings page
+- `draw_navigation_text` — define breadcrumb navigation
+- `replicate_out` — table replication for remote pollers
+- `is_console_page`, `logout_pre_session_destroy` — session/console integration
 
 ### UI Structure
-- Use `top_header()` before and `bottom_footer()` after page content
-- Use `html_start_box()` / `html_end_box()` for content sections
-- Access Cacti config: `global $config;`
+Use `top_header()` before and `bottom_footer()` after page content; use `html_start_box()` / `html_end_box()` for content sections; access Cacti config via `global $config;`.
 
-## Developer Workflows
+## Testing
 
-### Testing Integration
-GitHub Actions runs tests against live Cacti install. See [`.github/workflows/plugin-ci-workflow.yml`](../.github/workflows/plugin-ci-workflow.yml):
-- Tests against PHP 8.1, 8.2, 8.3
-- Plugin must be in `cacti/plugins/audit` directory (NOT `plugin_audit`)
-- MySQL 8.0 service with user `cactiuser:cactiuser`, database `cacti`
+CI (`plugin-ci-workflow.yml`) tests against PHP 8.1-8.3, MySQL 8.0, plugin installed at `cacti/plugins/audit` (not `plugin_audit`). Test suite covers security columns, the syslog delivery queue table, and CLI-triggered audit entries.
 
-### Localization Workflow
+## Localization Workflow
+
 ```bash
 cd locales
 ./build_gettext.sh
 ```
 Requires `xgettext` (GNU gettext). Regenerates `po/cacti.pot` from all `__()` calls, then compiles `.po` → `.mo` files.
 
-### Upgrades & Schema Changes
-When adding DB columns, update `audit_check_upgrade()` in [`setup.php`](../setup.php#L69-L100):
+## Best Practices
+
+1. Never let raw request superglobals reach logging or query code — always go through the `get_*_request_var()` family.
+2. Preserve password redaction in `audit_config_insert()`.
+3. Use prepared statements exclusively for anything with variable input.
+4. Wrap all user-facing strings with `__('text', 'audit')`.
+
+## Common Pitfalls to Avoid
+
 ```php
-db_execute('ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS object_data LONGBLOB');
+// WRONG - direct superglobal access
+$id = $_GET['id'];
+
+// CORRECT
+$id = get_filter_request_var('id');
+
+// WRONG - string-concatenated SQL
+db_execute("INSERT INTO audit_log (page) VALUES ('$page')");
+
+// CORRECT
+db_execute_prepared('INSERT INTO audit_log (page) VALUES (?)', array($page));
 ```
-This runs on plugin version change detection.
 
-## Hook System
-Hooks registered in `plugin_audit_install()`:
-- `config_insert` - Main logging trigger (fires on POST requests)
-- `poller_bottom` - Daily cleanup of old records based on retention setting
-- `config_arrays` - Inject menu items and configuration arrays
-- `config_settings` - Add admin settings page
-- `draw_navigation_text` - Define breadcrumb navigation
-- `replicate_out` - Table replication for remote pollers
+## Version Control
 
-## Key Files Reference
-- [`setup.php`](../setup.php) - Hook registration, table schema, upgrade logic
-- [`audit.php`](../audit.php) - UI controller with export/purge/getdata actions
-- [`audit_functions.php`](../audit_functions.php) - `audit_config_insert()` (main logger), `audit_process_page_data()` (extract object details)
-- [`locales/build_gettext.sh`](../locales/build_gettext.sh) - Translation builder
-- [`.github/workflows/plugin-ci-workflow.yml`](../.github/workflows/plugin-ci-workflow.yml) - Integration tests
+Document all changes in `CHANGELOG.md`; use descriptive commit messages referencing issue/PR numbers when applicable.
+
+## References
+
+- [Cacti main repo](https://github.com/Cacti/cacti/tree/1.2.x)
+- [Cacti Documentation](https://www.github.com/Cacti/documentation)
+- `README.md` for feature descriptions
+- `CHANGELOG.md` for version history
