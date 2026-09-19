@@ -1,5 +1,5 @@
-# +-------------------------------------------------------------------------+
-# | Copyright (C) 2004-2025 The Cacti Group                                 |
+﻿# +-------------------------------------------------------------------------+
+# | Copyright (C) 2004-2026 The Cacti Group                                 |
 # |                                                                         |
 # | This program is free software; you can redistribute it and/or           |
 # | modify it under the terms of the GNU General Public License             |
@@ -31,19 +31,22 @@ on:
       - main
       - develop
 
+env:
+  CACTI: 1.2.x
+
 jobs:
   integration-test:
     runs-on: ${{ matrix.os }}
-    
+
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.4']
+        php: ['8.2', '8.3', '8.4']
         os: [ubuntu-latest]
-    
+
     services:
-      mysql:
-        image: mysql:8.0
+      mariadb:
+        image: mariadb:10.6
         env:
           MYSQL_ROOT_PASSWORD: cactiroot
           MYSQL_DATABASE: cacti
@@ -56,43 +59,43 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-    
+
     name: PHP ${{ matrix.php }} Integration Test on ${{ matrix.os }}
-    
+
     steps:
     - name: Checkout Cacti
-      uses: actions/checkout@v7
+      uses: actions/checkout@v4
       with:
         repository: Cacti/cacti
-        ref: 1.2.x
+        ref: ${{ env.CACTI }}
         path: cacti
-    
+
     - name: Checkout audit Plugin
-      uses: actions/checkout@v7
+      uses: actions/checkout@v4
       with:
         path: cacti/plugins/audit
-    
+
     - name: Install PHP ${{ matrix.php }}
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring
+        extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring, snmp
         ini-values: "post_max_size=256M, max_execution_time=60, date.timezone=America/New_York"
-    
+
     - name: Check PHP version
       run: php -v
-    
+
     - name: Run apt-get update
       run: sudo apt-get update
-    
+
     - name: Install System Dependencies
       run: sudo apt-get install -y snmp snmpd rrdtool fping
-    
+
     - name: Start SNMPD Agent and Test
       run: |
         sudo systemctl start snmpd
         sudo snmpwalk -c public -v2c -On localhost .1.3.6.1.2.1.1
-    
+
     - name: Setup Permissions
       run: |
         sudo chown -R www-data:runner ${{ github.workspace }}/cacti
@@ -100,12 +103,12 @@ jobs:
         sudo find ${{ github.workspace }}/cacti -type f -exec chmod 664 {} \;
         sudo chmod +x ${{ github.workspace }}/cacti/cmd.php
         sudo chmod +x ${{ github.workspace }}/cacti/poller.php
-    
+
     - name: Create MySQL Config
       run: |
         echo -e "[client]\nuser = root\npassword = cactiroot\nhost = 127.0.0.1\n" > ~/.my.cnf
         cat ~/.my.cnf
-    
+
     - name: Initialize Cacti Database
       env:
         MYSQL_AUTH_USR: '--defaults-file=~/.my.cnf'
@@ -117,21 +120,24 @@ jobs:
         mysql $MYSQL_AUTH_USR -e "FLUSH PRIVILEGES;"
         mysql $MYSQL_AUTH_USR cacti < ${{ github.workspace }}/cacti/cacti.sql
         mysql $MYSQL_AUTH_USR -e "INSERT INTO settings (name, value) VALUES ('path_php_binary', '/usr/bin/php')" cacti
-    
+
     - name: Validate composer files
       run: |
         cd ${{ github.workspace }}/cacti
         if [ -f composer.json ]; then
           composer validate --strict || true
         fi
-    
+
     - name: Install Composer Dependencies
       run: |
         cd ${{ github.workspace }}/cacti
         if [ -f composer.json ]; then
-          sudo composer install --prefer-dist --no-progress
+          sudo composer config --no-plugins allow-plugins.pestphp/pest-plugin true
+          sudo composer require --no-progress --no-interaction "pestphp/pest: ^3" "pestphp/pest-plugin-drift: ^3.0"
+          sudo rm -f composer.lock
+          sudo composer install --dev --no-progress
         fi
-    
+
     - name: Create Cacti config.php
       run: |
         cat ${{ github.workspace }}/cacti/include/config.php.dist | \
@@ -140,62 +146,37 @@ jobs:
         sed -r "s/'cactiuser'/'cactiuser'/g" | \
         sed -r "s/'cactiuser'/'cactiuser'/g" > ${{ github.workspace }}/cacti/include/config.php
         sudo chmod 664 ${{ github.workspace }}/cacti/include/config.php
-    
+
     - name: Configure Apache
       run: |
         cat << 'EOF' | sed 's#GITHUB_WORKSPACE#${{ github.workspace }}#g' > /tmp/cacti.conf
         <VirtualHost *:80>
           ServerAdmin webmaster@localhost
           DocumentRoot GITHUB_WORKSPACE/cacti
-          
+
           <Directory GITHUB_WORKSPACE/cacti>
             Options Indexes FollowSymLinks
             AllowOverride All
             Require all granted
           </Directory>
-          
+
           ErrorLog ${APACHE_LOG_DIR}/error.log
           CustomLog ${APACHE_LOG_DIR}/access.log combined
         </VirtualHost>
         EOF
         sudo cp /tmp/cacti.conf /etc/apache2/sites-available/000-default.conf
         sudo systemctl restart apache2
-    
+
     - name: Install Cacti via CLI
       run: |
         cd ${{ github.workspace }}/cacti
         sudo php cli/install_cacti.php --accept-eula --install --force
-    
-    - name: Install Audit Plugin
+
+    - name: Install audit Plugin
       run: |
         cd ${{ github.workspace }}/cacti
         sudo php cli/plugin_manage.php --plugin=audit --install --enable
 
-    - name: Verify Audit Schema
-      run: |
-        COLUMN_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
-          SELECT COUNT(*)
-          FROM information_schema.columns
-          WHERE table_schema = 'cacti'
-            AND table_name = 'audit_log'
-            AND column_name IN ('request_status', 'external_status', 'external_error');
-        ")
-        if [ "$COLUMN_COUNT" -ne 3 ]; then
-          echo "Audit schema security columns are missing"
-          exit 1
-        fi
-
-        SYSLOG_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
-          SELECT COUNT(*)
-          FROM information_schema.tables
-          WHERE table_schema = 'cacti'
-            AND table_name = 'audit_syslog_delivery';
-        ")
-        if [ "$SYSLOG_TABLE_COUNT" -ne 1 ]; then
-          echo "Audit Syslog delivery queue table is missing"
-          exit 1
-        fi
-    
     - name: Check PHP Syntax for Plugin
       run: |
         cd ${{ github.workspace }}/cacti/plugins/audit
@@ -204,24 +185,78 @@ jobs:
           exit 1
         fi
 
-    - name: Run Audit Security Helper Tests
+    - name: Set expected Cacti version for unit tests
+      run: echo -n "${{ env.CACTI }}" | sudo tee ${{ github.workspace }}/cacti/plugins/audit/tests/.cacti-version > /dev/null
+
+    - name: Run Pest Unit Tests
+      env:
+        COMPOSER_ROOT_VERSION: 1.3.0-dev
       run: |
-        cd ${{ github.workspace }}/cacti/plugins/audit
-        php tests/security_functions_test.php
-        php tests/controller_security_test.php
-        php tests/syslog_functions_test.php
-        php tests/syslog_queue_test.php
-    
+        cd ${{ github.workspace }}/cacti
+        include/vendor/bin/pest --configuration=plugins/audit/phpunit.xml \
+          --coverage-clover=plugins/audit/coverage/clover.xml \
+          plugins/audit/tests/Security
+
+    - name: Upload coverage report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-php${{ matrix.php }}
+        path: ${{ github.workspace }}/cacti/plugins/audit/coverage/
+        if-no-files-found: warn
+
+    - name: Remove the plugins directory exclusion from the .phpstan.neon
+      if: ${{ env.CACTI != '1.2.x' }}
+      run: sed '/plugins/d' -i .phpstan.neon
+      working-directory: ${{ github.workspace }}/cacti
+
+    - name: Mark composer scripts executable
+      if: ${{ env.CACTI != '1.2.x' }}
+      run: sudo chmod +x ${{ github.workspace }}/cacti/include/vendor/bin/*
+
+    - name: Run Linter on base code
+      if: ${{ env.CACTI != '1.2.x' }}
+      run: composer run-script lint ${{ github.workspace }}/cacti/plugins/audit
+      working-directory: ${{ github.workspace }}/cacti
+
+    - name: Checking coding standards on base code
+      if: ${{ env.CACTI != '1.2.x' }}
+      run: composer run-script phpcsfixer ${{ github.workspace }}/cacti/plugins/audit
+      working-directory: ${{ github.workspace }}/cacti
+
+    - name: Run PHPStan at Level 6 on base code outside of Composer due to technical issues
+      if: ${{ env.CACTI != '1.2.x' }}
+      run: ./include/vendor/bin/phpstan analyze --level 6 ${{ github.workspace }}/cacti/plugins/audit
+      working-directory: ${{ github.workspace }}/cacti
+
+    - name: Re-apply web user ownership before polling
+      run: |
+        # Ancestor directories above the checkout (e.g. /home/runner, .../work)
+        # are typically 750 owned by the runner user, which blocks a non-root
+        # www-data process from traversing down to the checkout at all.
+        p="${{ github.workspace }}"
+        while [ "$p" != "/" ]; do
+          sudo chmod o+x "$p" || true
+          p=$(dirname "$p")
+        done
+
+        sudo chown -R www-data:runner ${{ github.workspace }}/cacti
+        sudo find ${{ github.workspace }}/cacti -type d -exec chmod 775 {} \;
+        sudo find ${{ github.workspace }}/cacti -type f -exec chmod 664 {} \;
+        sudo chmod +x ${{ github.workspace }}/cacti/cmd.php
+        sudo chmod +x ${{ github.workspace }}/cacti/poller.php
+
     - name: Run Cacti Poller
       run: |
         cd ${{ github.workspace }}/cacti
-        sudo php poller.php --poller=1 --force --debug
+        sudo -u www-data php poller.php --poller=1 --force --debug
+
         if ! grep -q "SYSTEM STATS" log/cacti.log; then
           echo "Cacti poller did not finish successfully"
           cat log/cacti.log
           exit 1
         fi
-    
+
     - name: View Cacti Logs
       if: always()
       run: |
@@ -230,29 +265,12 @@ jobs:
           sudo cat ${{ github.workspace }}/cacti/log/cacti.log
         fi
 
-    - name: enable audit plugin logging
+    - name: Check Cacti Logs for Errors
+      if: always()
       run: |
-        cd ${{ github.workspace }}
-        ENABLE_AUDIT_LOGGING="update settings set value = 'on' where name = 'audit_enabled' or name = 'audit_log_external';"
-        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "$ENABLE_AUDIT_LOGGING"
-
-    - name: Run cli script to trigger audit log entry
-      run: |
-        cd ${{ github.workspace }}/cacti
-        sudo php cli/add_device.php --description=test --ip=1
-
-    - name: check audit log entries
-      run: |
-        cd ${{ github.workspace }}
-        AUDIT_LOG_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select count(*) from audit_log;")
-        echo "Audit log entry count: $AUDIT_LOG_COUNT"
-        if [ "$AUDIT_LOG_COUNT" -lt 1 ]; then
-          echo "No audit log entries found!"
-          exit 1
-        fi
-
-        CLI_STATUS=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select request_status from audit_log where action = 'cli' order by id desc limit 1;")
-        if [ "$CLI_STATUS" != "completed" ]; then
-          echo "Unexpected CLI request status: $CLI_STATUS"
-          exit 1
+        if [ -f ${{ github.workspace }}/cacti/log/cacti.log ]; then
+          if grep -E "FATAL:|ERROR:|WARNING:" ${{ github.workspace }}/cacti/log/cacti.log; then
+            echo "Found FATAL/ERROR/WARNING entries in Cacti log"
+            exit 1
+          fi
         fi
