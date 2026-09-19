@@ -360,12 +360,20 @@ function audit_setup_syslog_table(): void {
 		ENGINE=InnoDB
 		COMMENT='Remote Syslog delivery queue for audit events'");
 
-	db_execute("ALTER TABLE audit_syslog_delivery
-		ADD COLUMN IF NOT EXISTS node_id varchar(255) NOT NULL DEFAULT 'cacti'
-		AFTER destination_fingerprint");
-	db_execute('ALTER TABLE audit_syslog_delivery
-		ADD COLUMN IF NOT EXISTS poller_id varchar(64) DEFAULT NULL
-		AFTER node_id');
+	api_plugin_db_add_column('audit', 'audit_syslog_delivery', array(
+		'name'    => 'node_id',
+		'type'    => 'varchar(255)',
+		'NULL'    => false,
+		'default' => 'cacti',
+		'after'   => 'destination_fingerprint'
+	));
+
+	api_plugin_db_add_column('audit', 'audit_syslog_delivery', array(
+		'name'  => 'poller_id',
+		'type'  => 'varchar(64)',
+		'NULL'  => true,
+		'after' => 'node_id'
+	));
 }
 
 function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
