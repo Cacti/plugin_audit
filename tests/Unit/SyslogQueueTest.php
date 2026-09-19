@@ -70,7 +70,7 @@ beforeEach(function () use ($audit_queue_settings) {
  *
  * @return void
  */
-function audit_queue_test_track_calls(array &$calls) {
+function audit_queue_test_track_calls(array &$calls): void {
 	audit_test_mock_db('db_execute_prepared', '', function ($sql, $params) use (&$calls) {
 		$calls[] = ['sql' => $sql, 'params' => $params];
 

@@ -24,7 +24,7 @@
 require_once dirname(__DIR__, 2) . '/audit_functions.php';
 
 if (!function_exists('api_plugin_user_realm_auth')) {
-	function api_plugin_user_realm_auth($filename = '') {
+	function api_plugin_user_realm_auth(string $filename = ''): bool {
 		return !empty($GLOBALS['__audit_test_realms'][$filename]);
 	}
 }

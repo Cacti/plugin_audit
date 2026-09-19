@@ -26,6 +26,11 @@
 
 require_once dirname(__DIR__, 2) . '/audit_functions.php';
 
+/**
+ * @param array $overrides
+ *
+ * @return array
+ */
 function audit_syslog_test_config($overrides = []) {
 	$values = [
 		'receiver'            => '127.0.0.1',
@@ -51,6 +56,9 @@ function audit_syslog_test_config($overrides = []) {
 	return audit_syslog_config(array_merge($values, $overrides));
 }
 
+/**
+ * @return array
+ */
 function audit_syslog_test_event() {
 	return [
 		'id'                => 42,
@@ -76,6 +84,13 @@ function audit_syslog_test_event() {
 	];
 }
 
+/**
+ * @param int   $port
+ * @param mixed $error
+ * @param mixed $error_message
+ *
+ * @return resource|false
+ */
 function audit_syslog_test_udp_server(&$port, &$error, &$error_message) {
 	for ($attempt = 0; $attempt < 20; $attempt++) {
 		$port   = random_int(20000, 50000);
@@ -94,6 +109,9 @@ function audit_syslog_test_udp_server(&$port, &$error, &$error_message) {
 	return false;
 }
 
+/**
+ * @return array|false
+ */
 function audit_syslog_test_tls_material() {
 	$directory = sys_get_temp_dir() . '/audit-syslog-' . bin2hex(random_bytes(8));
 
@@ -122,9 +140,19 @@ function audit_syslog_test_tls_material() {
 		'req_extensions'   => 'v3_req',
 		'x509_extensions'  => 'v3_req',
 	];
-	$key         = openssl_pkey_new($options);
-	$csr         = $key === false ? false : openssl_csr_new(['commonName' => '127.0.0.1'], $key, $options);
-	$certificate = $csr === false ? false : openssl_csr_sign($csr, null, $key, 1, $options);
+	$key = openssl_pkey_new($options);
+
+	if ($key === false) {
+		return false;
+	}
+
+	$csr = openssl_csr_new(['commonName' => '127.0.0.1'], $key, $options);
+
+	if (!($csr instanceof OpenSSLCertificateSigningRequest)) {
+		return false;
+	}
+
+	$certificate = openssl_csr_sign($csr, null, $key, 1, $options);
 
 	if ($certificate === false ||
 		!openssl_x509_export($certificate, $certificate_pem) ||
@@ -148,6 +176,12 @@ function audit_syslog_test_tls_material() {
 	];
 }
 
+/**
+ * @param array $material
+ * @param int   $port
+ *
+ * @return resource|false
+ */
 function audit_syslog_test_tls_server($material, &$port) {
 	$context = stream_context_create([
 		'ssl' => [
@@ -171,11 +205,21 @@ function audit_syslog_test_tls_server($material, &$port) {
 	}
 
 	$name = stream_socket_get_name($server, false);
+
+	if ($name === false) {
+		return false;
+	}
+
 	$port = (int) substr($name, strrpos($name, ':') + 1);
 
 	return $server;
 }
 
+/**
+ * @param array $material
+ *
+ * @return void
+ */
 function audit_syslog_test_remove_tls_material($material) {
 	foreach (['result', 'server', 'ca', 'config'] as $name) {
 		if (is_file($material[$name])) {

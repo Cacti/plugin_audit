@@ -147,72 +147,136 @@ function audit_test_db_result($fn, $sql, $params, $default) {
 }
 
 if (!function_exists('db_execute')) {
+	/**
+	 * @param string $sql
+	 *
+	 * @return bool
+	 */
 	function db_execute($sql) {
 		return audit_test_db_result('db_execute', $sql, [], true);
 	}
 }
 
 if (!function_exists('db_execute_prepared')) {
+	/**
+	 * @param string $sql
+	 * @param array  $params
+	 *
+	 * @return bool
+	 */
 	function db_execute_prepared($sql, $params = []) {
 		return audit_test_db_result('db_execute_prepared', $sql, $params, true);
 	}
 }
 
 if (!function_exists('db_fetch_assoc')) {
+	/**
+	 * @param string $sql
+	 *
+	 * @return array
+	 */
 	function db_fetch_assoc($sql) {
 		return audit_test_db_result('db_fetch_assoc', $sql, [], []);
 	}
 }
 
 if (!function_exists('db_fetch_assoc_prepared')) {
+	/**
+	 * @param string $sql
+	 * @param array  $params
+	 *
+	 * @return array
+	 */
 	function db_fetch_assoc_prepared($sql, $params = []) {
 		return audit_test_db_result('db_fetch_assoc_prepared', $sql, $params, []);
 	}
 }
 
 if (!function_exists('db_fetch_row')) {
+	/**
+	 * @param string $sql
+	 *
+	 * @return array
+	 */
 	function db_fetch_row($sql) {
 		return audit_test_db_result('db_fetch_row', $sql, [], []);
 	}
 }
 
 if (!function_exists('db_fetch_row_prepared')) {
+	/**
+	 * @param string $sql
+	 * @param array  $params
+	 *
+	 * @return array
+	 */
 	function db_fetch_row_prepared($sql, $params = []) {
 		return audit_test_db_result('db_fetch_row_prepared', $sql, $params, []);
 	}
 }
 
 if (!function_exists('db_fetch_cell')) {
+	/**
+	 * @param string $sql
+	 *
+	 * @return mixed
+	 */
 	function db_fetch_cell($sql) {
 		return audit_test_db_result('db_fetch_cell', $sql, [], '');
 	}
 }
 
 if (!function_exists('db_fetch_cell_prepared')) {
+	/**
+	 * @param string $sql
+	 * @param array  $params
+	 *
+	 * @return mixed
+	 */
 	function db_fetch_cell_prepared($sql, $params = []) {
 		return audit_test_db_result('db_fetch_cell_prepared', $sql, $params, '');
 	}
 }
 
 if (!function_exists('db_index_exists')) {
+	/**
+	 * @param string $table
+	 * @param string $index
+	 *
+	 * @return bool
+	 */
 	function db_index_exists($table, $index) {
 		return false;
 	}
 }
 
 if (!function_exists('db_column_exists')) {
+	/**
+	 * @param string $table
+	 * @param string $column
+	 *
+	 * @return bool
+	 */
 	function db_column_exists($table, $column) {
 		return false;
 	}
 }
 
 if (!function_exists('db_table_exists')) {
+	/**
+	 * @param string $table
+	 *
+	 * @return bool
+	 */
 	function db_table_exists($table) {
 		return audit_test_db_result('db_table_exists', (string) $table, [], true);
 	}
 }
 
 if (!function_exists('db_affected_rows')) {
+	/**
+	 * @return int
+	 */
 	function db_affected_rows() {
 		return $GLOBALS['__test_db_affected_rows'] ?? 0;
 	}
@@ -230,12 +294,26 @@ function audit_test_set_affected_rows($rows) {
 }
 
 if (!function_exists('api_plugin_db_add_column')) {
+	/**
+	 * @param string $plugin
+	 * @param string $table
+	 * @param array  $data
+	 *
+	 * @return bool
+	 */
 	function api_plugin_db_add_column($plugin, $table, $data) {
 		return true;
 	}
 }
 
 if (!function_exists('api_plugin_db_table_create')) {
+	/**
+	 * @param string $plugin
+	 * @param string $table
+	 * @param array  $data
+	 *
+	 * @return bool
+	 */
 	function api_plugin_db_table_create($plugin, $table, $data) {
 		return true;
 	}
@@ -256,17 +334,34 @@ function audit_test_set_config_option($name, $value) {
 }
 
 if (!function_exists('read_config_option')) {
+	/**
+	 * @param string $name
+	 * @param bool   $force
+	 *
+	 * @return mixed
+	 */
 	function read_config_option($name, $force = false) {
 		return $GLOBALS['__test_config_options'][$name] ?? '';
 	}
 }
 
 if (!function_exists('set_config_option')) {
+	/**
+	 * @param string $name
+	 * @param mixed  $value
+	 *
+	 * @return void
+	 */
 	function set_config_option($name, $value) {
 	}
 }
 
 if (!function_exists('html_escape')) {
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
 	function html_escape($string) {
 		return htmlspecialchars($string, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	}
@@ -275,35 +370,71 @@ if (!function_exists('html_escape')) {
 if (!function_exists('__')) {
 	// Mirrors Cacti's variadic __(): trailing args are sprintf substitutions,
 	// with an optional domain in the final position that sprintf just ignores.
+	/**
+	 * @param mixed ...$args
+	 *
+	 * @return string
+	 */
 	function __(...$args) {
 		return vsprintf((string) $args[0], array_slice($args, 1));
 	}
 }
 
 if (!function_exists('__esc')) {
+	/**
+	 * @param string $text
+	 * @param string $domain
+	 *
+	 * @return string
+	 */
 	function __esc($text, $domain = '') {
 		return htmlspecialchars($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	}
 }
 
 if (!function_exists('cacti_log')) {
+	/**
+	 * @param string $message
+	 * @param bool   $also_print
+	 * @param string $log_type
+	 * @param int    $level
+	 *
+	 * @return void
+	 */
 	function cacti_log($message, $also_print = false, $log_type = '', $level = 0) {
 	}
 }
 
 if (!function_exists('cacti_sizeof')) {
+	/**
+	 * @param mixed $array
+	 *
+	 * @return int
+	 */
 	function cacti_sizeof($array) {
 		return is_array($array) ? count($array) : 0;
 	}
 }
 
 if (!function_exists('is_realm_allowed')) {
+	/**
+	 * @param string $realm
+	 *
+	 * @return bool
+	 */
 	function is_realm_allowed($realm) {
 		return true;
 	}
 }
 
 if (!function_exists('raise_message')) {
+	/**
+	 * @param string $id
+	 * @param string $text
+	 * @param int    $level
+	 *
+	 * @return void
+	 */
 	function raise_message($id, $text = '', $level = 0) {
 	}
 }
@@ -322,36 +453,70 @@ function audit_test_set_request(array $vars) {
 }
 
 if (!function_exists('get_request_var')) {
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
 	function get_request_var($name) {
 		return $GLOBALS['__test_request'][$name] ?? '';
 	}
 }
 
 if (!function_exists('get_nfilter_request_var')) {
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
 	function get_nfilter_request_var($name) {
 		return $GLOBALS['__test_request'][$name] ?? '';
 	}
 }
 
 if (!function_exists('get_filter_request_var')) {
+	/**
+	 * @param string $name
+	 *
+	 * @return mixed
+	 */
 	function get_filter_request_var($name) {
 		return $GLOBALS['__test_request'][$name] ?? '';
 	}
 }
 
 if (!function_exists('form_input_validate')) {
+	/**
+	 * @param mixed  $value
+	 * @param string $name
+	 * @param string $regex
+	 * @param bool   $optional
+	 * @param string $error
+	 *
+	 * @return mixed
+	 */
 	function form_input_validate($value, $name, $regex, $optional, $error) {
 		return $value;
 	}
 }
 
 if (!function_exists('is_error_message')) {
+	/**
+	 * @return bool
+	 */
 	function is_error_message() {
 		return false;
 	}
 }
 
 if (!function_exists('sql_save')) {
+	/**
+	 * @param array  $array
+	 * @param string $table
+	 * @param string $key
+	 *
+	 * @return mixed
+	 */
 	function sql_save($array, $table, $key = 'id') {
 		return isset($array['id']) ? $array['id'] : 1;
 	}
@@ -386,6 +551,11 @@ if (!defined('MESSAGE_LEVEL_ERROR')) {
 }
 
 if (!function_exists('plugin_test_read_source')) {
+	/**
+	 * @param string $relative_file
+	 *
+	 * @return string
+	 */
 	function plugin_test_read_source($relative_file) {
 		$path = realpath(__DIR__ . '/../' . $relative_file);
 
