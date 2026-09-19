@@ -7,7 +7,12 @@
  +-------------------------------------------------------------------------+
 */
 
-// Pest configuration file. The bootstrap is loaded via phpunit.xml's
-// bootstrap attribute (tests/bootstrap-unit.php), which requires Cacti's
-// own Composer-managed vendor tree checked out by the CI workflow.
+/*
+ * Pest configuration file. The bootstrap is loaded via phpunit.xml's
+ * bootstrap attribute (tests/bootstrap-unit.php), which requires Cacti's
+ * own Composer-managed vendor tree checked out by the CI workflow.
+ */
 
+beforeEach(function () {
+	audit_test_reset_db_mocks();
+});

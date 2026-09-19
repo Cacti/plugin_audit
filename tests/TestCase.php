@@ -28,7 +28,7 @@ abstract class TestCase extends PHPUnit\Framework\TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$GLOBALS['__test_db_calls'] = array();
+		audit_test_reset_db_mocks();
 	}
 
 	/**
@@ -38,7 +38,7 @@ abstract class TestCase extends PHPUnit\Framework\TestCase {
 	 *
 	 * @return void
 	 */
-	protected static function loadPluginSource($file) {
+	protected static function loadPluginSource(string $file): void {
 		audit_test_load(dirname(__DIR__) . '/' . $file);
 	}
 }

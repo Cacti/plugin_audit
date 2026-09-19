@@ -1,4 +1,4 @@
-﻿# +-------------------------------------------------------------------------+
+# +-------------------------------------------------------------------------+
 # | Copyright (C) 2004-2026 The Cacti Group                                 |
 # |                                                                         |
 # | This program is free software; you can redistribute it and/or           |
@@ -33,6 +33,7 @@ on:
 
 env:
   CACTI: 1.2.x
+  COMPOSER_ALLOW_SUPERUSER: 1
 
 jobs:
   integration-test:
@@ -64,24 +65,24 @@ jobs:
 
     steps:
     - name: Checkout Cacti
-      uses: actions/checkout@v4
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         repository: Cacti/cacti
         ref: ${{ env.CACTI }}
         path: cacti
 
     - name: Checkout audit Plugin
-      uses: actions/checkout@v4
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         path: cacti/plugins/audit
 
     - name: Install PHP ${{ matrix.php }}
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # 2.37.2
       with:
         php-version: ${{ matrix.php }}
-        extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring, snmp
-        ini-values: "post_max_size=256M, max_execution_time=60, date.timezone=America/New_York"
+        extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring, snmp, sockets
         coverage: pcov
+        ini-values: "post_max_size=256M, max_execution_time=60, date.timezone=America/New_York"
 
     - name: Check PHP version
       run: php -v
@@ -90,7 +91,7 @@ jobs:
       run: sudo apt-get update
 
     - name: Install System Dependencies
-      run: sudo apt-get install -y snmp snmpd rrdtool fping
+      run: sudo apt-get install -y apache2 snmp snmpd rrdtool fping
 
     - name: Start SNMPD Agent and Test
       run: |
@@ -108,24 +109,26 @@ jobs:
     - name: Create MySQL Config
       run: |
         echo -e "[client]\nuser = root\npassword = cactiroot\nhost = 127.0.0.1\n" > ~/.my.cnf
+        cat ~/.my.cnf
 
     - name: Initialize Cacti Database
-      env:
-        MYSQL_AUTH_USR: '--defaults-file=~/.my.cnf'
       run: |
-        mysql $MYSQL_AUTH_USR -e 'CREATE DATABASE IF NOT EXISTS cacti;'
-        mysql $MYSQL_AUTH_USR -e "CREATE USER IF NOT EXISTS 'cactiuser'@'localhost' IDENTIFIED BY 'cactiuser';"
-        mysql $MYSQL_AUTH_USR -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cactiuser'@'localhost';"
-        mysql $MYSQL_AUTH_USR -e "GRANT SELECT ON mysql.time_zone_name TO 'cactiuser'@'localhost';"
-        mysql $MYSQL_AUTH_USR -e "FLUSH PRIVILEGES;"
-        mysql $MYSQL_AUTH_USR cacti < ${{ github.workspace }}/cacti/cacti.sql
-        mysql $MYSQL_AUTH_USR -e "INSERT INTO settings (name, value) VALUES ('path_php_binary', '/usr/bin/php')" cacti
+        mysql --defaults-file="$HOME/.my.cnf" -e 'CREATE DATABASE IF NOT EXISTS cacti;'
+        mysql --defaults-file="$HOME/.my.cnf" -e "CREATE USER IF NOT EXISTS 'cactiuser'@'localhost' IDENTIFIED BY 'cactiuser';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "CREATE USER IF NOT EXISTS 'cactiuser'@'127.0.0.1' IDENTIFIED BY 'cactiuser';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cactiuser'@'localhost';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "GRANT ALL PRIVILEGES ON cacti.* TO 'cactiuser'@'127.0.0.1';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "GRANT SELECT ON mysql.time_zone_name TO 'cactiuser'@'localhost';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "GRANT SELECT ON mysql.time_zone_name TO 'cactiuser'@'127.0.0.1';"
+        mysql --defaults-file="$HOME/.my.cnf" -e "FLUSH PRIVILEGES;"
+        mysql --defaults-file="$HOME/.my.cnf" cacti < ${{ github.workspace }}/cacti/cacti.sql
+        mysql --defaults-file="$HOME/.my.cnf" -e "INSERT INTO settings (name, value) VALUES ('path_php_binary', '/usr/bin/php')" cacti
 
     - name: Validate composer files
       run: |
         cd ${{ github.workspace }}/cacti
         if [ -f composer.json ]; then
-          composer validate --strict || true
+          sudo composer validate --strict || true
         fi
 
     - name: Install Composer Dependencies
@@ -172,7 +175,7 @@ jobs:
         cd ${{ github.workspace }}/cacti
         sudo php cli/install_cacti.php --accept-eula --install --force
 
-    - name: Install audit Plugin
+    - name: Install Audit Plugin
       run: |
         cd ${{ github.workspace }}/cacti
         sudo php cli/plugin_manage.php --plugin=audit --install --enable
@@ -220,11 +223,11 @@ jobs:
         cd ${{ github.workspace }}/cacti
         include/vendor/bin/pest --configuration=plugins/audit/phpunit.xml \
           --coverage-clover=plugins/audit/coverage/clover.xml \
-          plugins/audit/tests/Security plugins/audit/tests/Unit
+          plugins/audit/tests/Security plugins/audit/tests/Unit plugins/audit/tests/Integration
 
     - name: Upload coverage report
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: coverage-php${{ matrix.php }}
         path: ${{ github.workspace }}/cacti/plugins/audit/coverage/
@@ -241,12 +244,12 @@ jobs:
 
     - name: Run Linter on base code
       if: ${{ env.CACTI != '1.2.x' }}
-      run: composer run-script lint ${{ github.workspace }}/cacti/plugins/audit
+      run: sudo composer run-script lint ${{ github.workspace }}/cacti/plugins/audit
       working-directory: ${{ github.workspace }}/cacti
 
     - name: Checking coding standards on base code
       if: ${{ env.CACTI != '1.2.x' }}
-      run: composer run-script phpcsfixer ${{ github.workspace }}/cacti/plugins/audit
+      run: sudo composer run-script phpcsfixer ${{ github.workspace }}/cacti/plugins/audit
       working-directory: ${{ github.workspace }}/cacti
 
     - name: Run PHPStan at Level 6 on base code outside of Composer due to technical issues
@@ -282,28 +285,18 @@ jobs:
           exit 1
         fi
 
-    - name: View Cacti Logs
-      if: always()
-      run: |
-        if [ -f ${{ github.workspace }}/cacti/log/cacti.log ]; then
-          echo "=== Cacti Log ==="
-          sudo cat ${{ github.workspace }}/cacti/log/cacti.log
-        fi
-
     - name: enable audit plugin logging
       run: |
-        cd ${{ github.workspace }}
         ENABLE_AUDIT_LOGGING="update settings set value = 'on' where name = 'audit_enabled' or name = 'audit_log_external';"
         mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "$ENABLE_AUDIT_LOGGING"
 
     - name: Run cli script to trigger audit log entry
       run: |
         cd ${{ github.workspace }}/cacti
-        sudo -u www-data php cli/add_device.php --description=test --ip=1
+        sudo php cli/add_device.php --description=test --ip=1
 
     - name: check audit log entries
       run: |
-        cd ${{ github.workspace }}
         AUDIT_LOG_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select count(*) from audit_log;")
         echo "Audit log entry count: $AUDIT_LOG_COUNT"
         if [ "$AUDIT_LOG_COUNT" -lt 1 ]; then
@@ -315,6 +308,14 @@ jobs:
         if [ "$CLI_STATUS" != "completed" ]; then
           echo "Unexpected CLI request status: $CLI_STATUS"
           exit 1
+        fi
+
+    - name: View Cacti Logs
+      if: always()
+      run: |
+        if [ -f ${{ github.workspace }}/cacti/log/cacti.log ]; then
+          echo "=== Cacti Log ==="
+          sudo cat ${{ github.workspace }}/cacti/log/cacti.log
         fi
 
     - name: Check Cacti Logs for Errors
