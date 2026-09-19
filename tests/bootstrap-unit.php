@@ -110,6 +110,7 @@ function audit_test_reset_db_mocks() {
 	$GLOBALS['__test_db_calls']          = [];
 	$GLOBALS['__test_config_options']    = [];
 	$GLOBALS['__test_db_affected_rows']  = 0;
+	$GLOBALS['__test_logs']              = [];
 }
 
 /**
@@ -242,11 +243,29 @@ if (!function_exists('db_index_exists')) {
 	/**
 	 * @param string $table
 	 * @param string $index
+	 * @param bool   $type
+	 * @param mixed  $cnn_id
 	 *
 	 * @return bool
 	 */
-	function db_index_exists($table, $index) {
-		return false;
+	function db_index_exists($table, $index, $type = false, $cnn_id = false) {
+		return audit_test_db_result('db_index_exists', $table . '|' . $index, [], false);
+	}
+}
+
+if (!function_exists('db_add_index')) {
+	/**
+	 * @param string $table
+	 * @param string $type
+	 * @param string $name
+	 * @param array  $columns
+	 * @param bool   $unique
+	 * @param mixed  $cnn_id
+	 *
+	 * @return bool
+	 */
+	function db_add_index($table, $type, $name, $columns, $unique = false, $cnn_id = false) {
+		return audit_test_db_result('db_add_index', $table . '|' . $name . '|' . implode(',', (array) $columns), [], true);
 	}
 }
 
@@ -279,6 +298,15 @@ if (!function_exists('db_affected_rows')) {
 	 */
 	function db_affected_rows() {
 		return $GLOBALS['__test_db_affected_rows'] ?? 0;
+	}
+}
+
+if (!function_exists('db_fetch_insert_id')) {
+	/**
+	 * @return int
+	 */
+	function db_fetch_insert_id() {
+		return audit_test_db_result('db_fetch_insert_id', '', [], 0);
 	}
 }
 
@@ -353,6 +381,7 @@ if (!function_exists('set_config_option')) {
 	 * @return void
 	 */
 	function set_config_option($name, $value) {
+		$GLOBALS['__test_config_options'][$name] = $value;
 	}
 }
 
@@ -392,6 +421,8 @@ if (!function_exists('__esc')) {
 	}
 }
 
+$GLOBALS['__test_logs'] = [];
+
 if (!function_exists('cacti_log')) {
 	/**
 	 * @param string $message
@@ -402,6 +433,7 @@ if (!function_exists('cacti_log')) {
 	 * @return void
 	 */
 	function cacti_log($message, $also_print = false, $log_type = '', $level = 0) {
+		$GLOBALS['__test_logs'][] = $message;
 	}
 }
 

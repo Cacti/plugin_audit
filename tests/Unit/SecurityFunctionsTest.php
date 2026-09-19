@@ -299,6 +299,14 @@ it('does not create external records or update delivery status for missing or em
 		audit_deliver_external_event(999);
 		expect(file_get_contents($temporary_log))->toBe('');
 		expect($external_updates)->toBe([]);
+
+		audit_test_mock_db('db_fetch_row_prepared', '', [
+			'request_status'  => 'completed',
+			'external_status' => 'delivered',
+		]);
+		audit_deliver_external_event(999);
+		expect(file_get_contents($temporary_log))->toBe('', 'A delivered event must not be appended to the external file again.');
+		expect($external_updates)->toBe([], 'A delivered event must not update delivery status again.');
 	} finally {
 		unlink($temporary_log);
 	}

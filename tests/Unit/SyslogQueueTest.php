@@ -45,12 +45,14 @@ $audit_queue_settings = [
 ];
 
 beforeEach(function () use ($audit_queue_settings) {
+	audit_test_reset_db_mocks();
+
 	foreach ($audit_queue_settings as $name => $value) {
 		audit_test_set_config_option($name, $value);
 	}
 
 	audit_test_mock_db('db_table_exists', '', function ($table) {
-		return $table === 'audit_syslog_delivery';
+		return in_array($table, ['audit_log', 'audit_syslog_delivery'], true);
 	});
 
 	audit_test_mock_db('db_fetch_row_prepared', '', function ($sql, $params) {

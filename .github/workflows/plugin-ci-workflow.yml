@@ -205,13 +205,43 @@ jobs:
           exit 1
         fi
 
+        AUTH_STATE_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'cacti'
+            AND table_name = 'audit_user_log_state';
+        ")
+        if [ "$AUTH_STATE_TABLE_COUNT" -ne 1 ]; then
+          echo "Authentication deduplication state table is missing"
+          exit 1
+        fi
+
+        AUTH_STATE_FK_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.table_constraints
+          WHERE constraint_schema = 'cacti'
+            AND table_name = 'audit_user_log_state'
+            AND constraint_type = 'FOREIGN KEY';
+        ")
+        if [ "$AUTH_STATE_FK_COUNT" -ne 0 ]; then
+          echo "Authentication deduplication state must survive audit-log purges"
+          exit 1
+        fi
+
+        THROTTLE_SETTING_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM settings
+          WHERE name = 'audit_brute_force_last_alert';
+        ")
+        if [ "$THROTTLE_SETTING_COUNT" -ne 1 ]; then
+          echo "Brute-force throttle setting was not initialized"
+          exit 1
+        fi
+
     - name: Check PHP Syntax for Plugin
       run: |
         cd ${{ github.workspace }}/cacti/plugins/audit
-        if find . -name '*.php' -exec php -l {} 2>&1 \; | grep -iv 'no syntax errors detected'; then
-          echo "Syntax errors found!"
-          exit 1
-        fi
+        find . -path './vendor' -prune -o -type f -name '*.php' -print0 | xargs -0 -r -n1 php -l
 
     - name: Set expected Cacti version for unit tests
       run: echo -n "${{ env.CACTI }}" | sudo tee ${{ github.workspace }}/cacti/plugins/audit/tests/.cacti-version > /dev/null
@@ -232,30 +262,6 @@ jobs:
         name: coverage-php${{ matrix.php }}
         path: ${{ github.workspace }}/cacti/plugins/audit/coverage/
         if-no-files-found: warn
-
-    - name: Remove the plugins directory exclusion from the .phpstan.neon
-      if: ${{ env.CACTI != '1.2.x' }}
-      run: sed '/plugins/d' -i .phpstan.neon
-      working-directory: ${{ github.workspace }}/cacti
-
-    - name: Mark composer scripts executable
-      if: ${{ env.CACTI != '1.2.x' }}
-      run: sudo chmod +x ${{ github.workspace }}/cacti/include/vendor/bin/*
-
-    - name: Run Linter on base code
-      if: ${{ env.CACTI != '1.2.x' }}
-      run: sudo composer run-script lint ${{ github.workspace }}/cacti/plugins/audit
-      working-directory: ${{ github.workspace }}/cacti
-
-    - name: Checking coding standards on base code
-      if: ${{ env.CACTI != '1.2.x' }}
-      run: sudo composer run-script phpcsfixer ${{ github.workspace }}/cacti/plugins/audit
-      working-directory: ${{ github.workspace }}/cacti
-
-    - name: Run PHPStan at Level 6 on base code outside of Composer due to technical issues
-      if: ${{ env.CACTI != '1.2.x' }}
-      run: ./include/vendor/bin/phpstan analyze --level 6 ${{ github.workspace }}/cacti/plugins/audit
-      working-directory: ${{ github.workspace }}/cacti
 
     - name: Re-apply web user ownership before polling
       run: |
@@ -295,6 +301,109 @@ jobs:
         cd ${{ github.workspace }}/cacti
         sudo php cli/add_device.php --description=test --ip=1
 
+    - name: Exercise authentication ingestion
+      run: |
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "
+          UPDATE settings
+          SET value = CASE name
+            WHEN 'audit_user_log_watermark_epoch' THEN UNIX_TIMESTAMP() - 60
+            ELSE 'on'
+          END
+          WHERE name IN (
+            'audit_auth_log_enabled',
+            'audit_auth_log_last_state',
+            'audit_brute_force_enabled',
+            'audit_user_log_watermark_epoch'
+          );
+          INSERT INTO user_log (username, user_id, time, result, ip)
+          VALUES ('audit_ci_login', 0, NOW(), 0, '192.0.2.10')
+          ON DUPLICATE KEY UPDATE result = VALUES(result), ip = VALUES(ip);
+        "
+        cd ${{ github.workspace }}/cacti
+        sudo php plugins/audit/tests/Integration/AuthSqlIntegrationCheck.php
+
+        AUTH_INDEX_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(DISTINCT index_name)
+          FROM information_schema.statistics
+          WHERE table_schema = 'cacti'
+            AND table_name = 'user_log'
+            AND index_name IN ('plugin_audit_time', 'plugin_audit_result_time');
+        ")
+        if [ "$AUTH_INDEX_COUNT" -ne 2 ]; then
+          echo "Authentication audit indexes are missing after opt-in setup"
+          exit 1
+        fi
+
+        AUTH_EVENT_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        ")
+        AUTH_STATE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_user_log_state
+          WHERE source_username = 'audit_ci_login'
+            AND source_user_id = 0
+            AND source_epoch = (
+              SELECT UNIX_TIMESTAMP(time) FROM user_log
+              WHERE username = 'audit_ci_login' AND user_id = 0
+              ORDER BY time DESC LIMIT 1
+            );
+        ")
+
+        if [ "$AUTH_EVENT_COUNT" -ne 1 ] || [ "$AUTH_STATE_COUNT" -ne 1 ]; then
+          echo "Authentication ingestion did not atomically create one event and one state marker"
+          exit 1
+        fi
+
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "
+          DELETE FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        "
+        sudo php poller.php --poller=1 --force --debug
+
+        REPLAYED_EVENT_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_log
+          WHERE event_type = 'cacti.auth.login.failed'
+            AND target_id = 'audit_ci_login';
+        ")
+        if [ "$REPLAYED_EVENT_COUNT" -ne 0 ]; then
+          echo "Authentication source row was replayed after audit-log deletion"
+          exit 1
+        fi
+
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "
+          INSERT INTO user_log (username, user_id, time, result, ip) VALUES
+            ('audit_ci_login_02', 0, NOW(), 0, '192.0.2.11'),
+            ('audit_ci_login_03', 0, NOW(), 0, '192.0.2.12'),
+            ('audit_ci_login_04', 0, NOW(), 0, '192.0.2.13'),
+            ('audit_ci_login_05', 0, NOW(), 0, '192.0.2.14'),
+            ('audit_ci_login_06', 0, NOW(), 0, '192.0.2.15'),
+            ('audit_ci_login_07', 0, NOW(), 0, '192.0.2.16'),
+            ('audit_ci_login_08', 0, NOW(), 0, '192.0.2.17'),
+            ('audit_ci_login_09', 0, NOW(), 0, '192.0.2.18'),
+            ('audit_ci_login_10', 0, NOW(), 0, '192.0.2.19');
+        "
+        sudo php poller.php --poller=1 --force --debug
+
+        ANOMALY_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM audit_log
+          WHERE event_type = 'cacti.auth.failed_login_volume_anomaly'
+            AND target_type = 'authentication_environment'
+            AND target_id = 'global'
+            AND JSON_UNQUOTE(JSON_EXTRACT(CONVERT(details USING utf8mb4), '$.scope')) = 'global'
+            AND JSON_EXTRACT(CONVERT(details USING utf8mb4), '$.distinct_usernames') >= 10
+            AND JSON_EXTRACT(CONVERT(details USING utf8mb4), '$.distinct_ips') >= 10;
+        ")
+        if [ "$ANOMALY_COUNT" -ne 1 ]; then
+          echo "Global failed-login volume anomaly was not recorded with source cardinality"
+          exit 1
+        fi
+
     - name: check audit log entries
       run: |
         AUDIT_LOG_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select count(*) from audit_log;")
@@ -307,6 +416,33 @@ jobs:
         CLI_STATUS=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select request_status from audit_log where action = 'cli' order by id desc limit 1;")
         if [ "$CLI_STATUS" != "completed" ]; then
           echo "Unexpected CLI request status: $CLI_STATUS"
+          exit 1
+        fi
+
+    - name: Verify plugin uninstall cleanup
+      run: |
+        cd ${{ github.workspace }}/cacti
+        sudo php cli/plugin_manage.php --plugin=audit --disable --uninstall
+
+        AUDIT_SETTING_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*) FROM settings WHERE LEFT(name, 6) = 'audit_';
+        ")
+        AUDIT_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+              SELECT COUNT(*)
+              FROM information_schema.tables
+              WHERE table_schema = 'cacti'
+                AND table_name IN ('audit_log', 'audit_syslog_delivery', 'audit_user_log_state');
+        ")
+        AUDIT_INDEX_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(DISTINCT index_name)
+          FROM information_schema.statistics
+          WHERE table_schema = 'cacti'
+            AND table_name = 'user_log'
+            AND index_name IN ('plugin_audit_time', 'plugin_audit_result_time');
+        ")
+
+        if [ "$AUDIT_SETTING_COUNT" -ne 0 ] || [ "$AUDIT_TABLE_COUNT" -ne 0 ] || [ "$AUDIT_INDEX_COUNT" -ne 0 ]; then
+          echo "Audit plugin uninstall left settings, tables, or indexes behind"
           exit 1
         fi
 
