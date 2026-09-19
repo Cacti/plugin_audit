@@ -81,6 +81,7 @@ jobs:
         php-version: ${{ matrix.php }}
         extensions: intl, mysql, gd, ldap, gmp, xml, curl, json, mbstring, snmp
         ini-values: "post_max_size=256M, max_execution_time=60, date.timezone=America/New_York"
+        coverage: pcov
 
     - name: Check PHP version
       run: php -v
@@ -107,7 +108,6 @@ jobs:
     - name: Create MySQL Config
       run: |
         echo -e "[client]\nuser = root\npassword = cactiroot\nhost = 127.0.0.1\n" > ~/.my.cnf
-        cat ~/.my.cnf
 
     - name: Initialize Cacti Database
       env:
@@ -177,6 +177,31 @@ jobs:
         cd ${{ github.workspace }}/cacti
         sudo php cli/plugin_manage.php --plugin=audit --install --enable
 
+    - name: Verify Audit Schema
+      run: |
+        COLUMN_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.columns
+          WHERE table_schema = 'cacti'
+            AND table_name = 'audit_log'
+            AND column_name IN ('request_status', 'external_status', 'external_error');
+        ")
+        if [ "$COLUMN_COUNT" -ne 3 ]; then
+          echo "Audit schema security columns are missing"
+          exit 1
+        fi
+
+        SYSLOG_TABLE_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "
+          SELECT COUNT(*)
+          FROM information_schema.tables
+          WHERE table_schema = 'cacti'
+            AND table_name = 'audit_syslog_delivery';
+        ")
+        if [ "$SYSLOG_TABLE_COUNT" -ne 1 ]; then
+          echo "Audit Syslog delivery queue table is missing"
+          exit 1
+        fi
+
     - name: Check PHP Syntax for Plugin
       run: |
         cd ${{ github.workspace }}/cacti/plugins/audit
@@ -195,7 +220,7 @@ jobs:
         cd ${{ github.workspace }}/cacti
         include/vendor/bin/pest --configuration=plugins/audit/phpunit.xml \
           --coverage-clover=plugins/audit/coverage/clover.xml \
-          plugins/audit/tests/Security
+          plugins/audit/tests/Security plugins/audit/tests/Unit
 
     - name: Upload coverage report
       if: always()
@@ -263,6 +288,33 @@ jobs:
         if [ -f ${{ github.workspace }}/cacti/log/cacti.log ]; then
           echo "=== Cacti Log ==="
           sudo cat ${{ github.workspace }}/cacti/log/cacti.log
+        fi
+
+    - name: enable audit plugin logging
+      run: |
+        cd ${{ github.workspace }}
+        ENABLE_AUDIT_LOGGING="update settings set value = 'on' where name = 'audit_enabled' or name = 'audit_log_external';"
+        mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -e "$ENABLE_AUDIT_LOGGING"
+
+    - name: Run cli script to trigger audit log entry
+      run: |
+        cd ${{ github.workspace }}/cacti
+        sudo -u www-data php cli/add_device.php --description=test --ip=1
+
+    - name: check audit log entries
+      run: |
+        cd ${{ github.workspace }}
+        AUDIT_LOG_COUNT=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select count(*) from audit_log;")
+        echo "Audit log entry count: $AUDIT_LOG_COUNT"
+        if [ "$AUDIT_LOG_COUNT" -lt 1 ]; then
+          echo "No audit log entries found!"
+          exit 1
+        fi
+
+        CLI_STATUS=$(mysql -u cactiuser -p'cactiuser' -h 127.0.0.1 cacti -se "select request_status from audit_log where action = 'cli' order by id desc limit 1;")
+        if [ "$CLI_STATUS" != "completed" ]; then
+          echo "Unexpected CLI request status: $CLI_STATUS"
+          exit 1
         fi
 
     - name: Check Cacti Logs for Errors
