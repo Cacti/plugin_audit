@@ -471,7 +471,7 @@ function audit_set_external_status(int $id, string $status, string $error = ''):
 			external_error = ?,
 			external_attempts = external_attempts + 1,
 			external_last_attempt = UTC_TIMESTAMP(6),
-			external_delivered_time = CASE WHEN ? = "delivered" THEN UTC_TIMESTAMP(6) ELSE external_delivered_time END
+			external_delivered_time = CASE WHEN ? = \'delivered\' THEN UTC_TIMESTAMP(6) ELSE external_delivered_time END
 		WHERE id = ?',
 		[$status, $error, $status, $id]);
 }
@@ -901,7 +901,7 @@ function audit_user_log_event_descriptor(int $result, int $user_id): array {
 			'event_type' => 'cacti.auth.password_change_or_2fa_failed',
 			'severity'   => 'info',
 			'outcome'    => 'unknown',
-			'action'     => 'password_change_or_2fa_failed',
+			'action'     => 'pwd_or_2fa_failed',
 			'details'    => [
 				'ambiguous' => true,
 				'note'      => __('Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate.', 'audit')
@@ -1072,17 +1072,41 @@ function audit_poll_user_log(): void {
 			return;
 		}
 
-		$activation_epoch = (int) db_fetch_cell_prepared('SELECT UNIX_TIMESTAMP()');
+		// Serialize the off->on transition with a named lock so two pollers
+		// racing on a concurrently-observed 'off' state can't each read a
+		// different clock value and overwrite each other's watermark; rows
+		// created between the two reads would otherwise fall below the
+		// final activation floor and never be ingested.
+		$lock_acquired = (bool) db_fetch_cell("SELECT GET_LOCK('audit_auth_log_activation', 5)");
 
-		if ($activation_epoch <= 0) {
-			audit_report_ingestion_unavailable('database_clock_unavailable');
-
+		if (!$lock_acquired) {
+			// Another poller is mid-transition; retry next cycle.
 			return;
 		}
 
-		set_config_option('audit_auth_log_last_state', 'on');
-		set_config_option('audit_user_log_watermark_epoch', (string) $activation_epoch);
-		set_config_option('audit_user_log_activation_epoch', (string) $activation_epoch);
+		try {
+			// Re-read state now that we hold the lock: the other poller may
+			// have already completed the transition while we were waiting.
+			$last_state = (string) read_config_option('audit_auth_log_last_state', true);
+
+			if ($last_state === 'on') {
+				return;
+			}
+
+			$activation_epoch = (int) db_fetch_cell_prepared('SELECT UNIX_TIMESTAMP()');
+
+			if ($activation_epoch <= 0) {
+				audit_report_ingestion_unavailable('database_clock_unavailable');
+
+				return;
+			}
+
+			set_config_option('audit_auth_log_last_state', 'on');
+			set_config_option('audit_user_log_watermark_epoch', (string) $activation_epoch);
+			set_config_option('audit_user_log_activation_epoch', (string) $activation_epoch);
+		} finally {
+			db_execute("SELECT RELEASE_LOCK('audit_auth_log_activation')");
+		}
 
 		// Begin on the next cycle so every selected row is strictly newer than
 		// the activation watermark.
@@ -1396,7 +1420,7 @@ function audit_detect_failed_login_volume(): void {
 
 	$audit_id = audit_record_event('cacti.auth.failed_login_volume_anomaly', [
 		'event_category'    => 'authentication',
-		'action'            => 'failed_login_volume_anomaly',
+		'action'            => 'login_volume_anomaly',
 		'severity'          => 'critical',
 		'operation_outcome' => 'failure',
 		'actor_type'        => 'system',

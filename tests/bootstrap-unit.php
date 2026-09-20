@@ -223,7 +223,14 @@ if (!function_exists('db_fetch_cell')) {
 	 * @return mixed
 	 */
 	function db_fetch_cell($sql) {
-		return audit_test_db_result('db_fetch_cell', $sql, [], '');
+		// GET_LOCK() defaults to "acquired" so tests exercising the
+		// off->on activation transition don't all need to stub it
+		// individually; a test can still override with
+		// audit_test_mock_db('db_fetch_cell', 'GET_LOCK', 0) to simulate
+		// lock contention.
+		$default = (stripos($sql, 'GET_LOCK') !== false) ? 1 : '';
+
+		return audit_test_db_result('db_fetch_cell', $sql, [], $default);
 	}
 }
 
