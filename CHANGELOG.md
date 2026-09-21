@@ -2,6 +2,7 @@
 
 --- 1.6 ---
 
+* chore: Harmonize CI workflow, issue/PR templates, and PHP-compatibility test structure with the shared Cacti plugin baseline
 * feature: Capture login failure, token, credentials-accepted, and authorization-denied events by polling the Cacti user_log table across all authentication methods
 * feature: Ingest user_log every poller cycle with bounded high-water paging and retry-safe claim-first deduplication via audit_user_log_state
 * feature: Apply the audit retention cutoff to every ingestion batch so historical rows are not replayed
