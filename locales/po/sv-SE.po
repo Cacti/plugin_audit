@@ -4,335 +4,783 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2024-06-08 09:09-0400\nPO-Revision-Date: 2026-09-12 08:18+0000\nLast-Translator: Daniel Nylander <daniel@danielnylander.se>\nLanguage-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\nLanguage: sv-SE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-21 13:13-0400\n"
+"PO-Revision-Date: 2026-09-12 08:18+0000\n"
+"Last-Translator: Daniel Nylander <daniel@danielnylander.se>\n"
+"Language-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\n"
+"Language: sv-SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 
-#: audit.php:54 audit.php:77
-msgid "Page:"
-msgstr "Sida:"
+#: audit.php:63
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr ""
 
-#: audit.php:55 audit.php:78
-msgid "User:"
-msgstr "Användare:"
-
-#: audit.php:56 audit.php:79
-msgid "IP Address:"
-msgstr "IP-adress:"
-
-#: audit.php:57 audit.php:80
-msgid "Date:"
-msgstr "Datum:"
-
-#: audit.php:58 audit.php:81
-msgid "Action:"
-msgstr "Åtgärd:"
-
-#: audit.php:60
-msgid "Script:"
-msgstr "Skript:"
-
-#: audit.php:87 audit.php:90
-msgid "Attrib"
-msgstr "Attrib"
-
-#: audit.php:87 audit.php:90
-msgid "Value"
-msgstr "Värde"
-
-#: audit.php:119
-msgid "Record Data:"
-msgstr "Registrera data:"
-
-#: audit.php:143
+#: audit.php:64
 #, php-format
-msgid "Audit Log Purged by %s"
-msgstr "Granskningsloggen rensas av %s"
+msgid "Syslog test failed: %s"
+msgstr ""
 
-#: audit.php:179
-msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
-msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
-msgstr "sida, user_id, användarnamn, åtgärd, ip_adress, user_agent, event_time, post"
-
-#: audit.php:266
-msgid "Audit Log"
-msgstr "Granskningslogg"
-
-#: audit.php:275
-msgid "Search"
-msgstr "Sök"
-
-#: audit.php:281
-msgid "Page"
-msgstr "Sida"
-
-#: audit.php:285 audit.php:301
-msgid "All"
-msgstr "Alla"
-
-#: audit.php:297
-msgid "User"
-msgstr "Användare"
-
-#: audit.php:302
-msgid "cli"
-msgstr "cli"
-
-#: audit.php:314
-msgid "Events"
-msgstr "Evenemang"
-
-#: audit.php:318
-msgid "Default"
-msgstr "Standard"
-
-#: audit.php:329
-msgid "Go"
-msgstr "Utför"
-
-#: audit.php:329
-msgid "Set/Refresh Filters"
-msgstr "Ange / Uppdatera filter"
-
-#: audit.php:332
-msgid "Clear"
-msgstr "Rensa"
-
-#: audit.php:332
-msgid "Clear Filters"
-msgstr "Rensa filter"
-
-#: audit.php:335
-msgid "Export"
-msgstr "Exportera"
-
-#: audit.php:335
-msgid "Export Log Events"
-msgstr "Exportera logghändelser"
-
-#: audit.php:338
-msgid "Purge"
-msgstr "Rensa"
-
-#: audit.php:338
-msgid "Purge Log Events"
-msgstr "Purge Log Events"
-
-#: audit.php:434
-msgid "Audit Events"
-msgstr "Revisionshändelser"
-
-#: audit.php:442
-msgid "Page Name"
-msgstr "Sidonamn"
-
-#: audit.php:445
-msgid "The page where the event was generated."
-msgstr "Sidan där händelsen genererades."
-
-#: audit.php:448
-msgid "User Name"
-msgstr "Användarnamn"
-
-#: audit.php:451
-msgid "The user who generated the event."
-msgstr "Användaren som genererade händelsen."
-
-#: audit.php:454
-msgid "Action"
-msgstr "Åtgärd"
-
-#: audit.php:457
-msgid "The Cacti Action requested.  Hover over action to see $_POST data."
-msgstr "Cacti Action begärde. Håll över handling för att se $ _POST data."
-
-#: audit.php:460
-msgid "User Agent"
-msgstr "Användaragent"
-
-#: audit.php:463
-msgid "The browser type of the requester."
-msgstr "Webbläsarens typ av sökande."
-
-#: audit.php:466
-msgid "IP Address"
-msgstr "IP adress"
-
-#: audit.php:469
-msgid "The IP Address of the requester."
-msgstr "IP-adress för beställaren."
-
-#: audit.php:472
-msgid "Event Time"
-msgstr "Tid för evenemanget"
-
-#: audit.php:475
-msgid "The time the Event took place."
-msgstr "Den tid händelsen ägde rum."
-
-#: audit.php:489
-msgid "N/A"
-msgstr "N/A"
-
-#: audit.php:505
-msgid "No Audit Log Events Found"
-msgstr "Inga revisionslogg händelser hittades"
-
-#: audit.php:525
-msgid "Audit Event Details"
-msgstr "Revisionshändelsesdetaljer"
-
-#: setup.php:38
-msgid "View Cacti Audit Log"
-msgstr "Visa Cacti Audit Log"
-
-#: setup.php:228 setup.php:229
-msgid "Technical Support"
-msgstr "Teknisk support"
-
-#: setup.php:231
-msgid "View Audit Log"
-msgstr "Visa granskningsloggen"
-
-#: setup.php:233
-msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
-msgstr "Tillåter administratörer att visa förändringsaktivitet på Cacti-servern. Administratörer kan också exportera revisionsloggen för analysändamål."
-
-#: setup.php:248
-msgid "Indefinitely"
-msgstr "Ingen gräns"
-
-#: setup.php:249
+#: audit.php:98
 #, php-format
-msgid "%d Weeks"
-msgstr "%d veckor"
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr ""
 
-#: setup.php:250
-#, php-format
-msgid "%d Month"
-msgstr "%d månad"
-
-#: setup.php:251 setup.php:252 setup.php:253 setup.php:254
-#, php-format
-msgid "%d Months"
-msgstr "%d månader"
-
-#: setup.php:255
-#, php-format
-msgid "%d Year"
-msgstr "%d år"
-
-#: setup.php:256 setup.php:257
-#, php-format
-msgid "%d Years"
-msgstr "%d år"
-
-#: setup.php:261
-msgid "System Administration"
-msgstr "Systemadministratör"
-
-#: setup.php:272
-msgid "Audit Log Settings"
-msgstr "Audit Log Settings"
-
-#: setup.php:276
-msgid "Enable Audit Log"
-msgstr "Aktivera granskningsloggen"
-
-#: setup.php:277
-msgid "Check this box, if you want the Audit Log to track GUI activities."
-msgstr "Markera den här rutan om du vill att granskningsloggen ska spåra GUI-aktiviteter."
-
-#: setup.php:282
-msgid "Audit Log Retention"
-msgstr "Lagring av kontrolllogg"
-
-#: setup.php:283
-msgid "How long do you wish Audit Log entries to be retained?"
-msgstr "Hur länge önskar du att revisionslogguppgifter ska behållas?"
-
-#: setup.php:290
-msgid "External Audit Log"
-msgstr "Aktivera granskningsloggen"
-
-#: setup.php:291
-msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Markera den här rutan om du vill att granskningsloggen ska spåra GUI-aktiviteter."
-
-#: setup.php:296
-msgid "External Audit Log Log file  Path"
-msgstr "Sökväg till extern granskningsloggfil"
-
-#: setup.php:297
-msgid "Enter the path to the external audit log file."
-msgstr "Ange sökvägen till den externa granskningsloggfilen."
-
-#: setup.php:305
-msgid "Audit"
-msgstr "Revision"
-
-#: setup.php:316
-msgid "Audit Event Log"
-msgstr "Revisionshändelselogg"
-
-#: audit.php
+#: audit.php:133
 msgid "Audit event not found."
 msgstr "Revisionshändelse hittades inte."
 
-#: audit.php
-msgid "External Delivery:"
+#: audit.php:161
+msgid "Page:"
+msgstr "Sida:"
+
+#: audit.php:162
+msgid "User:"
+msgstr "Användare:"
+
+#: audit.php:163
+msgid "IP Address:"
+msgstr "IP-adress:"
+
+#: audit.php:164
+msgid "Date:"
+msgstr "Datum:"
+
+#: audit.php:165
+msgid "Action:"
+msgstr "Åtgärd:"
+
+#: audit.php:166
+#, fuzzy
+#| msgid "Event Time"
+msgid "Event Type:"
+msgstr "Tid för evenemanget"
+
+#: audit.php:167
+#, fuzzy
+#| msgid "Events"
+msgid "Event ID:"
+msgstr "Evenemang"
+
+#: audit.php:168
+msgid "Request Status:"
+msgstr "Status för begäran:"
+
+#: audit.php:169
+msgid "Operation Outcome:"
+msgstr ""
+
+#: audit.php:172
+msgid "Outcome Reason:"
+msgstr ""
+
+#: audit.php:174
+#, fuzzy
+#| msgid "External Delivery:"
+msgid "External File Delivery:"
 msgstr "Extern leverans:"
 
-#: audit.php
-msgid "External Error:"
+#: audit.php:177
+#, fuzzy
+#| msgid "External Error:"
+msgid "External File Error:"
 msgstr "Externt fel:"
 
-#: audit.php
+#: audit.php:194
+#, fuzzy
+#| msgid "External Delivery:"
+msgid "Remote Syslog Delivery:"
+msgstr "Extern leverans:"
+
+#: audit.php:195
+msgid "Syslog Attempts:"
+msgstr ""
+
+#: audit.php:198
+msgid "Syslog Socket Write:"
+msgstr ""
+
+#: audit.php:202
+msgid "Syslog Error:"
+msgstr ""
+
+#: audit.php:209
+msgid "Script:"
+msgstr "Skript:"
+
+#: audit.php:216
 msgid "Stored Data"
 msgstr "Lagrat data"
 
-#: audit.php
+#: audit.php:216
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
 msgstr "Lagrad begäransdata är inte giltig JSON: %s"
 
-#: audit.php
+#: audit.php:223 audit.php:224
+msgid "Attrib"
+msgstr "Attrib"
+
+#: audit.php:223 audit.php:224
+msgid "Value"
+msgstr "Värde"
+
+#: audit.php:249
+msgid "Record Data:"
+msgstr "Registrera data:"
+
+#: audit.php:303
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr ""
+
+#: audit.php:482 setup.php:781
+msgid "Audit Log"
+msgstr "Granskningslogg"
+
+#: audit.php:491
+msgid "Search"
+msgstr "Sök"
+
+#: audit.php:497
+msgid "Page"
+msgstr "Sida"
+
+#: audit.php:501 audit.php:522
+msgid "All"
+msgstr "Alla"
+
+#: audit.php:518
+msgid "User"
+msgstr "Användare"
+
+#: audit.php:523
+msgid "cli"
+msgstr "cli"
+
+#: audit.php:543
+msgid "Events"
+msgstr "Evenemang"
+
+#: audit.php:547
+msgid "Default"
+msgstr "Standard"
+
+#: audit.php:563
+msgid "Go"
+msgstr "Utför"
+
+#: audit.php:563
+msgid "Set/Refresh Filters"
+msgstr "Ange / Uppdatera filter"
+
+#: audit.php:564
+msgid "Clear"
+msgstr "Rensa"
+
+#: audit.php:564
+msgid "Clear Filters"
+msgstr "Rensa filter"
+
+#: audit.php:565
+msgid "Export"
+msgstr "Exportera"
+
+#: audit.php:565
+msgid "Export Log Events"
+msgstr "Exportera logghändelser"
+
+#: audit.php:567
+msgid "Permanently purge all audit log events?"
+msgstr ""
+
+#: audit.php:567
+msgid "Purge"
+msgstr "Rensa"
+
+#: audit.php:567
+msgid "Purge Log Events"
+msgstr "Purge Log Events"
+
+#: audit.php:623
+msgid "Audit Events"
+msgstr "Revisionshändelser"
+
+#: audit.php:631
+msgid "Page Name"
+msgstr "Sidonamn"
+
+#: audit.php:634
+msgid "The page where the event was generated."
+msgstr "Sidan där händelsen genererades."
+
+#: audit.php:637
+msgid "User Name"
+msgstr "Användarnamn"
+
+#: audit.php:640
+msgid "The user who generated the event."
+msgstr "Användaren som genererade händelsen."
+
+#: audit.php:643
 msgid "Requested Action"
 msgstr "Begärd åtgärd"
 
-#: audit.php
+#: audit.php:646
 #, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
 msgstr "Cacti Action begärde.  Håll över åtgärd för att se $ _POST-data."
 
-#: audit.php
+#: audit.php:649
 msgid "Request Status"
 msgstr "Status för begäran"
 
-#: audit.php
-msgid "Request Status:"
-msgstr "Status för begäran:"
-
-#: audit.php
+#: audit.php:652
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
 msgstr ""
 
-#: audit.php
-msgid "External Delivery"
+#: audit.php:655
+#, fuzzy
+#| msgid "External Delivery"
+msgid "External File Delivery"
 msgstr "Extern leverans"
 
-#: audit.php
+#: audit.php:658
 #, fuzzy
 #| msgid "Enter the path to the external audit log file."
-msgid "Delivery state for the optional external audit log."
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
 msgstr "Ange sökvägen till den externa revisionsloggfilen."
 
-#: audit.php
-msgid "Permanently purge all audit log events?"
+#: audit.php:661
+msgid "User Agent"
+msgstr "Användaragent"
+
+#: audit.php:664
+msgid "The browser type of the requester."
+msgstr "Webbläsarens typ av sökande."
+
+#: audit.php:667
+msgid "IP Address"
+msgstr "IP adress"
+
+#: audit.php:670
+msgid "The IP Address of the requester."
+msgstr "IP-adress för beställaren."
+
+#: audit.php:673
+msgid "Event Time"
+msgstr "Tid för evenemanget"
+
+#: audit.php:676
+msgid "The time the Event took place."
+msgstr "Den tid händelsen ägde rum."
+
+#: audit.php:694
+msgid "N/A"
+msgstr "N/A"
+
+#: audit.php:713
+msgid "No Audit Log Events Found"
+msgstr "Inga revisionslogg händelser hittades"
+
+#: audit.php:737
+#, fuzzy
+#| msgid "External Delivery"
+msgid "Remote Syslog Delivery"
+msgstr "Extern leverans"
+
+#: audit.php:740
+#, fuzzy
+#| msgid "Request Status"
+msgid "Status"
+msgstr "Status för begäran"
+
+#: audit.php:741
+msgid "Disabled"
 msgstr ""
 
-#: setup.php
-msgid "Manage Cacti Audit Log"
-msgstr "Hantera Cacti-revisionslogg"
+#: audit.php:741
+msgid "Healthy"
+msgstr ""
+
+#: audit.php:741
+msgid "Unhealthy"
+msgstr ""
+
+#: audit.php:742
+msgid "Pending"
+msgstr ""
+
+#: audit.php:743
+msgid "Retry"
+msgstr ""
+
+#: audit.php:744
+msgid "Dead-letter"
+msgstr ""
+
+#: audit.php:745
+msgid "Sent (Unconfirmed)"
+msgstr ""
+
+#: audit.php:749
+msgid "Oldest Pending"
+msgstr ""
+
+#: audit.php:749
+msgid "seconds"
+msgstr ""
+
+#: audit.php:750
+msgid "Last Attempt"
+msgstr ""
+
+#: audit.php:750 audit.php:751
+msgid "Never"
+msgstr ""
+
+#: audit.php:751
+msgid "Last Socket Write"
+msgstr ""
+
+#: audit.php:753
+msgid "Test Syslog"
+msgstr ""
+
+#: audit.php:757
+msgid "Retry Dead-letter"
+msgstr ""
+
+#: audit.php:757
+msgid "Retry all dead-letter Syslog events?"
+msgstr ""
+
+#: audit.php:762
+msgid "Configuration Error:"
+msgstr ""
+
+#: audit.php:765
+#, fuzzy
+#| msgid "External Error:"
+msgid "Last Error:"
+msgstr "Externt fel:"
+
+#: audit_functions.php:881
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr ""
+
+#: audit_functions.php:897
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr ""
+
+#: audit_functions.php:907
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr ""
+
+#: audit_functions.php:1585
+msgid "Audit administration permission is required to save these settings."
+msgstr ""
+
+#: audit_functions.php:1597
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr ""
+
+#: audit_functions.php:1637
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr ""
+
+#: setup.php:83
+#, fuzzy
+#| msgid "Audit Log"
+msgid "Audit Log User"
+msgstr "Granskningslogg"
+
+#: setup.php:84
+#, fuzzy
+#| msgid "Audit Log"
+msgid "Audit Log Admin"
+msgstr "Granskningslogg"
+
+#: setup.php:748 setup.php:749
+msgid "Technical Support"
+msgstr "Teknisk support"
+
+#: setup.php:751
+msgid "View Audit Log"
+msgstr "Visa granskningsloggen"
+
+#: setup.php:753
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Tillåter administratörer att visa förändringsaktivitet på Cacti-servern. Administratörer kan också exportera revisionsloggen för analysändamål."
+
+#: setup.php:769
+msgid "Indefinitely"
+msgstr "Ingen gräns"
+
+#: setup.php:770
+#, php-format
+msgid "%d Weeks"
+msgstr "%d veckor"
+
+#: setup.php:771
+#, php-format
+msgid "%d Month"
+msgstr "%d månad"
+
+#: setup.php:772 setup.php:773 setup.php:774 setup.php:775
+#, php-format
+msgid "%d Months"
+msgstr "%d månader"
+
+#: setup.php:776
+#, php-format
+msgid "%d Year"
+msgstr "%d år"
+
+#: setup.php:777 setup.php:778
+#, php-format
+msgid "%d Years"
+msgstr "%d år"
+
+#: setup.php:781
+msgid "Utilities"
+msgstr ""
+
+#: setup.php:784
+#, fuzzy
+#| msgid "Audit Log"
+msgid "Audit Plugin"
+msgstr "Granskningslogg"
+
+#: setup.php:798
+msgid "Audit Log Settings"
+msgstr "Audit Log Settings"
+
+#: setup.php:802
+msgid "Enable Audit Log"
+msgstr "Aktivera granskningsloggen"
+
+#: setup.php:803
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Markera den här rutan om du vill att granskningsloggen ska spåra GUI-aktiviteter."
+
+#: setup.php:808
+msgid "Audit Log Retention"
+msgstr "Lagring av kontrolllogg"
+
+#: setup.php:809
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Hur länge önskar du att revisionslogguppgifter ska behållas?"
+
+#: setup.php:815
+msgid "External Audit Log"
+msgstr "Aktivera granskningsloggen"
+
+#: setup.php:816
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Markera den här rutan om du vill att granskningsloggen ska spåra GUI-aktiviteter."
+
+#: setup.php:821
+#, fuzzy
+#| msgid "External Audit Log"
+msgid "External Audit Log Format"
+msgstr "Aktivera granskningsloggen"
+
+#: setup.php:822
+#, fuzzy
+#| msgid "Enter the path to the external audit log file."
+msgid "Select the output format for external audit log records."
+msgstr "Ange sökvägen till den externa granskningsloggfilen."
+
+#: setup.php:826
+msgid "Text"
+msgstr ""
+
+#: setup.php:827 setup.php:934
+msgid "JSON"
+msgstr ""
+
+#: setup.php:831
+msgid "External Audit Log Log file  Path"
+msgstr "Sökväg till extern granskningsloggfil"
+
+#: setup.php:832
+msgid "Enter the path to the external audit log file."
+msgstr "Ange sökvägen till den externa granskningsloggfilen."
+
+#: setup.php:841
+msgid "Authentication Auditing"
+msgstr ""
+
+#: setup.php:845
+msgid "Enable Authentication Auditing"
+msgstr ""
+
+#: setup.php:846
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr ""
+
+#: setup.php:851
+msgid "Enable Failed-login Volume Detection"
+msgstr ""
+
+#: setup.php:852
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr ""
+
+#: setup.php:857
+msgid "Failed-login Window (minutes)"
+msgstr ""
+
+#: setup.php:858
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr ""
+
+#: setup.php:865
+msgid "Failed-login Volume Threshold"
+msgstr ""
+
+#: setup.php:866
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr ""
+
+#: setup.php:873
+msgid "User Log Ingestion Batch Size"
+msgstr ""
+
+#: setup.php:874
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr ""
+
+#: setup.php:890
+msgid "Remote Syslog"
+msgstr ""
+
+#: setup.php:894
+#, fuzzy
+#| msgid "Enable Audit Log"
+msgid "Enable Remote Syslog"
+msgstr "Aktivera granskningsloggen"
+
+#: setup.php:895
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr ""
+
+#: setup.php:900
+msgid "Syslog Receiver"
+msgstr ""
+
+#: setup.php:901
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr ""
+
+#: setup.php:908
+msgid "Syslog Port"
+msgstr ""
+
+#: setup.php:909
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr ""
+
+#: setup.php:916
+msgid "Syslog Transport"
+msgstr ""
+
+#: setup.php:917
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr ""
+
+#: setup.php:921
+msgid "UDP"
+msgstr ""
+
+#: setup.php:922
+msgid "TCP"
+msgstr ""
+
+#: setup.php:923
+msgid "TLS"
+msgstr ""
+
+#: setup.php:927
+msgid "Syslog Payload Format"
+msgstr ""
+
+#: setup.php:928
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr ""
+
+#: setup.php:932
+msgid "RFC 5424"
+msgstr ""
+
+#: setup.php:933
+msgid "CEF"
+msgstr ""
+
+#: setup.php:938
+msgid "Syslog Facility"
+msgstr ""
+
+#: setup.php:939
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr ""
+
+#: setup.php:945
+msgid "Syslog Application Name"
+msgstr ""
+
+#: setup.php:946
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr ""
+
+#: setup.php:953
+#, fuzzy
+#| msgid "Audit Log Retention"
+msgid "Audit Node Identity"
+msgstr "Lagring av kontrolllogg"
+
+#: setup.php:954
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr ""
+
+#: setup.php:961
+msgid "Connection and Write Timeout"
+msgstr ""
+
+#: setup.php:962
+msgid "Timeout in seconds, from 1 through 30."
+msgstr ""
+
+#: setup.php:969
+msgid "Maximum UDP Record Size"
+msgstr ""
+
+#: setup.php:970
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr ""
+
+#: setup.php:977
+msgid "Syslog TLS"
+msgstr ""
+
+#: setup.php:981
+msgid "TLS CA File"
+msgstr ""
+
+#: setup.php:982
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr ""
+
+#: setup.php:988
+msgid "TLS Client Certificate"
+msgstr ""
+
+#: setup.php:989
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr ""
+
+#: setup.php:995
+msgid "TLS Client Private Key"
+msgstr ""
+
+#: setup.php:996
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr ""
+
+#: setup.php:1002
+msgid "Syslog Delivery Queue"
+msgstr ""
+
+#: setup.php:1006
+msgid "Retry Base Delay"
+msgstr ""
+
+#: setup.php:1007
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr ""
+
+#: setup.php:1014
+msgid "Maximum Retry Delay"
+msgstr ""
+
+#: setup.php:1015
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr ""
+
+#: setup.php:1022
+msgid "Maximum Delivery Attempts"
+msgstr ""
+
+#: setup.php:1023
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr ""
+
+#: setup.php:1030
+msgid "Poller Batch Size"
+msgstr ""
+
+#: setup.php:1031
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr ""
+
+#: setup.php:1038
+msgid "Pending Age Warning"
+msgstr ""
+
+#: setup.php:1039
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr ""
+
+#: setup.php:1046
+msgid "Dead-letter Warning Count"
+msgstr ""
+
+#: setup.php:1047
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr ""
+
+#: setup.php:1058
+msgid "Audit"
+msgstr "Revision"
+
+#: setup.php:1073
+msgid "Audit Event Log"
+msgstr "Revisionshändelselogg"
+
+#, php-format
+#~ msgid "Audit Log Purged by %s"
+#~ msgstr "Granskningsloggen rensas av %s"
+
+#~ msgctxt "Column Header used for CSV log export. Ensure that you do NOT(!) remove one of the commas. The output needs to be CSV compliant."
+#~ msgid "page, user_id, username, action, ip_address, user_agent, event_time, post"
+#~ msgstr "sida, user_id, användarnamn, åtgärd, ip_adress, user_agent, event_time, post"
+
+#~ msgid "Action"
+#~ msgstr "Åtgärd"
+
+#~ msgid "The Cacti Action requested.  Hover over action to see $_POST data."
+#~ msgstr "Cacti Action begärde. Håll över handling för att se $ _POST data."
+
+#~ msgid "Audit Event Details"
+#~ msgstr "Revisionshändelsesdetaljer"
+
+#~ msgid "View Cacti Audit Log"
+#~ msgstr "Visa Cacti Audit Log"
+
+#~ msgid "System Administration"
+#~ msgstr "Systemadministratör"
+
+#~ msgid "Manage Cacti Audit Log"
+#~ msgstr "Hantera Cacti-revisionslogg"
 
 #~ msgid "Misc"
 #~ msgstr "Övrigt"
