@@ -353,6 +353,42 @@ if (!function_exists('api_plugin_db_table_create')) {
 	}
 }
 
+$GLOBALS['__test_registered_hooks'] = [];
+
+if (!function_exists('api_plugin_register_hook')) {
+	function api_plugin_register_hook($plugin, $hook, $function, $file, $subtype = '') {
+		$GLOBALS['__test_registered_hooks'][] = [
+			'name'     => $plugin,
+			'hook'     => $hook,
+			'function' => $function,
+			'file'     => $file,
+		];
+
+		return true;
+	}
+}
+
+$GLOBALS['__test_registered_realms'] = [];
+
+if (!function_exists('api_plugin_register_realm')) {
+	function api_plugin_register_realm($plugin, $file, $description, $enabled) {
+		$GLOBALS['__test_registered_realms'][] = [
+			'name'        => $plugin,
+			'file'        => $file,
+			'description' => $description,
+			'enabled'     => $enabled,
+		];
+
+		return true;
+	}
+}
+
+if (!function_exists('api_plugin_replicate_config')) {
+	function api_plugin_replicate_config() {
+		return true;
+	}
+}
+
 $GLOBALS['__test_config_options'] = [];
 
 /**
@@ -498,6 +534,12 @@ if (!function_exists('get_request_var')) {
 	 */
 	function get_request_var($name) {
 		return $GLOBALS['__test_request'][$name] ?? '';
+	}
+}
+
+if (!function_exists('isset_request_var')) {
+	function isset_request_var($name) {
+		return isset($GLOBALS['__test_request'][$name]);
 	}
 }
 
