@@ -24,6 +24,17 @@
 
 include_once('audit_functions.php');
 
+/**
+ * Installs the Audit plugin: registers its Cacti hooks (config_arrays,
+ * config_settings, config_insert, poller_bottom, draw_navigation_text,
+ * utilities_array, is_console_page, logout_pre_session_destroy,
+ * logout_post_session_destroy, custom_denied, replicate_out), registers
+ * its two realms (Audit Log User/Admin), and creates its database tables
+ * and default settings. Invoked by Cacti's plugin architecture when an
+ * administrator installs this plugin from Console > Plugin Management.
+ *
+ * @return void
+ */
 function plugin_audit_install(): void {
 	api_plugin_register_hook('audit', 'config_arrays',        'audit_config_arrays',        'setup.php');
 	api_plugin_register_hook('audit', 'config_settings',      'audit_config_settings',      'setup.php');
@@ -46,10 +57,13 @@ function plugin_audit_install(): void {
 }
 
 /**
- * Persist authentication auditing defaults without overwriting existing
+ * Persists authentication auditing defaults without overwriting existing
  * administrator choices. Called on fresh install and upgrade so that
  * existing installations begin at the current time with authentication
- * auditing disabled until an Audit Log Admin explicitly opts in.
+ * auditing disabled until an Audit Log Admin explicitly opts in. Called
+ * from plugin_audit_install() during installation.
+ *
+ * @return void
  */
 function audit_persist_auth_defaults(): void {
 	$defaults = [
@@ -78,6 +92,23 @@ function audit_persist_auth_defaults(): void {
 	}
 }
 
+/**
+ * Registers this plugin's two access realms ('Audit Log User' for
+ * audit.php, 'Audit Log Admin' for audit_manage.php), granting them to
+ * the installing user on a fresh install, or otherwise (e.g. after a
+ * realm-list change) re-granting them to the configured admin user.
+ * Called from plugin_audit_install() during installation, and from
+ * audit_check_upgrade() when this plugin's realm set changes.
+ *
+ * @param bool $grant_installing_user Whether to grant both realms to the
+ *                                    currently installing user (fresh
+ *                                    install); when false, instead
+ *                                    re-grants them to the configured
+ *                                    'admin_user' setting; defaults to
+ *                                    false.
+ *
+ * @return void
+ */
 function audit_setup_realms(bool $grant_installing_user = false): void {
 	$realms = [
 		'audit.php'        => __('Audit Log User', 'audit'),
@@ -110,6 +141,15 @@ function audit_setup_realms(bool $grant_installing_user = false): void {
 	}
 }
 
+/**
+ * Removes a since-removed legacy realm ('audit_purge.php') and its user/
+ * group permission assignments, then triggers a plugin-config replication
+ * so the removal propagates to any remote pollers. Called from
+ * audit_check_upgrade() when upgrading from a version that registered
+ * the obsolete realm.
+ *
+ * @return void
+ */
 function audit_remove_obsolete_realms(): void {
 	$realms = db_fetch_assoc_prepared('SELECT id
 		FROM plugin_realms
@@ -141,7 +181,11 @@ function audit_remove_obsolete_realms(): void {
 }
 
 /**
- * @return list<string>
+ * Lists every Cacti settings-table option name owned by this plugin, used
+ * to identify which rows to remove on uninstall. Called from
+ * plugin_audit_uninstall() before deleting this plugin's settings.
+ *
+ * @return list<string> The owned setting names.
  */
 function audit_owned_setting_names(): array {
 	return [
@@ -185,6 +229,18 @@ function audit_owned_setting_names(): array {
 	];
 }
 
+/**
+ * Uninstalls the Audit plugin: removes the authentication-auditing
+ * database indexes it added to user_log (when it owns them), drops all
+ * of its database tables, and removes its owned settings-table rows
+ * (keeping the 'audit_user_log_indexes_owned' marker only when the
+ * indexes could not be removed). Invoked by Cacti's plugin architecture
+ * when an administrator uninstalls this plugin from Console > Plugin
+ * Management.
+ *
+ * @return bool True when the user_log indexes were successfully removed
+ *              (or were never owned by this plugin).
+ */
 function plugin_audit_uninstall(): bool {
 	// Static DDL contains no values to bind; data deletion below remains prepared.
 	$indexes_removed = audit_remove_user_log_indexes();
@@ -205,18 +261,64 @@ function plugin_audit_uninstall(): bool {
 	return $indexes_removed;
 }
 
+/**
+ * Hook implementation for Cacti's 'is_console_page' filter. Identifies
+ * whether a given URL is one of this plugin's own console pages. Called
+ * by Cacti core via api_plugin_hook('is_console_page', ...) while
+ * determining page classification for navigation/auth purposes.
+ *
+ * @param string $url The URL to classify.
+ *
+ * @return bool True when $url refers to audit.php.
+ */
 function audit_is_console_page(string $url): bool {
 	return str_contains($url, 'audit.php');
 }
 
+/**
+ * Verifies the plugin's configuration; currently a no-op placeholder.
+ * Invoked by Cacti's plugin architecture on relevant page loads.
+ *
+ * @return bool Always returns true.
+ */
 function plugin_audit_check_config(): bool {
 	return true;
 }
 
+/**
+ * Performs any schema/data migrations needed when upgrading to a newer
+ * version of this plugin; currently a no-op placeholder (the real
+ * upgrade logic runs unconditionally via audit_check_upgrade() rather
+ * than this hook). Invoked by Cacti's plugin architecture when an
+ * installed plugin's version increases.
+ *
+ * @return bool Always returns true.
+ */
 function plugin_audit_upgrade(): bool {
 	return true;
 }
 
+/**
+ * Detects whether the installed plugin_config version differs from this
+ * plugin's INFO file version and, if so, applies audit_log schema
+ * migrations (renaming/adding the request_status/external_status/
+ * external_error columns, normalizing legacy status values), upgrades
+ * the Syslog/user-log-state tables and event schema, re-persists auth
+ * defaults/realms, updates the stored plugin_config record, and
+ * re-registers newer hooks. Only runs on plugins.php/audit.php. Called
+ * from this plugin's page-load flow on every relevant page load.
+ *
+ * @return void
+ *
+ * @global array  $config           Cacti global configuration array;
+ *                                   used to load database.php/
+ *                                   functions.php.
+ * @global object $database_default Cacti's default database connection
+ *                                   handle (unused directly here;
+ *                                   declared for parity with other
+ *                                   database-touching functions in this
+ *                                   file).
+ */
 function audit_check_upgrade(): void {
 	global $config, $database_default;
 	include_once($config['library_path'] . '/database.php');
@@ -288,8 +390,20 @@ function audit_check_upgrade(): void {
 }
 
 /**
- * @param  array<string,mixed> $data
- * @return array<string,mixed>
+ * Hook implementation for Cacti's 'replicate_out' filter. Replicates this
+ * plugin's audit_log table (creating it and applying the same schema
+ * migrations as audit_check_upgrade() if missing/outdated) and its
+ * user-log deduplication state table out to a remote poller; core
+ * user_log indexes are local-only and are never replicated. Called by
+ * Cacti core via api_plugin_hook('replicate_out', ...) during remote
+ * poller data replication.
+ *
+ * @param array<string,mixed> $data The replication context, including
+ *                                  'rcnn_id' (the remote connection id)
+ *                                  and 'class' ('all' triggers this
+ *                                  plugin's replication).
+ *
+ * @return array<string,mixed> The unmodified $data array.
  */
 function audit_replicate_out(array $data): array {
 	$rcnn_id          = $data['rcnn_id'];
@@ -345,6 +459,26 @@ function audit_replicate_out(array $data): array {
 	return $data;
 }
 
+/**
+ * Hook implementation for Cacti's 'poller_bottom' filter. Runs this
+ * plugin's per-cycle maintenance: reclaims stale user-log-state marker
+ * rows, retries external-log/Syslog deliveries, polls Cacti's user_log
+ * table for new authentication events, detects aggregate failed-login
+ * volume anomalies, and (once per day) purges audit_log rows past the
+ * configured retention period (preserving any still in-flight Syslog
+ * delivery). Called by Cacti's poller via
+ * api_plugin_hook('poller_bottom', ...) at the end of each polling
+ * cycle.
+ *
+ * Authentication events are captured by polling Cacti's user_log table,
+ * which is authoritative across all auth methods (local, LDAP, basic,
+ * domains) and stable across the 1.2.x and develop branches. Ingestion
+ * runs every poller cycle with a bounded workload so login failures and
+ * authorization events appear promptly; the deduplication table prevents
+ * duplicate events across repeated and concurrent pollers.
+ *
+ * @return void
+ */
 function audit_poller_bottom(): void {
 	$last_check = read_config_option('audit_last_check');
 	$now        = gmdate('Y-m-d');
@@ -390,6 +524,21 @@ function audit_poller_bottom(): void {
 	set_config_option('audit_last_check', $now);
 }
 
+/**
+ * Creates this plugin's audit_log table (the core event store), plus its
+ * Syslog delivery and user-log deduplication state tables. Called from
+ * plugin_audit_install() during plugin installation.
+ *
+ * @return bool Always returns true.
+ *
+ * @global array  $config           Cacti global configuration array;
+ *                                   used to load database.php.
+ * @global object $database_default Cacti's default database connection
+ *                                   handle (unused directly here;
+ *                                   declared for parity with other
+ *                                   database-touching functions in this
+ *                                   file).
+ */
 function audit_setup_table(): bool {
 	global $config, $database_default;
 	include_once($config['library_path'] . '/database.php');
@@ -448,13 +597,28 @@ function audit_setup_table(): bool {
 }
 
 /**
+ * Creates the durable, database-backed deduplication table used to track
+ * which user_log rows have already been ingested as audit events
+ * (dropping a legacy foreign key constraint if still present, since
+ * audit_id is deliberately not a real foreign key so state survives
+ * audit-log purges). Called from audit_setup_table() during
+ * installation, from audit_check_upgrade() during upgrades, and from
+ * audit_replicate_out() to replicate the table to a remote poller.
+ *
  * Durable, database-backed deduplication table for user_log ingestion.
  *
- * The source tuple is stored in typed columns, so identity has one canonical
- * representation and remains stable across session-timezone changes. audit_id
- * is deliberately not a foreign key so state survives audit-log purges. The
- * tuple mirrors user_log's own (username, user_id, time) primary key; Cacti
- * cannot store two source rows with the same tuple.
+ * The source tuple is stored in typed columns, so identity has one
+ * canonical representation and remains stable across session-timezone
+ * changes. audit_id is deliberately not a foreign key so state survives
+ * audit-log purges. The tuple mirrors user_log's own (username, user_id,
+ * time) primary key; Cacti cannot store two source rows with the same
+ * tuple.
+ *
+ * @param mixed $cnn_id The remote connection id to apply the DDL against,
+ *                       or false for the local database; defaults to
+ *                       false.
+ *
+ * @return void
  */
 function audit_setup_user_log_state_table(mixed $cnn_id = false): void {
 	// DDL has no values to bind; Cacti's schema helpers use db_execute() for
@@ -500,7 +664,20 @@ function audit_setup_user_log_state_table(mixed $cnn_id = false): void {
 }
 
 /**
+ * Adds the two indexes this plugin's per-cycle authentication queries
+ * need on Cacti core's user_log table (creating only the ones missing,
+ * and journaling ownership in the 'audit_user_log_indexes_owned' setting
+ * before each ALTER so a timeout can't orphan a plugin-created index).
+ * Only operates on the local database (never on a remote connection).
+ * Called from the audit_auth_indexes.php CLI maintenance script when an
+ * administrator explicitly opts in to authentication auditing.
+ *
  * Add the access paths required by the per-cycle authentication queries.
+ *
+ * @param mixed $cnn_id Must be false (local database); any other value
+ *                       causes this function to no-op and return false.
+ *
+ * @return bool True once both required indexes exist on user_log.
  */
 function audit_setup_user_log_indexes(mixed $cnn_id = false): bool {
 	if ($cnn_id !== false) {
@@ -542,7 +719,19 @@ function audit_setup_user_log_indexes(mixed $cnn_id = false): bool {
 	return audit_user_log_indexes_available($cnn_id);
 }
 
-/** @phpstan-impure */
+/**
+ * Determines whether both of this plugin's required user_log indexes
+ * (plugin_audit_time, plugin_audit_result_time) currently exist on the
+ * local database. Called from audit_setup_user_log_indexes() after
+ * creating them, and from audit_enforce_syslog_settings_request() before
+ * allowing authentication auditing to be enabled.
+ *
+ * @param mixed $cnn_id Must be false (local database); any other value
+ *                       causes this function to report unavailable.
+ *
+ * @return bool True when user_log exists and both required indexes are
+ *              present.
+ */
 function audit_user_log_indexes_available(mixed $cnn_id = false): bool {
 	return $cnn_id === false &&
 		db_table_exists('user_log', false, $cnn_id) &&
@@ -550,6 +739,20 @@ function audit_user_log_indexes_available(mixed $cnn_id = false): bool {
 		db_index_exists('user_log', 'plugin_audit_result_time', false, $cnn_id);
 }
 
+/**
+ * Determines whether user_log's primary key is still the expected
+ * (username, user_id, time) tuple that this plugin's deduplication logic
+ * relies on, so a future Cacti schema change can be detected rather than
+ * silently mis-deduplicating events. Called from
+ * audit_enforce_syslog_settings_request() before allowing authentication
+ * auditing to be enabled.
+ *
+ * @param mixed $cnn_id The remote connection id to check against, or
+ *                       false for the local database; defaults to false.
+ *
+ * @return bool True when user_log's primary key matches the expected
+ *              column order.
+ */
 function audit_user_log_identity_supported(mixed $cnn_id = false): bool {
 	$columns = db_fetch_assoc_prepared(
 		'SELECT COLUMN_NAME
@@ -570,6 +773,19 @@ function audit_user_log_identity_supported(mixed $cnn_id = false): bool {
 	return array_column($columns, 'COLUMN_NAME') === ['username', 'user_id', 'time'];
 }
 
+/**
+ * Removes only the user_log indexes this plugin created (per the
+ * 'audit_user_log_indexes_owned' setting), leaving any indexes not owned
+ * by this plugin untouched, and updates the ownership setting to reflect
+ * any that could not be dropped. Only operates on the local database.
+ * Called from plugin_audit_uninstall() during uninstallation.
+ *
+ * @param mixed $cnn_id Must be false (local database); any other value
+ *                       causes this function to no-op and return false.
+ *
+ * @return bool True when every owned index was removed (or none were
+ *              owned, or the user_log table doesn't exist).
+ */
 function audit_remove_user_log_indexes(mixed $cnn_id = false): bool {
 	if ($cnn_id !== false) {
 		return false;
@@ -612,6 +828,15 @@ function audit_remove_user_log_indexes(mixed $cnn_id = false): bool {
 	return $failed === [];
 }
 
+/**
+ * Creates this plugin's audit_syslog_delivery table (the Syslog delivery
+ * queue/tracking table), and adds the node_id/poller_id columns when
+ * upgrading from an older schema that lacked them. Called from
+ * audit_setup_table() during installation and audit_check_upgrade()
+ * during upgrades.
+ *
+ * @return void
+ */
 function audit_setup_syslog_table(): void {
 	db_execute("CREATE TABLE IF NOT EXISTS `audit_syslog_delivery` (
 		`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -647,6 +872,21 @@ function audit_setup_syslog_table(): void {
 		AFTER node_id');
 }
 
+/**
+ * Adds every column and index that audit_log has accumulated since its
+ * original schema (uuid/correlation id, event classification fields,
+ * outcome/target fields, timing fields, integrity hash, external-
+ * delivery counters), each guarded by an existence check so it is safe
+ * to run repeatedly. Called from audit_check_upgrade() during local
+ * upgrades and from audit_replicate_out() when replicating the schema to
+ * a remote poller.
+ *
+ * @param mixed $rcnn_id The remote connection id to apply the DDL
+ *                       against, or false for the local database;
+ *                       defaults to false.
+ *
+ * @return void
+ */
 function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
 	$remote  = $rcnn_id !== false;
 	$args    = $remote ? [true, $rcnn_id] : [];
@@ -696,7 +936,18 @@ function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
 }
 
 /**
- * @return array<string,mixed>
+ * Reads this plugin's INFO file and returns its [info] section. Used by
+ * Cacti's plugin architecture via the api_plugin_version hook, and
+ * internally by audit_check_upgrade() to detect/report the plugin's
+ * version.
+ *
+ * @return array<string,mixed> The parsed [info] section of the plugin's
+ *                             INFO file (keys such as name, version,
+ *                             author, homepage, longname), or an empty
+ *                             array if the file is missing/malformed.
+ *
+ * @global array $config Cacti global configuration array; used to locate
+ *                        the plugin's base path.
  */
 function plugin_audit_version(): array {
 	global $config;
@@ -706,6 +957,21 @@ function plugin_audit_version(): array {
 	return is_array($plugin_info) ? $plugin_info : [];
 }
 
+/**
+ * Determines whether the current request represents a "valid" auditable
+ * event for this plugin's configuration-change logging (e.g. a POST
+ * submission or a plugins.php mode change), excluding known noisy/
+ * irrelevant pages such as graph_view.php and the login/password pages.
+ * Called from audit_config_insert() to decide whether to build and
+ * insert an audit_log row for the current request.
+ *
+ * @return bool True when the current request should be logged as a
+ *              valid configuration-change event.
+ *
+ * @global string $action Set to the detected action ('purge', or the
+ *                         plugins.php 'mode' value) for the caller to
+ *                         include in its log entry.
+ */
 function audit_log_valid_event(): bool {
 	global $action;
 
@@ -740,6 +1006,19 @@ function audit_log_valid_event(): bool {
 	return $valid;
 }
 
+/**
+ * Hook implementation for Cacti's 'utilities_array' filter, active only
+ * on Cacti versions before 1.3.0 (where the Utilities menu is populated
+ * via this hook rather than config_arrays). Adds a "View Audit Log" entry
+ * under Technical Support for users with access to audit.php. Called by
+ * Cacti core via api_plugin_hook('utilities_array', ...) while building
+ * the legacy Utilities menu.
+ *
+ * @return void
+ *
+ * @global array $utilities Cacti's Utilities menu array, extended here
+ *                          with this plugin's entry.
+ */
 function audit_utilities_array(): void {
 	global $utilities;
 
@@ -758,6 +1037,29 @@ function audit_utilities_array(): void {
 	}
 }
 
+/**
+ * Hook implementation for Cacti's 'config_arrays' filter. Surfaces any
+ * pending session message, populates the shared $audit_retentions
+ * lookup used by the Settings page, adds the Audit Log page to the
+ * Utilities menu, augments the Audit Plugin role with this plugin's
+ * pages where supported, and triggers this plugin's upgrade check.
+ * Called by Cacti core via api_plugin_hook('config_arrays', ...) while
+ * building the navigation menu.
+ *
+ * @return void
+ *
+ * @global array $menu             Cacti's main navigation menu array,
+ *                                 extended here with this plugin's entry.
+ * @global array $messages         Cacti's pending UI message queue, used
+ *                                 here to surface a session-stored audit
+ *                                 message.
+ * @global array $audit_retentions Populated here with this plugin's
+ *                                 retention-period options, used by
+ *                                 audit_config_settings().
+ * @global array $utilities        Reserved/declared for parity with
+ *                                 audit_utilities_array(); not used
+ *                                 directly here.
+ */
 function audit_config_arrays(): void {
 	global $menu, $messages, $audit_retentions, $utilities;
 
@@ -787,6 +1089,31 @@ function audit_config_arrays(): void {
 	audit_check_upgrade();
 }
 
+/**
+ * Hook implementation for Cacti's 'config_settings' filter. Registers the
+ * "Audit" Settings tab's fields (enable/retention/external-log settings,
+ * always visible to CLI/audit admins; the authentication-auditing,
+ * brute-force-detection, and remote-Syslog delivery fields are further
+ * gated within this function by admin status and prerequisite checks).
+ * Called by Cacti core via api_plugin_hook('config_settings', ...) while
+ * building the Settings page.
+ *
+ * @return void
+ *
+ * @global array $tabs             Cacti's registered Settings page tabs,
+ *                                 extended here with the 'audit' tab.
+ * @global array $settings         Cacti's registered Settings page
+ *                                 fields, extended here with this
+ *                                 plugin's settings under the 'audit'
+ *                                 tab.
+ * @global array $item_rows        Reserved/declared for parity with
+ *                                 other config_settings hook
+ *                                 implementations; not used directly
+ *                                 here.
+ * @global array $audit_retentions Map of retention-period options,
+ *                                 populated by audit_config_arrays() and
+ *                                 used here for the retention field.
+ */
 function audit_config_settings(): void {
 	global $tabs, $settings, $item_rows, $audit_retentions;
 
@@ -1065,8 +1392,16 @@ function audit_config_settings(): void {
 }
 
 /**
- * @param  array<string,mixed> $nav
- * @return array<string,mixed>
+ * Hook implementation for Cacti's 'draw_navigation_text' filter. Adds a
+ * breadcrumb entry for audit.php's default view. Called by Cacti core
+ * via api_plugin_hook('draw_navigation_text', ...) while rendering the
+ * page breadcrumb trail.
+ *
+ * @param  array<string,mixed> $nav The existing breadcrumb map
+ *                                  contributed by Cacti core and other
+ *                                  plugins.
+ * @return array<string,mixed> The $nav array with this plugin's
+ *                             breadcrumb entry added.
  */
 function audit_draw_navigation_text(array $nav): array {
 	$nav['audit.php:'] = [

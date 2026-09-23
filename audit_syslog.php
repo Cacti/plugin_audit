@@ -15,10 +15,28 @@
  +-------------------------------------------------------------------------+
 */
 
+/**
+ * Determines whether remote Syslog delivery is enabled via the
+ * 'audit_syslog_enabled' setting. Called throughout this file and
+ * audit.php before attempting to queue/send/report on Syslog delivery.
+ *
+ * @return bool True when remote Syslog delivery is enabled.
+ */
 function audit_syslog_enabled(): bool {
 	return read_config_option('audit_syslog_enabled') == 'on';
 }
 
+/**
+ * Reads a Cacti setting, substituting a caller-supplied default when the
+ * stored value is empty/unset. Called from audit_syslog_config() to load
+ * each Syslog configuration field.
+ *
+ * @param string $name    The setting name to read.
+ * @param mixed  $default The value to use when the setting is empty or
+ *                        unset.
+ *
+ * @return mixed The setting's value, or $default.
+ */
 function audit_syslog_read_setting(string $name, mixed $default): mixed {
 	$value = read_config_option($name);
 
@@ -26,7 +44,26 @@ function audit_syslog_read_setting(string $name, mixed $default): mixed {
 }
 
 /**
- * @param array<int,string> $errors
+ * Validates that a value is a non-negative integer within an inclusive
+ * range, appending an '<name>_invalid'/'<name>_out_of_range' error code
+ * and falling back to a default when it is not. Called from
+ * audit_syslog_config() for each numeric Syslog setting (port, timeout,
+ * retry parameters, etc.).
+ *
+ * @param mixed              $value   The candidate value to validate.
+ * @param int                $default The value to return when validation
+ *                                    fails.
+ * @param int                $minimum The inclusive minimum accepted
+ *                                    value.
+ * @param int                $maximum The inclusive maximum accepted
+ *                                    value.
+ * @param array<int,string>  $errors  Reference to the running list of
+ *                                    validation error codes; appended to
+ *                                    on failure.
+ * @param string             $name    The setting's name, used to build
+ *                                    its error code.
+ *
+ * @return int The validated integer, or $default when validation fails.
  */
 function audit_syslog_bounded_integer(mixed $value, int $default, int $minimum, int $maximum, array &$errors, string $name): int {
 	if (!is_scalar($value) || !preg_match('/^[0-9]+$/', (string) $value)) {
@@ -46,6 +83,17 @@ function audit_syslog_bounded_integer(mixed $value, int $default, int $minimum, 
 	return $value;
 }
 
+/**
+ * Validates that a string is a syntactically plausible Syslog receiver
+ * hostname or IP address (rejecting control/whitespace characters,
+ * embedded URLs, and malformed DNS labels). Called from
+ * audit_syslog_config() to validate the configured receiver address.
+ *
+ * @param string $receiver The candidate receiver hostname/IP.
+ *
+ * @return bool True when $receiver looks like a valid hostname or IP
+ *              address.
+ */
 function audit_syslog_valid_receiver(string $receiver): bool {
 	if ($receiver === '' || strlen($receiver) > 253 ||
 		preg_match('/[[:cntrl:][:space:]\\/@]/', $receiver) ||
@@ -77,13 +125,39 @@ function audit_syslog_valid_receiver(string $receiver): bool {
 	return true;
 }
 
+/**
+ * Validates that a string is safe to embed as an RFC 5424 Syslog header
+ * field (APP-NAME/HOSTNAME/etc.): non-empty, within a maximum length,
+ * and containing only printable ASCII with no '[', ']', or '=' (which
+ * would corrupt structured-data parsing). Called from
+ * audit_syslog_config() to validate the application/node_id fields.
+ *
+ * @param string $value   The candidate header value.
+ * @param int    $maximum The maximum allowed length.
+ *
+ * @return bool True when $value is safe to use as a Syslog header field.
+ */
 function audit_syslog_valid_header_value(string $value, int $maximum): bool {
 	return $value !== '' && strlen($value) <= $maximum &&
 		!preg_match('/[^\\x21-\\x7e]|[\\[\\]="]/', $value);
 }
 
 /**
- * @param array<int,string> $errors
+ * Validates that an optional TLS file path setting (CA/client cert/client
+ * key), when non-empty, is an absolute path to a readable, non-symlink
+ * regular file, appending a '<name>_invalid' error code otherwise. Called
+ * from audit_syslog_config() when the configured transport is 'tls'.
+ *
+ * @param string             $path   The candidate absolute file path, or
+ *                                   '' when not configured.
+ * @param string             $name   The setting's name, used to build
+ *                                   its error code.
+ * @param array<int,string>  $errors Reference to the running list of
+ *                                   validation error codes; appended to
+ *                                   on failure.
+ *
+ * @return string The unmodified $path (validation failures are reported
+ *                via $errors, not the return value).
  */
 function audit_syslog_validate_optional_file(string $path, string $name, array &$errors): string {
 	if ($path === '') {
@@ -98,8 +172,24 @@ function audit_syslog_validate_optional_file(string $path, string $name, array &
 }
 
 /**
- * @param  array<string,mixed> $overrides
- * @return array<string,mixed>
+ * Loads, validates, and normalizes this plugin's complete remote-Syslog
+ * configuration (receiver, port, transport, format, facility, TLS
+ * material, retry/batching parameters), collecting a list of validation
+ * error codes and an overall 'valid' flag plus a stable destination
+ * fingerprint. This is the central configuration entry point used
+ * throughout this file and audit.php/setup.php wherever Syslog settings
+ * are needed.
+ *
+ * @param  array<string,mixed> $overrides Setting values to use instead of
+ *                                        reading from Cacti config,
+ *                                        keyed by the unprefixed setting
+ *                                        name (e.g. 'receiver', 'port');
+ *                                        used when previewing/validating
+ *                                        a submitted settings form before
+ *                                        it is saved.
+ * @return array<string,mixed> The normalized configuration array,
+ *                             including 'errors' (validation error
+ *                             codes), 'valid' (bool), and 'fingerprint'.
  */
 function audit_syslog_config(array $overrides = []): array {
 	$defaults = [
@@ -236,7 +326,15 @@ function audit_syslog_config(array $overrides = []): array {
 }
 
 /**
- * @param array<string,mixed> $config
+ * Computes a stable SHA-256 fingerprint identifying a Syslog
+ * configuration's delivery destination/identity (receiver, port,
+ * transport, format, facility, application, node id, TLS cert paths),
+ * used to detect when the configured destination has changed. Called
+ * from audit_syslog_config() after normalizing the configuration.
+ *
+ * @param array<string,mixed> $config The normalized Syslog configuration.
+ *
+ * @return string The computed SHA-256 hex fingerprint.
  */
 function audit_syslog_destination_fingerprint(array $config): string {
 	$identity = [
@@ -255,7 +353,12 @@ function audit_syslog_destination_fingerprint(array $config): string {
 }
 
 /**
- * @return array<string,int>
+ * Returns the map of supported Syslog facility names to their RFC 5424
+ * numeric codes. Called from audit_syslog_config() to validate/resolve
+ * the configured facility, and from audit_syslog_severity_code() when
+ * computing a message's PRI value.
+ *
+ * @return array<string,int> Map of facility name to its numeric code.
  */
 function audit_syslog_facilities(): array {
 	return [
@@ -268,6 +371,16 @@ function audit_syslog_facilities(): array {
 	];
 }
 
+/**
+ * Maps an audit event severity name (e.g. 'warning', 'critical') to its
+ * RFC 5424 numeric severity level. Called from audit_syslog_record()
+ * when computing an RFC 5424 message's PRI value.
+ *
+ * @param mixed $severity The severity name to map.
+ *
+ * @return int The RFC 5424 severity level (0-7), defaulting to 6 (info)
+ *              for an unrecognized name.
+ */
 function audit_syslog_severity_code(mixed $severity): int {
 	$map = [
 		'emergency' => 0, 'emerg' => 0, 'alert' => 1, 'critical' => 2,
@@ -279,6 +392,19 @@ function audit_syslog_severity_code(mixed $severity): int {
 	return isset($map[$severity]) ? $map[$severity] : 6;
 }
 
+/**
+ * Sanitizes a value for use as an RFC 5424 header token (HOSTNAME/APP-
+ * NAME/PROCID/MSGID): replaces disallowed bytes with '_', truncates to a
+ * maximum length, and substitutes a fallback when the result is empty.
+ * Called from audit_syslog_record() when building each header field.
+ *
+ * @param mixed  $value    The candidate header value.
+ * @param int    $maximum  The maximum allowed length.
+ * @param string $fallback The value to use when sanitization yields an
+ *                        empty string.
+ *
+ * @return string The sanitized header token.
+ */
 function audit_syslog_header_token(mixed $value, int $maximum, string $fallback): string {
 	$value = preg_replace('/[^\\x21-\\x3c\\x3e-\\x5a\\x5e-\\x7e]/', '_', (string) $value);
 	$value = substr($value ?? '', 0, $maximum);
@@ -286,12 +412,34 @@ function audit_syslog_header_token(mixed $value, int $maximum, string $fallback)
 	return $value === '' ? $fallback : $value;
 }
 
+/**
+ * Escapes a value for safe embedding as an RFC 5424 structured-data
+ * parameter value (replacing control characters with spaces and
+ * escaping backslash/quote/closing-bracket). Called from
+ * audit_syslog_record() for each structured-data field.
+ *
+ * @param mixed $value The value to escape.
+ *
+ * @return string The escaped value.
+ */
 function audit_syslog_structured_value(mixed $value): string {
 	$value = preg_replace('/[\\x00-\\x1f\\x7f]/', ' ', (string) $value);
 
 	return str_replace(['\\', '"', ']'], ['\\\\', '\\"', '\\]'], $value ?? '');
 }
 
+/**
+ * Converts an audit event's stored timestamp string to RFC 5424's
+ * 'Y-m-d\TH:i:s[.u]\Z' timestamp format, falling back to the current UTC
+ * time when the input doesn't match the expected pattern. Called from
+ * audit_syslog_record() when building the RFC 5424 header's TIMESTAMP
+ * field.
+ *
+ * @param mixed $value The stored event timestamp (e.g.
+ *                      'Y-m-d H:i:s.uuuuuu').
+ *
+ * @return string The RFC 5424-formatted UTC timestamp.
+ */
 function audit_syslog_timestamp(mixed $value): string {
 	$value = (string) $value;
 
@@ -303,9 +451,16 @@ function audit_syslog_timestamp(mixed $value): string {
 }
 
 /**
- * @param  array<string,mixed> $event
- * @param  array<string,mixed> $config
- * @return array<string,mixed>
+ * Builds the normalized field set forwarded to a Syslog receiver in JSON
+ * format, extending audit_external_event_data() with the configured
+ * node/poller identifiers. Called from audit_syslog_message_payload()
+ * when the configured format is 'json'.
+ *
+ * @param  array<string,mixed> $event  The full audit_log event row.
+ * @param  array<string,mixed> $config The normalized Syslog
+ *                                     configuration.
+ * @return array<string,mixed> The event data plus 'node_id' and
+ *                             'poller_id'.
  */
 function audit_syslog_normalized_data(array $event, array $config): array {
 	$data              = audit_external_event_data($event);
@@ -315,10 +470,28 @@ function audit_syslog_normalized_data(array $event, array $config): array {
 	return $data;
 }
 
+/**
+ * Escapes a value for safe embedding in a CEF header field (backslash,
+ * pipe, and newline characters). Called from audit_syslog_cef_payload()
+ * for each CEF header field.
+ *
+ * @param mixed $value The value to escape.
+ *
+ * @return string The escaped value.
+ */
 function audit_syslog_cef_escape_header(mixed $value): string {
 	return str_replace(['\\', '|', "\r", "\n"], ['\\\\', '\\|', ' ', ' '], (string) $value);
 }
 
+/**
+ * Escapes a value for safe embedding as a CEF extension field value
+ * (backslash, equals sign, and newline characters). Called from
+ * audit_syslog_cef_payload() for each CEF extension value.
+ *
+ * @param mixed $value The value to escape.
+ *
+ * @return string The escaped value.
+ */
 function audit_syslog_cef_escape_extension(mixed $value): string {
 	return str_replace(
 		['\\', '=', "\r", "\n"],
@@ -327,6 +500,16 @@ function audit_syslog_cef_escape_extension(mixed $value): string {
 	);
 }
 
+/**
+ * Maps an audit event severity name to its CEF (0-10) severity scale.
+ * Called from audit_syslog_cef_payload() when building a CEF message's
+ * header.
+ *
+ * @param mixed $severity The severity name to map.
+ *
+ * @return int The CEF severity (0-10), defaulting to 3 (info-equivalent)
+ *              for an unrecognized name.
+ */
 function audit_syslog_cef_severity(mixed $severity): int {
 	$map = [
 		'emergency' => 10, 'emerg' => 10, 'alert' => 10,
@@ -339,6 +522,17 @@ function audit_syslog_cef_severity(mixed $severity): int {
 	return isset($map[$severity]) ? $map[$severity] : 3;
 }
 
+/**
+ * Prepares an audit event's post/object_data/details field for inclusion
+ * as a CEF extension value: decodes it from JSON when possible (then
+ * re-encodes with sensitive data redacted), and normalizes null/bool
+ * scalars to readable strings. Called from audit_syslog_cef_payload()
+ * for each of the cs4/cs5/cs6 custom string fields.
+ *
+ * @param mixed $value The raw field value (often a JSON string).
+ *
+ * @return string The prepared, redacted string value.
+ */
 function audit_syslog_cef_event_field(mixed $value): string {
 	if (is_string($value) && $value !== '') {
 		$decoded = audit_json_decode($value, $error);
@@ -367,8 +561,15 @@ function audit_syslog_cef_event_field(mixed $value): string {
 }
 
 /**
- * @param array<string,mixed> $event
- * @param array<string,mixed> $config
+ * Formats an audit event as a CEF (Common Event Format) message body,
+ * mapping event fields to CEF's standard and custom string/number
+ * extension fields. Called from audit_syslog_message_payload() when the
+ * configured format is 'cef'.
+ *
+ * @param array<string,mixed> $event  The full audit_log event row.
+ * @param array<string,mixed> $config The normalized Syslog configuration.
+ *
+ * @return string The formatted CEF message body.
  */
 function audit_syslog_cef_payload(array $event, array $config): string {
 	$severity = audit_syslog_cef_severity($event['severity'] ?? 'info');
@@ -413,8 +614,15 @@ function audit_syslog_cef_payload(array $event, array $config): string {
 }
 
 /**
- * @param array<string,mixed> $event
- * @param array<string,mixed> $config
+ * Formats an audit event's message body according to the configured
+ * Syslog format (CEF, JSON, or a minimal fallback for plain RFC 5424).
+ * Called from audit_syslog_record() when assembling a complete Syslog
+ * record.
+ *
+ * @param array<string,mixed> $event  The full audit_log event row.
+ * @param array<string,mixed> $config The normalized Syslog configuration.
+ *
+ * @return string The formatted message body.
  */
 function audit_syslog_message_payload(array $event, array $config): string {
 	if ($config['format'] === 'cef') {
@@ -429,9 +637,19 @@ function audit_syslog_message_payload(array $event, array $config): string {
 }
 
 /**
- * @param  array<string,mixed> $event
- * @param  array<string,mixed> $config
- * @return array<string,mixed>
+ * Assembles a complete RFC 5424 Syslog record for an audit event (PRI,
+ * header fields, structured-data element, and message body), rejecting
+ * the record if the configuration is invalid or the formatted record
+ * exceeds RFC/UDP size limits. Called from audit_syslog_send_event() and
+ * audit_syslog_test_delivery() before transmitting an event.
+ *
+ * @param  array<string,mixed> $event  The full audit_log event row.
+ * @param  array<string,mixed> $config The normalized Syslog
+ *                                     configuration.
+ * @return array<string,mixed> An array with 'status' ('ready' or
+ *                             'failed'), 'permanent' (bool), 'error_code',
+ *                             'error', and 'record' (the formatted
+ *                             record, or '' on failure).
  */
 function audit_syslog_record(array $event, array $config): array {
 	if (empty($config['valid'])) {
@@ -503,6 +721,18 @@ function audit_syslog_record(array $event, array $config): array {
 	];
 }
 
+/**
+ * Applies the transport-specific message framing to a formatted Syslog
+ * record: octet-counting (length-prefixed) framing for TCP/TLS per RFC
+ * 6587, or no framing for UDP datagrams. Called from
+ * audit_syslog_send_event() before writing a record to the socket.
+ *
+ * @param string $record    The formatted Syslog record.
+ * @param string $transport The transport in use ('udp', 'tcp', or
+ *                          'tls').
+ *
+ * @return string The framed message ready to write to the socket.
+ */
 function audit_syslog_frame(string $record, string $transport): string {
 	if ($transport === 'tcp' || $transport === 'tls') {
 		return strlen($record) . ' ' . $record;
@@ -512,7 +742,13 @@ function audit_syslog_frame(string $record, string $transport): string {
 }
 
 /**
- * @param array<string,mixed> $config
+ * Builds the stream_socket_client() target URI for a Syslog
+ * configuration, bracketing IPv6 receiver addresses as required. Called
+ * from audit_syslog_open_socket() before opening a connection.
+ *
+ * @param array<string,mixed> $config The normalized Syslog configuration.
+ *
+ * @return string The 'scheme://host:port' socket target URI.
  */
 function audit_syslog_socket_target(array $config): string {
 	$receiver = $config['receiver'];
@@ -526,6 +762,22 @@ function audit_syslog_socket_target(array $config): string {
 	return $scheme . '://' . $receiver . ':' . $config['port'];
 }
 
+/**
+ * Runs a stream-related callable with a temporary error handler that
+ * captures any PHP warning/notice as a sanitized string instead of
+ * letting it surface as an uncaught diagnostic, also catching thrown
+ * exceptions. Called from audit_syslog_open_socket()/audit_syslog_fwrite()
+ * to safely wrap stream_socket_client()/fwrite() calls that may emit
+ * warnings on failure.
+ *
+ * @param callable $operation The stream operation to invoke.
+ * @param string   $warning   Reference, set to a sanitized warning/error
+ *                            message when one occurs, or left as '' on
+ *                            success.
+ *
+ * @return mixed The operation's return value, or false when an exception
+ *               was caught.
+ */
 function audit_syslog_stream_operation(callable $operation, string &$warning = ''): mixed {
 	$warning = '';
 	$handler = function ($severity, $message) use (&$warning) {
@@ -548,8 +800,16 @@ function audit_syslog_stream_operation(callable $operation, string &$warning = '
 }
 
 /**
- * @param  array<string,mixed> $config
- * @return array<string,mixed>
+ * Opens a client socket to the configured Syslog receiver, applying TLS
+ * context options (peer verification, SNI, optional CA/client cert) when
+ * the transport is 'tls'. Called from audit_syslog_send_event() when no
+ * existing socket was supplied for a delivery attempt.
+ *
+ * @param  array<string,mixed> $config The normalized Syslog
+ *                                     configuration.
+ * @return array<string,mixed> An array with 'socket' (the opened stream
+ *                             resource, or null on failure), 'error_code',
+ *                             and 'error'.
  */
 function audit_syslog_open_socket(array $config): array {
 	$context_options = [];
@@ -614,12 +874,34 @@ function audit_syslog_open_socket(array $config): array {
 	return ['socket' => $socket, 'error_code' => '', 'error' => ''];
 }
 
+/**
+ * Strips control characters from an error message and truncates it to a
+ * bounded length, so socket/stream errors can be safely stored and
+ * displayed. Called from audit_syslog_open_socket() and
+ * audit_syslog_write() when reporting a delivery failure.
+ *
+ * @param mixed $error The raw error message.
+ *
+ * @return string The sanitized, length-bounded error message.
+ */
 function audit_syslog_bounded_error(mixed $error): string {
 	$error = preg_replace('/[\\x00-\\x1f\\x7f]+/', ' ', (string) $error);
 
 	return substr(trim($error ?? ''), 0, 1024);
 }
 
+/**
+ * Writes to a socket via audit_syslog_stream_operation(), capturing any
+ * warning instead of raising it. Called from audit_syslog_write() for
+ * each chunk written to the Syslog socket.
+ *
+ * @param mixed  $socket  The open socket resource to write to.
+ * @param string $message The data to write.
+ * @param string $warning Reference, set to a sanitized warning message on
+ *                        failure.
+ *
+ * @return int|false The number of bytes written, or false on failure.
+ */
 function audit_syslog_fwrite(mixed $socket, string $message, string &$warning = ''): int|false {
 	return audit_syslog_stream_operation(function () use ($socket, $message) {
 		return fwrite($socket, $message);
@@ -627,7 +909,19 @@ function audit_syslog_fwrite(mixed $socket, string $message, string &$warning = 
 }
 
 /**
- * @return array<string,mixed>
+ * Writes a framed Syslog message to an open socket: a single write for
+ * UDP datagrams, or a write loop handling partial writes/timeouts for
+ * stream-based TCP/TLS transports. Called from audit_syslog_send_event()
+ * after opening/reusing a socket.
+ *
+ * @param  mixed                $socket    The open socket resource to
+ *                                         write to.
+ * @param  string               $message   The framed message to write.
+ * @param  string               $transport The transport in use ('udp',
+ *                                         'tcp', or 'tls').
+ * @return array<string,mixed>  An array with 'status'
+ *                              ('sent_unconfirmed' or 'failed'),
+ *                              'error_code', and 'error'.
  */
 function audit_syslog_write(mixed $socket, string $message, string $transport): array {
 	if (!is_resource($socket)) {
@@ -670,9 +964,26 @@ function audit_syslog_write(mixed $socket, string $message, string $transport): 
 }
 
 /**
- * @param  array<string,mixed> $event
- * @param  array<string,mixed> $config
- * @return array<string,mixed>
+ * Formats and transmits a single audit event to the configured Syslog
+ * receiver over a (possibly newly opened) socket, closing the socket
+ * after any non-'sent_unconfirmed' outcome. This is the core delivery
+ * primitive used by both the queued-delivery path
+ * (audit_process_syslog_queue()) and the manual "Test Syslog" action
+ * (audit_syslog_test_delivery()).
+ *
+ * @param array<string,mixed> $event  The full audit_log event row to
+ *                                    send.
+ * @param array<string,mixed> $config The normalized Syslog configuration.
+ * @param mixed               $socket Reference to an existing open
+ *                                    socket to reuse (e.g. across a batch
+ *                                    of deliveries); opened automatically
+ *                                    when not already a resource, and set
+ *                                    to null after the socket is closed.
+ *
+ * @return array<string,mixed> The delivery result: 'status'
+ *                             ('sent_unconfirmed' or 'failed'),
+ *                             'permanent' (bool), 'error_code', and
+ *                             'error'.
  */
 function audit_syslog_send_event(array $event, array $config, mixed &$socket = null): array {
 	$formatted = audit_syslog_record($event, $config);
@@ -708,6 +1019,19 @@ function audit_syslog_send_event(array $event, array $config, mixed &$socket = n
 	return $result;
 }
 
+/**
+ * Enqueues a completed audit event for remote Syslog delivery by
+ * inserting a tracking row into audit_syslog_delivery (state 'pending',
+ * or 'dead_letter' immediately when the current Syslog configuration is
+ * invalid), tagged with the current destination fingerprint so a later
+ * configuration change is detected. Called from audit_record_event() and
+ * audit_finalize_request() right after an event is recorded/completed,
+ * when Syslog delivery is enabled.
+ *
+ * @param int $audit_id The audit_log.id to enqueue for delivery.
+ *
+ * @return void
+ */
 function audit_enqueue_syslog_event(int $audit_id): void {
 	if (!audit_syslog_enabled() ||
 		!audit_log_table_available() ||
@@ -739,9 +1063,22 @@ function audit_enqueue_syslog_event(int $audit_id): void {
 }
 
 /**
- * @param  array<string,mixed> $config
- * @param  array<string,mixed> $delivery
- * @return array<string,mixed>
+ * Overlays a delivery row's originally-recorded node/poller identity onto
+ * the current Syslog configuration, and recomputes the destination
+ * fingerprint accordingly, so retried deliveries are tagged consistently
+ * with how they were originally enqueued. Called from
+ * audit_process_syslog_queue() for each delivery about to be sent.
+ *
+ * @param array<string,mixed> $config   The current normalized Syslog
+ *                                      configuration.
+ * @param array<string,mixed> $delivery The audit_syslog_delivery row
+ *                                      (joined with its audit_log
+ *                                      event), including
+ *                                      'delivery_node_id' and
+ *                                      'delivery_poller_id'.
+ *
+ * @return array<string,mixed> The configuration with node_id/poller_id
+ *                             overridden and fingerprint recomputed.
  */
 function audit_syslog_delivery_config(array $config, array $delivery): array {
 	if (isset($delivery['delivery_node_id']) && $delivery['delivery_node_id'] !== '') {
@@ -758,7 +1095,18 @@ function audit_syslog_delivery_config(array $config, array $delivery): array {
 }
 
 /**
- * @param array<string,mixed> $config
+ * Computes an exponential backoff delay (in seconds) for the next
+ * delivery retry attempt, doubling from the configured base delay up to
+ * a configured maximum. Called from audit_syslog_update_delivery() when
+ * scheduling a failed, non-permanent delivery's next attempt.
+ *
+ * @param mixed               $attempt The 1-based attempt number just
+ *                                     completed.
+ * @param array<string,mixed> $config  The normalized Syslog
+ *                                     configuration (retry_base,
+ *                                     retry_max).
+ *
+ * @return int The computed delay in seconds, capped at retry_max.
  */
 function audit_syslog_retry_delay(mixed $attempt, array $config): int {
 	$exponent = min(max(0, (int) $attempt - 1), 30);
@@ -768,9 +1116,21 @@ function audit_syslog_retry_delay(mixed $attempt, array $config): int {
 }
 
 /**
- * @param array<string,mixed> $delivery
- * @param array<string,mixed> $result
- * @param array<string,mixed> $config
+ * Records the outcome of a Syslog delivery attempt on its
+ * audit_syslog_delivery row: marks it 'sent_unconfirmed' on success, or
+ * 'retry' (with a scheduled next_attempt) / 'dead_letter' (when
+ * permanently failed or attempts are exhausted) on failure. Called from
+ * audit_process_syslog_queue() after each delivery attempt.
+ *
+ * @param array<string,mixed> $delivery The audit_syslog_delivery row
+ *                                      being updated.
+ * @param array<string,mixed> $result   The delivery result from
+ *                                      audit_syslog_send_event().
+ * @param array<string,mixed> $config   The normalized Syslog
+ *                                      configuration used for the
+ *                                      attempt.
+ *
+ * @return void
  */
 function audit_syslog_update_delivery(array $delivery, array $result, array $config): void {
 	$attempts = (int) $delivery['attempts'] + 1;
@@ -809,6 +1169,16 @@ function audit_syslog_update_delivery(array $delivery, array $result, array $con
 		[$state, $config['fingerprint'], $attempts, $delay, $delay, $stored_error, $delivery['delivery_id']]);
 }
 
+/**
+ * Processes a bounded batch of pending/retry-due Syslog deliveries in
+ * next_attempt order, reusing a single open socket across the batch and
+ * stopping early on the first non-permanent failure so a broken
+ * connection doesn't burn through the whole batch, then refreshes the
+ * delivery health state. Called from this plugin's poller routine on
+ * every polling cycle when Syslog delivery is enabled.
+ *
+ * @return void
+ */
 function audit_process_syslog_queue(): void {
 	if (!audit_log_table_available() || !audit_syslog_enabled() || !db_table_exists('audit_syslog_delivery')) {
 		return;
@@ -858,7 +1228,13 @@ function audit_process_syslog_queue(): void {
 }
 
 /**
- * @return array<string,mixed>
+ * Summarizes the current state of the Syslog delivery queue: counts of
+ * pending/retry/sent-unconfirmed/dead-letter rows, the age of the oldest
+ * still-pending row, and the most recent attempt/sent times and error
+ * message. Called from audit_render_syslog_health() and
+ * audit_syslog_check_health() to assess delivery health.
+ *
+ * @return array<string,mixed> The health summary fields.
  */
 function audit_syslog_health(): array {
 	if (!db_table_exists('audit_syslog_delivery')) {
@@ -899,7 +1275,18 @@ function audit_syslog_health(): array {
 }
 
 /**
- * @param array<string,mixed>|null $config
+ * Evaluates whether Syslog delivery has transitioned between healthy and
+ * unhealthy (invalid config, too many dead-letters, or pending items
+ * aging past the warning threshold) and, on a state change, logs a
+ * one-time NOTICE/WARNING and persists the new state so repeated cycles
+ * don't re-log the same transition. Called from
+ * audit_process_syslog_queue() after each queue-processing pass.
+ *
+ * @param array<string,mixed>|null $config The normalized Syslog
+ *                                         configuration to evaluate;
+ *                                         loaded automatically when null.
+ *
+ * @return void
  */
 function audit_syslog_check_health(?array $config = null): void {
 	if (!audit_syslog_enabled()) {
@@ -924,7 +1311,19 @@ function audit_syslog_check_health(?array $config = null): void {
 }
 
 /**
- * @param array<int,int> $delivery_ids
+ * Resets dead-letter Syslog deliveries back to 'pending' (clearing their
+ * attempt count/error and scheduling an immediate retry), either for a
+ * specific set of delivery ids or, when none are given, every dead-
+ * letter row. Called from audit.php's dispatcher when the request's
+ * 'action' is 'syslog_retry' (admin-only, via the Retry Dead-letter
+ * button).
+ *
+ * @param array<int,int> $delivery_ids The specific audit_syslog_delivery
+ *                                     ids to retry (capped at 1000); when
+ *                                     empty, every dead-letter row is
+ *                                     retried.
+ *
+ * @return int The number of rows reset for retry.
  */
 function audit_syslog_retry_dead_letters(array $delivery_ids = []): int {
 	if (!db_table_exists('audit_syslog_delivery')) {
@@ -971,7 +1370,15 @@ function audit_syslog_retry_dead_letters(array $delivery_ids = []): int {
 }
 
 /**
- * @return array<string,mixed>
+ * Builds and immediately sends a synthetic 'audit.syslog.test' event to
+ * the currently configured Syslog receiver, bypassing the delivery
+ * queue, so an administrator can confirm connectivity/configuration.
+ * Called from audit.php's dispatcher when the request's 'action' is
+ * 'syslog_test' (admin-only, via the Test Syslog button).
+ *
+ * @return array<string,mixed> The delivery result from
+ *                             audit_syslog_send_event() ('status',
+ *                             'error_code', 'error', etc.).
  */
 function audit_syslog_test_delivery(): array {
 	$config = audit_syslog_config();

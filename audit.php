@@ -153,7 +153,17 @@ switch(get_request_var('action')) {
 }
 
 /**
- * @param array<string,mixed> $data
+ * Renders the detailed view of a single audit_log event: its page,
+ * user, IP, timestamp, action/event type/uuid, request/outcome status,
+ * external-file and remote-Syslog delivery status, and (for non-CLI
+ * events) the decoded request attributes and any associated object-
+ * change record data. Invoked from this file's dispatcher when the
+ * request's 'action' is 'getdata', called via AJAX to populate the
+ * event-details dialog on the audit log list.
+ *
+ * @param array<string,mixed> $data The audit_log row to render.
+ *
+ * @return string The rendered HTML detail view.
  */
 function audit_render_event_details(array $data): string {
 	$width  = 'wide';
@@ -256,6 +266,16 @@ function audit_render_event_details(array $data): string {
 	return $output . '</table></td></tr></table>';
 }
 
+/**
+ * Renders a single request-attribute value for the event-details view,
+ * pretty-printing arrays/objects as JSON and normalizing booleans/null to
+ * readable strings, always HTML-escaped. Called from
+ * audit_render_event_details() for each decoded attribute.
+ *
+ * @param mixed $value The attribute value to render.
+ *
+ * @return string The rendered, HTML-escaped value.
+ */
 function audit_render_value(mixed $value): string {
 	if (is_array($value) || is_object($value)) {
 		return '<pre>' . html_escape(json_encode($value, JSON_PRETTY_PRINT | JSON_INVALID_UTF8_SUBSTITUTE)) . '</pre>';
@@ -270,6 +290,16 @@ function audit_render_value(mixed $value): string {
 	return html_escape((string) $value);
 }
 
+/**
+ * Deletes every audit_log row that has no in-flight remote-Syslog
+ * delivery (pending/retry/dead_letter), preserving rows whose delivery
+ * hasn't yet completed so they aren't lost before being shipped, and
+ * records an audit event summarizing the purge. Invoked from this file's
+ * dispatcher when the request's 'action' is 'purge' (admin-only, POST +
+ * CSRF-protected).
+ *
+ * @return void
+ */
 function audit_purge(): void {
 	$protected = db_fetch_cell("SELECT COUNT(*)
 		FROM audit_log
@@ -308,6 +338,14 @@ function audit_purge(): void {
 	raise_message('audit_message');
 }
 
+/**
+ * Streams the currently filtered audit_log rows as a downloadable CSV
+ * file (one row per event, including decoded request attributes as a
+ * JSON blob), and records an audit event noting the export. Invoked from
+ * this file's dispatcher when the request's 'action' is 'export'.
+ *
+ * @return void Outputs a CSV file directly via HTTP headers.
+ */
 function audit_export_rows(): void {
 	audit_process_request_vars();
 
@@ -407,6 +445,13 @@ function audit_export_rows(): void {
 	}
 }
 
+/**
+ * Validates and persists (in session) the Audit Log list's filter request
+ * variables (rows, page, filter text, sort, user id, event page). Called
+ * from audit_log()/audit_export_rows() before querying audit_log.
+ *
+ * @return void
+ */
 function audit_process_request_vars(): void {
 	// ================= input validation and session storage =================
 	$filters = [
@@ -451,6 +496,18 @@ function audit_process_request_vars(): void {
 	// ================= input validation =================
 }
 
+/**
+ * Renders the main Audit Log list page: the Syslog delivery health panel,
+ * the search/filter toolbar (text filter, event page, user), and the
+ * paginated, sortable table of audit_log events. Invoked from this
+ * file's dispatcher for the default (no 'action') request, and after the
+ * syslog test/retry/purge actions complete.
+ *
+ * @return void Outputs the list page HTML directly.
+ *
+ * @global array $item_rows Rows-per-page options offered by Cacti core,
+ *                           used to populate the 'rows' select list.
+ */
 function audit_log(): void {
 	global $item_rows;
 
@@ -724,6 +781,14 @@ function audit_log(): void {
 	<?php
 }
 
+/**
+ * Renders the "Remote Syslog Delivery" health summary box (pending/retry/
+ * dead-letter/sent counts, oldest-pending age, last attempt/write times,
+ * configuration errors) along with Test/Retry Dead-letter action buttons.
+ * Called from audit_log() near the top of the Audit Log list page.
+ *
+ * @return void Outputs HTML directly.
+ */
 function audit_render_syslog_health(): void {
 	$config    = audit_syslog_config();
 	$health    = audit_syslog_health();
