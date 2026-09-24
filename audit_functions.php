@@ -66,8 +66,11 @@ function audit_log_table_available(): bool {
  * @param string             $page           The originating admin page's
  *                                            filename (e.g. 'host.php').
  * @param mixed              $drop_action    The submitted bulk action
- *                                            value; when falsy, no
- *                                            lookups are performed.
+ *                                            value; lookups are skipped
+ *                                            only when this is strictly
+ *                                            `false` (0, null, and ''
+ *                                            still trigger the
+ *                                            page-specific queries).
  * @param array<int,string>  $selected_items The selected object ids to
  *                                            look up.
  *
@@ -1383,8 +1386,8 @@ function audit_report_ingestion_unavailable(string $reason): void {
  * exhausting its retry budget, both as a Cacti ERROR log entry (the
  * primary, always-available evidence channel) and as a best-effort
  * 'audit.authentication.ingestion.dropped' audit event. Called from
- * audit_cleanup_user_log_state() when a retry marker reaches its
- * terminal retry count.
+ * audit_poll_user_log() at its two retry-exhaustion paths, when a
+ * retry marker reaches its terminal retry count.
  *
  * @param string $username     The dropped row's user_log.username.
  * @param int    $user_id      The dropped row's user_log.user_id.

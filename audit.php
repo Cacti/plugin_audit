@@ -291,12 +291,13 @@ function audit_render_value(mixed $value): string {
 }
 
 /**
- * Deletes every audit_log row that has no in-flight remote-Syslog
- * delivery (pending/retry/dead_letter), preserving rows whose delivery
- * hasn't yet completed so they aren't lost before being shipped, and
- * records an audit event summarizing the purge. Invoked from this file's
- * dispatcher when the request's 'action' is 'purge' (admin-only, POST +
- * CSRF-protected).
+ * Deletes every audit_log row that has no pending/retry remote-Syslog
+ * delivery and no dead_letter delivery, preserving rows whose delivery
+ * hasn't yet completed (or that ended up dead-lettered, so an
+ * administrator can still retry them) so they aren't lost before being
+ * shipped, and records an audit event summarizing the purge. Invoked
+ * from this file's dispatcher when the request's 'action' is 'purge'
+ * (admin-only, POST + CSRF-protected).
  *
  * @return void
  */
