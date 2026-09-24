@@ -75,8 +75,8 @@ function audit_log_table_available(): bool {
  *                                            look up.
  *
  * @return string A JSON-encoded array of per-item detail rows for the
- *                recognized $page, or an empty JSON array ('[]') when
- *                $page is '' or unrecognized.
+ *                recognized $page, or the literal '[]' (an empty JSON
+ *                array) when $page is '' or unrecognized.
  */
 function audit_process_page_data(string $page, mixed $drop_action, array $selected_items): string {
 	$objects = [];
