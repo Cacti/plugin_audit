@@ -26,10 +26,29 @@ declare(strict_types = 1);
 
 require_once __DIR__ . '/audit_syslog.php';
 
+/**
+ * Determines whether the current session user has access to this
+ * plugin's audit_manage.php realm (i.e. is an audit administrator).
+ * Called from audit.php to gate the admin-only syslog test/retry/purge
+ * actions.
+ *
+ * @return bool True when the current user is an audit administrator.
+ */
 function audit_user_is_admin(): bool {
 	return api_plugin_user_realm_auth('audit_manage.php');
 }
 
+/**
+ * Determines whether the audit_log table currently exists, so callers can
+ * skip logging safely during install/upgrade before the table has been
+ * created. Called throughout this plugin's event-recording functions
+ * before writing to audit_log.
+ *
+ * Cacti 1.2.20 and develop both use a request-scoped static cache in
+ * lib/database.php::db_table_exists() outside install mode.
+ *
+ * @return bool True when the audit_log table exists.
+ */
 function audit_log_table_available(): bool {
 	// Cacti 1.2.20 and develop both use a request-scoped static cache in
 	// lib/database.php::db_table_exists() outside install mode.
@@ -37,7 +56,27 @@ function audit_log_table_available(): bool {
 }
 
 /**
- * @param array<int,string> $selected_items
+ * Looks up display-friendly details (name/description/status, etc.) for
+ * a bulk-selected set of Cacti objects (devices, templates, thresholds,
+ * users, etc.) on a given admin page, for inclusion in that action's
+ * audit event as human-readable context. Called from Cacti core's bulk-
+ * action pages (via this plugin's page-level integration) before
+ * recording an audit event for a 'drp_action' submission.
+ *
+ * @param string             $page           The originating admin page's
+ *                                            filename (e.g. 'host.php').
+ * @param mixed              $drop_action    The submitted bulk action
+ *                                            value; lookups are skipped
+ *                                            only when this is strictly
+ *                                            `false` (0, null, and ''
+ *                                            still trigger the
+ *                                            page-specific queries).
+ * @param array<int,string>  $selected_items The selected object ids to
+ *                                            look up.
+ *
+ * @return string A JSON-encoded array of per-item detail rows for the
+ *                recognized $page, or the literal '[]' (an empty JSON
+ *                array) when $page is '' or unrecognized.
  */
 function audit_process_page_data(string $page, mixed $drop_action, array $selected_items): string {
 	$objects = [];
@@ -170,10 +209,34 @@ function audit_process_page_data(string $page, mixed $drop_action, array $select
 	return audit_json_encode($objects);
 }
 
+/**
+ * Determines whether a field name looks like it holds a credential/secret
+ * (password, token, API key, community string, etc.), based on a
+ * case-insensitive keyword match. Called from audit_redact_sensitive_data()
+ * to decide which fields to redact before logging request data.
+ *
+ * @param mixed $key The field name to check.
+ *
+ * @return int|false The number of regex matches (1 when sensitive), or
+ *                    false on a regex engine error.
+ */
 function audit_is_sensitive_key(mixed $key): int|false {
 	return preg_match('/(?:pass(?:word)?|phrase|token|secret|api[_-]?key|private[_-]?key|community|credential|authorization|authentication)/i', (string) $key);
 }
 
+/**
+ * Recursively redacts sensitive fields (per audit_is_sensitive_key()) and
+ * sensitive-looking values (per audit_redact_sensitive_value()) within an
+ * array of request/response data before it is persisted to the audit
+ * log. Called from audit_record_event() and this plugin's CLI/request
+ * capture functions before storing submitted data.
+ *
+ * @param mixed $data The data to redact; non-array values are returned
+ *                     unchanged.
+ *
+ * @return mixed The redacted data, or the original value when $data is
+ *               not an array.
+ */
 function audit_redact_sensitive_data(mixed $data): mixed {
 	if (!is_array($data)) {
 		return $data;
@@ -194,6 +257,18 @@ function audit_redact_sensitive_data(mixed $data): mixed {
 	return $redacted;
 }
 
+/**
+ * Redacts an individual scalar value that looks like a credential even
+ * though its field name didn't match (PEM private keys, Bearer/Basic
+ * auth headers, JWT-shaped tokens), and masks any embedded userinfo
+ * password in URL-like strings. Called from audit_redact_sensitive_data()
+ * for each non-array field value.
+ *
+ * @param mixed $value The value to inspect and possibly redact.
+ *
+ * @return mixed The redacted value, or the original value when it is not
+ *               a string or doesn't look sensitive.
+ */
 function audit_redact_sensitive_value(mixed $value): mixed {
 	if (!is_string($value)) {
 		return $value;
@@ -208,6 +283,25 @@ function audit_redact_sensitive_value(mixed $value): mixed {
 	return preg_replace('#^([a-z][a-z0-9+.-]*://[^:/@\s]+):[^@\s]+@#i', '$1:[REDACTED]@', $value);
 }
 
+/**
+ * Recursively bounds a data structure to safe limits before it is
+ * logged: truncates any string longer than 64KB, caps the total number
+ * of array fields visited across the whole structure at 1000, and caps
+ * recursion depth at 12. Called from audit_json_encode() before encoding
+ * any data for storage, to prevent unbounded/adversarial payloads from
+ * exhausting resources.
+ *
+ * @param mixed        $data  The data to bound.
+ * @param int          $depth The current recursion depth; defaults to 0
+ *                            for the initial call.
+ * @param object|null  $state Shared mutable state (a field counter)
+ *                            threaded through the recursion; created
+ *                            automatically on the initial call.
+ *
+ * @return mixed The bounded data, with oversized strings truncated and
+ *               an 'audit_truncated' marker added to arrays that exceeded
+ *               the field-count limit.
+ */
 function audit_bound_log_data(mixed $data, int $depth = 0, ?object $state = null): mixed {
 	if ($state === null) {
 		$state = (object) ['fields' => 0];
@@ -243,8 +337,14 @@ function audit_bound_log_data(mixed $data, int $depth = 0, ?object $state = null
 }
 
 /**
- * @param  array<int,string> $arguments
- * @return array<int,string>
+ * Redacts CLI argument values that look like credentials, handling both
+ * '--flag=value' and separate '--flag value' forms, and masks any
+ * embedded userinfo password in URL-like arguments. Called when logging
+ * a CLI script's invocation arguments to the audit log.
+ *
+ * @param array<int,string> $arguments The raw CLI arguments to redact.
+ *
+ * @return array<int,string> The redacted arguments, in the same order.
  */
 function audit_redact_cli_arguments(array $arguments): array {
 	$redacted    = [];
@@ -277,6 +377,20 @@ function audit_redact_cli_arguments(array $arguments): array {
 	return $redacted;
 }
 
+/**
+ * Encodes data as JSON after bounding it via audit_bound_log_data(),
+ * falling back to a minimal error object when encoding itself fails.
+ * Used throughout this plugin whenever data is persisted to the audit
+ * log or rendered for export/display.
+ *
+ * @param mixed $data    The data to encode.
+ * @param int   $options Additional json_encode() option flags to OR in;
+ *                        defaults to 0.
+ *
+ * @return string The encoded JSON, or a fallback
+ *                '{"audit_encoding_error":...}' object when encoding
+ *                fails.
+ */
 function audit_json_encode(mixed $data, int $options = 0): string {
 	$json = json_encode(audit_bound_log_data($data), JSON_INVALID_UTF8_SUBSTITUTE | $options, 16);
 
@@ -289,6 +403,19 @@ function audit_json_encode(mixed $data, int $options = 0): string {
 	return $json;
 }
 
+/**
+ * Safely decodes a JSON string, capturing any decoding error message
+ * instead of throwing, for callers that need to distinguish a
+ * successfully-decoded null from a decoding failure. Used throughout
+ * this plugin when reading back previously stored audit_log JSON
+ * columns.
+ *
+ * @param mixed       $json  The JSON string to decode.
+ * @param string|null $error Reference, set to the decoding error message
+ *                            on failure, or null on success.
+ *
+ * @return mixed The decoded value, or null when decoding failed.
+ */
 function audit_json_decode(mixed $json, ?string &$error = null): mixed {
 	$error = null;
 
@@ -301,6 +428,14 @@ function audit_json_decode(mixed $json, ?string &$error = null): mixed {
 	}
 }
 
+/**
+ * Generates a cryptographically random RFC 4122 version-4 UUID. Called
+ * from audit_request_correlation_id() and this plugin's event-recording
+ * functions to assign each audit event a unique identifier.
+ *
+ * @return string A version-4 UUID in canonical
+ *                8-4-4-4-12 hyphenated hex form.
+ */
 function audit_uuid_v4(): string {
 	$bytes    = random_bytes(16);
 	$bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40);
@@ -311,6 +446,15 @@ function audit_uuid_v4(): string {
 		substr($hex, 12, 4) . '-' . substr($hex, 16, 4) . '-' . substr($hex, 20);
 }
 
+/**
+ * Returns a UUID that is stable for the duration of the current request,
+ * generating one on first use and reusing it for every subsequent call
+ * within the same request. Called throughout this plugin's event-
+ * recording functions so that multiple audit events from the same
+ * request share a common correlation id.
+ *
+ * @return string The current request's correlation UUID.
+ */
 function audit_request_correlation_id(): string {
 	static $correlation_id;
 
@@ -321,6 +465,19 @@ function audit_request_correlation_id(): string {
 	return $correlation_id;
 }
 
+/**
+ * Formats a Unix timestamp (with microsecond precision) as a UTC
+ * 'Y-m-d H:i:s.uuuuuu' string, suitable for consistent, sortable event
+ * timestamps regardless of the server's local timezone. Called
+ * throughout this plugin's event-recording functions to timestamp audit
+ * events.
+ *
+ * @param float|null $microtime The Unix timestamp (with fractional
+ *                               seconds) to format; defaults to the
+ *                               current time when null.
+ *
+ * @return string The formatted UTC timestamp.
+ */
 function audit_utc_time(?float $microtime = null): string {
 	$microtime = $microtime === null ? microtime(true) : $microtime;
 	$seconds   = (int) $microtime;
@@ -335,7 +492,15 @@ function audit_utc_time(?float $microtime = null): string {
 }
 
 /**
- * @param array<string,mixed> $event
+ * Computes a SHA-256 integrity hash over an audit event's stable
+ * identifying fields (uuid, correlation id, type, user, action, time,
+ * outcome, target, details), so tampering with a stored event can later
+ * be detected. Called from audit_record_event() before an event is
+ * inserted into audit_log.
+ *
+ * @param array<string,mixed> $event The event fields to hash.
+ *
+ * @return string The computed SHA-256 hex hash.
  */
 function audit_event_integrity_hash(array $event): string {
 	$material = [
@@ -354,6 +519,17 @@ function audit_event_integrity_hash(array $event): string {
 	return hash('sha256', audit_json_encode($material, JSON_UNESCAPED_SLASHES));
 }
 
+/**
+ * Derives a normalized dotted event-type identifier (e.g.
+ * 'cacti.host_php.save') from a request's page filename and action/mode
+ * value, for use as an audit_log.event_type when no more specific type
+ * is supplied. Called from this plugin's generic request-capture flow.
+ *
+ * @param mixed $page   The originating page's filename.
+ * @param mixed $action The request's action/mode value.
+ *
+ * @return string The derived event type string.
+ */
 function audit_event_type_for_request(mixed $page, mixed $action): string {
 	$page_name = preg_replace('/\.php$/', '', (string) $page);
 	$page_name = preg_replace('/[^a-z0-9_]+/i', '_', $page_name ?? '');
@@ -365,8 +541,16 @@ function audit_event_type_for_request(mixed $page, mixed $action): string {
 }
 
 /**
- * @param  array<string,mixed> $event
- * @return array<string,mixed>
+ * Extracts the subset of an audit event's fields that are forwarded to
+ * external log destinations (file/Syslog), in a stable field order.
+ * Called from audit_deliver_external_event() and Syslog delivery before
+ * formatting an event for external shipment.
+ *
+ * @param array<string,mixed> $event The full audit_log event row.
+ *
+ * @return array<string,mixed> The subset of fields destined for external
+ *                             delivery, each defaulting to null when
+ *                             absent from $event.
  */
 function audit_external_event_data(array $event): array {
 	$fields = [
@@ -387,7 +571,21 @@ function audit_external_event_data(array $event): array {
 }
 
 /**
- * @param array<string,mixed> $data
+ * Formats an external event data array as either a single-line
+ * key="value" text record or a JSON line, decoding any nested JSON string
+ * fields (post/object_data/details) back into structured data first when
+ * formatting as JSON. Called from audit_deliver_external_event() before
+ * appending an event to the configured external log file.
+ *
+ * @param array<string,mixed> $data   The event data to format, as
+ *                                      returned by
+ *                                      audit_external_event_data().
+ * @param string               $format The output format: 'text' for a
+ *                                      key="value" line, anything else
+ *                                      for a JSON line; defaults to
+ *                                      'json'.
+ *
+ * @return string The formatted record, terminated with a newline.
  */
 function audit_external_log_format(array $data, string $format = 'json'): string {
 	if ($format === 'text') {
@@ -426,6 +624,19 @@ function audit_external_log_format(array $data, string $format = 'json'): string
 	return audit_json_encode($data, JSON_UNESCAPED_SLASHES) . "\n";
 }
 
+/**
+ * Prefixes a value with a single quote when it begins with a character
+ * (=, +, -, @) that spreadsheet applications interpret as the start of a
+ * formula, preventing CSV formula-injection when the audit log is
+ * exported and opened in Excel/LibreOffice/Sheets. Called from
+ * audit_export_rows() for every exported cell value.
+ *
+ * @param mixed $value The cell value to sanitize.
+ *
+ * @return string The value as a string, prefixed with a single quote
+ *                when it looks like it could be interpreted as a
+ *                formula.
+ */
 function audit_csv_safe_cell(mixed $value): string {
 	$value = (string) $value;
 
@@ -436,6 +647,21 @@ function audit_csv_safe_cell(mixed $value): string {
 	return $value;
 }
 
+/**
+ * Computes the UTC cutoff timestamp before which audit_log rows are
+ * eligible for retention-based cleanup, given a retention period in
+ * days. Called from this plugin's poller/cleanup routines to determine
+ * which rows are old enough to purge.
+ *
+ * @param mixed                  $retention The retention period in days
+ *                                          (coerced to a non-negative
+ *                                          int).
+ * @param DateTimeImmutable|null $now       The reference "now" to
+ *                                          subtract from; defaults to the
+ *                                          current UTC time when null.
+ *
+ * @return DateTimeImmutable The computed UTC cutoff instant.
+ */
 function audit_retention_cutoff(mixed $retention, ?DateTimeImmutable $now = null): DateTimeImmutable {
 	$now = $now instanceof DateTimeImmutable
 		? $now->setTimezone(new DateTimeZone('UTC'))
@@ -445,7 +671,22 @@ function audit_retention_cutoff(mixed $retention, ?DateTimeImmutable $now = null
 }
 
 /**
- * @return array<string,string>
+ * Appends a message to an existing external log file under an exclusive
+ * lock, refusing to write to a missing file, non-regular file, or
+ * symlink (to avoid a misconfigured/tampered destination silently
+ * dropping or redirecting audit data). Called from
+ * audit_deliver_external_event() and audit_retry_external_logs() when
+ * delivering an event to the configured external log path.
+ *
+ * @param string $path    The absolute path to the external log file;
+ *                        must already exist as a regular file.
+ * @param string $message The formatted record to append (including its
+ *                        own trailing newline).
+ *
+ * @return array<string,string> An array with 'status' set to 'delivered'
+ *                              (and empty 'error') on success, or
+ *                              'failed' with a descriptive 'error'
+ *                              message on failure.
  */
 function audit_append_external_log(string $path, string $message): array {
 	if ($path == '' || !is_file($path) || is_link($path)) {
@@ -461,6 +702,21 @@ function audit_append_external_log(string $path, string $message): array {
 	return ['status' => 'delivered', 'error' => ''];
 }
 
+/**
+ * Records the outcome of an attempt to deliver an audit event to its
+ * configured external log file, incrementing the attempt counter and
+ * timestamping the last attempt/delivery time. Called from
+ * audit_deliver_external_event() and audit_retry_external_logs() after
+ * each delivery attempt.
+ *
+ * @param int    $id     The audit_log.id being updated.
+ * @param string $status The new external_status value (e.g. 'delivered',
+ *                        'failed').
+ * @param string $error  The delivery error message, or '' on success;
+ *                        defaults to ''.
+ *
+ * @return void
+ */
 function audit_set_external_status(int $id, string $status, string $error = ''): void {
 	if (!audit_log_table_available()) {
 		return;
@@ -476,6 +732,17 @@ function audit_set_external_status(int $id, string $status, string $error = ''):
 		[$status, $error, $status, $id]);
 }
 
+/**
+ * Delivers a single audit event to its configured external log file, when
+ * external logging is enabled, the event has finished processing, and it
+ * hasn't already been delivered. Called from audit_record_event() and
+ * audit_finalize_request() immediately after an event is recorded/
+ * completed.
+ *
+ * @param int $id The audit_log.id to deliver.
+ *
+ * @return void
+ */
 function audit_deliver_external_event(int $id): void {
 	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
@@ -503,6 +770,15 @@ function audit_deliver_external_event(int $id): void {
 	audit_set_external_status($id, $delivery['status'], $delivery['error']);
 }
 
+/**
+ * Re-attempts delivery of up to 100 previously pending/failed external
+ * log events (oldest first), stopping at the first delivery that still
+ * fails so a persistently broken destination doesn't get hammered.
+ * Called from this plugin's poller routine on each polling cycle when
+ * external logging is enabled.
+ *
+ * @return void
+ */
 function audit_retry_external_logs(): void {
 	if (!audit_log_table_available() || read_config_option('audit_log_external') != 'on') {
 		return;
@@ -538,7 +814,21 @@ function audit_retry_external_logs(): void {
 }
 
 /**
- * @param array<string,mixed> $error
+ * Classifies a completed request as 'completed' or 'failed', based on
+ * whether a fatal PHP error occurred or the HTTP status code indicates a
+ * client/server error. Called from audit_finalize_request() to determine
+ * an event's final request_status.
+ *
+ * @param array<string,mixed>|null $error       The result of
+ *                                               error_get_last(), or
+ *                                               null when no error
+ *                                               occurred.
+ * @param int                       $status_code The response's HTTP
+ *                                               status code; defaults to
+ *                                               200.
+ *
+ * @return string 'failed' when a fatal error occurred or the status code
+ *                is >= 400; otherwise 'completed'.
  */
 function audit_request_status(?array $error = null, int $status_code = 200): string {
 	$fatal_types = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR];
@@ -552,8 +842,20 @@ function audit_request_status(?array $error = null, int $status_code = 200): str
 }
 
 /**
- * @param  array<string,mixed>      $post
- * @return array<string,mixed>|null
+ * Builds a deferred "verifier" descriptor for requests whose real
+ * outcome can only be confirmed by re-reading the database after the
+ * request completes - currently, user_admin.php's realm-permissions save
+ * form. Captures the target user id and the set of realm ids the
+ * request expects to be granted, for later comparison by
+ * audit_verify_operation(). Called from this plugin's generic request-
+ * capture flow before a request is processed.
+ *
+ * @param string              $page The originating page's filename.
+ * @param array<string,mixed> $post The submitted POST data.
+ *
+ * @return array<string,mixed>|null The verifier descriptor, or null when
+ *                                  this request/page doesn't need
+ *                                  deferred verification.
  */
 function audit_operation_verifier_for_request(string $page, array $post): ?array {
 	if ($page != 'user_admin.php' || !array_key_exists('save_component_realm_perms', $post)) {
@@ -600,7 +902,19 @@ function audit_operation_verifier_for_request(string $page, array $post): ?array
 }
 
 /**
- * @return array<string,mixed>
+ * Confirms whether a deferred operation (currently only user realm-
+ * permissions saves) actually took effect, by re-querying the database
+ * and comparing actual state against the expected outcome captured by
+ * audit_operation_verifier_for_request(). Called from
+ * audit_finalize_request() after a request completes successfully.
+ *
+ * @param mixed $verifier The verifier descriptor produced by
+ *                        audit_operation_verifier_for_request(), or
+ *                        anything else to short-circuit as 'unknown'.
+ *
+ * @return array<string,mixed> An array with 'outcome' ('success',
+ *                             'failure', or 'unknown') and 'reason' (a
+ *                             machine-readable reason code, or null).
  */
 function audit_verify_operation(mixed $verifier): array {
 	if (!is_array($verifier) || empty($verifier['type'])) {
@@ -661,7 +975,31 @@ function audit_verify_operation(mixed $verifier): array {
 }
 
 /**
- * @param array<string,mixed>|null $verifier
+ * Finalizes the in-flight audit_log row for the current request: computes
+ * its final request_status (and, when a verifier was captured, its
+ * confirmed operation_outcome/outcome_reason), records the HTTP status
+ * code, completion time, and duration, recomputes its integrity hash, and
+ * triggers external log/Syslog delivery. Called once at the end of
+ * request processing (e.g. via a shutdown handler) for every request
+ * that started an audit event.
+ *
+ * @param int                        $id         The audit_log.id to
+ *                                                finalize.
+ * @param float|null                 $started_at The request's start time
+ *                                                (from microtime(true)),
+ *                                                used to compute
+ *                                                duration_ms; defaults to
+ *                                                null (no duration
+ *                                                recorded).
+ * @param array<string,mixed>|null   $verifier   The deferred verifier
+ *                                                descriptor from
+ *                                                audit_operation_verifier_for_request(),
+ *                                                or null when the
+ *                                                request's outcome was
+ *                                                already known at insert
+ *                                                time.
+ *
+ * @return void
  */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
 	if (!audit_log_table_available()) {
@@ -706,7 +1044,30 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
 }
 
 /**
- * @param array<string,mixed> $options
+ * Inserts a new audit_log event row (assigning a UUID, correlation id,
+ * timestamps, redacted/bounded details, and an integrity hash), then
+ * (unless deferred) triggers external log/Syslog delivery for it. This is
+ * the primary entry point used throughout Cacti core's plugin hooks and
+ * this plugin's own pages/scripts to record a security-relevant event.
+ *
+ * @param string              $event_type A dotted event-type identifier
+ *                                        (e.g. 'audit.log.purged').
+ * @param array<string,mixed> $options   Optional overrides/extra fields:
+ *                                        event_uuid, correlation_id,
+ *                                        user_id, page, action,
+ *                                        event_time, details,
+ *                                        ip_address, user_agent,
+ *                                        event_category, severity,
+ *                                        actor_type, target_type,
+ *                                        target_id, operation_outcome,
+ *                                        outcome_reason, http_method,
+ *                                        http_status, completed_time,
+ *                                        duration_ms, and defer_delivery
+ *                                        (skip immediate external/Syslog
+ *                                        delivery when truthy).
+ *
+ * @return int The new audit_log.id, or 0 when auditing is disabled, the
+ *             audit_log table doesn't exist yet, or the insert failed.
  */
 function audit_record_event(string $event_type, array $options = []): int {
 	if (!audit_log_table_available() || read_config_option('audit_enabled') != 'on') {
@@ -769,6 +1130,17 @@ function audit_record_event(string $event_type, array $options = []): int {
 	return $id;
 }
 
+/**
+ * Stashes the logging-out user's identity/correlation id (for the post-
+ * destroy hook to confirm session teardown after $_SESSION is gone) and
+ * records the initial 'authentication.logout'/'authentication.session.expired'
+ * audit event. Called from Cacti core's logout flow just before the
+ * session is destroyed, regardless of whether auth auditing is enabled,
+ * so the stash is available if the setting is toggled on between this
+ * hook and the post-destroy one.
+ *
+ * @return void
+ */
 function audit_logout_pre_session_destroy(): void {
 	// Stash the logging-out user identity and request correlation id so the
 	// post-destroy hook can confirm session teardown after $_SESSION is gone.
@@ -791,10 +1163,17 @@ function audit_logout_pre_session_destroy(): void {
 }
 
 /**
- * Per-request stash shared between the pre- and post-destroy logout hooks.
+ * Per-request stash shared between the pre- and post-destroy logout
+ * hooks, holding the logging-out user's id/correlation id/reason across
+ * the point where $_SESSION is destroyed. Called from
+ * audit_logout_pre_session_destroy() to set the stash, and from
+ * audit_logout_post_session_destroy() to read (and later clear) it.
  *
- * @param  array<string,mixed>|null $set
- * @return array<string,mixed>
+ * @param array<string,mixed>|null $set When provided, replaces the
+ *                                       stashed value; when null, the
+ *                                       current stash is left unchanged.
+ *
+ * @return array<string,mixed> The current stashed value.
  */
 function audit_logout_stash(?array $set = null): array {
 	static $stash = [];
@@ -806,6 +1185,15 @@ function audit_logout_stash(?array $set = null): array {
 	return $stash;
 }
 
+/**
+ * Records the 'authentication.logout.completed' audit event confirming
+ * the session was actually destroyed, using the identity stashed by
+ * audit_logout_pre_session_destroy(), then clears the stash. Called from
+ * Cacti core's logout flow immediately after the session has been
+ * destroyed, when both auditing and auth-event logging are enabled.
+ *
+ * @return void
+ */
 function audit_logout_post_session_destroy(): void {
 	if (read_config_option('audit_enabled') !== 'on') {
 		return;
@@ -837,7 +1225,9 @@ function audit_logout_post_session_destroy(): void {
 }
 
 /**
- * Map a Cacti user_log result code to an audit event descriptor.
+ * Maps a Cacti user_log result code to an audit event descriptor (event
+ * type, severity, outcome, action, and explanatory details). Called from
+ * audit_poll_user_log() for each newly observed user_log row.
  *
  * Cacti writes user_log rows with result codes:
  *   0 = Failed login
@@ -860,6 +1250,9 @@ function audit_logout_post_session_destroy(): void {
  *
  * Any unsupported result code is recorded as an explicit unknown event rather
  * than falling through to a password-change or 2FA event.
+ *
+ * @param int $result  The user_log.result code to classify.
+ * @param int $user_id The user_log.user_id associated with the row.
  *
  * @return array{event_type:string,severity:string,outcome:string,action:string,details:array<string,mixed>}
  */
@@ -919,6 +1312,19 @@ function audit_user_log_event_descriptor(int $result, int $user_id): array {
 	};
 }
 
+/**
+ * Deterministically derives a version-5-shaped UUID for a user_log row
+ * from its stable identity (username, user_id, source epoch), so the
+ * same source row always maps to the same audit event UUID even if
+ * re-processed. Called from audit_poll_user_log() when recording an
+ * audit event for a newly observed user_log row.
+ *
+ * @param string $username     The user_log.username value.
+ * @param int    $user_id      The user_log.user_id value.
+ * @param int    $source_epoch The user_log row's Unix timestamp.
+ *
+ * @return string The derived, deterministic UUID.
+ */
 function audit_user_log_event_uuid(string $username, int $user_id, int $source_epoch): string {
 	$hex     = hash('sha256', "cacti-audit-user-log\0{$username}\0{$user_id}\0{$source_epoch}");
 	$variant = dechex((hexdec($hex[16]) & 0x3) | 0x8);
@@ -930,10 +1336,30 @@ function audit_user_log_event_uuid(string $username, int $user_id, int $source_e
 		substr($hex, 20, 12);
 }
 
+/**
+ * Writes a WARNING-level entry to the Cacti poller log for authentication
+ * audit ingestion problems. Called from
+ * audit_report_ingestion_unavailable() and elsewhere in the user_log
+ * polling flow to surface ingestion issues in the standard Cacti log.
+ *
+ * @param string $message The warning message to log.
+ *
+ * @return void
+ */
 function audit_log_ingestion_warning(string $message): void {
 	cacti_log('WARNING: ' . $message, false, 'POLLER');
 }
 
+/**
+ * Logs (and, at most once per hour, also records as an audit event) that
+ * authentication-event ingestion from user_log is currently unavailable
+ * (e.g. because a required table is missing). Called from
+ * audit_poll_user_log() when a precondition for polling isn't met.
+ *
+ * @param string $reason A short machine-readable reason code.
+ *
+ * @return void
+ */
 function audit_report_ingestion_unavailable(string $reason): void {
 	audit_log_ingestion_warning('Authentication audit ingestion unavailable: ' . $reason);
 
@@ -955,6 +1381,21 @@ function audit_report_ingestion_unavailable(string $reason): void {
 	]);
 }
 
+/**
+ * Records that a user_log row's ingestion was permanently abandoned after
+ * exhausting its retry budget, both as a Cacti ERROR log entry (the
+ * primary, always-available evidence channel) and as a best-effort
+ * 'audit.authentication.ingestion.dropped' audit event. Called from
+ * audit_poll_user_log() at its two retry-exhaustion paths, when a
+ * retry marker reaches its terminal retry count.
+ *
+ * @param string $username     The dropped row's user_log.username.
+ * @param int    $user_id      The dropped row's user_log.user_id.
+ * @param int    $source_epoch The dropped row's Unix timestamp.
+ * @param int    $result       The dropped row's user_log.result code.
+ *
+ * @return void
+ */
 function audit_report_dropped_user_log_row(string $username, int $user_id, int $source_epoch, int $result): void {
 	$details = compact('username', 'user_id', 'source_epoch', 'result');
 
@@ -977,6 +1418,31 @@ function audit_report_dropped_user_log_row(string $username, int $user_id, int $
 	]);
 }
 
+/**
+ * Reaps stale audit_user_log_state tracking rows: retry markers that have
+ * exhausted their retry budget and aged past 7 days (optionally warning
+ * about terminal markers first), and already-processed markers that have
+ * fallen behind the replay floor and aged past 7 days. Called from
+ * audit_poll_user_log() at the start of every polling cycle to bound the
+ * tracking table's growth.
+ *
+ * Reaps at least one ingestion batch per poller cycle. Marker age is
+ * based on claim time, while source_epoch remains the immutable source-
+ * row identity.
+ *
+ * @param int      $max_retries     The retry count at which a marker is
+ *                                  considered terminal; defaults to 5.
+ * @param int|null $budget          The maximum number of rows to delete
+ *                                  per query, clamped to [1, 5000];
+ *                                  defaults to the
+ *                                  'audit_user_log_batch_size' setting
+ *                                  when null.
+ * @param bool     $report_terminal Whether to log a warning when terminal
+ *                                  retry markers are found; defaults to
+ *                                  false.
+ *
+ * @return void
+ */
 function audit_cleanup_user_log_state(int $max_retries = 5, ?int $budget = null, bool $report_terminal = false): void {
 	if (!db_table_exists('audit_user_log_state')) {
 		return;
@@ -1023,7 +1489,9 @@ function audit_cleanup_user_log_state(int $max_retries = 5, ?int $budget = null,
  * outcomes and record them as audit events. The user_log table is the
  * authoritative source across all auth methods (local, LDAP, basic, domains)
  * and is stable across the 1.2.x and develop branches, so this avoids
- * relying on the local-auth-only login_process hook.
+ * relying on the local-auth-only login_process hook. Called from this
+ * plugin's poller routine on every polling cycle when authentication
+ * auditing is enabled.
  *
  * Deduplication is durable and database-backed: each processed user_log
  * primary-key tuple (username, user_id, UNIX_TIMESTAMP(time)) is recorded in
@@ -1033,6 +1501,8 @@ function audit_cleanup_user_log_state(int $max_retries = 5, ?int $budget = null,
  *
  * Each cycle selects a bounded batch of stale retry markers followed by new
  * rows above the high-water floor. Pending markers never lower that floor.
+ *
+ * @return void
  */
 function audit_poll_user_log(): void {
 	$auth_enabled = read_config_option('audit_enabled') === 'on' &&
@@ -1337,9 +1807,18 @@ function audit_poll_user_log(): void {
 }
 
 /**
- * Detect a global failed-login volume anomaly within a rolling window.
- * This intentionally describes aggregate installation-wide activity rather
- * than attributing unrelated failures to one attacker.
+ * Detects a global spike in failed login attempts (per user_log) within a
+ * configurable sliding window and, when it exceeds a configurable
+ * threshold, records a single 'cacti.auth.failed_login_volume_anomaly'
+ * critical audit event, using an atomic settings-table claim so
+ * concurrent pollers cannot double-alert for the same window. Called
+ * from this plugin's poller routine on every polling cycle when
+ * authentication auditing and brute-force detection are both enabled.
+ *
+ * This intentionally describes aggregate installation-wide activity
+ * rather than attributing unrelated failures to one attacker.
+ *
+ * @return void
  */
 function audit_detect_failed_login_volume(): void {
 	if (read_config_option('audit_enabled') !== 'on') {
@@ -1448,7 +1927,9 @@ function audit_detect_failed_login_volume(): void {
 /**
  * Hook handler for Cacti's custom_denied hook. Records an authorization-
  * denied event and returns the input mode unchanged so Cacti continues
- * rendering its default permission-denied page.
+ * rendering its default permission-denied page. Called by Cacti core via
+ * api_plugin_hook('custom_denied', ...) whenever a user is denied access
+ * to a page.
  *
  * @param  mixed $mode
  * @return mixed
@@ -1507,6 +1988,13 @@ function audit_custom_denied(mixed $mode): mixed {
 }
 
 /**
+ * Determines which logical groups of Audit settings fields (Syslog
+ * delivery, authentication/brute-force) are present in a submitted
+ * settings.php form, so the save-handling logic can apply the right
+ * authorization/validation checks per group. Called from
+ * audit_enforce_syslog_settings_request() when processing an Audit tab
+ * settings save.
+ *
  * @param  array<string,mixed>          $post
  * @return array{syslog:bool,auth:bool}
  */
@@ -1533,6 +2021,20 @@ function audit_settings_field_groups(array $post): array {
 	return $groups;
 }
 
+/**
+ * Intercepts submissions of the Audit Settings tab (settings.php, action
+ * 'save', tab 'audit') to enforce that only audit administrators can
+ * change Syslog/authentication settings, that authentication auditing
+ * can't be enabled without its required database prerequisites, and that
+ * an invalid/incomplete Syslog configuration can't be saved while
+ * enabled or actively being configured - recording a denial/rejection
+ * audit event and redirecting back to the settings page for any
+ * violation. Called from audit_config_insert() at the top of the
+ * generic request-capture flow, before Cacti core processes the
+ * settings save.
+ *
+ * @return void
+ */
 function audit_enforce_syslog_settings_request(): void {
 	$page   = basename($_SERVER['SCRIPT_NAME'] ?? '');
 	$method = $_SERVER['REQUEST_METHOD'] ?? '';
@@ -1642,6 +2144,26 @@ function audit_enforce_syslog_settings_request(): void {
 	}
 }
 
+/**
+ * Generic request-capture entry point: enforces Audit Settings save
+ * protections, then (for otherwise-eligible requests) builds and inserts
+ * an in-flight audit_log event from the current page/action/POST data
+ * (redacting sensitive fields, resolving bulk-action object details via
+ * audit_process_page_data(), and capturing a deferred verifier for
+ * requests whose outcome can only be confirmed later). Called from
+ * Cacti core's generic page-processing hook near the start of every
+ * page request, when this plugin determines the request is worth
+ * auditing (via audit_log_valid_event()).
+ *
+ * @return void
+ *
+ * @global string $action Set to a derived human-readable action label
+ *                         for certain bulk operations (e.g. 'Delete
+ *                         Device', 'Host Enabled'), for the caller's use.
+ * @global array  $config Cacti global configuration array; used to
+ *                         resolve the base path when CACTI_PATH_BASE
+ *                         isn't already defined.
+ */
 function audit_config_insert(): void {
 	global $action, $config;
 
