@@ -537,7 +537,7 @@ function audit_log(): void {
 		audit_render_syslog_health();
 	}
 
-	html_start_box(__('Audit Log', 'audit'), '100%', '', '3', 'center', '');
+	html_start_box(__('Audit Log', 'audit'), '100%', false, 3, 'center', '');
 
 	?>
 	<tr class='even'>
@@ -682,7 +682,7 @@ function audit_log(): void {
 
 	print $nav;
 
-	html_start_box('', '100%', '', '3', 'center', '');
+	html_start_box('', '100%', false, 3, 'center', '');
 
 	$display_text = [
 		'page' => [
@@ -735,7 +735,7 @@ function audit_log(): void {
 		]
 	];
 
-	html_header_sort($display_text, get_request_var('sort_column'), get_request_var('sort_direction'), false);
+	html_header_sort($display_text, get_request_var('sort_column'), get_request_var('sort_direction'));
 
 	$i = 0;
 
@@ -800,7 +800,7 @@ function audit_render_syslog_health(): void {
 		$health['oldest_pending_seconds'] >= $config['pending_age_warning']
 	);
 
-	html_start_box(__('Remote Syslog Delivery', 'audit'), '100%', '', '3', 'center', '');
+	html_start_box(__('Remote Syslog Delivery', 'audit'), '100%', false, 3, 'center', '');
 
 	print "<tr class='" . ($unhealthy ? 'error' : 'even') . "'>";
 	print '<td><b>' . __('Status', 'audit') . '</b></td>';

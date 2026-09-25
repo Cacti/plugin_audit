@@ -1,5 +1,9 @@
 # ChangeLog
 
+--- develop ---
+
+* issue: PHPStan level 8 typing pass - added missing native return/param types where safe, fixed several html_start_box()/html_header_sort() argument-type mismatches
+
 --- 1.6 ---
 
 * chore: Harmonize CI workflow, issue/PR templates, and PHP-compatibility test structure with the shared Cacti plugin baseline

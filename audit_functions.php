@@ -63,16 +63,16 @@ function audit_log_table_available(): bool {
  * action pages (via this plugin's page-level integration) before
  * recording an audit event for a 'drp_action' submission.
  *
- * @param string             $page           The originating admin page's
- *                                            filename (e.g. 'host.php').
- * @param mixed              $drop_action    The submitted bulk action
- *                                            value; lookups are skipped
- *                                            only when this is strictly
- *                                            `false` (0, null, and ''
- *                                            still trigger the
- *                                            page-specific queries).
- * @param array<int,string>  $selected_items The selected object ids to
- *                                            look up.
+ * @param string            $page           The originating admin page's
+ *                                          filename (e.g. 'host.php').
+ * @param mixed             $drop_action    The submitted bulk action
+ *                                          value; lookups are skipped
+ *                                          only when this is strictly
+ *                                          `false` (0, null, and ''
+ *                                          still trigger the
+ *                                          page-specific queries).
+ * @param array<int,string> $selected_items The selected object ids to
+ *                                          look up.
  *
  * @return string A JSON-encoded array of per-item detail rows for the
  *                recognized $page, or the literal '[]' (an empty JSON
@@ -218,7 +218,7 @@ function audit_process_page_data(string $page, mixed $drop_action, array $select
  * @param mixed $key The field name to check.
  *
  * @return int|false The number of regex matches (1 when sensitive), or
- *                    false on a regex engine error.
+ *                   false on a regex engine error.
  */
 function audit_is_sensitive_key(mixed $key): int|false {
 	return preg_match('/(?:pass(?:word)?|phrase|token|secret|api[_-]?key|private[_-]?key|community|credential|authorization|authentication)/i', (string) $key);
@@ -232,7 +232,7 @@ function audit_is_sensitive_key(mixed $key): int|false {
  * capture functions before storing submitted data.
  *
  * @param mixed $data The data to redact; non-array values are returned
- *                     unchanged.
+ *                    unchanged.
  *
  * @return mixed The redacted data, or the original value when $data is
  *               not an array.
@@ -291,12 +291,12 @@ function audit_redact_sensitive_value(mixed $value): mixed {
  * any data for storage, to prevent unbounded/adversarial payloads from
  * exhausting resources.
  *
- * @param mixed        $data  The data to bound.
- * @param int          $depth The current recursion depth; defaults to 0
- *                            for the initial call.
- * @param object|null  $state Shared mutable state (a field counter)
- *                            threaded through the recursion; created
- *                            automatically on the initial call.
+ * @param mixed       $data  The data to bound.
+ * @param int         $depth The current recursion depth; defaults to 0
+ *                           for the initial call.
+ * @param object|null $state Shared mutable state (a field counter)
+ *                           threaded through the recursion; created
+ *                           automatically on the initial call.
  *
  * @return mixed The bounded data, with oversized strings truncated and
  *               an 'audit_truncated' marker added to arrays that exceeded
@@ -385,7 +385,7 @@ function audit_redact_cli_arguments(array $arguments): array {
  *
  * @param mixed $data    The data to encode.
  * @param int   $options Additional json_encode() option flags to OR in;
- *                        defaults to 0.
+ *                       defaults to 0.
  *
  * @return string The encoded JSON, or a fallback
  *                '{"audit_encoding_error":...}' object when encoding
@@ -412,7 +412,7 @@ function audit_json_encode(mixed $data, int $options = 0): string {
  *
  * @param mixed       $json  The JSON string to decode.
  * @param string|null $error Reference, set to the decoding error message
- *                            on failure, or null on success.
+ *                           on failure, or null on success.
  *
  * @return mixed The decoded value, or null when decoding failed.
  */
@@ -473,8 +473,8 @@ function audit_request_correlation_id(): string {
  * events.
  *
  * @param float|null $microtime The Unix timestamp (with fractional
- *                               seconds) to format; defaults to the
- *                               current time when null.
+ *                              seconds) to format; defaults to the
+ *                              current time when null.
  *
  * @return string The formatted UTC timestamp.
  */
@@ -578,12 +578,12 @@ function audit_external_event_data(array $event): array {
  * appending an event to the configured external log file.
  *
  * @param array<string,mixed> $data   The event data to format, as
- *                                      returned by
- *                                      audit_external_event_data().
- * @param string               $format The output format: 'text' for a
- *                                      key="value" line, anything else
- *                                      for a JSON line; defaults to
- *                                      'json'.
+ *                                    returned by
+ *                                    audit_external_event_data().
+ * @param string              $format The output format: 'text' for a
+ *                                    key="value" line, anything else
+ *                                    for a JSON line; defaults to
+ *                                    'json'.
  *
  * @return string The formatted record, terminated with a newline.
  */
@@ -711,9 +711,9 @@ function audit_append_external_log(string $path, string $message): array {
  *
  * @param int    $id     The audit_log.id being updated.
  * @param string $status The new external_status value (e.g. 'delivered',
- *                        'failed').
+ *                       'failed').
  * @param string $error  The delivery error message, or '' on success;
- *                        defaults to ''.
+ *                       defaults to ''.
  *
  * @return void
  */
@@ -820,12 +820,12 @@ function audit_retry_external_logs(): void {
  * an event's final request_status.
  *
  * @param array<string,mixed>|null $error       The result of
- *                                               error_get_last(), or
- *                                               null when no error
- *                                               occurred.
- * @param int                       $status_code The response's HTTP
- *                                               status code; defaults to
- *                                               200.
+ *                                              error_get_last(), or
+ *                                              null when no error
+ *                                              occurred.
+ * @param int                      $status_code The response's HTTP
+ *                                              status code; defaults to
+ *                                              200.
  *
  * @return string 'failed' when a fatal error occurred or the status code
  *                is >= 400; otherwise 'completed'.
@@ -983,21 +983,21 @@ function audit_verify_operation(mixed $verifier): array {
  * request processing (e.g. via a shutdown handler) for every request
  * that started an audit event.
  *
- * @param int                        $id         The audit_log.id to
- *                                                finalize.
- * @param float|null                 $started_at The request's start time
- *                                                (from microtime(true)),
- *                                                used to compute
- *                                                duration_ms; defaults to
- *                                                null (no duration
- *                                                recorded).
- * @param array<string,mixed>|null   $verifier   The deferred verifier
- *                                                descriptor from
- *                                                audit_operation_verifier_for_request(),
- *                                                or null when the
- *                                                request's outcome was
- *                                                already known at insert
- *                                                time.
+ * @param int                      $id         The audit_log.id to
+ *                                             finalize.
+ * @param float|null               $started_at The request's start time
+ *                                             (from microtime(true)),
+ *                                             used to compute
+ *                                             duration_ms; defaults to
+ *                                             null (no duration
+ *                                             recorded).
+ * @param array<string,mixed>|null $verifier   The deferred verifier
+ *                                             descriptor from
+ *                                             audit_operation_verifier_for_request(),
+ *                                             or null when the
+ *                                             request's outcome was
+ *                                             already known at insert
+ *                                             time.
  *
  * @return void
  */
@@ -1052,7 +1052,7 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
  *
  * @param string              $event_type A dotted event-type identifier
  *                                        (e.g. 'audit.log.purged').
- * @param array<string,mixed> $options   Optional overrides/extra fields:
+ * @param array<string,mixed> $options    Optional overrides/extra fields:
  *                                        event_uuid, correlation_id,
  *                                        user_id, page, action,
  *                                        event_time, details,
@@ -1170,8 +1170,8 @@ function audit_logout_pre_session_destroy(): void {
  * audit_logout_post_session_destroy() to read (and later clear) it.
  *
  * @param array<string,mixed>|null $set When provided, replaces the
- *                                       stashed value; when null, the
- *                                       current stash is left unchanged.
+ *                                      stashed value; when null, the
+ *                                      current stash is left unchanged.
  *
  * @return array<string,mixed> The current stashed value.
  */

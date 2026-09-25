@@ -615,8 +615,8 @@ function audit_setup_table(): bool {
  * tuple.
  *
  * @param mixed $cnn_id The remote connection id to apply the DDL against,
- *                       or false for the local database; defaults to
- *                       false.
+ *                      or false for the local database; defaults to
+ *                      false.
  *
  * @return void
  */
@@ -675,7 +675,7 @@ function audit_setup_user_log_state_table(mixed $cnn_id = false): void {
  * Add the access paths required by the per-cycle authentication queries.
  *
  * @param mixed $cnn_id Must be false (local database); any other value
- *                       causes this function to no-op and return false.
+ *                      causes this function to no-op and return false.
  *
  * @return bool True once both required indexes exist on user_log.
  */
@@ -727,7 +727,7 @@ function audit_setup_user_log_indexes(mixed $cnn_id = false): bool {
  * allowing authentication auditing to be enabled.
  *
  * @param mixed $cnn_id Must be false (local database); any other value
- *                       causes this function to report unavailable.
+ *                      causes this function to report unavailable.
  *
  * @return bool True when user_log exists and both required indexes are
  *              present.
@@ -748,7 +748,7 @@ function audit_user_log_indexes_available(mixed $cnn_id = false): bool {
  * auditing to be enabled.
  *
  * @param mixed $cnn_id The remote connection id to check against, or
- *                       false for the local database; defaults to false.
+ *                      false for the local database; defaults to false.
  *
  * @return bool True when user_log's primary key matches the expected
  *              column order.
@@ -781,7 +781,7 @@ function audit_user_log_identity_supported(mixed $cnn_id = false): bool {
  * Called from plugin_audit_uninstall() during uninstallation.
  *
  * @param mixed $cnn_id Must be false (local database); any other value
- *                       causes this function to no-op and return false.
+ *                      causes this function to no-op and return false.
  *
  * @return bool True when every owned index was removed (or none were
  *              owned, or the user_log table doesn't exist).
