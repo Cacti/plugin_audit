@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-21 13:13-0400\n"
+"POT-Creation-Date: 2026-09-25 09:20-0400\n"
 "PO-Revision-Date: 2024-06-08 09:13-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -37,715 +37,715 @@ msgstr ""
 msgid "Audit event not found."
 msgstr "ऑडिट इवेंट लॉग"
 
-#: audit.php:161
+#: audit.php:171
 msgid "Page:"
 msgstr "页面"
 
-#: audit.php:162
+#: audit.php:172
 msgid "User:"
 msgstr "बरतूनी:"
 
-#: audit.php:163
+#: audit.php:173
 msgid "IP Address:"
 msgstr "IP सिरनामा"
 
-#: audit.php:164
+#: audit.php:174
 msgid "Date:"
 msgstr "दिनांक"
 
-#: audit.php:165
+#: audit.php:175
 msgid "Action:"
 msgstr "कार्रवाई"
 
-#: audit.php:166
+#: audit.php:176
 #, fuzzy
 #| msgid "Event Time"
 msgid "Event Type:"
 msgstr "घटना के समय"
 
-#: audit.php:167
+#: audit.php:177
 #, fuzzy
 #| msgid "Events"
 msgid "Event ID:"
 msgstr "घटनाक्रम"
 
-#: audit.php:168
+#: audit.php:178
 msgid "Request Status:"
 msgstr ""
 
-#: audit.php:169
+#: audit.php:179
 msgid "Operation Outcome:"
 msgstr ""
 
-#: audit.php:172
+#: audit.php:182
 msgid "Outcome Reason:"
 msgstr ""
 
-#: audit.php:174
+#: audit.php:184
 msgid "External File Delivery:"
 msgstr ""
 
-#: audit.php:177
+#: audit.php:187
 #, fuzzy
 #| msgid "External Audit Log"
 msgid "External File Error:"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: audit.php:194
+#: audit.php:204
 msgid "Remote Syslog Delivery:"
 msgstr ""
 
-#: audit.php:195
+#: audit.php:205
 msgid "Syslog Attempts:"
 msgstr ""
 
-#: audit.php:198
+#: audit.php:208
 msgid "Syslog Socket Write:"
 msgstr ""
 
-#: audit.php:202
+#: audit.php:212
 msgid "Syslog Error:"
 msgstr ""
 
-#: audit.php:209
+#: audit.php:219
 msgid "Script:"
 msgstr "स्क्रिप्ट"
 
-#: audit.php:216
+#: audit.php:226
 #, fuzzy
 #| msgid "Record Data:"
 msgid "Stored Data"
 msgstr "रिकॉर्ड डेटा:"
 
-#: audit.php:216
+#: audit.php:226
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
 msgstr ""
 
-#: audit.php:223 audit.php:224
+#: audit.php:233 audit.php:234
 msgid "Attrib"
 msgstr "attrib"
 
-#: audit.php:223 audit.php:224
+#: audit.php:233 audit.php:234
 msgid "Value"
 msgstr "मूल्य"
 
-#: audit.php:249
+#: audit.php:259
 msgid "Record Data:"
 msgstr "रिकॉर्ड डेटा:"
 
-#: audit.php:303
+#: audit.php:334
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
 msgstr ""
 
-#: audit.php:482 setup.php:781
+#: audit.php:540 setup.php:1083
 msgid "Audit Log"
 msgstr "हिसाब सूचि"
 
-#: audit.php:491
+#: audit.php:549
 msgid "Search"
 msgstr "खोजें"
 
-#: audit.php:497
+#: audit.php:555
 msgid "Page"
 msgstr "页面"
 
-#: audit.php:501 audit.php:522
+#: audit.php:559 audit.php:580
 msgid "All"
 msgstr "所有"
 
-#: audit.php:518
+#: audit.php:576
 msgid "User"
 msgstr "उपयोगकर्ता "
 
-#: audit.php:523
+#: audit.php:581
 msgid "cli"
 msgstr "CLI"
 
-#: audit.php:543
+#: audit.php:601
 msgid "Events"
 msgstr "घटनाक्रम"
 
-#: audit.php:547
+#: audit.php:605
 msgid "Default"
 msgstr "डिफ़ॉल्ट"
 
-#: audit.php:563
+#: audit.php:621
 msgid "Go"
 msgstr "जाएं"
 
-#: audit.php:563
+#: audit.php:621
 msgid "Set/Refresh Filters"
 msgstr "सेट / फ़िल्टर ताज़ा करें"
 
-#: audit.php:564
+#: audit.php:622
 msgid "Clear"
 msgstr "明确"
 
-#: audit.php:564
+#: audit.php:622
 msgid "Clear Filters"
 msgstr "साफ फिल्टर"
 
-#: audit.php:565
+#: audit.php:623
 msgid "Export"
 msgstr "एक्सपोर्ट"
 
-#: audit.php:565
+#: audit.php:623
 msgid "Export Log Events"
 msgstr "लॉग इवेंट्स निर्यात करें"
 
-#: audit.php:567
+#: audit.php:625
 msgid "Permanently purge all audit log events?"
 msgstr ""
 
-#: audit.php:567
+#: audit.php:625
 msgid "Purge"
 msgstr "सफाई"
 
-#: audit.php:567
+#: audit.php:625
 msgid "Purge Log Events"
 msgstr "पर्ज लॉग इवेंट्स"
 
-#: audit.php:623
+#: audit.php:681
 msgid "Audit Events"
 msgstr "ऑडिट इवेंट"
 
-#: audit.php:631
+#: audit.php:689
 msgid "Page Name"
 msgstr "पन्ने का नाम"
 
-#: audit.php:634
+#: audit.php:692
 msgid "The page where the event was generated."
 msgstr "वह पृष्ठ जहाँ ईवेंट उत्पन्न किया गया था।"
 
-#: audit.php:637
+#: audit.php:695
 msgid "User Name"
 msgstr "उपयोगकर्ता नाम"
 
-#: audit.php:640
+#: audit.php:698
 msgid "The user who generated the event."
 msgstr "उपयोगकर्ता जो ईवेंट उत्पन्न करता है।"
 
-#: audit.php:643
+#: audit.php:701
 msgid "Requested Action"
 msgstr ""
 
-#: audit.php:646
+#: audit.php:704
 #, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
 msgstr "कैक्टि एक्शन का अनुरोध किया। $ _POST डेटा देखने के लिए कार्रवाई पर होवर करें।"
 
-#: audit.php:649
+#: audit.php:707
 msgid "Request Status"
 msgstr ""
 
-#: audit.php:652
+#: audit.php:710
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
 msgstr ""
 
-#: audit.php:655
+#: audit.php:713
 msgid "External File Delivery"
 msgstr ""
 
-#: audit.php:658
+#: audit.php:716
 #, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
 msgstr "बाह्य ऑडिट लॉग फ़ाइल का पथ दर्ज करें."
 
-#: audit.php:661
+#: audit.php:719
 msgid "User Agent"
 msgstr "उपभोक्ता अभिकर्ता"
 
-#: audit.php:664
+#: audit.php:722
 msgid "The browser type of the requester."
 msgstr "आवश्यक प्रकार का ब्राउज़र प्रकार।"
 
-#: audit.php:667
+#: audit.php:725
 msgid "IP Address"
 msgstr "IP सिरनामा"
 
-#: audit.php:670
+#: audit.php:728
 msgid "The IP Address of the requester."
 msgstr "अनुरोधकर्ता का आईपी पता।"
 
-#: audit.php:673
+#: audit.php:731
 msgid "Event Time"
 msgstr "घटना के समय"
 
-#: audit.php:676
+#: audit.php:734
 msgid "The time the Event took place."
 msgstr "जिस समय इवेंट हुआ।"
 
-#: audit.php:694
+#: audit.php:752
 msgid "N/A"
 msgstr "लागू नहीं"
 
-#: audit.php:713
+#: audit.php:771
 msgid "No Audit Log Events Found"
 msgstr "कोई ऑडिट लॉग इवेंट नहीं मिला"
 
-#: audit.php:737
+#: audit.php:803
 msgid "Remote Syslog Delivery"
 msgstr ""
 
-#: audit.php:740
+#: audit.php:806
 msgid "Status"
 msgstr ""
 
-#: audit.php:741
+#: audit.php:807
 msgid "Disabled"
 msgstr ""
 
-#: audit.php:741
+#: audit.php:807
 msgid "Healthy"
 msgstr ""
 
-#: audit.php:741
+#: audit.php:807
 msgid "Unhealthy"
 msgstr ""
 
-#: audit.php:742
+#: audit.php:808
 msgid "Pending"
 msgstr ""
 
-#: audit.php:743
+#: audit.php:809
 msgid "Retry"
 msgstr ""
 
-#: audit.php:744
+#: audit.php:810
 msgid "Dead-letter"
 msgstr ""
 
-#: audit.php:745
+#: audit.php:811
 msgid "Sent (Unconfirmed)"
 msgstr ""
 
-#: audit.php:749
+#: audit.php:815
 msgid "Oldest Pending"
 msgstr ""
 
-#: audit.php:749
+#: audit.php:815
 msgid "seconds"
 msgstr ""
 
-#: audit.php:750
+#: audit.php:816
 msgid "Last Attempt"
 msgstr ""
 
-#: audit.php:750 audit.php:751
+#: audit.php:816 audit.php:817
 msgid "Never"
 msgstr ""
 
-#: audit.php:751
+#: audit.php:817
 msgid "Last Socket Write"
 msgstr ""
 
-#: audit.php:753
+#: audit.php:819
 msgid "Test Syslog"
 msgstr ""
 
-#: audit.php:757
+#: audit.php:823
 msgid "Retry Dead-letter"
 msgstr ""
 
-#: audit.php:757
+#: audit.php:823
 msgid "Retry all dead-letter Syslog events?"
 msgstr ""
 
-#: audit.php:762
+#: audit.php:828
 msgid "Configuration Error:"
 msgstr ""
 
-#: audit.php:765
+#: audit.php:831
 #, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: audit_functions.php:881
+#: audit_functions.php:1274
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
 msgstr ""
 
-#: audit_functions.php:897
+#: audit_functions.php:1290
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
 msgstr ""
 
-#: audit_functions.php:907
+#: audit_functions.php:1300
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
 msgstr ""
 
-#: audit_functions.php:1585
+#: audit_functions.php:2087
 msgid "Audit administration permission is required to save these settings."
 msgstr ""
 
-#: audit_functions.php:1597
+#: audit_functions.php:2099
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
 msgstr ""
 
-#: audit_functions.php:1637
+#: audit_functions.php:2139
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
 msgstr ""
 
-#: setup.php:83
+#: setup.php:114
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
 msgstr "हिसाब सूचि"
 
-#: setup.php:84
+#: setup.php:115
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
 msgstr "हिसाब सूचि"
 
-#: setup.php:748 setup.php:749
+#: setup.php:1027 setup.php:1028
 msgid "Technical Support"
 msgstr "तकनीकी सहायता"
 
-#: setup.php:751
+#: setup.php:1030
 msgid "View Audit Log"
 msgstr "ऑडिट लॉग देखें"
 
-#: setup.php:753
+#: setup.php:1032
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "व्यवस्थापक को कैक्टि सर्वर पर परिवर्तन गतिविधि देखने की अनुमति देता है। व्यवस्थापक विश्लेषण उद्देश्यों के लिए ऑडिट लॉग का निर्यात भी कर सकते हैं।"
 
-#: setup.php:769
+#: setup.php:1071
 msgid "Indefinitely"
 msgstr "अनिश्चित काल के लिए"
 
-#: setup.php:770
+#: setup.php:1072
 #, php-format
 msgid "%d Weeks"
 msgstr "%d सप्ताह"
 
-#: setup.php:771
+#: setup.php:1073
 #, php-format
 msgid "%d Month"
 msgstr "% d महीना"
 
-#: setup.php:772 setup.php:773 setup.php:774 setup.php:775
+#: setup.php:1074 setup.php:1075 setup.php:1076 setup.php:1077
 #, php-format
 msgid "%d Months"
 msgstr "% d माह"
 
-#: setup.php:776
+#: setup.php:1078
 #, php-format
 msgid "%d Year"
 msgstr "% d वष"
 
-#: setup.php:777 setup.php:778
+#: setup.php:1079 setup.php:1080
 #, php-format
 msgid "%d Years"
 msgstr "% d वष"
 
-#: setup.php:781
+#: setup.php:1083
 msgid "Utilities"
 msgstr ""
 
-#: setup.php:784
+#: setup.php:1086
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
 msgstr "हिसाब सूचि"
 
-#: setup.php:798
+#: setup.php:1125
 msgid "Audit Log Settings"
 msgstr "ऑडिट लॉग सेटिंग्स"
 
-#: setup.php:802
+#: setup.php:1129
 msgid "Enable Audit Log"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: setup.php:803
+#: setup.php:1130
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
 
-#: setup.php:808
+#: setup.php:1135
 msgid "Audit Log Retention"
 msgstr "ऑडिट लॉग रिटेंशन"
 
-#: setup.php:809
+#: setup.php:1136
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "आप कब तक ऑडिट लॉग प्रविष्टियों को बनाए रखना चाहते हैं?"
 
-#: setup.php:815
+#: setup.php:1142
 msgid "External Audit Log"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: setup.php:816
+#: setup.php:1143
 msgid "Check this box, if you want the Audit Log to be written to an external file."
 msgstr "इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
 
-#: setup.php:821
+#: setup.php:1148
 #, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: setup.php:822
+#: setup.php:1149
 #, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
 msgstr "बाह्य ऑडिट लॉग फ़ाइल का पथ दर्ज करें."
 
-#: setup.php:826
+#: setup.php:1153
 msgid "Text"
 msgstr ""
 
-#: setup.php:827 setup.php:934
+#: setup.php:1154 setup.php:1261
 msgid "JSON"
 msgstr ""
 
-#: setup.php:831
+#: setup.php:1158
 msgid "External Audit Log Log file  Path"
 msgstr "बाहरी ऑडिट लॉग लॉग फ़ाइल पथ"
 
-#: setup.php:832
+#: setup.php:1159
 msgid "Enter the path to the external audit log file."
 msgstr "बाह्य ऑडिट लॉग फ़ाइल का पथ दर्ज करें."
 
-#: setup.php:841
+#: setup.php:1168
 msgid "Authentication Auditing"
 msgstr ""
 
-#: setup.php:845
+#: setup.php:1172
 msgid "Enable Authentication Auditing"
 msgstr ""
 
-#: setup.php:846
+#: setup.php:1173
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
 msgstr ""
 
-#: setup.php:851
+#: setup.php:1178
 msgid "Enable Failed-login Volume Detection"
 msgstr ""
 
-#: setup.php:852
+#: setup.php:1179
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
 msgstr ""
 
-#: setup.php:857
+#: setup.php:1184
 msgid "Failed-login Window (minutes)"
 msgstr ""
 
-#: setup.php:858
+#: setup.php:1185
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
 msgstr ""
 
-#: setup.php:865
+#: setup.php:1192
 msgid "Failed-login Volume Threshold"
 msgstr ""
 
-#: setup.php:866
+#: setup.php:1193
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
 msgstr ""
 
-#: setup.php:873
+#: setup.php:1200
 msgid "User Log Ingestion Batch Size"
 msgstr ""
 
-#: setup.php:874
+#: setup.php:1201
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
 msgstr ""
 
-#: setup.php:890
+#: setup.php:1217
 msgid "Remote Syslog"
 msgstr ""
 
-#: setup.php:894
+#: setup.php:1221
 #, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
 msgstr "ऑडिट लॉग सक्षम करें"
 
-#: setup.php:895
+#: setup.php:1222
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
 msgstr ""
 
-#: setup.php:900
+#: setup.php:1227
 msgid "Syslog Receiver"
 msgstr ""
 
-#: setup.php:901
+#: setup.php:1228
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
 msgstr ""
 
-#: setup.php:908
+#: setup.php:1235
 msgid "Syslog Port"
 msgstr ""
 
-#: setup.php:909
+#: setup.php:1236
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
 msgstr ""
 
-#: setup.php:916
+#: setup.php:1243
 msgid "Syslog Transport"
 msgstr ""
 
-#: setup.php:917
+#: setup.php:1244
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
 msgstr ""
 
-#: setup.php:921
+#: setup.php:1248
 msgid "UDP"
 msgstr ""
 
-#: setup.php:922
+#: setup.php:1249
 msgid "TCP"
 msgstr ""
 
-#: setup.php:923
+#: setup.php:1250
 msgid "TLS"
 msgstr ""
 
-#: setup.php:927
+#: setup.php:1254
 msgid "Syslog Payload Format"
 msgstr ""
 
-#: setup.php:928
+#: setup.php:1255
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
 msgstr ""
 
-#: setup.php:932
+#: setup.php:1259
 msgid "RFC 5424"
 msgstr ""
 
-#: setup.php:933
+#: setup.php:1260
 msgid "CEF"
 msgstr ""
 
-#: setup.php:938
+#: setup.php:1265
 msgid "Syslog Facility"
 msgstr ""
 
-#: setup.php:939
+#: setup.php:1266
 msgid "Select the facility used to calculate the RFC 5424 priority."
 msgstr ""
 
-#: setup.php:945
+#: setup.php:1272
 msgid "Syslog Application Name"
 msgstr ""
 
-#: setup.php:946
+#: setup.php:1273
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
 msgstr ""
 
-#: setup.php:953
+#: setup.php:1280
 #, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
 msgstr "ऑडिट लॉग रिटेंशन"
 
-#: setup.php:954
+#: setup.php:1281
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
 msgstr ""
 
-#: setup.php:961
+#: setup.php:1288
 msgid "Connection and Write Timeout"
 msgstr ""
 
-#: setup.php:962
+#: setup.php:1289
 msgid "Timeout in seconds, from 1 through 30."
 msgstr ""
 
-#: setup.php:969
+#: setup.php:1296
 msgid "Maximum UDP Record Size"
 msgstr ""
 
-#: setup.php:970
+#: setup.php:1297
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
 msgstr ""
 
-#: setup.php:977
+#: setup.php:1304
 msgid "Syslog TLS"
 msgstr ""
 
-#: setup.php:981
+#: setup.php:1308
 msgid "TLS CA File"
 msgstr ""
 
-#: setup.php:982
+#: setup.php:1309
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
 msgstr ""
 
-#: setup.php:988
+#: setup.php:1315
 msgid "TLS Client Certificate"
 msgstr ""
 
-#: setup.php:989
+#: setup.php:1316
 msgid "Optional PEM client certificate. A client key must also be configured."
 msgstr ""
 
-#: setup.php:995
+#: setup.php:1322
 msgid "TLS Client Private Key"
 msgstr ""
 
-#: setup.php:996
+#: setup.php:1323
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
 msgstr ""
 
-#: setup.php:1002
+#: setup.php:1329
 msgid "Syslog Delivery Queue"
 msgstr ""
 
-#: setup.php:1006
+#: setup.php:1333
 msgid "Retry Base Delay"
 msgstr ""
 
-#: setup.php:1007
+#: setup.php:1334
 msgid "Initial retry delay in seconds, from 1 through 3600."
 msgstr ""
 
-#: setup.php:1014
+#: setup.php:1341
 msgid "Maximum Retry Delay"
 msgstr ""
 
-#: setup.php:1015
+#: setup.php:1342
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
 msgstr ""
 
-#: setup.php:1022
+#: setup.php:1349
 msgid "Maximum Delivery Attempts"
 msgstr ""
 
-#: setup.php:1023
+#: setup.php:1350
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
 msgstr ""
 
-#: setup.php:1030
+#: setup.php:1357
 msgid "Poller Batch Size"
 msgstr ""
 
-#: setup.php:1031
+#: setup.php:1358
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
 msgstr ""
 
-#: setup.php:1038
+#: setup.php:1365
 msgid "Pending Age Warning"
 msgstr ""
 
-#: setup.php:1039
+#: setup.php:1366
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
 msgstr ""
 
-#: setup.php:1046
+#: setup.php:1373
 msgid "Dead-letter Warning Count"
 msgstr ""
 
-#: setup.php:1047
+#: setup.php:1374
 msgid "Show an unhealthy warning when this many records are dead-lettered."
 msgstr ""
 
-#: setup.php:1058
+#: setup.php:1385
 msgid "Audit"
 msgstr "हिसाब सूचि"
 
-#: setup.php:1073
+#: setup.php:1408
 msgid "Audit Event Log"
 msgstr "ऑडिट इवेंट लॉग"
 
