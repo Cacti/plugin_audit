@@ -50,18 +50,18 @@ function audit_syslog_read_setting(string $name, mixed $default): mixed {
  * audit_syslog_config() for each numeric Syslog setting (port, timeout,
  * retry parameters, etc.).
  *
- * @param mixed              $value   The candidate value to validate.
- * @param int                $default The value to return when validation
- *                                    fails.
- * @param int                $minimum The inclusive minimum accepted
- *                                    value.
- * @param int                $maximum The inclusive maximum accepted
- *                                    value.
- * @param array<int,string>  $errors  Reference to the running list of
- *                                    validation error codes; appended to
- *                                    on failure.
- * @param string             $name    The setting's name, used to build
- *                                    its error code.
+ * @param mixed             $value   The candidate value to validate.
+ * @param int               $default The value to return when validation
+ *                                   fails.
+ * @param int               $minimum The inclusive minimum accepted
+ *                                   value.
+ * @param int               $maximum The inclusive maximum accepted
+ *                                   value.
+ * @param array<int,string> $errors  Reference to the running list of
+ *                                   validation error codes; appended to
+ *                                   on failure.
+ * @param string            $name    The setting's name, used to build
+ *                                   its error code.
  *
  * @return int The validated integer, or $default when validation fails.
  */
@@ -148,13 +148,13 @@ function audit_syslog_valid_header_value(string $value, int $maximum): bool {
  * regular file, appending a '<name>_invalid' error code otherwise. Called
  * from audit_syslog_config() when the configured transport is 'tls'.
  *
- * @param string             $path   The candidate absolute file path, or
- *                                   '' when not configured.
- * @param string             $name   The setting's name, used to build
- *                                   its error code.
- * @param array<int,string>  $errors Reference to the running list of
- *                                   validation error codes; appended to
- *                                   on failure.
+ * @param string            $path   The candidate absolute file path, or
+ *                                  '' when not configured.
+ * @param string            $name   The setting's name, used to build
+ *                                  its error code.
+ * @param array<int,string> $errors Reference to the running list of
+ *                                  validation error codes; appended to
+ *                                  on failure.
  *
  * @return string The unmodified $path (validation failures are reported
  *                via $errors, not the return value).
@@ -379,7 +379,7 @@ function audit_syslog_facilities(): array {
  * @param mixed $severity The severity name to map.
  *
  * @return int The RFC 5424 severity level (0-7), defaulting to 6 (info)
- *              for an unrecognized name.
+ *             for an unrecognized name.
  */
 function audit_syslog_severity_code(mixed $severity): int {
 	$map = [
@@ -401,7 +401,7 @@ function audit_syslog_severity_code(mixed $severity): int {
  * @param mixed  $value    The candidate header value.
  * @param int    $maximum  The maximum allowed length.
  * @param string $fallback The value to use when sanitization yields an
- *                        empty string.
+ *                         empty string.
  *
  * @return string The sanitized header token.
  */
@@ -436,7 +436,7 @@ function audit_syslog_structured_value(mixed $value): string {
  * field.
  *
  * @param mixed $value The stored event timestamp (e.g.
- *                      'Y-m-d H:i:s.uuuuuu').
+ *                     'Y-m-d H:i:s.uuuuuu').
  *
  * @return string The RFC 5424-formatted UTC timestamp.
  */
@@ -508,7 +508,7 @@ function audit_syslog_cef_escape_extension(mixed $value): string {
  * @param mixed $severity The severity name to map.
  *
  * @return int The CEF severity (0-10), defaulting to 3 (info-equivalent)
- *              for an unrecognized name.
+ *             for an unrecognized name.
  */
 function audit_syslog_cef_severity(mixed $severity): int {
 	$map = [
@@ -914,14 +914,14 @@ function audit_syslog_fwrite(mixed $socket, string $message, string &$warning = 
  * stream-based TCP/TLS transports. Called from audit_syslog_send_event()
  * after opening/reusing a socket.
  *
- * @param  mixed                $socket    The open socket resource to
- *                                         write to.
- * @param  string               $message   The framed message to write.
- * @param  string               $transport The transport in use ('udp',
- *                                         'tcp', or 'tls').
- * @return array<string,mixed>  An array with 'status'
- *                              ('sent_unconfirmed' or 'failed'),
- *                              'error_code', and 'error'.
+ * @param  mixed               $socket    The open socket resource to
+ *                                        write to.
+ * @param  string              $message   The framed message to write.
+ * @param  string              $transport The transport in use ('udp',
+ *                                        'tcp', or 'tls').
+ * @return array<string,mixed> An array with 'status'
+ *                             ('sent_unconfirmed' or 'failed'),
+ *                             'error_code', and 'error'.
  */
 function audit_syslog_write(mixed $socket, string $message, string $transport): array {
 	if (!is_resource($socket)) {

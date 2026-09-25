@@ -1,5 +1,9 @@
 # ChangeLog
 
+--- develop ---
+
+* issue: PHPStan level 8 typing pass - fixed an invalid html_header_sort() argument and 3 html_start_box() argument-type mismatches in audit.php; this repo's functions were already extensively native-typed prior to this pass
+
 --- 1.6 ---
 
 * chore: Harmonize CI workflow, issue/PR templates, and PHP-compatibility test structure with the shared Cacti plugin baseline
