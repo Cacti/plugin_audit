@@ -2,6 +2,7 @@
 
 --- develop ---
 
+* security: Add a version-safe CSP nonce (`plugin_audit_csp_nonce()`) to every inline `<script>` tag so pages stay compatible with Cacti's Content-Security-Policy nonce enforcement, while falling back cleanly on older Cacti releases that lack the `CactiSecureHeaders` class
 * issue: PHPStan level 8 typing pass - fixed an invalid html_header_sort() argument and 3 html_start_box() argument-type mismatches in audit.php; this repo's functions were already extensively native-typed prior to this pass
 
 --- 1.6 ---
