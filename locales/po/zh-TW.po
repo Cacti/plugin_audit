@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-25 09:20-0400\n"
+"POT-Creation-Date: 2026-09-27 11:34-0400\n"
 "PO-Revision-Date: 2026-01-16 03:18+0000\n"
 "Last-Translator: sucharlie <su.charlie@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\n"
@@ -142,7 +142,7 @@ msgstr "記錄資料："
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
 msgstr ""
 
-#: audit.php:540 setup.php:1083
+#: audit.php:540 setup.php:1099
 msgid "Audit Log"
 msgstr "審核日誌"
 
@@ -409,363 +409,363 @@ msgstr ""
 msgid "Remote Syslog settings were not saved: %s"
 msgstr ""
 
-#: setup.php:114
+#: setup.php:130
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
 msgstr "審核日誌"
 
-#: setup.php:115
+#: setup.php:131
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
 msgstr "審核日誌"
 
-#: setup.php:1027 setup.php:1028
+#: setup.php:1043 setup.php:1044
 #, fuzzy
 msgid "Technical Support"
 msgstr "การสนับสนุนทางเทคนิค"
 
-#: setup.php:1030
+#: setup.php:1046
 msgid "View Audit Log"
 msgstr "查看審核日誌"
 
-#: setup.php:1032
+#: setup.php:1048
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
 msgstr "允許管理員查看Cacti服務器上的更改活動。管理員還可以導出審核日誌以進行分析。"
 
-#: setup.php:1071
+#: setup.php:1087
 msgid "Indefinitely"
 msgstr "無限期"
 
-#: setup.php:1072
+#: setup.php:1088
 #, fuzzy, php-format
 msgid "%d Weeks"
 msgstr "%d週"
 
-#: setup.php:1073
+#: setup.php:1089
 #, fuzzy, php-format
 msgid "%d Month"
 msgstr "%d月"
 
-#: setup.php:1074 setup.php:1075 setup.php:1076 setup.php:1077
+#: setup.php:1090 setup.php:1091 setup.php:1092 setup.php:1093
 #, fuzzy, php-format
 msgid "%d Months"
 msgstr "%d個月"
 
-#: setup.php:1078
+#: setup.php:1094
 #, fuzzy, php-format
 msgid "%d Year"
 msgstr "%d年"
 
-#: setup.php:1079 setup.php:1080
+#: setup.php:1095 setup.php:1096
 #, fuzzy, php-format
 msgid "%d Years"
 msgstr "%d年"
 
-#: setup.php:1083
+#: setup.php:1099
 msgid "Utilities"
 msgstr ""
 
-#: setup.php:1086
+#: setup.php:1102
 #, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
 msgstr "審核日誌"
 
-#: setup.php:1125
+#: setup.php:1141
 msgid "Audit Log Settings"
 msgstr "審核日誌設置"
 
-#: setup.php:1129
+#: setup.php:1145
 msgid "Enable Audit Log"
 msgstr "啟用審核日誌"
 
-#: setup.php:1130
+#: setup.php:1146
 msgid "Check this box, if you want the Audit Log to track GUI activities."
 msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
 
-#: setup.php:1135
+#: setup.php:1151
 msgid "Audit Log Retention"
 msgstr "審核日誌保留"
 
-#: setup.php:1136
+#: setup.php:1152
 msgid "How long do you wish Audit Log entries to be retained?"
 msgstr "您希望保留審核日誌條目多長時間？"
 
-#: setup.php:1142
+#: setup.php:1158
 msgid "External Audit Log"
 msgstr "啟用審核日誌"
 
-#: setup.php:1143
+#: setup.php:1159
 msgid "Check this box, if you want the Audit Log to be written to an external file."
 msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
 
-#: setup.php:1148
+#: setup.php:1164
 #, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
 msgstr "啟用審核日誌"
 
-#: setup.php:1149
+#: setup.php:1165
 #, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
 msgstr "輸入外部審核日誌檔的路徑。"
 
-#: setup.php:1153
+#: setup.php:1169
 msgid "Text"
 msgstr ""
 
-#: setup.php:1154 setup.php:1261
+#: setup.php:1170 setup.php:1277
 msgid "JSON"
 msgstr ""
 
-#: setup.php:1158
+#: setup.php:1174
 msgid "External Audit Log Log file  Path"
 msgstr "外部審核紀錄紀錄檔路徑"
 
-#: setup.php:1159
+#: setup.php:1175
 msgid "Enter the path to the external audit log file."
 msgstr "輸入外部審核日誌檔的路徑。"
 
-#: setup.php:1168
+#: setup.php:1184
 msgid "Authentication Auditing"
 msgstr ""
 
-#: setup.php:1172
+#: setup.php:1188
 msgid "Enable Authentication Auditing"
 msgstr ""
 
-#: setup.php:1173
+#: setup.php:1189
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
 msgstr ""
 
-#: setup.php:1178
+#: setup.php:1194
 msgid "Enable Failed-login Volume Detection"
 msgstr ""
 
-#: setup.php:1179
+#: setup.php:1195
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
 msgstr ""
 
-#: setup.php:1184
+#: setup.php:1200
 msgid "Failed-login Window (minutes)"
 msgstr ""
 
-#: setup.php:1185
+#: setup.php:1201
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
 msgstr ""
 
-#: setup.php:1192
+#: setup.php:1208
 msgid "Failed-login Volume Threshold"
 msgstr ""
 
-#: setup.php:1193
+#: setup.php:1209
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
 msgstr ""
 
-#: setup.php:1200
+#: setup.php:1216
 msgid "User Log Ingestion Batch Size"
 msgstr ""
 
-#: setup.php:1201
+#: setup.php:1217
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
 msgstr ""
 
-#: setup.php:1217
+#: setup.php:1233
 msgid "Remote Syslog"
 msgstr ""
 
-#: setup.php:1221
+#: setup.php:1237
 #, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
 msgstr "啟用審核日誌"
 
-#: setup.php:1222
+#: setup.php:1238
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
 msgstr ""
 
-#: setup.php:1227
+#: setup.php:1243
 msgid "Syslog Receiver"
 msgstr ""
 
-#: setup.php:1228
+#: setup.php:1244
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
 msgstr ""
 
-#: setup.php:1235
+#: setup.php:1251
 msgid "Syslog Port"
 msgstr ""
 
-#: setup.php:1236
+#: setup.php:1252
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
 msgstr ""
 
-#: setup.php:1243
+#: setup.php:1259
 msgid "Syslog Transport"
 msgstr ""
 
-#: setup.php:1244
+#: setup.php:1260
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
 msgstr ""
 
-#: setup.php:1248
+#: setup.php:1264
 msgid "UDP"
 msgstr ""
 
-#: setup.php:1249
+#: setup.php:1265
 msgid "TCP"
 msgstr ""
 
-#: setup.php:1250
+#: setup.php:1266
 msgid "TLS"
 msgstr ""
 
-#: setup.php:1254
+#: setup.php:1270
 msgid "Syslog Payload Format"
 msgstr ""
 
-#: setup.php:1255
+#: setup.php:1271
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
 msgstr ""
 
-#: setup.php:1259
+#: setup.php:1275
 msgid "RFC 5424"
 msgstr ""
 
-#: setup.php:1260
+#: setup.php:1276
 msgid "CEF"
 msgstr ""
 
-#: setup.php:1265
+#: setup.php:1281
 msgid "Syslog Facility"
 msgstr ""
 
-#: setup.php:1266
+#: setup.php:1282
 msgid "Select the facility used to calculate the RFC 5424 priority."
 msgstr ""
 
-#: setup.php:1272
+#: setup.php:1288
 msgid "Syslog Application Name"
 msgstr ""
 
-#: setup.php:1273
+#: setup.php:1289
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
 msgstr ""
 
-#: setup.php:1280
+#: setup.php:1296
 #, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
 msgstr "審核日誌保留"
 
-#: setup.php:1281
+#: setup.php:1297
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
 msgstr ""
 
-#: setup.php:1288
+#: setup.php:1304
 msgid "Connection and Write Timeout"
 msgstr ""
 
-#: setup.php:1289
+#: setup.php:1305
 msgid "Timeout in seconds, from 1 through 30."
 msgstr ""
 
-#: setup.php:1296
+#: setup.php:1312
 msgid "Maximum UDP Record Size"
 msgstr ""
 
-#: setup.php:1297
+#: setup.php:1313
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
 msgstr ""
 
-#: setup.php:1304
+#: setup.php:1320
 msgid "Syslog TLS"
 msgstr ""
 
-#: setup.php:1308
+#: setup.php:1324
 msgid "TLS CA File"
 msgstr ""
 
-#: setup.php:1309
+#: setup.php:1325
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
 msgstr ""
 
-#: setup.php:1315
+#: setup.php:1331
 msgid "TLS Client Certificate"
 msgstr ""
 
-#: setup.php:1316
+#: setup.php:1332
 msgid "Optional PEM client certificate. A client key must also be configured."
 msgstr ""
 
-#: setup.php:1322
+#: setup.php:1338
 msgid "TLS Client Private Key"
 msgstr ""
 
-#: setup.php:1323
+#: setup.php:1339
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
 msgstr ""
 
-#: setup.php:1329
+#: setup.php:1345
 msgid "Syslog Delivery Queue"
 msgstr ""
 
-#: setup.php:1333
+#: setup.php:1349
 msgid "Retry Base Delay"
 msgstr ""
 
-#: setup.php:1334
+#: setup.php:1350
 msgid "Initial retry delay in seconds, from 1 through 3600."
 msgstr ""
 
-#: setup.php:1341
+#: setup.php:1357
 msgid "Maximum Retry Delay"
 msgstr ""
 
-#: setup.php:1342
+#: setup.php:1358
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
 msgstr ""
 
-#: setup.php:1349
+#: setup.php:1365
 msgid "Maximum Delivery Attempts"
 msgstr ""
 
-#: setup.php:1350
+#: setup.php:1366
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
 msgstr ""
 
-#: setup.php:1357
+#: setup.php:1373
 msgid "Poller Batch Size"
 msgstr ""
 
-#: setup.php:1358
+#: setup.php:1374
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
 msgstr ""
 
-#: setup.php:1365
+#: setup.php:1381
 msgid "Pending Age Warning"
 msgstr ""
 
-#: setup.php:1366
+#: setup.php:1382
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
 msgstr ""
 
-#: setup.php:1373
+#: setup.php:1389
 msgid "Dead-letter Warning Count"
 msgstr ""
 
-#: setup.php:1374
+#: setup.php:1390
 msgid "Show an unhealthy warning when this many records are dead-lettered."
 msgstr ""
 
-#: setup.php:1385
+#: setup.php:1401
 msgid "Audit"
 msgstr "稽核"
 
-#: setup.php:1408
+#: setup.php:1424
 msgid "Audit Event Log"
 msgstr "審核事件日誌"
 
