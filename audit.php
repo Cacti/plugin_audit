@@ -778,7 +778,7 @@ function audit_log(): void {
 	}
 
 	?>
-	<script type='text/javascript' src='plugins/audit/js/functions.js'></script>
+	<?php print get_md5_include_js('plugins/audit/js/functions.js'); ?>
 	<?php
 }
 
