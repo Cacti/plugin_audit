@@ -9,7 +9,8 @@
  * Covers the audit_log schema-readiness guard added so CLI/poller and
  * shutdown callbacks skip logging until the request_status migration has run:
  * audit_event_schema_ready() and the three write entry points it protects
- * (audit_record_event(), audit_finalize_request(), audit_config_insert()).
+ * (audit_record_event(), audit_finalize_request(), audit_config_insert()),
+ * plus the finalizer's best-effort writes when the schema is ready.
  */
 
 require_once dirname(__DIR__, 2) . '/audit_functions.php';
@@ -52,6 +53,20 @@ it('finalizes nothing while the schema is not ready', function () {
 	});
 
 	expect($writes)->toBeEmpty();
+});
+
+it('finalizes the in-flight row while the schema is ready', function () {
+	// Defaults report the table/column present, so the finalizer runs its
+	// UPDATE and SELECT (both best-effort, $log = false); with no row returned
+	// it skips the integrity rewrite.
+	audit_finalize_request(1, microtime(true));
+
+	$sqls    = array_map(function ($call) { return $call['sql']; }, $GLOBALS['__test_db_calls']);
+	$updated = array_filter($sqls, function ($sql) {
+		return strpos($sql, 'UPDATE audit_log') !== false && strpos($sql, 'request_status') !== false;
+	});
+
+	expect($updated)->not->toBeEmpty();
 });
 
 it('inserts no config event while the schema is not ready', function () {

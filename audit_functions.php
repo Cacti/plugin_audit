@@ -1019,10 +1019,12 @@ function audit_verify_operation(mixed $verifier): array {
  * @return void
  */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
-	// Runs at shutdown, so the table can be dropped after db_table_exists()'s
-	// request cache was primed; audit_event_schema_ready()'s db_column_exists()
-	// check fails cleanly on a missing table, and this update needs the
-	// request_status column in any case.
+	// audit_config_insert() only registers this shutdown callback once the
+	// schema is ready, so this re-check mainly skips the rare never-migrated
+	// case. It cannot catch a table dropped mid-request (plugin uninstall):
+	// db_table_exists()/db_column_exists() are request-cached and still report
+	// the pre-drop schema. The writes below pass $log = false so a raced-away
+	// table fails quietly instead of logging a DB error at shutdown.
 	if (!audit_event_schema_ready()) {
 		return;
 	}
@@ -1051,11 +1053,11 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
 			duration_ms = ?
 		WHERE id = ?
 		AND request_status = 'started'",
-		[$request_status, $outcome_reason, $outcome, $status_code, $completed_time, $duration_ms, $id]);
+		[$request_status, $outcome_reason, $outcome, $status_code, $completed_time, $duration_ms, $id], false);
 
-	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id]);
+	$event = db_fetch_row_prepared('SELECT * FROM audit_log WHERE id = ?', [$id], false);
 
-	if (is_array($event)) {
+	if (!empty($event)) {
 		db_execute_prepared('UPDATE audit_log SET integrity_hash = ? WHERE id = ?',
 			[audit_event_integrity_hash($event), $id]);
 	}
