@@ -56,6 +56,28 @@ function audit_log_table_available(): bool {
 }
 
 /**
+ * Determines whether the audit_log event schema is current enough to record
+ * events, i.e. the table exists and carries the request_status column added
+ * by audit_check_upgrade(). That migration only runs on plugins.php/audit.php
+ * page loads, so CLI and poller requests can reach the event recorders before
+ * it has applied; this lets them skip logging cleanly instead of emitting
+ * "Unknown column 'request_status'" errors until the upgrade completes.
+ * Called from audit_config_insert() and audit_record_event() before inserting.
+ *
+ * @return bool True when the request_status column is present on audit_log.
+ */
+function audit_event_schema_ready(): bool {
+	static $ready = null;
+
+	if ($ready === null) {
+		$ready = audit_log_table_available() &&
+			function_exists('db_column_exists') && db_column_exists('audit_log', 'request_status');
+	}
+
+	return $ready;
+}
+
+/**
  * Looks up display-friendly details (name/description/status, etc.) for
  * a bulk-selected set of Cacti objects (devices, templates, thresholds,
  * users, etc.) on a given admin page, for inclusion in that action's
@@ -1070,7 +1092,7 @@ function audit_finalize_request(int $id, ?float $started_at = null, ?array $veri
  *             audit_log table doesn't exist yet, or the insert failed.
  */
 function audit_record_event(string $event_type, array $options = []): int {
-	if (!audit_log_table_available() || read_config_option('audit_enabled') != 'on') {
+	if (!audit_event_schema_ready() || read_config_option('audit_enabled') != 'on') {
 		return 0;
 	}
 
@@ -2168,6 +2190,13 @@ function audit_config_insert(): void {
 	global $action, $config;
 
 	audit_enforce_syslog_settings_request();
+
+	// The audit_log schema migration runs only on plugins.php/audit.php page
+	// loads, so skip logging (rather than crashing every CLI/poller request)
+	// until the request_status column has been added.
+	if (!audit_event_schema_ready()) {
+		return;
+	}
 
 	if (audit_log_valid_event()) {
 		$started_at = microtime(true);
