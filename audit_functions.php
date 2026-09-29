@@ -1019,7 +1019,11 @@ function audit_verify_operation(mixed $verifier): array {
  * @return void
  */
 function audit_finalize_request(int $id, ?float $started_at = null, ?array $verifier = null): void {
-	if (!audit_log_table_available()) {
+	// Runs at shutdown, so the table can be dropped after db_table_exists()'s
+	// request cache was primed; audit_event_schema_ready()'s db_column_exists()
+	// check fails cleanly on a missing table, and this update needs the
+	// request_status column in any case.
+	if (!audit_event_schema_ready()) {
 		return;
 	}
 
