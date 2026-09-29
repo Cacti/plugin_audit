@@ -67,14 +67,9 @@ function audit_log_table_available(): bool {
  * @return bool True when the request_status column is present on audit_log.
  */
 function audit_event_schema_ready(): bool {
-	static $ready = null;
-
-	if ($ready === null) {
-		$ready = audit_log_table_available() &&
-			function_exists('db_column_exists') && db_column_exists('audit_log', 'request_status');
-	}
-
-	return $ready;
+	// Re-evaluated per call so a positive result can't outlive the table it described.
+	return audit_log_table_available() &&
+		function_exists('db_column_exists') && db_column_exists('audit_log', 'request_status');
 }
 
 /**
