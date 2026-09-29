@@ -33,3 +33,4 @@ phpstan.cache/
 
 # Pest / PHPUnit
 .phpunit.result.cache
+locales/po/*.po
