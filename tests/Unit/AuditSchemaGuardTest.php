@@ -1,0 +1,102 @@
+<?php
+/*
+ +-------------------------------------------------------------------------+
+ | Copyright (C) 2004-2026 The Cacti Group                                 |
+ +-------------------------------------------------------------------------+
+*/
+
+/*
+ * Covers the audit_log schema-readiness guard added so CLI/poller and
+ * shutdown callbacks skip logging until the request_status migration has run:
+ * audit_event_schema_ready() and the three write entry points it protects
+ * (audit_record_event(), audit_finalize_request(), audit_config_insert()),
+ * plus the finalizer's best-effort writes when the schema is ready.
+ *
+ * The "not ready" cases drive the guard through a missing request_status
+ * column (the actual migration-in-progress state), asserting each creator
+ * makes no INSERT INTO audit_log.
+ */
+
+require_once dirname(__DIR__, 2) . '/audit_functions.php';
+
+beforeEach(function () {
+	audit_test_reset_db_mocks();
+});
+
+/**
+ * SQL text of every stubbed db_* call recorded so far this test.
+ *
+ * @return array<int, string>
+ */
+function audit_guard_test_sql(): array {
+	return array_map(function ($call) {
+		return $call['sql'];
+	}, $GLOBALS['__test_db_calls']);
+}
+
+it('reports the schema ready when the table and request_status column exist', function () {
+	// The unit bootstrap defaults db_table_exists()/db_column_exists() to true.
+	expect(audit_event_schema_ready())->toBeTrue();
+});
+
+it('reports the schema not ready when the request_status column is missing', function () {
+	audit_test_mock_db('db_column_exists', 'audit_log|request_status', false);
+
+	expect(audit_event_schema_ready())->toBeFalse();
+});
+
+it('reports the schema not ready when the audit_log table is missing', function () {
+	audit_test_mock_db('db_table_exists', 'audit_log', false);
+
+	expect(audit_event_schema_ready())->toBeFalse();
+});
+
+it('records no event and inserts nothing while request_status is missing', function () {
+	audit_test_mock_db('db_column_exists', 'audit_log|request_status', false);
+
+	expect(audit_record_event('audit.test.schema_guard'))->toBe(0);
+
+	$inserts = array_filter(audit_guard_test_sql(), function ($sql) {
+		return strpos($sql, 'INSERT INTO audit_log') !== false;
+	});
+
+	expect($inserts)->toBeEmpty();
+});
+
+it('inserts no config event while request_status is missing', function () {
+	audit_test_mock_db('db_column_exists', 'audit_log|request_status', false);
+
+	audit_config_insert();
+
+	$inserts = array_filter(audit_guard_test_sql(), function ($sql) {
+		return strpos($sql, 'INSERT INTO audit_log') !== false;
+	});
+
+	expect($inserts)->toBeEmpty();
+});
+
+it('finalizes nothing while request_status is missing', function () {
+	audit_test_mock_db('db_column_exists', 'audit_log|request_status', false);
+
+	audit_finalize_request(123);
+
+	$writes = array_filter($GLOBALS['__test_db_calls'], function ($call) {
+		return in_array($call['fn'], ['db_execute_prepared', 'db_fetch_row_prepared'], true)
+			&& strpos($call['sql'], 'audit_log') !== false;
+	});
+
+	expect($writes)->toBeEmpty();
+});
+
+it('finalizes the in-flight row while the schema is ready', function () {
+	// Defaults report the table/column present, so the finalizer runs its
+	// UPDATE and SELECT (both best-effort, $log = false); with no row returned
+	// it skips the integrity rewrite.
+	audit_finalize_request(1, microtime(true));
+
+	$updated = array_filter(audit_guard_test_sql(), function ($sql) {
+		return strpos($sql, 'UPDATE audit_log') !== false && strpos($sql, 'request_status') !== false;
+	});
+
+	expect($updated)->not->toBeEmpty();
+});
