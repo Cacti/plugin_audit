@@ -19,6 +19,7 @@ $controller = plugin_test_read_source('audit.php');
 $functions  = plugin_test_read_source('audit_functions.php');
 $javascript = plugin_test_read_source('js/functions.js');
 $setup      = plugin_test_read_source('setup.php');
+$database   = plugin_test_read_source('includes/database.php');
 
 $required_controller_guards = [
 	"\$_SERVER['REQUEST_METHOD'] !== 'POST'",
@@ -90,9 +91,10 @@ $required_schema_fragments = [
 	'DROP TABLE IF EXISTS audit_syslog_delivery',
 ];
 
-it('keeps the required schema and replication requirements in setup.php', function () use ($setup, $required_schema_fragments) {
+it('keeps the required schema and replication requirements', function () use ($setup, $database, $required_schema_fragments) {
+	$schema_source = $setup . "\n" . $database;
 	foreach ($required_schema_fragments as $fragment) {
-		expect($setup)->toContain($fragment);
+		expect($schema_source)->toContain($fragment);
 	}
 });
 
