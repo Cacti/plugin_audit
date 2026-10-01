@@ -9,7 +9,7 @@
 
 /*
  * Behavioral coverage for the audit_* Syslog delivery queue in
- * includes/functions.php/audit_syslog.php: enqueueing a delivery row for a
+ * includes/functions.php/includes/syslog.php: enqueueing a delivery row for a
  * finalized event, retry-identity/backoff calculation, failed-delivery
  * state transitions (retry, dead-letter, sent), manual dead-letter retry,
  * and the poller's stop-after-one-transient-failure batching guard.
@@ -168,7 +168,7 @@ it('manually retries de-duplicated positive dead-letter delivery IDs and reports
 });
 
 it('stops poller batches after one transient receiver failure to bound outage latency', function () {
-	$syslog_source = plugin_test_read_source('audit_syslog.php');
+	$syslog_source = plugin_test_read_source('includes/syslog.php');
 
 	expect($syslog_source)->toContain(
 		"\$result['status'] !== 'sent_unconfirmed' && empty(\$result['permanent'])"

@@ -17,7 +17,7 @@ describe('prepared statement consistency in audit', function () {
 		$targetFiles = [
 		'audit.php',
 		'includes/functions.php',
-		'audit_syslog.php',
+		'includes/syslog.php',
 		'setup.php',
 		];
 

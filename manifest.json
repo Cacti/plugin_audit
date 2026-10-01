@@ -1,6 +1,7 @@
 {
     "tombstones": [
-        "audit_functions.php"
+        "audit_functions.php",
+        "audit_syslog.php"
     ],
     "expected": [
         "CHANGELOG.md",
@@ -9,7 +10,6 @@
         "README.md",
         "audit.php",
         "audit_auth_indexes.php",
-        "audit_syslog.php",
         "includes/",
         "index.php",
         "js/",
