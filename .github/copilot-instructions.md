@@ -24,17 +24,16 @@ When generating code for this repository:
 ## Project Structure
 
 ```
-audit/                    # Repository root (install to plugins/audit/ in Cacti)
-├── js/                     # Client-side helpers
-├── locales/                  # Internationalization files
-├── phpstan/                     # PHPStan configuration/baseline
-├── tests/                          # Test suite
-├── audit.php                         # Web UI for viewing/exporting/purging audit logs
-├── audit_functions.php                 # audit_config_insert() (main logger), audit_process_page_data()
-├── audit_syslog.php                      # Syslog delivery integration
-├── INFO                                    # Plugin metadata (name, version, compat)
+audit/        # Repository root (install to plugins/audit/ in Cacti)
+├── js/       # Client-side helpers
+├── locales/  # Internationalization files
+├── phpstan/  # PHPStan configuration/baseline
+├── tests/    # Test suite
+├── includes/ # database.php (schema), functions.php (main logger/API), syslog.php (Syslog delivery)
+├── audit.php # Web UI for viewing/exporting/purging audit logs
+├── INFO      # Plugin metadata (name, version, compat)
 ├── README.md
-└── setup.php                                 # Plugin lifecycle (install/uninstall/upgrade) and hook registration
+└── setup.php # Plugin lifecycle (install/uninstall/upgrade) and hook registration
 ```
 
 ## Naming Conventions
