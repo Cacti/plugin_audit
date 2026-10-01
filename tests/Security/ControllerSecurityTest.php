@@ -8,7 +8,7 @@
 */
 
 /*
- * Static content checks confirming audit.php, audit_functions.php, setup.php
+ * Static content checks confirming audit.php, includes/functions.php, setup.php
  * and js/functions.js still contain the guard fragments that keep the
  * Audit controller and its admin actions safe (POST-only mutation, CSRF
  * checks, admin realm authorization, schema/replication requirements, and
@@ -16,7 +16,7 @@
  */
 
 $controller = plugin_test_read_source('audit.php');
-$functions  = plugin_test_read_source('audit_functions.php');
+$functions  = plugin_test_read_source('includes/functions.php');
 $javascript = plugin_test_read_source('js/functions.js');
 $setup      = plugin_test_read_source('setup.php');
 $database   = plugin_test_read_source('includes/database.php');
@@ -137,7 +137,7 @@ $required_verifier_fragments = [
 	"register_shutdown_function('audit_finalize_request', \$audit_id, \$started_at, \$verifier)",
 ];
 
-it('keeps the required operation verification requirements in audit_functions.php', function () use ($functions, $required_verifier_fragments) {
+it('keeps the required operation verification requirements in includes/functions.php', function () use ($functions, $required_verifier_fragments) {
 	foreach ($required_verifier_fragments as $fragment) {
 		expect($functions)->toContain($fragment);
 	}
@@ -179,7 +179,7 @@ $required_auth_fragments = [
 	'ON DUPLICATE KEY UPDATE value = GREATEST',
 ];
 
-it('keeps the required authentication auditing requirements in audit_functions.php', function () use ($functions, $required_auth_fragments) {
+it('keeps the required authentication auditing requirements in includes/functions.php', function () use ($functions, $required_auth_fragments) {
 	foreach ($required_auth_fragments as $fragment) {
 		expect($functions)->toContain($fragment);
 	}

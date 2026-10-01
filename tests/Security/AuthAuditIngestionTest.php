@@ -19,7 +19,7 @@
  */
 
 require_once dirname(__DIR__, 2) . '/setup.php';
-require_once dirname(__DIR__, 2) . '/audit_functions.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 /*
  * The tests below exercise privileged code paths (settings saves,
@@ -893,7 +893,7 @@ it('no-ops late poller callbacks after audit_log has been removed', function () 
 it('requires Audit Log Admin for unauthorized auth and syslog settings saves', function () {
 	audit_auth_test_environment();
 
-	$functions_source = plugin_test_read_source('audit_functions.php');
+	$functions_source = plugin_test_read_source('includes/functions.php');
 
 	expect($functions_source)->toContain("'audit.configuration.denied'");
 	expect($functions_source)->toContain("'audit.syslog.configuration.denied'");

@@ -24,7 +24,7 @@
  * formatted records below.
  */
 
-require_once dirname(__DIR__, 2) . '/audit_functions.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 /**
  * @param array $overrides

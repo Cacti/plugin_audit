@@ -9,7 +9,7 @@
 
 /*
  * Behavioral coverage for the audit_* Syslog delivery queue in
- * audit_functions.php/audit_syslog.php: enqueueing a delivery row for a
+ * includes/functions.php/audit_syslog.php: enqueueing a delivery row for a
  * finalized event, retry-identity/backoff calculation, failed-delivery
  * state transitions (retry, dead-letter, sent), manual dead-letter retry,
  * and the poller's stop-after-one-transient-failure batching guard.
@@ -20,7 +20,7 @@
  * guarded stubs for them.
  */
 
-require_once dirname(__DIR__, 2) . '/audit_functions.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 $audit_queue_settings = [
 	'audit_syslog_enabled'             => 'on',

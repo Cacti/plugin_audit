@@ -9,7 +9,7 @@
 
 /*
  * Behavioral coverage for the audit_* security helper functions in
- * audit_functions.php: admin/realm authorization, request operation
+ * includes/functions.php: admin/realm authorization, request operation
  * verification, sensitive-data redaction, bounded JSON encode/decode,
  * DST-safe retention cutoffs, request status classification, UUIDv4
  * generation, event type normalization, event integrity hashing, and
@@ -21,7 +21,7 @@
  * since bootstrap-unit.php already provides guarded stubs for them.
  */
 
-require_once dirname(__DIR__, 2) . '/audit_functions.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 if (!function_exists('api_plugin_user_realm_auth')) {
 	function api_plugin_user_realm_auth(string $filename = ''): bool {

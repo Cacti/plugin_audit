@@ -40,7 +40,7 @@ function plugin_audit_csp_nonce(): string {
 	return '';
 }
 
-include_once('audit_functions.php');
+include_once(__DIR__ . '/includes/functions.php');
 
 /**
  * Installs the Audit plugin: registers its Cacti hooks (config_arrays,
@@ -62,8 +62,8 @@ function plugin_audit_install(): void {
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 	api_plugin_register_hook('audit', 'is_console_page',      'audit_is_console_page',      'setup.php');
 	api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php');
-	api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php');
-	api_plugin_register_hook('audit', 'custom_denied',        'audit_custom_denied',        'audit_functions.php');
+	api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php');
+	api_plugin_register_hook('audit', 'custom_denied',        'audit_custom_denied',        'includes/functions.php');
 
 	// hook for table replication
 	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
@@ -405,8 +405,8 @@ function audit_check_upgrade(): void {
 		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
-		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php', 1);
-		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'audit_functions.php', 1);
+		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php', 1);
+		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'includes/functions.php', 1);
 	}
 }
 

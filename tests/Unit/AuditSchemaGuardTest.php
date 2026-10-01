@@ -17,7 +17,7 @@
  * makes no INSERT INTO audit_log.
  */
 
-require_once dirname(__DIR__, 2) . '/audit_functions.php';
+require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 beforeEach(function () {
 	audit_test_reset_db_mocks();
