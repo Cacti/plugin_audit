@@ -24,7 +24,7 @@
 
 declare(strict_types = 1);
 
-require_once __DIR__ . '/audit_syslog.php';
+require_once __DIR__ . '/syslog.php';
 
 /**
  * Determines whether the current session user has access to this

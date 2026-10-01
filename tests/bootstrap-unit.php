@@ -383,6 +383,17 @@ if (!function_exists('api_plugin_register_realm')) {
 	}
 }
 
+if (!function_exists('api_plugin_is_enabled')) {
+	function api_plugin_is_enabled($plugin) {
+		return true;
+	}
+}
+
+if (!function_exists('api_plugin_enable_hooks')) {
+	function api_plugin_enable_hooks($plugin) {
+	}
+}
+
 if (!function_exists('api_plugin_replicate_config')) {
 	function api_plugin_replicate_config() {
 		return true;
@@ -475,7 +486,8 @@ if (!function_exists('cacti_log')) {
 	 * @return void
 	 */
 	function cacti_log($message, $also_print = false, $log_type = '', $level = 0) {
-		$GLOBALS['__test_logs'][] = $message;
+		$GLOBALS['__test_logs'][]      = $message;
+		$GLOBALS['__test_cacti_log'][] = (string) $message;
 	}
 }
 

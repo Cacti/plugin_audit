@@ -29,8 +29,8 @@
         <include>
             <file>setup.php</file>
             <file>audit.php</file>
-            <file>audit_functions.php</file>
-            <file>audit_syslog.php</file>
+            <file>includes/functions.php</file>
+            <file>includes/syslog.php</file>
         </include>
     </source>
 </phpunit>

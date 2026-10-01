@@ -22,6 +22,8 @@
  +-------------------------------------------------------------------------+
 */
 
+require_once(__DIR__ . '/includes/database.php');
+
 /**
  * Return the CSP nonce attribute for inline <script> tags, safely across
  * Cacti versions. Newer Cacti releases enforce a Content-Security-Policy that
@@ -38,7 +40,7 @@ function plugin_audit_csp_nonce(): string {
 	return '';
 }
 
-include_once('audit_functions.php');
+include_once(__DIR__ . '/includes/functions.php');
 
 /**
  * Installs the Audit plugin: registers its Cacti hooks (config_arrays,
@@ -60,8 +62,8 @@ function plugin_audit_install(): void {
 	api_plugin_register_hook('audit', 'utilities_array',      'audit_utilities_array',      'setup.php');
 	api_plugin_register_hook('audit', 'is_console_page',      'audit_is_console_page',      'setup.php');
 	api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php');
-	api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php');
-	api_plugin_register_hook('audit', 'custom_denied',        'audit_custom_denied',        'audit_functions.php');
+	api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php');
+	api_plugin_register_hook('audit', 'custom_denied',        'audit_custom_denied',        'includes/functions.php');
 
 	// hook for table replication
 	api_plugin_register_hook('audit', 'replicate_out',        'audit_replicate_out',        'setup.php');
@@ -383,6 +385,9 @@ function audit_check_upgrade(): void {
 		audit_setup_realms();
 		audit_remove_obsolete_realms();
 
+		// Remove files tombstoned in manifest.json plus the dev-only tests/ tree.
+		audit_prune_files();
+
 		db_execute_prepared('UPDATE plugin_config
 			SET version = ?
 			WHERE directory = ?',
@@ -400,8 +405,8 @@ function audit_check_upgrade(): void {
 		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
 		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
-		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'audit_functions.php', 1);
-		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'audit_functions.php', 1);
+		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php', 1);
+		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'includes/functions.php', 1);
 	}
 }
 
@@ -540,416 +545,6 @@ function audit_poller_bottom(): void {
 	set_config_option('audit_last_check', $now);
 }
 
-/**
- * Creates this plugin's audit_log table (the core event store), plus its
- * Syslog delivery and user-log deduplication state tables. Called from
- * plugin_audit_install() during plugin installation.
- *
- * @return bool Always returns true.
- *
- * @global array  $config           Cacti global configuration array;
- *                                   used to load database.php.
- * @global object $database_default Cacti's default database connection
- *                                   handle (unused directly here;
- *                                   declared for parity with other
- *                                   database-touching functions in this
- *                                   file).
- */
-function audit_setup_table(): bool {
-	global $config, $database_default;
-	include_once($config['library_path'] . '/database.php');
-
-	db_execute("CREATE TABLE IF NOT EXISTS `audit_log` (
-		`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		`page` varchar(40) DEFAULT NULL,
-		`user_id` int(10) unsigned DEFAULT NULL,
-		`action` varchar(20) DEFAULT NULL,
-		`request_status` varchar(20) NOT NULL DEFAULT 'unknown',
-		`ip_address` varchar(40) DEFAULT NULL,
-		`user_agent` varchar(256) DEFAULT NULL,
-		`event_time` timestamp DEFAULT CURRENT_TIMESTAMP,
-		`post` longblob,
-		`object_data` longblob,
-		`external_status` varchar(20) NOT NULL DEFAULT 'unknown',
-		`external_error` varchar(1024) DEFAULT NULL,
-		`event_uuid` char(36) DEFAULT NULL,
-		`correlation_id` char(36) DEFAULT NULL,
-		`event_type` varchar(100) NOT NULL DEFAULT 'cacti.request',
-		`event_category` varchar(40) NOT NULL DEFAULT 'configuration',
-		`severity` varchar(12) NOT NULL DEFAULT 'info',
-		`actor_type` varchar(20) NOT NULL DEFAULT 'user',
-		`target_type` varchar(64) DEFAULT NULL,
-		`target_id` varchar(128) DEFAULT NULL,
-		`operation_outcome` varchar(20) NOT NULL DEFAULT 'unknown',
-		`outcome_reason` varchar(255) DEFAULT NULL,
-		`http_method` varchar(10) DEFAULT NULL,
-		`http_status` smallint unsigned DEFAULT NULL,
-		`completed_time` datetime(6) DEFAULT NULL,
-		`duration_ms` bigint unsigned DEFAULT NULL,
-		`details` longblob,
-		`previous_hash` char(64) DEFAULT NULL,
-		`integrity_hash` char(64) DEFAULT NULL,
-		`external_attempts` int unsigned NOT NULL DEFAULT 0,
-		`external_last_attempt` datetime(6) DEFAULT NULL,
-		`external_delivered_time` datetime(6) DEFAULT NULL,
-		PRIMARY KEY (`id`),
-		KEY `user_id` (`user_id`),
-		KEY `page` (`page`),
-		KEY `ip_address` (`ip_address`),
-		KEY `event_time` (`event_time`),
-		KEY `action` (`action`),
-		UNIQUE KEY `event_uuid` (`event_uuid`),
-		KEY `correlation_id` (`correlation_id`),
-		KEY `event_type` (`event_type`),
-		KEY `operation_outcome` (`operation_outcome`),
-		KEY `external_status` (`external_status`))
-		ENGINE=InnoDB
-		COMMENT='Audit Log for all GUI activities'");
-
-	audit_setup_syslog_table();
-	audit_setup_user_log_state_table();
-
-	return true;
-}
-
-/**
- * Creates the durable, database-backed deduplication table used to track
- * which user_log rows have already been ingested as audit events
- * (dropping a legacy foreign key constraint if still present, since
- * audit_id is deliberately not a real foreign key so state survives
- * audit-log purges). Called from audit_setup_table() during
- * installation, from audit_check_upgrade() during upgrades, and from
- * audit_replicate_out() to replicate the table to a remote poller.
- *
- * Durable, database-backed deduplication table for user_log ingestion.
- *
- * The source tuple is stored in typed columns, so identity has one
- * canonical representation and remains stable across session-timezone
- * changes. audit_id is deliberately not a foreign key so state survives
- * audit-log purges. The tuple mirrors user_log's own (username, user_id,
- * time) primary key; Cacti cannot store two source rows with the same
- * tuple.
- *
- * @param mixed $cnn_id The remote connection id to apply the DDL against,
- *                      or false for the local database; defaults to
- *                      false.
- *
- * @return void
- */
-function audit_setup_user_log_state_table(mixed $cnn_id = false): void {
-	// DDL has no values to bind; Cacti's schema helpers use db_execute() for
-	// CREATE/ALTER statements and prepared calls for data queries.
-	db_execute("CREATE TABLE IF NOT EXISTS `audit_user_log_state` (
-			`source_username` varchar(50) NOT NULL DEFAULT '0',
-			`source_user_id` mediumint(8) NOT NULL DEFAULT '0',
-			`source_epoch` bigint(20) unsigned NOT NULL,
-			`source_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			`audit_id` bigint(20) unsigned NOT NULL,
-			`retry_count` int(10) unsigned NOT NULL DEFAULT '0',
-			`processed_time` datetime(6) NOT NULL,
-			PRIMARY KEY (`source_username`, `source_user_id`, `source_epoch`),
-			KEY `pending_retry` (`audit_id`, `retry_count`, `processed_time`),
-			KEY `source_time` (`source_time`))
-		ENGINE=InnoDB
-		COMMENT='Durable deduplication state for user_log ingestion'",
-		true,
-		$cnn_id
-	);
-
-	$has_foreign_key = (int) db_fetch_cell_prepared(
-		'SELECT COUNT(*)
-			FROM information_schema.TABLE_CONSTRAINTS
-			WHERE CONSTRAINT_SCHEMA = DATABASE()
-			AND TABLE_NAME = ?
-			AND CONSTRAINT_NAME = ?
-			AND CONSTRAINT_TYPE = ?',
-		['audit_user_log_state', 'fk_audit_user_log_state_event', 'FOREIGN KEY'],
-		'',
-		true,
-		$cnn_id
-	);
-
-	if ($has_foreign_key > 0) {
-		db_execute(
-			'ALTER TABLE audit_user_log_state
-				DROP FOREIGN KEY fk_audit_user_log_state_event',
-			true,
-			$cnn_id
-		);
-	}
-}
-
-/**
- * Adds the two indexes this plugin's per-cycle authentication queries
- * need on Cacti core's user_log table (creating only the ones missing,
- * and journaling ownership in the 'audit_user_log_indexes_owned' setting
- * before each ALTER so a timeout can't orphan a plugin-created index).
- * Only operates on the local database (never on a remote connection).
- * Called from the audit_auth_indexes.php CLI maintenance script when an
- * administrator explicitly opts in to authentication auditing.
- *
- * Add the access paths required by the per-cycle authentication queries.
- *
- * @param mixed $cnn_id Must be false (local database); any other value
- *                      causes this function to no-op and return false.
- *
- * @return bool True once both required indexes exist on user_log.
- */
-function audit_setup_user_log_indexes(mixed $cnn_id = false): bool {
-	if ($cnn_id !== false) {
-		return false;
-	}
-
-	if (!db_table_exists('user_log', false, $cnn_id)) {
-		return false;
-	}
-
-	$allowed = ['plugin_audit_time', 'plugin_audit_result_time'];
-	$owned   = array_intersect(
-		array_filter(explode(',', (string) read_config_option('audit_user_log_indexes_owned', true))),
-		$allowed
-	);
-
-	$definitions = [
-		'plugin_audit_time'        => ['time', 'username', 'user_id'],
-		'plugin_audit_result_time' => ['result', 'time']
-	];
-
-	foreach ($definitions as $index => $columns) {
-		if (!db_index_exists('user_log', $index, false, $cnn_id)) {
-			// Journal intent before DDL so a timeout after ALTER cannot orphan a
-			// plugin-created index on the core table.
-			$owned[] = $index;
-			$owned   = array_values(array_unique($owned));
-			set_config_option('audit_user_log_indexes_owned', implode(',', $owned));
-			db_add_index('user_log', 'INDEX', $index, $columns, true, $cnn_id);
-		}
-	}
-
-	$owned = array_values(array_filter(
-		array_unique($owned),
-		static fn (string $index): bool => db_index_exists('user_log', $index, false, $cnn_id)
-	));
-	set_config_option('audit_user_log_indexes_owned', implode(',', $owned));
-
-	return audit_user_log_indexes_available($cnn_id);
-}
-
-/**
- * Determines whether both of this plugin's required user_log indexes
- * (plugin_audit_time, plugin_audit_result_time) currently exist on the
- * local database. Called from audit_setup_user_log_indexes() after
- * creating them, and from audit_enforce_syslog_settings_request() before
- * allowing authentication auditing to be enabled.
- *
- * @param mixed $cnn_id Must be false (local database); any other value
- *                      causes this function to report unavailable.
- *
- * @return bool True when user_log exists and both required indexes are
- *              present.
- */
-function audit_user_log_indexes_available(mixed $cnn_id = false): bool {
-	return $cnn_id === false &&
-		db_table_exists('user_log', false, $cnn_id) &&
-		db_index_exists('user_log', 'plugin_audit_time', false, $cnn_id) &&
-		db_index_exists('user_log', 'plugin_audit_result_time', false, $cnn_id);
-}
-
-/**
- * Determines whether user_log's primary key is still the expected
- * (username, user_id, time) tuple that this plugin's deduplication logic
- * relies on, so a future Cacti schema change can be detected rather than
- * silently mis-deduplicating events. Called from
- * audit_enforce_syslog_settings_request() before allowing authentication
- * auditing to be enabled.
- *
- * @param mixed $cnn_id The remote connection id to check against, or
- *                      false for the local database; defaults to false.
- *
- * @return bool True when user_log's primary key matches the expected
- *              column order.
- */
-function audit_user_log_identity_supported(mixed $cnn_id = false): bool {
-	$columns = db_fetch_assoc_prepared(
-		'SELECT COLUMN_NAME
-			FROM information_schema.STATISTICS
-			WHERE TABLE_SCHEMA = DATABASE()
-			AND TABLE_NAME = ?
-			AND INDEX_NAME = ?
-			ORDER BY SEQ_IN_INDEX',
-		['user_log', 'PRIMARY'],
-		true,
-		$cnn_id
-	);
-
-	if ($columns === false) {
-		return false;
-	}
-
-	return array_column($columns, 'COLUMN_NAME') === ['username', 'user_id', 'time'];
-}
-
-/**
- * Removes only the user_log indexes this plugin created (per the
- * 'audit_user_log_indexes_owned' setting), leaving any indexes not owned
- * by this plugin untouched, and updates the ownership setting to reflect
- * any that could not be dropped. Only operates on the local database.
- * Called from plugin_audit_uninstall() during uninstallation.
- *
- * @param mixed $cnn_id Must be false (local database); any other value
- *                      causes this function to no-op and return false.
- *
- * @return bool True when every owned index was removed (or none were
- *              owned, or the user_log table doesn't exist).
- */
-function audit_remove_user_log_indexes(mixed $cnn_id = false): bool {
-	if ($cnn_id !== false) {
-		return false;
-	}
-
-	if (!db_table_exists('user_log', false, $cnn_id)) {
-		set_config_option('audit_user_log_indexes_owned', '');
-
-		return true;
-	}
-
-	$allowed = ['plugin_audit_time', 'plugin_audit_result_time'];
-	$owned   = array_intersect(
-		array_filter(explode(',', (string) read_config_option('audit_user_log_indexes_owned', true))),
-		$allowed
-	);
-
-	$failed = [];
-
-	foreach ($owned as $index) {
-		if (db_index_exists('user_log', $index, false, $cnn_id)) {
-			// DDL identifiers cannot be bound; the name is restricted to the
-			// static plugin-owned allowlist above before raw execution.
-			if (!db_execute('ALTER TABLE `user_log` DROP INDEX `' . $index . '`', true, $cnn_id)) {
-				$failed[] = $index;
-			}
-		}
-	}
-
-	set_config_option('audit_user_log_indexes_owned', implode(',', $failed));
-
-	if ($failed !== []) {
-		cacti_log(
-			'ERROR: Audit plugin could not remove owned user_log indexes: ' . implode(', ', $failed),
-			false,
-			'POLLER'
-		);
-	}
-
-	return $failed === [];
-}
-
-/**
- * Creates this plugin's audit_syslog_delivery table (the Syslog delivery
- * queue/tracking table), and adds the node_id/poller_id columns when
- * upgrading from an older schema that lacked them. Called from
- * audit_setup_table() during installation and audit_check_upgrade()
- * during upgrades.
- *
- * @return void
- */
-function audit_setup_syslog_table(): void {
-	db_execute("CREATE TABLE IF NOT EXISTS `audit_syslog_delivery` (
-		`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-		`audit_id` bigint(20) unsigned NOT NULL,
-		`event_uuid` char(36) NOT NULL,
-		`destination_fingerprint` char(64) NOT NULL,
-		`node_id` varchar(255) NOT NULL,
-		`poller_id` varchar(64) DEFAULT NULL,
-		`state` varchar(20) NOT NULL DEFAULT 'pending',
-		`attempts` int unsigned NOT NULL DEFAULT 0,
-		`next_attempt` datetime(6) NOT NULL,
-		`last_attempt` datetime(6) DEFAULT NULL,
-		`sent_time` datetime(6) DEFAULT NULL,
-		`last_error` varchar(1024) DEFAULT NULL,
-		`created_time` datetime(6) NOT NULL,
-		`updated_time` datetime(6) NOT NULL,
-		PRIMARY KEY (`id`),
-		UNIQUE KEY `audit_destination` (`audit_id`, `destination_fingerprint`),
-		KEY `event_uuid` (`event_uuid`),
-		KEY `state_next_attempt` (`state`, `next_attempt`),
-		KEY `destination_state` (`destination_fingerprint`, `state`),
-		CONSTRAINT `fk_audit_syslog_event`
-			FOREIGN KEY (`audit_id`) REFERENCES `audit_log` (`id`)
-			ON DELETE CASCADE)
-		ENGINE=InnoDB
-		COMMENT='Remote Syslog delivery queue for audit events'");
-
-	db_execute("ALTER TABLE audit_syslog_delivery
-		ADD COLUMN IF NOT EXISTS node_id varchar(255) NOT NULL DEFAULT 'cacti'
-		AFTER destination_fingerprint");
-	db_execute('ALTER TABLE audit_syslog_delivery
-		ADD COLUMN IF NOT EXISTS poller_id varchar(64) DEFAULT NULL
-		AFTER node_id');
-}
-
-/**
- * Adds every column and index that audit_log has accumulated since its
- * original schema (uuid/correlation id, event classification fields,
- * outcome/target fields, timing fields, integrity hash, external-
- * delivery counters), each guarded by an existence check so it is safe
- * to run repeatedly. Called from audit_check_upgrade() during local
- * upgrades and from audit_replicate_out() when replicating the schema to
- * a remote poller.
- *
- * @param mixed $rcnn_id The remote connection id to apply the DDL
- *                       against, or false for the local database;
- *                       defaults to false.
- *
- * @return void
- */
-function audit_upgrade_event_schema(mixed $rcnn_id = false): void {
-	$remote  = $rcnn_id !== false;
-	$args    = $remote ? [true, $rcnn_id] : [];
-	$columns = [
-		'event_uuid char(36) DEFAULT NULL',
-		'correlation_id char(36) DEFAULT NULL',
-		"event_type varchar(100) NOT NULL DEFAULT 'cacti.request'",
-		"event_category varchar(40) NOT NULL DEFAULT 'configuration'",
-		"severity varchar(12) NOT NULL DEFAULT 'info'",
-		"actor_type varchar(20) NOT NULL DEFAULT 'user'",
-		'target_type varchar(64) DEFAULT NULL',
-		'target_id varchar(128) DEFAULT NULL',
-		"operation_outcome varchar(20) NOT NULL DEFAULT 'unknown'",
-		'outcome_reason varchar(255) DEFAULT NULL',
-		'http_method varchar(10) DEFAULT NULL',
-		'http_status smallint unsigned DEFAULT NULL',
-		'completed_time datetime(6) DEFAULT NULL',
-		'duration_ms bigint unsigned DEFAULT NULL',
-		'details longblob',
-		'previous_hash char(64) DEFAULT NULL',
-		'integrity_hash char(64) DEFAULT NULL',
-		'external_attempts int unsigned NOT NULL DEFAULT 0',
-		'external_last_attempt datetime(6) DEFAULT NULL',
-		'external_delivered_time datetime(6) DEFAULT NULL'
-	];
-
-	foreach ($columns as $definition) {
-		call_user_func_array('db_execute', array_merge(
-			['ALTER TABLE audit_log ADD COLUMN IF NOT EXISTS ' . $definition],
-			$args
-		));
-	}
-
-	$indexes = [
-		'event_uuid'        => ['UNIQUE INDEX', ['event_uuid']],
-		'correlation_id'    => ['INDEX', ['correlation_id']],
-		'event_type'        => ['INDEX', ['event_type']],
-		'operation_outcome' => ['INDEX', ['operation_outcome']],
-		'external_status'   => ['INDEX', ['external_status']]
-	];
-
-	foreach ($indexes as $name => $definition) {
-		if (!db_index_exists('audit_log', $name, false, $remote ? $rcnn_id : false)) {
-			db_add_index('audit_log', $definition[0], $name, $definition[1], true, $remote ? $rcnn_id : false);
-		}
-	}
-}
 
 /**
  * Reads this plugin's INFO file and returns its [info] section. Used by
@@ -1428,4 +1023,174 @@ function audit_draw_navigation_text(array $nav): array {
 	];
 
 	return $nav;
+}
+
+/**
+ * Removes files and directories that a previous version of this plugin
+ * shipped but that have since moved or been deleted, using the tombstone
+ * and whitelist lists in manifest.json. Whitelisted (user-data) paths and
+ * any VCS metadata (.git*) are never touched; the dev-only tests/ tree is
+ * removed. Any path that resolves outside the plugin directory (a tampered
+ * manifest.json) is refused, and any file/directory that cannot be removed
+ * (e.g. read-only) is reported to the Cacti log. Any top-level entry that is
+ * neither expected nor a tombstone nor whitelisted is logged to the Cacti
+ * log and left in place. Called on a plugin version change.
+ *
+ * @return void
+ *
+ * @global array $config Cacti global configuration array; used to resolve
+ *                       the plugin directory.
+ */
+function audit_prune_files(): void {
+	global $config;
+
+	$plugin_dir    = $config['base_path'] . '/plugins/audit';
+	$manifest_path = $plugin_dir . '/manifest.json';
+
+	if (!is_readable($manifest_path)) {
+		return;
+	}
+
+	$manifest = json_decode((string) file_get_contents($manifest_path), true);
+
+	if (!is_array($manifest)) {
+		cacti_log('WARNING: audit manifest.json could not be parsed; skipping file prune', false, 'AUDIT');
+
+		return;
+	}
+
+	$tombstones = isset($manifest['tombstones']) && is_array($manifest['tombstones']) ? $manifest['tombstones'] : [];
+	$expected   = isset($manifest['expected'])   && is_array($manifest['expected'])   ? $manifest['expected']   : [];
+	$whitelist  = isset($manifest['whitelist'])  && is_array($manifest['whitelist'])  ? $manifest['whitelist']  : [];
+
+	$protected = function (string $rel) use ($whitelist): bool {
+		if (strncmp($rel, '.git', 4) === 0 || strncmp($rel, '.md', 3) === 0) {
+			return true;
+		}
+
+		foreach ($whitelist as $entry) {
+			$entry = trim((string) $entry, '/');
+
+			if ($entry !== '' && ($rel === $entry
+				|| strncmp($rel, $entry . '/', strlen($entry) + 1) === 0
+				|| strncmp($entry, $rel . '/', strlen($rel) + 1) === 0)) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	// Security: resolve the plugin directory so a tampered manifest.json
+	// cannot steer the prune outside of it.
+	$plugin_real = realpath($plugin_dir);
+
+	// Remove tombstoned (moved/deleted) paths plus the dev-only tests/
+	// tree and the phpunit.xml test configuration.
+	$remove   = $tombstones;
+	$remove[] = 'tests/';
+	$remove[] = 'phpunit.xml';
+
+	foreach ($remove as $rel) {
+		$rel = trim((string) $rel, '/');
+
+		if ($rel === '' || $protected($rel)) {
+			continue;
+		}
+
+		// A tombstone must never contain '.'/'..' segments; a tampered manifest
+		// could use them to escape the plugin directory or target its root.
+		$segments = explode('/', $rel);
+
+		if (in_array('.', $segments, true) || in_array('..', $segments, true)) {
+			cacti_log(sprintf('WARNING: audit prune refused to remove %s: path contains a traversal segment (tampered manifest.json?)', $rel), false, 'AUDIT');
+
+			continue;
+		}
+
+		$path = $plugin_dir . '/' . $rel;
+
+		if (!is_link($path) && !file_exists($path)) {
+			continue;
+		}
+
+		// Refuse any path that, after resolving symlinks and ../ segments,
+		// escapes the plugin directory (protects user data from a tampered
+		// manifest.json).
+		$anchor = is_link($path) ? dirname($path) : $path;
+		$real   = realpath($anchor);
+
+		if ($real === false || ($real !== $plugin_real && strncmp($real, $plugin_real . DIRECTORY_SEPARATOR, strlen((string) $plugin_real) + 1) !== 0)) {
+			cacti_log(sprintf('WARNING: audit prune refused to remove %s: path resolves outside the plugin directory (tampered manifest.json?)', $rel), false, 'AUDIT');
+
+			continue;
+		}
+
+		if (is_dir($path) && !is_link($path)) {
+			$removed = audit_rmtree($path);
+		} else {
+			$removed = @unlink($path);
+		}
+
+		if (!$removed) {
+			cacti_log(sprintf('WARNING: audit upgrade could not remove %s (check file/directory permissions)', $rel), false, 'AUDIT');
+		}
+	}
+
+	// Surface any top-level entry the manifest does not account for.
+	$known = [];
+
+	foreach (array_merge($expected, $tombstones) as $entry) {
+		$top = explode('/', trim((string) $entry, '/'))[0];
+
+		if ($top !== '') {
+			$known[$top] = true;
+		}
+	}
+
+	$entries = scandir($plugin_dir);
+
+	foreach (($entries !== false ? $entries : []) as $entry) {
+		if ($entry === '.' || $entry === '..' || $entry === 'tests' || $entry === 'phpunit.xml' || $protected($entry) || isset($known[$entry])) {
+			continue;
+		}
+
+		cacti_log(sprintf('WARNING: audit upgrade found a file/directory not described in manifest.json: %s (left in place)', $entry), false, 'AUDIT');
+	}
+}
+
+/**
+ * Recursively deletes a directory and its contents. Symlinks are removed
+ * without being followed. Helper for audit_prune_files().
+ *
+ * @param string $dir Absolute path to the directory to remove.
+ *
+ * @return bool True if the directory and everything under it was removed;
+ *              false if any entry could not be deleted.
+ */
+function audit_rmtree(string $dir): bool {
+	$entries = scandir($dir);
+	$ok      = true;
+
+	foreach (($entries !== false ? $entries : []) as $entry) {
+		if ($entry === '.' || $entry === '..') {
+			continue;
+		}
+
+		$path = $dir . '/' . $entry;
+
+		if (is_dir($path) && !is_link($path)) {
+			if (!audit_rmtree($path)) {
+				$ok = false;
+			}
+		} elseif (!@unlink($path)) {
+			$ok = false;
+		}
+	}
+
+	if (!@rmdir($dir)) {
+		$ok = false;
+	}
+
+	return $ok;
 }

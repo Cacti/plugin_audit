@@ -16,8 +16,8 @@ describe('prepared statement consistency in audit', function () {
 	it('documents database helper usage in all plugin files', function () {
 		$targetFiles = [
 		'audit.php',
-		'audit_functions.php',
-		'audit_syslog.php',
+		'includes/functions.php',
+		'includes/syslog.php',
 		'setup.php',
 		];
 

@@ -160,6 +160,11 @@ foreach ($clover->xpath('//file') as $file) {
  * Empty by default; add entries per repository as the need arises.
  */
 $unmeasured_allowlist = [
+	// Schema/DB cluster relocated verbatim from setup.php. Its core table and
+	// user_log index paths are exercised by SetupIndexTest/AuditInstallHooksTest,
+	// but the remote-poller ($rcnn_id) replication and identity-detection
+	// branches are not reachable from the isolated unit process.
+	'includes/database.php',
 ];
 $unmeasured            = array_values(array_diff(array_keys($changed), array_keys($measured)));
 $unexpected_unmeasured = array_values(array_diff($unmeasured, $unmeasured_allowlist));

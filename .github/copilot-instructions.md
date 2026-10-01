@@ -4,7 +4,7 @@
 
 When generating code for this repository:
 
-1. **Version Compatibility**: This is a Cacti plugin (`audit`, version 1.5) targeting Cacti 1.2.32+
+1. **Version Compatibility**: This is a Cacti plugin (`audit`, version 1.5) targeting Cacti 1.2.29+
 2. **Context Files**: Prioritize patterns and standards defined in this file (`.github/copilot-instructions.md`)
 3. **Codebase Patterns**: When context files don't provide specific guidance, scan the codebase for established patterns
 4. **Architectural Consistency**: Maintain plugin-based architecture extending Cacti core
@@ -14,7 +14,7 @@ When generating code for this repository:
 
 ### Core Technologies
 - **PHP**: 8.1-8.3 (CI matrix)
-- **Platform**: Cacti Plugin Architecture (Cacti 1.2.32+) — logs GUI and CLI activities to an audit trail
+- **Platform**: Cacti Plugin Architecture (Cacti 1.2.29+) — logs GUI and CLI activities to an audit trail
 - **Database**: MySQL 8.0 (CI) / MariaDB, InnoDB engine
 
 ### Key Dependencies
@@ -24,17 +24,16 @@ When generating code for this repository:
 ## Project Structure
 
 ```
-audit/                    # Repository root (install to plugins/audit/ in Cacti)
-├── js/                     # Client-side helpers
-├── locales/                  # Internationalization files
-├── phpstan/                     # PHPStan configuration/baseline
-├── tests/                          # Test suite
-├── audit.php                         # Web UI for viewing/exporting/purging audit logs
-├── audit_functions.php                 # audit_config_insert() (main logger), audit_process_page_data()
-├── audit_syslog.php                      # Syslog delivery integration
-├── INFO                                    # Plugin metadata (name, version, compat)
+audit/        # Repository root (install to plugins/audit/ in Cacti)
+├── js/       # Client-side helpers
+├── locales/  # Internationalization files
+├── phpstan/  # PHPStan configuration/baseline
+├── tests/    # Test suite
+├── includes/ # database.php (schema), functions.php (main logger/API), syslog.php (Syslog delivery)
+├── audit.php # Web UI for viewing/exporting/purging audit logs
+├── INFO      # Plugin metadata (name, version, compat)
 ├── README.md
-└── setup.php                                 # Plugin lifecycle (install/uninstall/upgrade) and hook registration
+└── setup.php # Plugin lifecycle (install/uninstall/upgrade) and hook registration
 ```
 
 ## Naming Conventions
@@ -212,3 +211,7 @@ existing code or adding new code, not just in dedicated cleanup passes:
   line, `@param` lines, a blank comment line, then `@return`. Infer parameter/return types from
   actual usage; don't change the function's real type-hints in the same pass (let static analysis
   flag mismatches separately). Skip vendored third-party library files.
+
+## File manifest & upgrade pruning
+
+The plugin ships a root `manifest.json` with three arrays: `tombstones` (files/directories older versions shipped that have since moved or been removed), `expected` (the top-level files and directories that ship today, directories written with a trailing `/`), and `whitelist` (paths holding user data that must never be touched). Keep `expected` current: CI runs `tests/bin/validate-manifest.php`, which fails on any drift between `expected` and the real top-level tree (it ignores `tests/`, `phpunit.xml`, `.git*`, `.md*`, and whitelisted paths). Custom customer CSS/theme files belong in `expected`, and stylesheets live in `css/` (not `themes/`). On upgrade, `audit_prune_files()` deletes the tombstoned paths, the dev-only `tests/` tree, and the `phpunit.xml` test config, leaves `whitelist`, `.git*`, and `.md*` alone, and logs (without removing) any top-level entry the manifest does not account for. As a safety measure it refuses any tombstone that resolves outside the plugin directory (a tampered manifest.json) and logs a warning for any file or directory it cannot remove. When you move or delete a shipped file, add its old path to `tombstones` and update `expected` in the same change.

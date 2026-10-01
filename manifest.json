@@ -1,0 +1,21 @@
+{
+    "tombstones": [
+        "audit_functions.php",
+        "audit_syslog.php"
+    ],
+    "expected": [
+        "CHANGELOG.md",
+        "INFO",
+        "LICENSE",
+        "README.md",
+        "audit.php",
+        "audit_auth_indexes.php",
+        "includes/",
+        "index.php",
+        "js/",
+        "locales/",
+        "manifest.json",
+        "setup.php"
+    ],
+    "whitelist": []
+}
