@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-28 16:04-0400\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
 "PO-Revision-Date: 2024-06-23 04:08+0000\n"
 "Last-Translator: tql <fttx31@126.com>\n"
 "Language-Team: Chinese (Simplified) <http://translate.cacti.net/projects/cacti/audit/zh_Hans/>\n"
@@ -366,27 +366,27 @@ msgstr ""
 msgid "Last Error:"
 msgstr "启用Audit Log"
 
-#: audit_functions.php
+#: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
 msgstr ""
 
-#: audit_functions.php
+#: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
 msgstr ""
 
-#: audit_functions.php
+#: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
 msgstr ""
 
-#: audit_functions.php
+#: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
 msgstr ""
 
-#: audit_functions.php
+#: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
 msgstr ""
 
-#: audit_functions.php
+#: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
 msgstr ""
