@@ -7,7 +7,7 @@
 
 /*
  * Unit coverage for audit_check_upgrade()'s version-drift path in setup.php,
- * including the upgrade-time manifest prune (plugin_audit_prune_files()).
+ * including the upgrade-time manifest prune (audit_prune_files()).
  */
 
 beforeAll(function () {
