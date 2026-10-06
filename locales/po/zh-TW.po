@@ -4,39 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2026-01-16 03:18+0000\n"
-"Last-Translator: sucharlie <su.charlie@gmail.com>\n"
-"Language-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\n"
-"Language: zh-TW\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-06 08:18+0000\nLast-Translator: YU HAO HUANG <mix@b51.tw>\nLanguage-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog 測試記錄已寫入本機 socket。接收端儲存狀態尚未確認。"
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog 測試失敗: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "重設 %d 個無法遞送的訊息佇列(DLQ) Syslog 遞送以供重試。"
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "審核事件日誌"
+msgstr "未找到審核事件。"
 
 #: audit.php
 msgid "Page:"
@@ -60,76 +46,67 @@ msgid "Action:"
 msgstr "行動："
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "活動時間"
+msgstr "日誌類型："
 
 #: audit.php
-#, fuzzy
 msgid "Event ID:"
-msgstr "活動"
+msgstr "日誌ID："
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "請求狀態："
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "操作結果："
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "狀態原因："
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "外部檔案傳遞："
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "啟用審核日誌"
+msgstr "外部檔案錯誤："
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "遠端 Syslog 傳送："
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog 嘗試次數："
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog Socket 寫入："
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog 錯誤："
 
 #: audit.php
-#, fuzzy
 msgid "Script:"
-msgstr "腳本"
+msgstr "腳本："
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "記錄資料："
+msgstr "儲存的資料："
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "儲存的請求資料不是有效的 JSON：%s"
 
 #: audit.php
 msgid "Attrib"
 msgstr "屬性"
 
 #: audit.php
-#, fuzzy
 msgid "Value"
 msgstr "值"
 
