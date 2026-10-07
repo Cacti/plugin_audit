@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-06 08:18+0000\nLast-Translator: YU HAO HUANG <mix@b51.tw>\nLanguage-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-07 09:18+0000\nLast-Translator: YU HAO HUANG <mix@b51.tw>\nLanguage-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -117,69 +117,57 @@ msgstr "記錄資料："
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "稽核日誌清除作業（%s）已移除 %d 筆事件，並保護 %d 筆尚未完成 Syslog 傳送的事件。"
 
 #: audit.php setup.php
 msgid "Audit Log"
 msgstr "審核日誌"
 
 #: audit.php
-#, fuzzy
 msgid "Search"
 msgstr "搜尋"
 
 #: audit.php
-#, fuzzy
 msgid "Page"
 msgstr "頁面"
 
 #: audit.php
-#, fuzzy
 msgid "All"
 msgstr "全部"
 
 #: audit.php
-#, fuzzy
 msgid "User"
 msgstr "使用者"
 
 #: audit.php
-#, fuzzy
 msgid "cli"
-msgstr "經典"
+msgstr "cli命令"
 
 #: audit.php
-#, fuzzy
 msgid "Events"
-msgstr "活動"
+msgstr "事件"
 
 #: audit.php
-#, fuzzy
 msgid "Default"
-msgstr "默认"
+msgstr "預設"
 
 #: audit.php
-#, fuzzy
 msgid "Go"
 msgstr "送出"
 
 #: audit.php
-#, fuzzy
 msgid "Set/Refresh Filters"
 msgstr "設置/刷新過濾器"
 
 #: audit.php
-#, fuzzy
 msgid "Clear"
 msgstr "清除"
 
 #: audit.php
-#, fuzzy
 msgid "Clear Filters"
 msgstr "清除過濾器"
 
 #: audit.php
-#, fuzzy
 msgid "Export"
 msgstr "匯出"
 
@@ -189,10 +177,9 @@ msgstr "導出日誌事件"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "確定要永久清除所有稽核日誌事件嗎？"
 
 #: audit.php
-#, fuzzy
 msgid "Purge"
 msgstr "清除"
 
@@ -213,7 +200,6 @@ msgid "The page where the event was generated."
 msgstr "生成事件的頁面。"
 
 #: audit.php
-#, fuzzy
 msgid "User Name"
 msgstr "使用者名稱"
 
@@ -223,31 +209,27 @@ msgstr "生成事件的用戶。"
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "要求的動作"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "仙人掌行動要求。將鼠標懸停在操作上以查看$ _POST數據。"
+msgstr "所要求的 Cacti 動作。將滑鼠游標停留在該動作上以檢視請求資料。"
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "請求狀態"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "請求處理狀態；完成並不保證每項作業皆已成功。"
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "外部檔案傳遞"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "輸入外部審核日誌檔的路徑。"
+msgstr "選用之外部稽核記錄檔的傳遞狀態。遠端 Syslog 健康狀態會另行顯示。"
 
 #: audit.php
 msgid "User Agent"
@@ -258,7 +240,6 @@ msgid "The browser type of the requester."
 msgstr "請求者的瀏覽器類型。"
 
 #: audit.php
-#, fuzzy
 msgid "IP Address"
 msgstr "IP 位址"
 
@@ -275,9 +256,8 @@ msgid "The time the Event took place."
 msgstr "事件發生的時間。"
 
 #: audit.php
-#, fuzzy
 msgid "N/A"
-msgstr "不适用"
+msgstr "N/A"
 
 #: audit.php
 msgid "No Audit Log Events Found"
