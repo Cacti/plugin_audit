@@ -633,10 +633,14 @@ function audit_log_valid_event(): bool {
 function audit_utilities_array(): void {
 	global $utilities;
 
-	if (version_compare(CACTI_VERSION, '1.3.0', '<')) {
+	// Cacti 1.3+ adds the Audit Log link through config_arrays instead of this
+	// legacy Utilities hook. Detect 1.3 via a class it introduced rather than a
+	// CACTI_VERSION string (a develop build can report < 1.3.0) so the entry is
+	// not added a second time.
+	if (!class_exists('CactiTableFilter')) {
 		if (api_plugin_user_realm_auth('audit.php')) {
 			$utilities[__('Technical Support', 'audit')] = array_merge(
-				$utilities[__('Technical Support', 'audit')],
+				$utilities[__('Technical Support', 'audit')] ?? [],
 				[
 					__('View Audit Log', 'audit') => [
 						'link'        => 'plugins/audit/audit.php',
