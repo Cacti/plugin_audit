@@ -639,10 +639,8 @@ function audit_utilities_array(): void {
 	// not added a second time.
 	if (!class_exists('CactiTableFilter')) {
 		if (api_plugin_user_realm_auth('audit.php')) {
-			$section = __('Technical Support', 'audit');
-
-			$utilities[$section] = array_merge(
-				$utilities[$section] ?? [],
+			$utilities[__('Technical Support', 'audit')] = array_merge(
+				$utilities[__('Technical Support', 'audit')] ?? [],
 				[
 					__('View Audit Log', 'audit') => [
 						'link'        => 'plugins/audit/audit.php',
