@@ -402,11 +402,11 @@ function audit_check_upgrade(): void {
 			[$info['version'], $info['longname'], $info['author'], $info['homepage'], $info['name']]);
 
 		// hook for table replication
-		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', 1);
-		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', 1);
-		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', 1);
-		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php', 1);
-		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'includes/functions.php', 1);
+		api_plugin_register_hook('audit', 'replicate_out', 'audit_replicate_out', 'setup.php', true);
+		api_plugin_register_hook('audit', 'is_console_page', 'audit_is_console_page', 'setup.php', true);
+		api_plugin_register_hook('audit', 'logout_pre_session_destroy', 'audit_logout_pre_session_destroy', 'setup.php', true);
+		api_plugin_register_hook('audit', 'logout_post_session_destroy', 'audit_logout_post_session_destroy', 'includes/functions.php', true);
+		api_plugin_register_hook('audit', 'custom_denied', 'audit_custom_denied', 'includes/functions.php', true);
 	}
 }
 
