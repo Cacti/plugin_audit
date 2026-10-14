@@ -98,12 +98,12 @@ it('keeps the required schema and replication requirements', function () use ($s
 	}
 });
 
-it('ships authentication auditing through the 1.6 upgrade path', function () {
+it('ships authentication auditing through the 1.7 upgrade path', function () {
 	$info      = parse_ini_file(realpath(__DIR__ . '/../../INFO'), true);
 	$changelog = plugin_test_read_source('CHANGELOG.md');
 
-	expect($info['info']['version'] ?? null)->toBe('1.6');
-	expect($changelog)->toContain('--- 1.6 ---');
+	expect($info['info']['version'] ?? null)->toBe('1.7');
+	expect($changelog)->toContain('--- 1.7 ---');
 });
 
 it('does not index core user_log on fresh installation while auditing is disabled', function () use ($setup) {
