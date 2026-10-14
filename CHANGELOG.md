@@ -2,6 +2,9 @@
 
 --- develop ---
 
+--- 1.7 ---
+
+* issue: Bump the plugin version to 1.7 so audit_check_upgrade() detects a version change and runs the manifest file prune (audit_prune_files()); without the bump, installs already recording 1.6 never prune the tombstoned audit_functions.php/audit_syslog.php, which fatally redeclare the functions now living in includes/ and disable the plugin
 * bug: Pass a boolean (not the integer 1) to api_plugin_register_hook()'s $enable argument so the hook registration stays type-correct under Cacti 1.3's strict bool type-hint (the int only coerces while the file lacks declare(strict_types=1))
 * bug: Replace the audit_utilities_array() CACTI_VERSION gate with a 1.3 feature-detect (CactiTableFilter), so a develop build that reports a version comparing < 1.3.0 no longer adds the Audit Log Utilities-page entry a second time (nor runs array_merge() against an unset Technical Support section) when 1.3 already lists it via config_arrays
 * bug: Skip audit logging on CLI/poller requests until the `request_status` column exists, instead of emitting "Unknown column 'request_status'" errors when the audit_log schema migration (which only runs on plugins.php/audit.php page loads) has not yet applied; likewise make the shutdown-time request finalizer (`audit_finalize_request()`), which writes `request_status`, best-effort (its writes pass `$log = false`) so it fails quietly instead of logging "Table 'audit_log' doesn't exist" when the table was dropped (e.g. plugin uninstall) after `db_table_exists()`'s request-scoped cache was primed
