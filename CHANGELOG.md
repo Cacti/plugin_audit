@@ -1,7 +1,7 @@
 # ChangeLog
 
 --- develop ---
-* dev: Pin CI fixtures and shared test dependencies, disable persisted checkout credentials, and limit workflow permissions and runtime
+* dev: Pin the CI database image and shared test dependencies, disable persisted checkout credentials, and limit workflow permissions and runtime
 
 --- 1.7 ---
 
