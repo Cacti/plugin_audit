@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-21 19:18+0000\nLast-Translator: Daniel Nylander <daniel@danielnylander.se>\nLanguage-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\nLanguage: sv-SE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-26 12:19+0000\nLast-Translator: Daniel Nylander <daniel@danielnylander.se>\nLanguage-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\nLanguage: sv-SE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -22,7 +22,7 @@ msgstr "Återställ %d Syslog-leveranser i fellådan för nytt försök."
 
 #: audit.php
 msgid "Audit event not found."
-msgstr "Revisionshändelse hittades inte."
+msgstr "Granskningshändelsen hittades inte."
 
 #: audit.php
 msgid "Page:"
@@ -99,7 +99,7 @@ msgstr "Lagrade data"
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr "Lagrad begäransdata är inte giltig JSON: %s"
+msgstr "De lagrade uppgifterna i begäran är inte giltig JSON: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -140,7 +140,7 @@ msgstr "Användare"
 
 #: audit.php
 msgid "cli"
-msgstr "cli"
+msgstr "Kommandorad"
 
 #: audit.php
 msgid "Events"
@@ -188,7 +188,7 @@ msgstr "Rensa logghändelser"
 
 #: audit.php
 msgid "Audit Events"
-msgstr "Revisionshändelser"
+msgstr "Granskningshändelser"
 
 #: audit.php
 msgid "Page Name"
@@ -324,7 +324,7 @@ msgstr "Testa Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr "Försök med fellåda igen"
+msgstr "Försök skicka fellådans poster igen"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
@@ -381,7 +381,7 @@ msgstr "Visa granskningsloggen"
 
 #: setup.php
 msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
-msgstr "Tillåter administratörer att visa förändringsaktivitet på Cacti-servern. Administratörer kan också exportera revisionsloggen för analysändamål."
+msgstr "Ger administratörer möjlighet att se ändringar på Cacti-servern. Administratörer kan även exportera granskningsloggen för analys."
 
 #: setup.php
 msgid "Indefinitely"
@@ -414,7 +414,7 @@ msgstr "%d år"
 
 #: setup.php
 msgid "Utilities"
-msgstr "Tillbehör"
+msgstr "Verktyg"
 
 #: setup.php
 msgid "Audit Plugin"
@@ -438,7 +438,7 @@ msgstr "Lagring av granskningslogg"
 
 #: setup.php
 msgid "How long do you wish Audit Log entries to be retained?"
-msgstr "Hur länge önskar du att revisionslogguppgifter ska behållas?"
+msgstr "Hur länge ska poster i granskningsloggen behållas?"
 
 #: setup.php
 msgid "External Audit Log"
@@ -514,7 +514,7 @@ msgstr "Batchstorlek för import av användarlogg"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr "Högsta antal rader från user_log som importeras och utgångna markeringar som återtas per poller-cykel, från 1 till 5000. Markeringstillstånd behålls i sju dagar, så större batchar ökar både den högsta belastningen på pollern och den begränsade storleken på tillståndstabellen för sju dagar."
+msgstr "Högsta antal rader från user_log som importeras och utgångna markeringar som tas bort per insamlingscykel, från 1 till 5000. Markeringarnas tillstånd sparas i sju dagar, så större batchar ökar både den högsta belastningen på insamlingsprocessen och storleken på tillståndstabellen med data för högst sju dagar."
 
 #: setup.php
 msgid "Remote Syslog"
@@ -678,11 +678,11 @@ msgstr "Flytta en post till fellådan efter så här många försök, från 1 ti
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr "Batchstorlek för poller"
+msgstr "Batchstorlek för insamling"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr "Högsta antal förfallna poster som behandlas per poller-cykel, från 1 till 1000."
+msgstr "Högsta antal poster som ska behandlas per insamlingscykel, från 1 till 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
@@ -702,11 +702,11 @@ msgstr "Visa en varning om problem när så här många poster ligger i fellåda
 
 #: setup.php
 msgid "Audit"
-msgstr "Revision"
+msgstr "Granskning"
 
 #: setup.php
 msgid "Audit Event Log"
-msgstr "Revisionshändelselogg"
+msgstr "Logg över granskningshändelser"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"
