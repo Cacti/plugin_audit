@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-26 12:19+0000\nLast-Translator: Daniel Nylander <daniel@danielnylander.se>\nLanguage-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\nLanguage: sv-SE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-10-27 13:18+0000\nLast-Translator: Daniel Nylander <daniel@danielnylander.se>\nLanguage-Team: Swedish <https://translate.cacti.net/projects/cacti/audit/sv/>\nLanguage: sv-SE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -220,7 +220,7 @@ msgstr "Status för begäran"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr "Tillstånd för begärans behandling; slutförande garanterar inte att alla åtgärder lyckades."
+msgstr "Status för behandlingen av begäran. Att behandlingen är slutförd garanterar inte att alla åtgärder lyckades."
 
 #: audit.php
 msgid "External File Delivery"
@@ -228,7 +228,7 @@ msgstr "Leverans till extern fil"
 
 #: audit.php
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Leveransstatus för den valfria externa granskningsloggfilen. Fjärr-Syslogs hälsa visas separat."
+msgstr "Leveransstatus för den valfria externa granskningsloggfilen. Status för fjärr-Syslog visas separat."
 
 #: audit.php
 msgid "User Agent"
@@ -340,7 +340,7 @@ msgstr "Senaste fel:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr "Cacti registrerar detta resultat innan kontot har kontrollerats som aktiverat, auktoriseringen för domänen eller slutförandet av tvåfaktorsautentiseringen har verifierats; en session kan därför saknas."
+msgstr "Cacti registrerar detta resultat innan det har kontrollerats om kontot är aktiverat, om användaren har behörighet för domänen och om tvåfaktorsautentiseringen har slutförts. En session kanske därför inte har upprättats."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
@@ -646,7 +646,7 @@ msgstr "TLS-klientens privata nyckel"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr "Valfri läsbar PEM-sökväg för privat nyckel. Nyckelns innehåll lagras aldrig i granskningshändelser."
+msgstr "Valfri sökväg till en läsbar privat nyckel i PEM-format. Nyckelns innehåll lagras aldrig i granskningshändelser."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
