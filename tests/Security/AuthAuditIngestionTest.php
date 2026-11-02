@@ -584,11 +584,12 @@ it('processes all rows across multiple timestamp pages in order', function () {
 it('does not double-record rows claimed by a concurrent poller', function () {
 	$state = &audit_auth_test_environment();
 
+	$concurrent_time                      = audit_auth_test_recent_datetime('14:00:00');
 	$state['user_log_rows'] = [
-		['username' => 'concurrent', 'user_id' => 42, 'result' => 1, 'ip' => '10.0.0.99', 'time' => '2026-07-25 14:00:00'],
+		['username' => 'concurrent', 'user_id' => 42, 'result' => 1, 'ip' => '10.0.0.99', 'time' => $concurrent_time],
 	];
 
-	$concurrent_epoch                     = (int) strtotime('2026-07-25 14:00:00 UTC');
+	$concurrent_epoch                     = (int) strtotime($concurrent_time . ' UTC');
 	$concurrent_key                       = audit_auth_test_source_key('concurrent', 42, $concurrent_epoch);
 	$state['state_rows'][$concurrent_key] = [
 		'source_username' => 'concurrent',
@@ -597,24 +598,43 @@ it('does not double-record rows claimed by a concurrent poller', function () {
 		'source_time'     => $concurrent_epoch,
 		'audit_id'        => 999,
 		'retry_count'     => 0,
-		'processed_time'  => '2026-07-25 14:00:01',
+		'processed_time'  => audit_auth_test_recent_datetime('14:00:01'),
 	];
 
 	audit_poll_user_log();
 	expect($state['recorded_events'])->toBe([]);
+
+	// Positive control: the same in-window row IS ingested once the concurrent
+	// poller's claim is cleared, proving the first cycle was suppressed by
+	// deduplication rather than silently aged out by the retention cutoff.
+	unset($state['state_rows'][$concurrent_key]);
+	audit_poll_user_log();
+	expect($state['recorded_events'])->toHaveCount(1);
+	$concurrent_details = json_decode((string) $state['recorded_events'][0]['params'][24], true);
+	expect($concurrent_details['username'])->toBe('concurrent');
 });
 
 it('does not create a duplicate event when a concurrent claim is lost', function () {
 	$state = &audit_auth_test_environment();
 
+	$racing_time = audit_auth_test_recent_datetime('14:01:00');
 	$state['user_log_rows'] = [
-		['username' => 'racing', 'user_id' => 43, 'result' => 1, 'ip' => '10.0.0.100', 'time' => '2026-07-25 14:01:00'],
+		['username' => 'racing', 'user_id' => 43, 'result' => 1, 'ip' => '10.0.0.100', 'time' => $racing_time],
 	];
 	$state['state_conflict'] = true;
 
 	audit_poll_user_log();
 	expect($state['recorded_events'])->toBe([]);
 	expect($state['state_rows'])->toBe([]);
+
+	// Positive control: once the claim race is won, the same in-window row is
+	// ingested exactly once, proving the first cycle was blocked by the lost
+	// claim rather than filtered out by the retention cutoff.
+	$state['state_conflict'] = false;
+	audit_poll_user_log();
+	expect($state['recorded_events'])->toHaveCount(1);
+	$racing_details = json_decode((string) $state['recorded_events'][0]['params'][24], true);
+	expect($racing_details['username'])->toBe('racing');
 });
 
 it('keeps a failed audit insert discoverable behind later successful rows and retries it', function () {
@@ -743,8 +763,8 @@ it('excludes rows older than the retention cutoff from initial ingestion', funct
 
 	audit_test_set_config_option('audit_retention', '30');
 	$state['user_log_rows'] = [
-		['username' => 'old', 'user_id' => 1, 'result' => 1, 'ip' => '10.0.0.1', 'time' => '2026-06-01 00:00:00'],
-		['username' => 'recent', 'user_id' => 2, 'result' => 1, 'ip' => '10.0.0.2', 'time' => '2026-07-24 00:00:00'],
+		['username' => 'old', 'user_id' => 1, 'result' => 1, 'ip' => '10.0.0.1', 'time' => gmdate('Y-m-d H:i:s', time() - 60 * 86400)],
+		['username' => 'recent', 'user_id' => 2, 'result' => 1, 'ip' => '10.0.0.2', 'time' => audit_auth_test_recent_datetime('00:00:00')],
 	];
 
 	audit_poll_user_log();
@@ -759,7 +779,10 @@ it('excludes rows older than the retention cutoff from initial ingestion', funct
 		}
 	}
 
+	// The pre-cutoff row is dropped while the in-window row is ingested, so a
+	// reject-all implementation that drops both cannot pass this scenario.
 	expect($recorded_usernames)->not->toContain('old');
+	expect($recorded_usernames)->toContain('recent');
 });
 
 it('normalizes event time to UTC, preserves identity across timezone rendering, and bounds replay scans', function () {
