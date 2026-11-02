@@ -46,6 +46,31 @@ function audit_auth_test_source_key(string $username, int $user_id, int $source_
 }
 
 /**
+ * Builds a fixture timestamp anchored to a fixed-but-recent UTC date.
+ *
+ * New-row ingestion only selects source rows newer than the retention
+ * lower bound (audit_retention, default 90 days), so fixtures must stay
+ * inside that window no matter when the suite runs. Absolute calendar
+ * dates silently aged out of the window and made every new-row ingestion
+ * scenario select nothing; deriving the date from the current time keeps
+ * the fixtures permanently valid. The date is cached so every fixture and
+ * assertion in a single run agrees even across a midnight boundary.
+ *
+ * @param string $time Time-of-day suffix, e.g. '10:00:01'.
+ *
+ * @return string
+ */
+function audit_auth_test_recent_datetime(string $time): string {
+	static $date = null;
+
+	if ($date === null) {
+		$date = gmdate('Y-m-d', time() - 2 * 86400);
+	}
+
+	return $date . ' ' . $time;
+}
+
+/**
  * @param array $state
  *
  * @return array
@@ -463,10 +488,10 @@ it('records one event per new user_log row and deduplicates on re-poll', functio
 	$state = &audit_auth_test_environment();
 
 	$state['user_log_rows'] = [
-		['username' => 'alice', 'user_id' => 5, 'result' => 1, 'ip' => '10.0.0.1', 'time' => '2026-07-25 10:00:01'],
-		['username' => 'bob',   'user_id' => 0, 'result' => 0, 'ip' => '10.0.0.2', 'time' => '2026-07-25 10:00:02'],
-		['username' => 'carol', 'user_id' => 7, 'result' => 2, 'ip' => '10.0.0.3', 'time' => '2026-07-25 10:00:03'],
-		['username' => 'dave',  'user_id' => 0, 'result' => 3, 'ip' => '10.0.0.4', 'time' => '2026-07-25 10:00:04'],
+		['username' => 'alice', 'user_id' => 5, 'result' => 1, 'ip' => '10.0.0.1', 'time' => audit_auth_test_recent_datetime('10:00:01')],
+		['username' => 'bob',   'user_id' => 0, 'result' => 0, 'ip' => '10.0.0.2', 'time' => audit_auth_test_recent_datetime('10:00:02')],
+		['username' => 'carol', 'user_id' => 7, 'result' => 2, 'ip' => '10.0.0.3', 'time' => audit_auth_test_recent_datetime('10:00:03')],
+		['username' => 'dave',  'user_id' => 0, 'result' => 3, 'ip' => '10.0.0.4', 'time' => audit_auth_test_recent_datetime('10:00:04')],
 	];
 
 	audit_poll_user_log();
@@ -523,7 +548,7 @@ it('bounds a single poll cycle to the batch size and pages the remainder', funct
 			'user_id'  => $i + 1,
 			'result'   => 0,
 			'ip'       => '10.0.0.10',
-			'time'     => '2026-07-25 12:00:00',
+			'time'     => audit_auth_test_recent_datetime('12:00:00'),
 		];
 	}
 
@@ -545,9 +570,9 @@ it('processes all rows across multiple timestamp pages in order', function () {
 	$state = &audit_auth_test_environment();
 
 	$state['user_log_rows'] = [
-		['username' => 'a', 'user_id' => 1, 'result' => 1, 'ip' => '10.0.0.1', 'time' => '2026-07-25 13:00:00'],
-		['username' => 'b', 'user_id' => 2, 'result' => 0, 'ip' => '10.0.0.2', 'time' => '2026-07-25 13:00:01'],
-		['username' => 'c', 'user_id' => 3, 'result' => 2, 'ip' => '10.0.0.3', 'time' => '2026-07-25 13:00:02'],
+		['username' => 'a', 'user_id' => 1, 'result' => 1, 'ip' => '10.0.0.1', 'time' => audit_auth_test_recent_datetime('13:00:00')],
+		['username' => 'b', 'user_id' => 2, 'result' => 0, 'ip' => '10.0.0.2', 'time' => audit_auth_test_recent_datetime('13:00:01')],
+		['username' => 'c', 'user_id' => 3, 'result' => 2, 'ip' => '10.0.0.3', 'time' => audit_auth_test_recent_datetime('13:00:02')],
 	];
 
 	audit_poll_user_log();
@@ -596,8 +621,8 @@ it('keeps a failed audit insert discoverable behind later successful rows and re
 	$state = &audit_auth_test_environment();
 
 	$state['user_log_rows'] = [
-		['username' => 'failinsert', 'user_id' => 50, 'result' => 1, 'ip' => '10.0.0.50', 'time' => '2026-07-25 15:00:00'],
-		['username' => 'later',      'user_id' => 51, 'result' => 1, 'ip' => '10.0.0.51', 'time' => '2026-07-25 16:00:00'],
+		['username' => 'failinsert', 'user_id' => 50, 'result' => 1, 'ip' => '10.0.0.50', 'time' => audit_auth_test_recent_datetime('15:00:00')],
+		['username' => 'later',      'user_id' => 51, 'result' => 1, 'ip' => '10.0.0.51', 'time' => audit_auth_test_recent_datetime('16:00:00')],
 	];
 	$state['fail_usernames'] = ['failinsert'];
 
@@ -621,7 +646,7 @@ it('does not let a poison retry at its last attempt starve a healthy new row', f
 	$poison_epoch            = (int) strtotime('2026-07-25 16:30:00 UTC');
 	$state['user_log_rows']  = [
 		['username' => 'poison', 'user_id' => 52, 'result' => 1, 'ip' => '10.0.0.52', 'time' => '2026-07-25 16:30:00', 'source_epoch' => $poison_epoch],
-		['username' => 'healthy', 'user_id' => 53, 'result' => 1, 'ip' => '10.0.0.53', 'time' => '2026-07-25 16:31:00'],
+		['username' => 'healthy', 'user_id' => 53, 'result' => 1, 'ip' => '10.0.0.53', 'time' => audit_auth_test_recent_datetime('16:31:00')],
 	];
 	$state['state_rows'][audit_auth_test_source_key('poison', 52, $poison_epoch)] = [
 		'source_username' => 'poison', 'source_user_id' => 52, 'source_epoch' => $poison_epoch,
@@ -648,7 +673,7 @@ it('does not let a poison retry at its last attempt starve a healthy new row', f
 	expect($foundPoison)->toBeTrue();
 
 	audit_cleanup_user_log_state(5, null, true);
-	$healthy_epoch = (int) strtotime('2026-07-25 16:31:00 UTC');
+	$healthy_epoch = (int) strtotime(audit_auth_test_recent_datetime('16:31:00') . ' UTC');
 	$healthy_key   = audit_auth_test_source_key('healthy', 53, $healthy_epoch);
 	expect($state['state_rows'])->toHaveCount(1);
 	expect(isset($state['state_rows'][$healthy_key]))->toBeTrue();
@@ -953,7 +978,7 @@ it('fails closed on guard, bounds, and database-failure branches', function () {
 
 	$state6 = &audit_auth_test_environment();
 	$state6['user_log_rows'] = [
-		['username' => 'claim-failure', 'user_id' => 60, 'result' => 1, 'ip' => '192.0.2.60', 'time' => '2026-07-25 16:00:00'],
+		['username' => 'claim-failure', 'user_id' => 60, 'result' => 1, 'ip' => '192.0.2.60', 'time' => audit_auth_test_recent_datetime('16:00:00')],
 	];
 	$state6['fail_sql'] = ['INSERT IGNORE INTO audit_user_log_state'];
 	audit_poll_user_log();
