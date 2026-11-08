@@ -534,7 +534,7 @@ function audit_poller_bottom(): void {
 					SELECT 1
 					FROM audit_syslog_delivery
 					WHERE audit_syslog_delivery.audit_id = audit_log.id
-					AND audit_syslog_delivery.state IN ('pending', 'retry', 'dead_letter')
+					AND audit_syslog_delivery.state IN ('pending', 'retry', 'sending', 'dead_letter')
 				)",
 				[$cutoff->format('Y-m-d H:i:s')]);
 			$rows = db_affected_rows();

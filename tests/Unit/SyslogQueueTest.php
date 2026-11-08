@@ -11,8 +11,9 @@
  * Behavioral coverage for the audit_* Syslog delivery queue in
  * includes/functions.php/includes/syslog.php: enqueueing a delivery row for a
  * finalized event, retry-identity/backoff calculation, failed-delivery
- * state transitions (retry, dead-letter, sent), manual dead-letter retry,
- * and the poller's stop-after-one-transient-failure batching guard.
+ * state transitions (retry, dead-letter, sent), atomic poller claims and
+ * stale-claim recovery, manual dead-letter retry, and the poller's
+ * stop-after-one-transient-failure batching guard.
  *
  * db_*, read_config_option(), and db_affected_rows() calls are resolved
  * through the fixture helpers declared in tests/bootstrap-unit.php instead
@@ -153,6 +154,59 @@ it('transitions failed deliveries between retry, dead-letter, and sent states', 
 	audit_queue_test_track_calls($calls);
 	audit_syslog_update_delivery($delivery, $success, $config);
 	expect($calls[0]['sql'])->toContain("state = 'sent_unconfirmed'");
+});
+
+it('claims a due delivery atomically and refuses rows another poller claimed', function () {
+	$calls = [];
+	audit_queue_test_track_calls($calls);
+	audit_test_set_affected_rows(1);
+
+	expect(audit_syslog_claim_delivery(['delivery_id' => 12]))->toBeTrue();
+	expect($calls[0]['params'])->toBe([12]);
+	expect($calls[0]['sql'])->toContain("state = 'sending'");
+	expect($calls[0]['sql'])->toContain("state IN ('pending', 'retry')");
+	expect($calls[0]['sql'])->toContain('next_attempt <= UTC_TIMESTAMP(6)');
+
+	audit_test_set_affected_rows(0);
+
+	expect(audit_syslog_claim_delivery(['delivery_id' => 12]))->toBeFalse();
+});
+
+it('reclaims claims left stale by a stopped poller', function () {
+	$calls = [];
+	audit_queue_test_track_calls($calls);
+
+	audit_syslog_reclaim_stale_deliveries(5);
+
+	expect($calls[0]['sql'])->toContain("THEN 'dead_letter' ELSE 'retry'");
+	expect($calls[0]['sql'])->toContain("WHERE state = 'sending'");
+	expect($calls[0]['sql'])->toContain('INTERVAL 10 MINUTE');
+	expect($calls[0]['sql'])->toContain('next_attempt = UTC_TIMESTAMP(6)');
+	expect($calls[0]['params'])->toBe([5]);
+});
+
+it('skips a delivery when another poller wins the atomic claim', function () {
+	$calls = [];
+	audit_queue_test_track_calls($calls);
+	audit_test_mock_db('db_fetch_assoc_prepared', 'FROM audit_syslog_delivery AS d', [[
+		'delivery_id'       => 12,
+		'attempts'          => 0,
+		'delivery_event_uuid' => '32e0a97d-d9e8-4abc-8f41-2bbbc50793ca',
+		'delivery_node_id'  => 'queue-test-node',
+		'delivery_poller_id' => '',
+		'request_status'    => 'completed',
+	]]);
+	audit_test_set_affected_rows(0);
+
+	audit_process_syslog_queue();
+
+	$claim_calls = array_values(array_filter($calls, function ($call) {
+		return str_contains($call['sql'], "SET state = 'sending'");
+	}));
+
+	expect($claim_calls)->toHaveCount(1);
+	expect($claim_calls[0]['params'])->toBe([12]);
+	expect($calls)->toHaveCount(2, 'The poller must skip sending and updating when it loses the claim.');
 });
 
 it('manually retries de-duplicated positive dead-letter delivery IDs and reports the affected row count', function () {
