@@ -3,6 +3,7 @@
 --- develop ---
 * dev: Run the CI poller with the shared runner group so RRD files and structured directories pass permission verification
 * dev: Pin the CI database image and shared test dependencies, disable persisted checkout credentials, and limit workflow permissions and runtime
+* issue#102: Prevent concurrent pollers from duplicating Syslog delivery
 
 --- 1.7 ---
 

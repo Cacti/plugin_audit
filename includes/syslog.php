@@ -1145,7 +1145,8 @@ function audit_syslog_update_delivery(array $delivery, array $result, array $con
 				sent_time = UTC_TIMESTAMP(6),
 				last_error = NULL,
 				updated_time = UTC_TIMESTAMP(6)
-			WHERE id = ?",
+			WHERE id = ?
+			AND state = 'sending'",
 			[$config['fingerprint'], $attempts, $delivery['delivery_id']]);
 
 		return;
@@ -1157,7 +1158,7 @@ function audit_syslog_update_delivery(array $delivery, array $result, array $con
 	$error_code   = isset($result['error_code']) ? $result['error_code'] : 'delivery_failed';
 	$stored_error = audit_syslog_bounded_error($error_code . ': ' . $error);
 
-	db_execute_prepared('UPDATE audit_syslog_delivery
+	db_execute_prepared("UPDATE audit_syslog_delivery
 		SET state = ?,
 			destination_fingerprint = ?,
 			attempts = ?,
@@ -1165,8 +1166,50 @@ function audit_syslog_update_delivery(array $delivery, array $result, array $con
 			last_attempt = UTC_TIMESTAMP(6),
 			last_error = ?,
 			updated_time = UTC_TIMESTAMP(6)
-		WHERE id = ?',
+		WHERE id = ?
+		AND state = 'sending'",
 		[$state, $config['fingerprint'], $attempts, $delay, $delay, $stored_error, $delivery['delivery_id']]);
+}
+
+/**
+ * Atomically claims a due Syslog delivery so concurrent pollers do not send
+ * the same queue row at the same time. Called immediately before sending a
+ * row selected by audit_process_syslog_queue().
+ *
+ * @param array<string,mixed> $delivery The selected delivery row.
+ *
+ * @return bool True when this poller acquired the delivery claim.
+ */
+function audit_syslog_claim_delivery(array $delivery): bool {
+	db_execute_prepared("UPDATE audit_syslog_delivery
+		SET state = 'sending',
+			attempts = attempts + 1,
+			updated_time = UTC_TIMESTAMP(6)
+		WHERE id = ?
+		AND state IN ('pending', 'retry')
+		AND next_attempt <= UTC_TIMESTAMP(6)",
+		[$delivery['delivery_id']]);
+
+	return db_affected_rows() === 1;
+}
+
+/**
+ * Requeues delivery claims left behind by a poller that stopped before
+ * recording its result. The lease exceeds the maximum configured socket
+ * timeout and allows a later poller to resume the at-least-once delivery.
+ * Called once at the start of each queue-processing pass.
+ *
+ * @return void
+ */
+function audit_syslog_reclaim_stale_deliveries(int $max_attempts): void {
+	db_execute_prepared("UPDATE audit_syslog_delivery
+		SET state = CASE WHEN attempts >= ? THEN 'dead_letter' ELSE 'retry' END,
+			next_attempt = UTC_TIMESTAMP(6),
+			last_error = 'delivery_claim_expired',
+			updated_time = UTC_TIMESTAMP(6)
+		WHERE state = 'sending'
+		AND updated_time < DATE_SUB(UTC_TIMESTAMP(6), INTERVAL 10 MINUTE)",
+		[$max_attempts]);
 }
 
 /**
@@ -1192,6 +1235,8 @@ function audit_process_syslog_queue(): void {
 		return;
 	}
 
+	audit_syslog_reclaim_stale_deliveries((int) $config['max_attempts']);
+
 	$batch_size = (int) $config['batch_size'];
 	$deliveries = db_fetch_assoc_prepared("SELECT
 			d.id AS delivery_id, d.attempts, d.event_uuid AS delivery_event_uuid,
@@ -1210,6 +1255,10 @@ function audit_process_syslog_queue(): void {
 
 	if (is_array($deliveries)) {
 		foreach ($deliveries as $delivery) {
+			if (!audit_syslog_claim_delivery($delivery)) {
+				continue;
+			}
+
 			$delivery_config = audit_syslog_delivery_config($config, $delivery);
 			$result          = audit_syslog_send_event($delivery, $delivery_config, $socket);
 			audit_syslog_update_delivery($delivery, $result, $delivery_config);
@@ -1246,11 +1295,11 @@ function audit_syslog_health(): array {
 	}
 
 	$row = db_fetch_row("SELECT
-			SUM(state = 'pending') AS pending,
+			SUM(state IN ('pending', 'sending')) AS pending,
 			SUM(state = 'retry') AS retry,
 			SUM(state = 'sent_unconfirmed') AS sent_unconfirmed,
 			SUM(state = 'dead_letter') AS dead_letter,
-			COALESCE(MAX(CASE WHEN state IN ('pending', 'retry')
+			COALESCE(MAX(CASE WHEN state IN ('pending', 'retry', 'sending')
 				THEN TIMESTAMPDIFF(SECOND, created_time, UTC_TIMESTAMP(6)) ELSE 0 END), 0) AS oldest_pending_seconds,
 			MAX(last_attempt) AS last_attempt,
 			MAX(sent_time) AS last_sent

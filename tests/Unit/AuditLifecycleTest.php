@@ -30,3 +30,23 @@ it('recognizes audit.php as a console page', function () {
 it('does not recognize an unrelated page as a console page', function () {
 	expect(audit_is_console_page('/cacti/graph_view.php'))->toBeFalse();
 });
+
+it('preserves events while a Syslog delivery is claimed by a poller', function () {
+	audit_test_reset_db_mocks();
+	audit_test_set_config_option('audit_enabled', 'off');
+	audit_test_set_config_option('audit_auth_log_enabled', 'off');
+	audit_test_set_config_option('audit_brute_force_enabled', 'off');
+	audit_test_set_config_option('audit_log_external', 'off');
+	audit_test_set_config_option('audit_syslog_enabled', 'off');
+	audit_test_set_config_option('audit_last_check', '');
+	audit_test_set_config_option('audit_retention', '90');
+
+	audit_poller_bottom();
+
+	$purge_queries = array_values(array_filter($GLOBALS['__test_db_calls'], function ($call) {
+		return str_contains($call['sql'], 'DELETE FROM audit_log');
+	}));
+
+	expect($purge_queries)->toHaveCount(1);
+	expect($purge_queries[0]['sql'])->toContain("'sending'");
+});
