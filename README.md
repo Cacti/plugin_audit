@@ -1,8 +1,27 @@
 # audit
 
-This plugin is to be used to track transactions in the Cacti database, when they
-were made, by what IP address and by what login account.  This can be used to
-determine the root cause of issues created by users of the Cacti system.
+Audit records Cacti activity with account, source-address and request context,
+so administrators can investigate changes and send finalized events to external
+log collection systems. Request completion and operation success are recorded
+separately where an authoritative outcome is available.
+
+## Versions and compatibility
+
+This README describes the `develop` source branch.
+
+| Code | Plugin version | Minimum Cacti declared in `INFO` |
+| --- | --- | --- |
+| [Source branch](https://github.com/Cacti/plugin_audit/blob/develop/INFO) | 1.7 | 1.2.29 |
+| [Published v1.2](https://github.com/Cacti/plugin_audit/releases/tag/v1.2) | 1.2 | 1.2.20 |
+
+Use the published release’s assets and tagged documentation when installing that
+package. Branch code can include later changes, even when its version number
+matches the release. Cacti’s own PHP and database requirements also apply.
+
+Install this plugin in **`<cacti-root>/plugins/audit`**, using the directory
+name `audit` rather than `plugin_audit`.
+
+See [CHANGELOG.md](https://github.com/Cacti/plugin_audit/blob/develop/CHANGELOG.md) for the version history.
 
 ## Purpose
 
@@ -10,8 +29,7 @@ This plugin allows Cacti Administrators to log user change activity
 
 ## Features
 
-* Log all $_POST activities to the Cacti Server that can change the contents of
-  the system.
+* Capture submitted web-request activity through Cacti’s audit hooks.
 
 * Captures CLI commands and who ran them
 
