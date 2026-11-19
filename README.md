@@ -11,7 +11,7 @@ This README describes the `develop` source branch.
 
 | Code | Plugin version | Minimum Cacti declared in `INFO` |
 | --- | --- | --- |
-| [Source branch](INFO) | 1.7 | 1.2.29 |
+| [Source branch](https://github.com/Cacti/plugin_audit/blob/develop/INFO) | 1.7 | 1.2.29 |
 | [Published v1.2](https://github.com/Cacti/plugin_audit/releases/tag/v1.2) | 1.2 | 1.2.20 |
 
 Use the published release’s assets and tagged documentation when installing that
@@ -21,7 +21,7 @@ matches the release. Cacti’s own PHP and database requirements also apply.
 Install this plugin in **`<cacti-root>/plugins/audit`**, using the directory
 name `audit` rather than `plugin_audit`.
 
-See [CHANGELOG.md](CHANGELOG.md) for the version history.
+See [CHANGELOG.md](https://github.com/Cacti/plugin_audit/blob/develop/CHANGELOG.md) for the version history.
 
 ## Purpose
 
