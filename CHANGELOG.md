@@ -4,7 +4,7 @@ Documentation update (unreleased): Refresh README release/source compatibility,
 installation guidance and source-checked behavior.
 
 --- develop ---
-* issue#108: Fix duplicated word and spacing in the `audit_log_external_path` setting label (`External Audit Log File Path`) and refresh `locales/po/cacti.pot`
+* issue#108: Fix duplicated word and spacing in the `audit_log_external_path` setting label (`External Audit Log File Path`), refresh `locales/po/cacti.pot`, and remove orphan `locales/LC_MESSAGES/ka.mo`
 * dev: Run the CI poller with the shared runner group so RRD files and structured directories pass permission verification
 * dev: Pin the CI database image and shared test dependencies, disable persisted checkout credentials, and limit workflow permissions and runtime
 * issue#102: Prevent concurrent pollers from duplicating Syslog delivery
