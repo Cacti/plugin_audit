@@ -770,7 +770,7 @@ function audit_config_settings(): void {
 			]
 		],
 		'audit_log_external_path' => [
-			'friendly_name' => __('External Audit Log Log file  Path', 'audit'),
+			'friendly_name' => __('External Audit Log File Path', 'audit'),
 			'description'   => __('Enter the path to the external audit log file.', 'audit'),
 			'method'        => 'filepath',
 			'default'       => '/var/www/html/cacti/log/audit.log',
