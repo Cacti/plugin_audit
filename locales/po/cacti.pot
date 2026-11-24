@@ -476,7 +476,7 @@ msgid "JSON"
 msgstr ""
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
+msgid "External Audit Log File Path"
 msgstr ""
 
 #: setup.php
