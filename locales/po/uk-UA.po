@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 23:00+0000\n"
+"Last-Translator: Thomas Vincent <thomasvincent@gmail.com>\n"
+"Language-Team: Ukrainian\n"
+"Language: uk-UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Тестовий запис Syslog записано до локального сокета. Збереження на боці отримувача не підтверджено."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Помилка тестування Syslog: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Скинуто %d недоставлених подій Syslog (dead-letter) для повторної спроби."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Подію аудиту не знайдено."
+
+#: audit.php
+msgid "Page:"
+msgstr "Сторінка:"
+
+#: audit.php
+msgid "User:"
+msgstr "Користувач:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "IP-адреса:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Дата:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Дія:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Тип події:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "ID події:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Статус запиту:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Результат операції:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Причина результату:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Доставка зовнішнього файлу:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Помилка зовнішнього файлу:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Доставка на віддалений Syslog:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Спроби Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Запис у сокет Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Помилка Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "сценарій:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Збережені дані"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Збережені дані запиту не є коректним JSON: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Атрибут"
+
+#: audit.php
+msgid "Value"
+msgstr "Значення"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Дані запису:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Очищення журналу аудиту користувачем %s видалило %d подій і захистило %d подій із незавершеною доставкою до Syslog."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Журнал аудиту"
+
+#: audit.php
+msgid "Search"
+msgstr "Пошук"
+
+#: audit.php
+msgid "Page"
+msgstr "Сторінка"
+
+#: audit.php
+msgid "All"
+msgstr "Всі"
+
+#: audit.php
+msgid "User"
+msgstr "Користувач"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Події"
+
+#: audit.php
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: audit.php
+msgid "Go"
+msgstr "Перейти"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Встановити/оновити фільтри"
+
+#: audit.php
+msgid "Clear"
+msgstr "Очистити"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Очистити фільтри"
+
+#: audit.php
+msgid "Export"
+msgstr "Експорт"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Експортувати події журналу"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Остаточно очистити всі події журналу аудиту?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Очищення"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Очистити події журналу"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Події аудиту"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Назва сторінки"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Сторінка, на якій було згенеровано подію."
+
+#: audit.php
+msgid "User Name"
+msgstr "Ім'я користувача"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Користувач, який спричинив подію."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Запитана дія"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Запитана дія Cacti. Наведіть курсор на дію, щоб переглянути дані запиту."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Статус запиту"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Стан обробки запиту; завершення не гарантує, що кожна операція виконана успішно."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Доставка зовнішнього файлу"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Стан доставки для необов'язкового зовнішнього файлу журналу аудиту. Стан віддаленого Syslog відображається окремо."
+
+#: audit.php
+msgid "User Agent"
+msgstr "User Agent"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Тип браузера ініціатора запиту."
+
+#: audit.php
+msgid "IP Address"
+msgstr "IP адреса"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "IP-адреса ініціатора запиту."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Час події"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Час, коли відбулася подія."
+
+#: audit.php
+msgid "N/A"
+msgstr "(відсутній)"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Подій журналу аудиту не знайдено"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Доставка на віддалений Syslog"
+
+#: audit.php
+msgid "Status"
+msgstr "Статус"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Вимкнен"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Справний"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Несправний"
+
+#: audit.php
+msgid "Pending"
+msgstr "Очікує"
+
+#: audit.php
+msgid "Retry"
+msgstr "Повторити"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Недоставлені (Dead-letter)"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Надіслано (не підтверджено)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Найстаріший у черзі"
+
+#: audit.php
+msgid "seconds"
+msgstr "секунд"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Остання спроба"
+
+#: audit.php
+msgid "Never"
+msgstr "Ніколи"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Останній запис у сокет"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Перевірити Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Повторити недоставлені (dead-letter)"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Повторити надсилання всіх недоставлених (dead-letter) подій Syslog?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Помилка конфігурації:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Остання помилка:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti записує цей результат до перевірки активності облікового запису, авторизації області (realm) або завершення 2FA; сесію могло бути не встановлено."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Жоден поточний шлях коду Cacti не записує цю сигнатуру; записано превентивно як можливу зміну пароля з непідтвердженим результатом."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Запис Cacti user_log result=3 з user_id=0 може означати зміну пароля або невдалу перевірку 2FA; таблиця не дозволяє розрізнити ці події."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Для збереження цих налаштувань потрібен дозвіл на адміністрування аудиту."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Аудит автентифікації не було увімкнено. Спочатку запустіть команду обслуговування CLI audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Налаштування віддаленого Syslog не збережено: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Користувач журналу аудиту"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Адміністратор журналу аудиту"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Технічна підтримка"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Перегляд журналу аудиту"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Дозволяє адміністраторам переглядати історію змін на сервері Cacti. Адміністратори також можуть експортувати журнал аудиту для аналізу."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Безстроково"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d тижнів"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d Місяць"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d Місяців"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d Рік"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d років"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Комунальні послуги"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Плагін аудиту"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Налаштування журналу аудиту"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Увімкнути журнал аудиту"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Позначте цей прапорець, щоб журнал аудиту відстежував дії у графічному інтерфейсі (GUI)."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Зберігання журналу аудиту"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Як довго слід зберігати записи журналу аудиту?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Зовнішній журнал аудиту"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Позначте цей прапорець, щоб журнал аудиту записувався у зовнішній файл."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Формат зовнішнього журналу аудиту"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Виберіть формат виведення для зовнішніх записів журналу аудиту."
+
+#: setup.php
+msgid "Text"
+msgstr "Текст"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Шлях до файлу зовнішнього журналу аудиту"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Введіть шлях до зовнішнього файлу журналу аудиту."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Аудит автентифікації"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Увімкнути аудит автентифікації"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Увімкніть збір нових подій входу, виходу, токенів, зміни пароля та відмови в авторизації, починаючи з цього моменту."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Увімкнути виявлення обсягу невдалих входів"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Генерувати глобальну подію аномалії, коли кількість невдалих входів у межах усієї інсталяції перевищує налаштований поріг."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Вікно обліку невдалих входів (хвилин)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Ковзне вікно в хвилинах (від 1 до 1440), що використовується для підрахунку невдалих входів."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Поріг кількості невдалих входів"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Кількість невдалих входів у межах усієї інсталяції (від 1 до 1000), що викликає глобальну подію аномалії."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Розмір пакета завантаження журналу користувачів"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Максимум рядків user_log, що приймаються, та прострочених маркерів, що очищуються за один цикл опитувача, від 1 до 5000. Стан маркерів зберігається протягом семи днів, тому більші пакети збільшують як пікове навантаження на опитувач, так і обмежений розмір семиденної таблиці станів."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Віддалений Syslog"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Увімкнути віддалений Syslog"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Ставити в чергу завершені події аудиту для віддаленої доставки в Syslog. Наявне виведення у зовнішній файл залишається незалежним."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Отримувач Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Введіть ім'я хоста або IP-адресу отримувача без схеми URI, шляху чи облікових даних."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Порт Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Введіть 1-65535 або залиште порожнім, щоб використовувати 514 для UDP/TCP і 6514 для TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Транспорт Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP надсилає одну дейтаграму без підтвердження. TCP і TLS використовують кадрування з підрахунком октетів згідно з RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Формат корисного навантаження Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Усі формати використовують заголовок RFC 5424. Виберіть структуровані дані RFC 5424, CEF або компактний JSON для повідомлення."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Категорія Syslog (Facility)"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Виберіть категорію (facility), що використовується для обчислення пріоритету RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Назва програми Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Друковані символи ASCII без пробілів, до 48 символів."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Ідентифікатор вузла аудиту"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Стабільний ідентифікатор імені хоста RFC 5424 для цього вузла Cacti. Не використовуйте значення, яке змінюється під час перезапуску."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Час очікування підключення та запису"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Час очікування в секундах, від 1 до 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Максимальний розмір запису UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Записи, розмір яких перевищує цей ліміт у байтах, переміщуються до черги недоставлених повідомлень (dead-letter) і ніколи не обрізаються та не розділяються. Для великих подій рекомендується TCP або TLS."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Файл TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Необов'язковий пакет сертифікатів ЦС у форматі PEM. Перевірка вузла та імені хоста завжди увімкнена."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Клієнтський сертифікат TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Необов'язковий сертифікат клієнта у форматі PEM. Також має бути налаштований ключ клієнта."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Закритий ключ клієнта TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Необов'язковий шлях до доступного для читання закритого ключа у форматі PEM. Вміст ключа ніколи не зберігається в подіях аудиту."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Черга доставки Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Базова затримка перед повтором"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Початкова затримка повторної спроби в секундах, від 1 до 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Максимальна затримка повтору"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Максимальна затримка повтору в секундах, від базової затримки до 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Максимум спроб доставки"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Перемістити запис до черги невиконаних (dead-letter) після цієї кількості спроб, від 1 до 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Розмір пакета опитувача"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Максимум належних до обробки записів за цикл опитувача (від 1 до 1000)."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Попередження про тривалість очікування"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Показувати попередження про несправність, коли найстаріший запис у черзі досягає цього віку в секундах."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Поріг попередження недоставлених (Dead-letter)"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Показувати попередження про несправність, коли стільки записів потрапили до черги невиконаних (dead-letter)."
+
+#: setup.php
+msgid "Audit"
+msgstr "Аудит"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Журнал подій аудиту"
+

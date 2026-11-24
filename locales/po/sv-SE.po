@@ -708,6 +708,10 @@ msgstr "Granskning"
 msgid "Audit Event Log"
 msgstr "Logg över granskningshändelser"
 
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Sökväg till extern granskningsloggfil"
+
 #, php-format
 #~ msgid "Audit Log Purged by %s"
 #~ msgstr "Granskningsloggen rensas av %s"

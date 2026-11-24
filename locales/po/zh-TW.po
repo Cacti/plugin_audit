@@ -29,7 +29,6 @@ msgid "Page:"
 msgstr "頁面："
 
 #: audit.php
-#, fuzzy
 msgid "User:"
 msgstr "使用者："
 
@@ -157,7 +156,7 @@ msgstr "送出"
 
 #: audit.php
 msgid "Set/Refresh Filters"
-msgstr "設置/刷新過濾器"
+msgstr "設定/重新整理篩選器"
 
 #: audit.php
 msgid "Clear"
@@ -265,123 +264,119 @@ msgstr "未找到審核日誌事件"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "遠端 Syslog 傳送"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "狀態"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "已停用"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "健康"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "不健康"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "待處理"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "重試"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "無效信件"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "已傳送（未確認）"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "最舊待處理"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "上次嘗試"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "從不"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "上次 Socket 寫入"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "測試 Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "重試無效信件"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "是否重試所有無效信件 Syslog 事件？"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "組態錯誤："
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "啟用審核日誌"
+msgstr "上次錯誤："
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti 會在驗證帳號是否啟用、領域授權或 2FA 完成前先記錄此結果；工作階段可能尚未建立。"
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "目前沒有 Cacti 路徑寫入此簽章；已防禦性地記錄為結果未確認的可能密碼變更。"
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "當 user_id=0 時，Cacti user_log 的 result=3 可能是密碼變更或 2FA 驗證失敗；此資料表無法區分兩者。"
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "需要稽核管理權限才能儲存這些設定。"
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "未啟用驗證稽核。請先執行 audit_auth_indexes.php CLI 維護命令。"
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "未能儲存遠端 Syslog 設定：%s"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "審核日誌"
+msgstr "稽核日誌使用者"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "審核日誌"
+msgstr "稽核日誌管理員"
 
 #: setup.php
-#, fuzzy
 msgid "Technical Support"
-msgstr "การสนับสนุนทางเทคนิค"
+msgstr "技術支援"
 
 #: setup.php
 msgid "View Audit Log"
@@ -396,43 +391,42 @@ msgid "Indefinitely"
 msgstr "無限期"
 
 #: setup.php
-#, fuzzy, php-format
+#, php-format
 msgid "%d Weeks"
-msgstr "%d週"
+msgstr "%d 週"
 
 #: setup.php
-#, fuzzy, php-format
+#, php-format
 msgid "%d Month"
-msgstr "%d月"
+msgstr "%d 個月"
 
 #: setup.php
-#, fuzzy, php-format
+#, php-format
 msgid "%d Months"
-msgstr "%d個月"
+msgstr "%d 個月"
 
 #: setup.php
-#, fuzzy, php-format
+#, php-format
 msgid "%d Year"
-msgstr "%d年"
+msgstr "%d 年"
 
 #: setup.php
-#, fuzzy, php-format
+#, php-format
 msgid "%d Years"
-msgstr "%d年"
+msgstr "%d 年"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "公用程式"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "審核日誌"
+msgstr "Audit 外掛程式"
 
 #: setup.php
 msgid "Audit Log Settings"
-msgstr "審核日誌設置"
+msgstr "稽核記錄設定"
 
 #: setup.php
 msgid "Enable Audit Log"
@@ -452,31 +446,29 @@ msgstr "您希望保留審核日誌條目多長時間？"
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "啟用審核日誌"
+msgstr "外部稽核日誌"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
+msgstr "如果您希望將稽核日誌寫入外部檔案，請勾選此方塊。"
 
 #: setup.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "啟用審核日誌"
+msgstr "外部稽核日誌格式"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "輸入外部審核日誌檔的路徑。"
+msgstr "選擇外部稽核日誌記錄的輸出格式。"
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "文字"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
 msgid "External Audit Log Log file  Path"
@@ -488,235 +480,233 @@ msgstr "輸入外部審核日誌檔的路徑。"
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "驗證稽核"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "啟用驗證稽核"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "選擇加入以從現在起擷取新的登入、登出、權杖、密碼變更以及授權遭拒事件。"
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "啟用登入失敗數量偵測"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "當整個系統的登入失敗次數超過設定的閾值時，發出全域異常事件。"
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "登入失敗時間區間 (分鐘)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "用於計算登入失敗次數的滾動時間視窗（單位為分鐘，範圍為 1 至 1440）。"
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "登入失敗次數閾值"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "觸發全域異常事件的整個系統登入失敗次數，範圍為 1 到 1000。"
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "使用者記錄擷取批次大小"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "每個輪詢器週期擷取的 user_log 資料列數與回收的過期標記上限，範圍為 1 到 5000。標記狀態會保留七天，因此較大的批次會同時增加輪詢器尖峰工作負載與七天上限狀態資料表的大小。"
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "遠端 Syslog"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "啟用審核日誌"
+msgstr "啟用遠端 Syslog"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "將已完成的稽核事件排入佇列以進行遠端 Syslog 傳送。現有的外部檔案輸出仍保持獨立運作。"
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog 接收器"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "請輸入接收器的主機名稱或 IP 位址，勿包含 URI 配置、路徑或認證資訊。"
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog 連接埠"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "請輸入 1-65535，或留空以在 UDP/TCP 使用 514 並在 TLS 使用 6514。"
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog 傳輸協定"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP 會傳送單一資料報且不需確認。TCP 與 TLS 則使用 RFC 6587 位元組計數訊框格式。"
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog 酬載格式"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "所有格式皆使用 RFC 5424 標頭。請為訊息選取 RFC 5424 結構化資料、CEF 或精簡 JSON。"
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog 設施"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "選取用於計算 RFC 5424 優先權的設備類型 (facility)。"
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog 應用程式名稱"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME。可列印的非空白 ASCII 字元，最多 48 個字元。"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "審核日誌保留"
+msgstr "稽核節點識別"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "此 Cacti 節點的穩定 RFC 5424 主機名稱識別碼。請勿使用重新啟動時會變更的值。"
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "連線與寫入逾時"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "逾時時間（秒），範圍為 1 至 30。"
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "最大 UDP 記錄大小"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "大於此位元組上限的記錄會被移入無效信件佇列，且絕不會被截斷或分割。對於大型事件，建議使用 TCP 或 TLS。"
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA 檔案"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "選用的 PEM CA 憑證套件。對等端與主機名稱驗證一律啟用。"
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS 用戶端憑證"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "選用的 PEM 用戶端憑證。同時必須設定用戶端金鑰。"
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS 用戶端私密金鑰"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "選用的可讀取 PEM 私鑰路徑。金鑰內容絕不會儲存在稽核事件中。"
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog 傳遞佇列"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "重試基本延遲"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "初始重試延遲（秒），範圍為 1 到 3600。"
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "最長重試延遲"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "最長重試延遲（秒），範圍從基本延遲到 86400。"
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "最大傳遞嘗試次數"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "嘗試達此次數後將記錄移至無效信件佇列，範圍為 1 到 100。"
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "輪詢器批次大小"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "每個輪詢器週期處理的到期記錄上限，範圍為 1 到 1000。"
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "待處理存留時間警告"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "當佇列中最舊的記錄達到此秒數時顯示狀況不良警告。"
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "無效信件警告計數"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "當無法傳遞 (dead-lettered) 的記錄達到此數量時顯示狀況不良警告。"
 
 #: setup.php
 msgid "Audit"
@@ -725,6 +715,10 @@ msgstr "稽核"
 #: setup.php
 msgid "Audit Event Log"
 msgstr "審核事件日誌"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "外部稽核記錄檔路徑"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"

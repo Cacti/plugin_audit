@@ -20,23 +20,22 @@ msgstr ""
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog 测试记录已写入本地套接字，但接收器是否成功存储尚未确认。"
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog 测试失败：%s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "已重置 %d 条死信 Syslog 投递记录以进行重试。"
 
 #: audit.php
-#, fuzzy
 #| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "审核事件日志"
+msgstr "未找到审计事件。"
 
 #: audit.php
 msgid "Page:"
@@ -59,69 +58,65 @@ msgid "Action:"
 msgstr "动作："
 
 #: audit.php
-#, fuzzy
 #| msgid "Event Time"
 msgid "Event Type:"
-msgstr "事件时间"
+msgstr "事件类型："
 
 #: audit.php
-#, fuzzy
 #| msgid "Events"
 msgid "Event ID:"
-msgstr "事件"
+msgstr "事件 ID："
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "请求状态："
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "操作结果："
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "结果原因："
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "外部文件投递："
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "启用Audit Log"
+msgstr "外部文件错误："
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "远程 Syslog 投递："
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog 尝试次数："
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog 套接字写入："
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog 错误："
 
 #: audit.php
 msgid "Script:"
 msgstr "脚本:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "记录数据："
+msgstr "已存储的数据"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "已存储的请求数据不是有效的 JSON：%s"
 
 #: audit.php
 msgid "Attrib"
@@ -138,7 +133,7 @@ msgstr "记录数据："
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "由 %s 执行的审计日志清理已移除 %d 条事件，并保留了 %d 条尚未完成 Syslog 投递的事件。"
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -198,7 +193,7 @@ msgstr "导出日志事件"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "确定要永久清空所有审计日志事件吗？"
 
 #: audit.php
 msgid "Purge"
@@ -230,31 +225,29 @@ msgstr "生成事件的用户。"
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "请求的操作"
 
 #: audit.php
-#, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "仙人掌行动要求。将鼠标悬停在操作上以查看$ _POST数据。"
+msgstr "请求的 Cacti 操作。将鼠标悬停在操作上可查看请求数据。"
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "请求状态"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "请求处理状态；完成并不保证每个操作都成功。"
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "外部文件投递"
 
 #: audit.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "输入外部审核日志文件的路径。"
+msgstr "可选外部审计日志文件的投递状态。远程 Syslog 运行状态将单独显示。"
 
 #: audit.php
 msgid "User Agent"
@@ -290,118 +283,115 @@ msgstr "未找到审核日志事件"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "远程 Syslog 投递"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "禁用"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "健康"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "不健康"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "待处理"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "重试"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "死信"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "已发送（未确认）"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "最早待处理"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "上次尝试"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "从不"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "上次套接字写入"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "测试 Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "重试死信"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "是否重试所有死信 Syslog 事件？"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "配置错误："
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "启用Audit Log"
+msgstr "上次错误："
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti 在验证账户是否启用、领域授权或双因素认证（2FA）完成之前记录此结果；此时会话可能尚未建立。"
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "当前没有 Cacti 路径写入此签名；作为防御性记录，将其标记为结果未确认的潜在密码更改。"
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Cacti user_log 中 result=3 且 user_id=0 可能是密码更改或 2FA 验证失败；该表无法区分这两种情况。"
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "保存这些设置需要审计管理权限。"
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "尚未启用身份验证审计。请先运行 audit_auth_indexes.php CLI 维护命令。"
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "远程 Syslog 设置未保存：%s"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "审计日志"
+msgstr "审计日志用户"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "审计日志"
+msgstr "审计日志管理员"
 
 #: setup.php
 msgid "Technical Support"
@@ -446,13 +436,12 @@ msgstr "%d 年"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "实用工具"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "审计日志"
+msgstr "审计插件"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -480,27 +469,25 @@ msgstr "启用Audit Log"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "如果希望审核日志跟踪GUI活动，请选中此框。"
+msgstr "如果您希望将审计日志写入外部文件，请选中此框。"
 
 #: setup.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "启用Audit Log"
+msgstr "外部审计日志格式"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "输入外部审核日志文件的路径。"
+msgstr "选择外部审计日志记录的输出格式。"
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "文本"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
 msgid "External Audit Log Log file  Path"
@@ -512,235 +499,233 @@ msgstr "输入外部审核日志文件的路径。"
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "身份验证审计"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "启用认证审计"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "启用后，将从此刻起捕获新的登录、注销、令牌、密码更改及授权拒绝事件。"
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "启用登录失败量检测"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "当全站登录失败次数超过配置的阈值时触发全局异常事件。"
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "登录失败时间窗口（分钟）"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "用于统计失败登录次数的滚动时间窗口（单位：分钟），范围从 1 到 1440。"
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "登录失败次数阈值"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "触发全局异常事件的整个系统的登录失败次数，范围为 1 到 1000。"
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "用户日志采集批处理大小"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "每个轮询器周期摄取的 user_log 最大行数及回收的过期标记数，范围为 1 到 5000。标记状态保留七天，因此更大的批量会同时增加轮询器峰值工作量以及受七天上限约束的状态表大小。"
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "远程 Syslog"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "启用Audit Log"
+msgstr "启用远程 Syslog"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "将已完成的审计事件加入队列以进行远程 Syslog 投递。现有的外部文件输出保持独立。"
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog 接收器"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "请输入不带 URI 方案、路径或凭据的接收器主机名或 IP 地址。"
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog 端口"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "输入 1-65535，或留空以对 UDP/TCP 使用 514，对 TLS 使用 6514。"
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog 传输协议"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP 发送单个数据报且不要求确认。TCP 和 TLS 使用 RFC 6587 八位字节计数成帧。"
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog 负载格式"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "所有格式均使用 RFC 5424 标头。请为消息正文选择 RFC 5424 结构化数据、CEF 或紧凑 JSON。"
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog 设施"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "选择用于计算 RFC 5424 优先级的设施（Facility）。"
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog 应用程序名称"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME。可打印的非空格 ASCII 字符，最多 48 个字符。"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "审核日志保留"
+msgstr "审计节点标识"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "此 Cacti 节点的稳定 RFC 5424 主机名标识。请勿使用重启后会变化的值。"
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "连接和写入超时"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "超时时间（秒），范围为 1 到 30。"
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "最大 UDP 记录大小"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "超过此字节限制的记录将被移入死信队列，且永不截断或拆分。对于大型事件，建议使用 TCP 或 TLS。"
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA 证书文件"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "可选的 PEM CA 证书包。始终启用对端和主机名验证。"
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS 客户端证书"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "可选的 PEM 客户端证书。同时必须配置客户端私钥。"
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS 客户端私钥"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "可选的可读 PEM 私钥路径。密钥内容绝不会存储在审计事件中。"
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog 发送队列"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "重试基础延迟"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "初始重试延迟（秒），范围为 1 到 3600。"
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "最大重试延迟"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "最大重试延迟（秒），范围从基础延迟到 86400。"
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "最大投递尝试次数"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "尝试此次数后将记录移至死信队列，范围为 1 到 100。"
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "轮询器批处理大小"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "每个轮询器周期处理的到期记录最大数量，范围为 1 到 1000。"
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "待处理时长警告"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "当队列中最旧的记录达到此时间（秒）时显示不健康警告。"
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "死信警告计数"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "当有此数量记录进入死信队列时显示不健康警告。"
 
 #: setup.php
 msgid "Audit"
@@ -749,6 +734,10 @@ msgstr "审计"
 #: setup.php
 msgid "Audit Event Log"
 msgstr "审核事件日志"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "外部审计日志文件路径"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"

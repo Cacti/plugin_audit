@@ -19,23 +19,22 @@ msgstr ""
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Η δοκιμαστική εγγραφή Syslog γράφτηκε στην τοπική υποδοχή (socket). Η αποθήκευση στον δέκτη δεν έχει επιβεβαιωθεί."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Η δοκιμή Syslog απέτυχε: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Επαναφορά %d ανεπίδοτων (dead-letter) παραδόσεων Syslog για επανάληψη."
 
 #: audit.php
-#, fuzzy
 #| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Αρχείο καταγραφής συμβάντων ελέγχου"
+msgstr "Το συμβάν ελέγχου δεν βρέθηκε."
 
 #: audit.php
 msgid "Page:"
@@ -58,69 +57,65 @@ msgid "Action:"
 msgstr "Ενέργεια:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Ώρα Εκδήλωσης"
+msgstr "Τύπος συμβάντος:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Events"
 msgid "Event ID:"
-msgstr "Εκδηλώσεις"
+msgstr "Αναγνωριστικό συμβάντος:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Κατάσταση αιτήματος:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Αποτέλεσμα λειτουργίας:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Αιτία αποτελέσματος:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Παράδοση σε εξωτερικό αρχείο:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
+msgstr "Σφάλμα εξωτερικού αρχείου:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Παράδοση απομακρυσμένου Syslog:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Προσπάθειες Syslog:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Εγγραφή υποδοχής (socket) Syslog:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Σφάλμα Syslog:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Σενάριο:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Δεδομένα εγγραφής:"
+msgstr "Αποθηκευμένα δεδομένα"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Τα αποθηκευμένα δεδομένα αιτήματος δεν είναι έγκυρο JSON: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -137,7 +132,7 @@ msgstr "Δεδομένα εγγραφής:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "Η εκκαθάριση του αρχείου καταγραφής ελέγχου (Audit Log) από %s αφαίρεσε %d συμβάντα και προστάτευσε %d συμβάντα με ημιτελή παράδοση Syslog."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -197,7 +192,7 @@ msgstr "Εξαγωγή συμβάντων καταγραφής"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Οριστική εκκαθάριση όλων των συμβάντων του αρχείου καταγραφής ελέγχου;"
 
 #: audit.php
 msgid "Purge"
@@ -229,31 +224,29 @@ msgstr "Ο χρήστης που δημιούργησε το συμβάν."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Αιτούμενη ενέργεια"
 
 #: audit.php
-#, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Η ενέργεια του Κάκτι ζήτησε. Τοποθετήστε το δείκτη του ποντικιού πάνω από τη δράση για να δείτε δεδομένα $ _POST."
+msgstr "Η ζητούμενη ενέργεια του Cacti. Τοποθετήστε τον δείκτη πάνω από την ενέργεια για να δείτε τα δεδομένα του αιτήματος."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Κατάσταση αιτήματος"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Κατάσταση επεξεργασίας αιτήματος· η ολοκλήρωση δεν εγγυάται ότι κάθε λειτουργία πέτυχε."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Παράδοση σε εξωτερικό αρχείο"
 
 #: audit.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Εισαγάγετε τη διαδρομή προς το αρχείο καταγραφής εξωτερικού ελέγχου."
+msgstr "Κατάσταση παράδοσης για το προαιρετικό εξωτερικό αρχείο καταγραφής ελέγχου. Η κατάσταση του απομακρυσμένου Syslog εμφανίζεται ξεχωριστά."
 
 #: audit.php
 msgid "User Agent"
@@ -289,118 +282,115 @@ msgstr "Δεν βρέθηκαν συμβάντα αρχείων καταγραφ
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Παράδοση απομακρυσμένου Syslog"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Κατάσταση"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Απενεργοποιημένο"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Υγιές"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Μη υγιές"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Σε εκκρεμότητα"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Επανάληψη"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Μη παραδοθέντα (Dead-letter)"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Απεσταλμένο (Ανεπιβεβαίωτο)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Παλαιότερο σε εκκρεμότητα"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "δευτερόλεπτα"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Τελευταία προσπάθεια"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Ποτέ"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Τελευταία εγγραφή υποδοχής (Socket)"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Δοκιμή Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Επανάληψη ανεπίδοτων (dead-letter)"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Επανάληψη όλων των ανεπίδοτων (dead-letter) συμβάντων Syslog;"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Σφάλμα ρύθμισης παραμέτρων:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
+msgstr "Τελευταίο σφάλμα:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Το Cacti καταγράφει αυτό το αποτέλεσμα πριν επαληθεύσει εάν ο λογαριασμός είναι ενεργοποιημένος, την εξουσιοδότηση τομέα (realm) ή την ολοκλήρωση 2FA· ενδέχεται να μην έχει δημιουργηθεί συνεδρία."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Καμία τρέχουσα διαδρομή του Cacti δεν γράφει αυτήν την υπογραφή· καταγράφηκε προληπτικά ως πιθανή αλλαγή κωδικού πρόσβασης με ανεπιβεβαίωτο αποτέλεσμα."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Η καταχώρηση Cacti user_log result=3 με user_id=0 μπορεί να είναι αλλαγή κωδικού πρόσβασης ή αποτυχημένη πρόκληση 2FA· ο πίνακας δεν μπορεί να το αποσαφηνίσει."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "Απαιτείται δικαίωμα διαχείρισης ελέγχου (Audit) για την αποθήκευση αυτών των ρυθμίσεων."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Η καταγραφή ελέγχου ταυτοποίησης δεν ενεργοποιήθηκε. Εκτελέστε πρώτα την εντολή συντήρησης CLI audit_auth_indexes.php."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Οι ρυθμίσεις απομακρυσμένου Syslog δεν αποθηκεύτηκαν: %s"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Αρχείο ελέγχου"
+msgstr "Χρήστης αρχείου ελέγχου"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Αρχείο ελέγχου"
+msgstr "Διαχείριση αρχείου ελέγχου"
 
 #: setup.php
 msgid "Technical Support"
@@ -421,37 +411,36 @@ msgstr "Απεριόριστη"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "% d εβδομάδες"
+msgstr "%d Εβδομάδες"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "% d Μήνα"
+msgstr "%d Μήνας"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "% d Μήνας"
+msgstr "%d Μήνες"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "% d Έτος"
+msgstr "%d Έτος"
 
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "% d Έτη"
+msgstr "%d Έτη"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Παροχές"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Αρχείο ελέγχου"
+msgstr "Πρόσθετο ελέγχου (Audit)"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -479,27 +468,25 @@ msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Επιλέξτε αυτό το πλαίσιο, εάν θέλετε το αρχείο ελέγχου να παρακολουθεί τις δραστηριότητες GUI."
+msgstr "Επιλέξτε αυτό το πλαίσιο, εάν θέλετε το αρχείο καταγραφής ελέγχου να εγγράφεται σε εξωτερικό αρχείο."
 
 #: setup.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
+msgstr "Μορφή εξωτερικού αρχείου καταγραφής ελέγχου"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Εισαγάγετε τη διαδρομή προς το αρχείο καταγραφής εξωτερικού ελέγχου."
+msgstr "Επιλέξτε τη μορφή εξόδου για τις εγγραφές του εξωτερικού αρχείου καταγραφής ελέγχου."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Κείμενο"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
 msgid "External Audit Log Log file  Path"
@@ -511,235 +498,233 @@ msgstr "Εισαγάγετε τη διαδρομή προς το αρχείο κ
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Καταγραφή ελέγχου ταυτοποίησης"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Ενεργοποίηση ελέγχου ταυτότητας (Auditing)"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Ενεργοποιήστε τη συλλογή νέων συμβάντων σύνδεσης, αποσύνδεσης, διακριτικού (token), αλλαγής κωδικού πρόσβασης και άρνησης εξουσιοδότησης από αυτό το σημείο και στο εξής."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Ενεργοποίηση ανίχνευσης όγκου αποτυχημένων συνδέσεων"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Εκπομπή καθολικού συμβάντος ανωμαλίας όταν ο όγκος αποτυχημένων συνδέσεων σε ολόκληρη την εγκατάσταση υπερβαίνει το καθορισμένο όριο."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Παράθυρο αποτυχημένων συνδέσεων (λεπτά)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Κυλιόμενο παράθυρο σε λεπτά, από 1 έως 1440, που χρησιμοποιείται για την καταμέτρηση αποτυχημένων συνδέσεων."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Όριο όγκου αποτυχημένων συνδέσεων"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Συνολικός αριθμός αποτυχημένων συνδέσεων σε επίπεδο εγκατάστασης, από 1 έως 1000, που ενεργοποιεί ένα καθολικό συμβάν ανωμαλίας."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Μέγεθος δέσμης εισαγωγής αρχείων καταγραφής χρηστών"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Μέγιστος αριθμός γραμμών user_log που εισάγονται και ληγμένων δεικτών που ανακτώνται ανά κύκλο του Poller, από 1 έως 5000. Η κατάσταση δεικτών διατηρείται για επτά ημέρες, επομένως οι μεγαλύτερες δέσμες αυξάνουν τόσο το μέγιστο φόρτο του Poller όσο και το περιορισμένο μέγεθος του πίνακα κατάστασης επτά ημερών."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Απομακρυσμένο Syslog"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
+msgstr "Ενεργοποίηση απομακρυσμένου Syslog"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Τοποθέτηση στην ουρά των οριστικοποιημένων συμβάντων ελέγχου για απομακρυσμένη παράδοση Syslog. Η υπάρχουσα έξοδος σε εξωτερικό αρχείο παραμένει ανεξάρτητη."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Δέκτης Syslog"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Εισαγάγετε όνομα κεντρικού υπολογιστή ή διεύθυνση IP παραλήπτη χωρίς σχήμα URI, διαδρομή ή διαπιστευτήρια."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Θύρα Syslog"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Εισαγάγετε 1-65535 ή αφήστε κενό για χρήση της 514 για UDP/TCP και της 6514 για TLS."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Πρωτόκολλο μεταφοράς Syslog"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "Το UDP αποστέλλει ένα αυτοδύναμο πακέτο (datagram) χωρίς επιβεβαίωση. Τα TCP και TLS χρησιμοποιούν πλαισίωση καταμέτρησης οκτάδων (octet-count framing) κατά RFC 6587."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Μορφή ωφέλιμου φορτίου Syslog"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Όλες οι μορφές χρησιμοποιούν κεφαλίδα RFC 5424. Επιλέξτε δομημένα δεδομένα RFC 5424, CEF ή συμπαγές JSON για το μήνυμα."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog Facility"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Επιλέξτε το facility που χρησιμοποιείται για τον υπολογισμό της προτεραιότητας RFC 5424."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Όνομα εφαρμογής Syslog"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. Εκτυπώσιμοι χαρακτήρες ASCII χωρίς κενά, έως 48 χαρακτήρες."
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Διατήρηση της καταγραφής του ελέγχου"
+msgstr "Ταυτότητα κόμβου ελέγχου"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Σταθερή ταυτότητα ονόματος κεντρικού υπολογιστή RFC 5424 για αυτόν τον κόμβο Cacti. Μην χρησιμοποιείτε τιμή που αλλάζει κατά την επανεκκίνηση."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Χρονικό όριο σύνδεσης και εγγραφής"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Χρονικό όριο λήξης (timeout) σε δευτερόλεπτα, από 1 έως 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Μέγιστο μέγεθος εγγραφής UDP"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Εγγραφές μεγαλύτερες από αυτό το όριο byte μεταφέρονται στα αδιάθετα (dead-letter) και δεν περικόπτονται ούτε διαχωρίζονται ποτέ. Συνιστάται TCP ή TLS για μεγάλα συμβάντα."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "Αρχείο CA TLS"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Προαιρετικό πακέτο πιστοποιητικών CA σε μορφή PEM. Η επαλήθευση ομότιμου κόμβου και ονόματος κεντρικού υπολογιστή είναι πάντα ενεργοποιημένη."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "Πιστοποιητικό πελάτη TLS"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Προαιρετικό πιστοποιητικό πελάτη σε μορφή PEM. Πρέπει επίσης να έχει ρυθμιστεί ένα κλειδί πελάτη."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "Ιδιωτικό κλειδί πελάτη TLS"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Προαιρετική αναγνώσιμη διαδρομή ιδιωτικού κλειδιού σε μορφή PEM. Τα περιεχόμενα του κλειδιού δεν αποθηκεύονται ποτέ στα συμβάντα ελέγχου."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Ουρά παράδοσης Syslog"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Βασική καθυστέρηση επανάληψης"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Αρχική καθυστέρηση επανάληψης σε δευτερόλεπτα, από 1 έως 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Μέγιστη καθυστέρηση επανάληψης"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Μέγιστη καθυστέρηση επανάληψης σε δευτερόλεπτα, από τη βασική καθυστέρηση έως 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Μέγιστος αριθμός προσπαθειών παράδοσης"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Μετακίνηση εγγραφής σε dead-letter μετά από αυτόν τον αριθμό προσπαθειών, από 1 έως 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Μέγεθος δέσμης Poller"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Μέγιστος αριθμός ληξιπρόθεσμων εγγραφών που επεξεργάζονται ανά κύκλο του Poller, από 1 έως 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Προειδοποίηση παλαιότητας εκκρεμότητας"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Εμφάνιση προειδοποίησης μη υγιούς κατάστασης όταν η παλαιότερη εγγραφή στην ουρά φτάσει αυτή την ηλικία σε δευτερόλεπτα."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Όριο προειδοποίησης μη παραδοθέντων (Dead-letter)"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Εμφάνιση προειδοποίησης μη υγιούς κατάστασης όταν τόσες εγγραφές μεταφερθούν σε dead-letter."
 
 #: setup.php
 msgid "Audit"
@@ -748,6 +733,10 @@ msgstr "Αρχείο ελέγχου"
 #: setup.php
 msgid "Audit Event Log"
 msgstr "Αρχείο καταγραφής συμβάντων ελέγχου"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Διαδρομή εξωτερικού αρχείου καταγραφής ελέγχου (Audit Log)"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"

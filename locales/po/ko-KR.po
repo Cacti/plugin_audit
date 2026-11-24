@@ -19,23 +19,22 @@ msgstr ""
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog 테스트 레코드가 로컬 소켓에 기록되었습니다. 수신기 저장 여부는 확인되지 않았습니다."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog 테스트 실패: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "재시도를 위해 데드 레터 Syslog 전송 %d건을 초기화했습니다."
 
 #: audit.php
-#, fuzzy
 #| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "감사 이벤트 로그"
+msgstr "감사 이벤트를 찾을 수 없습니다."
 
 #: audit.php
 msgid "Page:"
@@ -58,69 +57,65 @@ msgid "Action:"
 msgstr "작업 :"
 
 #: audit.php
-#, fuzzy
 #| msgid "Event Time"
 msgid "Event Type:"
-msgstr "이벤트 시간"
+msgstr "이벤트 유형:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Events"
 msgid "Event ID:"
-msgstr "이벤트"
+msgstr "이벤트 ID:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "요청 상태:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "작업 결과:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "결과 사유:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "외부 파일 전달:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "감사 로그 사용"
+msgstr "외부 파일 오류:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "원격 Syslog 전송:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog 시도 횟수:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog 소켓 쓰기:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog 오류:"
 
 #: audit.php
 msgid "Script:"
-msgstr "ìµìí ì´ë¦ê³¼ ëªë ¹ì ìë ¥íìì¼ í©ëë¤."
+msgstr "스크립트:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "기록 데이터:"
+msgstr "저장된 데이터"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "저장된 요청 데이터가 유효한 JSON이 아닙니다: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -137,7 +132,7 @@ msgstr "기록 데이터:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "%s에 의한 감사 로그 정리를 통해 %d개의 이벤트가 제거되었으며, Syslog 전송이 완료되지 않은 %d개의 이벤트는 보호되었습니다."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -197,7 +192,7 @@ msgstr "로그 이벤트 내보내기"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "모든 감사 로그 이벤트를 영구적으로 정리하시겠습니까?"
 
 #: audit.php
 msgid "Purge"
@@ -229,31 +224,29 @@ msgstr "이벤트를 생성 한 사용자입니다."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "요청된 작업"
 
 #: audit.php
-#, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Cacti Action이 요청했습니다. 마우스를 올려 놓으면 $ _POST 데이터를 볼 수 있습니다."
+msgstr "요청된 Cacti 작업입니다. 작업 위에 마우스를 올리면 요청 데이터를 볼 수 있습니다."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "요청 상태"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "요청 처리 상태입니다. 완료 상태가 모든 작업의 성공을 보장하지는 않습니다."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "외부 파일 전달"
 
 #: audit.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "외부 감사 로그 파일의 경로를 입력합니다."
+msgstr "선택적 외부 감사 로그 파일의 전송 상태입니다. 원격 Syslog 상태는 별도로 표시됩니다."
 
 #: audit.php
 msgid "User Agent"
@@ -289,118 +282,115 @@ msgstr "감사 로그 이벤트 없음"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "원격 Syslog 전송"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "상태"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "비활성화"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "정상"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "비정상"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "대기 중"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "재시도"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "데드 레터"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "전송됨 (미확인)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "가장 오래된 대기 항목"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "초"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "마지막 시도"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "안함"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "마지막 소켓 쓰기"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Syslog 테스트"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "데드 레터 재시도"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "모든 데드 레터 Syslog 이벤트를 재시도하시겠습니까?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "구성 오류:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "감사 로그 사용"
+msgstr "마지막 오류:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti는 계정 활성화 여부, 영역 권한 또는 2FA 완료 여부를 확인하기 전에 이 결과를 기록하므로 세션이 아직 설정되지 않았을 수 있습니다."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "현재 Cacti 경로 중 이 서명을 기록하는 경로는 없으며, 확인되지 않은 결과의 잠재적 비밀번호 변경으로 방어적으로 기록되었습니다."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "user_id=0인 Cacti user_log result=3은 비밀번호 변경이거나 2FA 인증 실패일 수 있으며, 테이블에서는 이를 구분할 수 없습니다."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "이 설정을 저장하려면 감사 관리 권한이 필요합니다."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "인증 감사가 활성화되지 않았습니다. 먼저 audit_auth_indexes.php CLI 유지 관리 명령을 실행하세요."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "원격 Syslog 설정이 저장되지 않았습니다: %s"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Audit Log"
+msgstr "감사 로그 사용자"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Audit Log"
+msgstr "감사 로그 관리자"
 
 #: setup.php
 msgid "Technical Support"
@@ -421,37 +411,36 @@ msgstr "무기한으로"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "% d 주"
+msgstr "%d주"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "% d 개월"
+msgstr "%d개월"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "개월 % d 개월"
+msgstr "%d개월"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "% d 년"
+msgstr "%d년"
 
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "% d 년"
+msgstr "%d년"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "도구 "
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Audit Log"
+msgstr "감사 플러그인"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -475,31 +464,29 @@ msgstr "감사 로그 항목을 얼마나 오래 보관 하시겠습니까?"
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "감사 로그 사용"
+msgstr "외부 감사 로그"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "감사 로그가 GUI 활동을 추적하게하려면이 상자를 선택하십시오."
+msgstr "감사 로그를 외부 파일에 기록하려면 이 확인란을 선택하십시오."
 
 #: setup.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "감사 로그 사용"
+msgstr "외부 감사 로그 형식"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "외부 감사 로그 파일의 경로를 입력합니다."
+msgstr "외부 감사 로그 레코드의 출력 형식을 선택하십시오."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "텍스트"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
 msgid "External Audit Log Log file  Path"
@@ -511,235 +498,233 @@ msgstr "외부 감사 로그 파일의 경로를 입력합니다."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "인증 감사"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "인증 감사 활성화"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "이 시점부터 새로운 로그인, 로그아웃, 토큰, 비밀번호 변경 및 권한 거부 이벤트를 수집하도록 선택합니다."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "로그인 실패량 감지 활성화"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "설치 전체의 로그인 실패 횟수가 구성된 임계값을 초과할 때 전역 이상 이벤트를 발생시킵니다."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "로그인 실패 기간 (분)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "실패한 로그인 횟수를 집계하는 데 사용되는 이동 시간 창(분, 1~1440)입니다."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "로그인 실패량 임계값"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "전역 이상 이벤트를 트리거하는 전체 설치 환경 기준 로그인 실패 횟수(1~1000)입니다."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "사용자 로그 수집 배치 크기"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "폴러 주기당 수집되는 최대 user_log 행 수 및 회수되는 만료 마커 수입니다(1~5000). 마커 상태는 7일 동안 유지되므로 배치 크기가 클수록 폴러의 최대 작업량과 7일 제한 상태 테이블 크기가 모두 증가합니다."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "원격 Syslog"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "감사 로그 사용"
+msgstr "원격 Syslog 활성화"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "완료된 감사 이벤트를 원격 Syslog 전송 대기열에 추가합니다. 기존 외부 파일 출력은 독립적으로 유지됩니다."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog 수신기"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "URI 스킴, 경로 또는 자격 증명 없이 수신기 호스트 이름이나 IP 주소를 입력하세요."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog 포트"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "1-65535 사이의 값을 입력하거나, 비워 두어 UDP/TCP에는 514, TLS에는 6514를 사용하세요."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog 전송"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP는 확인 응답 없이 하나의 데이터그램을 전송합니다. TCP 및 TLS는 RFC 6587 옥텟 카운트 프레이밍을 사용합니다."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "Tls"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog 페이로드 형식"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "모든 형식은 RFC 5424 헤더를 사용합니다. 메시지에 대해 RFC 5424 구조화된 데이터, CEF 또는 압축 JSON을 선택하세요."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog 퍼실리티"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "RFC 5424 우선순위를 계산하는 데 사용할 facility를 선택하십시오."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog 애플리케이션 이름"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME입니다. 공백이 없는 인쇄 가능한 ASCII 문자로 최대 48자까지 지정할 수 있습니다."
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "감사 로그 보존"
+msgstr "감사 노드 ID"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "이 Cacti 노드의 고정된 RFC 5424 호스트 이름 식별자입니다. 재시작 시 변경되는 값을 사용하지 마십시오."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "연결 및 쓰기 시간 초과"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "제한 시간(초, 1~30)입니다."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "최대 UDP 레코드 크기"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "이 바이트 제한보다 큰 레코드는 데드 레터(dead-letter)로 처리되며 잘리거나 분할되지 않습니다. 큰 이벤트에는 TCP 또는 TLS를 권장합니다."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA 파일"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "선택적 PEM CA 번들입니다. 피어 및 호스트 이름 검증은 항상 활성화됩니다."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS 클라이언트 인증서"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "선택적 PEM 클라이언트 인증서입니다. 클라이언트 키도 함께 구성해야 합니다."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS 클라이언트 개인 키"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "읽기 가능한 선택적 PEM 개인 키 경로입니다. 키 내용은 감사 이벤트에 저장되지 않습니다."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog 전송 대기열"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "재시도 기본 지연 시간"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "초기 재시도 지연 시간(초)입니다. 범위는 1에서 3600까지입니다."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "최대 재시도 지연 시간"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "최대 재시도 지연 시간(초)입니다(기본 지연 시간~86400)."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "최대 전송 시도 횟수"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "이 횟수만큼 시도한 후 레코드를 데드레터(dead-letter)로 이동합니다(1~100)."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "폴러 배치 크기"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "폴러 주기당 처리할 최대 만기 레코드 수입니다(1~1000)."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "대기 경과 시간 경고"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "대기열에 있는 가장 오래된 레코드가 이 시간(초)에 도달하면 비정상 경고를 표시합니다."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "데드 레터 경고 수"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "배달 실패(dead-letter) 처리된 레코드가 이 개수에 도달하면 비정상 경고를 표시합니다."
 
 #: setup.php
 msgid "Audit"
@@ -748,6 +733,10 @@ msgstr "감사 로깅 - 보고"
 #: setup.php
 msgid "Audit Event Log"
 msgstr "감사 이벤트 로그"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "외부 감사 로그 파일 경로"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"

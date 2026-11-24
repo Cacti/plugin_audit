@@ -19,23 +19,22 @@ msgstr ""
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Тестовият Syslog запис беше записан в локалния сокет. Съхранението при получателя не е потвърдено."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Тестът на Syslog е неуспешен: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Нулирани са %d неуспешни Syslog доставки за повторен опит."
 
 #: audit.php
-#, fuzzy
 #| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Протокол за събития на одит"
+msgstr "Събитието за одит не е намерено."
 
 #: audit.php
 msgid "Page:"
@@ -58,69 +57,65 @@ msgid "Action:"
 msgstr "Действие:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Време на събитието"
+msgstr "Тип събитие:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Events"
 msgid "Event ID:"
-msgstr "Събития"
+msgstr "ИД на събитие:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Състояние на заявката:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Резултат от операцията:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Причина за резултата:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Доставка до външен файл:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Активиране на дневник за одит"
+msgstr "Грешка във външен файл:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Отдалечена доставка на Syslog:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Опити за Syslog:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Запис в Syslog сокет:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Грешка в Syslog:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Скрипт:"
 
 #: audit.php
-#, fuzzy
 #| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Данни за запис:"
+msgstr "Съхранени данни"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Съхранените данни на заявката не са валиден JSON: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -137,7 +132,7 @@ msgstr "Данни за запис:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "Изчистването на журнала за одит от %s премахна %d събития и защити %d събития с незавършена доставка към Syslog."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -197,7 +192,7 @@ msgstr "Експортиране на събития в дневника"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Окончателно изчистване на всички събития от одитния дневник?"
 
 #: audit.php
 msgid "Purge"
@@ -229,31 +224,29 @@ msgstr "Потребителят, генерирал събитието."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Заявено действие"
 
 #: audit.php
-#, fuzzy
 #| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Изисква се Cacti Action. Задръжте курсора на мишката над действието, за да видите данни за $ _POST."
+msgstr "Заявеното действие в Cacti. Задръжте курсора над действието, за да видите данните на заявката."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Състояние на заявката"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Състояние на обработка на заявката; завършването не гарантира, че всяка операция е била успешна."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Доставка до външен файл"
 
 #: audit.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Въведете пътя до регистрационния файл за външна проверка."
+msgstr "Състояние на доставката за незадължителния външен регистрационен файл за одит. Състоянието на отдалечения Syslog се показва отделно."
 
 #: audit.php
 msgid "User Agent"
@@ -289,118 +282,115 @@ msgstr "Не са намерени събития в дневника за од�
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Отдалечена доставка на Syslog"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Изключен"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Изправен"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Неизправен"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Изчакващо"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Повторен опит"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Недоставени съобщения (Dead-letter)"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Изпратено (непотвърдено)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Най-старо чакащо"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "секунди"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Последен опит"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Никога"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Последен запис в сокет"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Тестване на Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Повторен опит за недоставените"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Да се направи ли повторен опит за всички недоставени Syslog събития?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Грешка в конфигурацията:"
 
 #: audit.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Активиране на дневник за одит"
+msgstr "Последна грешка:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti записва този резултат преди да провери дали акаунтът е активиран, правата за областта (realm) или завършването на 2FA; възможно е да не е установена сесия."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Никой текущ път в Cacti не записва този подпис; записано превантивно като възможна смяна на парола с непотвърден резултат."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Запис в Cacti user_log с result=3 и user_id=0 може да означава смяна на парола или неуспешно 2FA потвърждение; таблицата не може да ги разграничи."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "За запазване на тези настройки се изисква разрешение за администриране на одита."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Одитът на удостоверяването не беше активиран. Първо изпълнете командата за поддръжка през CLI audit_auth_indexes.php."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Настройките на отдалечения Syslog не бяха запазени: %s"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Дневник на одита"
+msgstr "Потребител на дневника за одит"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Дневник на одита"
+msgstr "Администратор на дневника за одит"
 
 #: setup.php
 msgid "Technical Support"
@@ -421,37 +411,36 @@ msgstr "за неопределено време"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "% d седмици"
+msgstr "%d седмици"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "% d Месец"
+msgstr "%d месец"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "% d Месеци"
+msgstr "%d месеца"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "% d Година"
+msgstr "%d година"
 
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "% d години"
+msgstr "%d години"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Приложения"
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Дневник на одита"
+msgstr "Приставка за одит"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -479,27 +468,25 @@ msgstr "Активиране на дневник за одит"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Поставете отметка в това квадратче, ако искате дневникът за одит да проследява дейностите на GUI."
+msgstr "Поставете отметка в това поле, ако искате дневникът за одит да се записва във външен файл."
 
 #: setup.php
-#, fuzzy
 #| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Активиране на дневник за одит"
+msgstr "Формат на външния дневник за одит"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Въведете пътя до регистрационния файл за външна проверка."
+msgstr "Изберете изходния формат за записите във външния одит журнал."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Текст"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
 msgid "External Audit Log Log file  Path"
@@ -511,235 +498,233 @@ msgstr "Въведете пътя до регистрационния файл �
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Одит на удостоверяването"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Активиране на одита на автентикацията"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Активирайте заснемането на нови събития за вход, изход, токен, смяна на парола и отказана оторизация от този момент нататък."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Активиране на откриването на обем от неуспешни влизания"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Изпращане на глобално събитие за аномалия, когато обемът на неуспешните влизания в цялата инсталация надвиши конфигурирания праг."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Времеви прозорец за неуспешни влизания (минути)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Плаващ прозорец в минути, от 1 до 1440, използван за преброяване на неуспешните входове."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Праг за обем от неуспешни влизания"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Общ брой неуспешни влизания за цялата инсталация, от 1 до 1000, който задейства глобално събитие за аномалия."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Размер на пакета за приемане на потребителски журнали"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Максимален брой редове от user_log, поети и с освободени изтекли маркери за един цикъл на Poller, от 1 до 5000. Състоянието на маркерите се съхранява седем дни, така че по-големите партиди увеличават както пиковото натоварване на Poller, така и ограничения седемдневен размер на таблицата със състояния."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Отдалечен Syslog"
 
 #: setup.php
-#, fuzzy
 #| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Активиране на дневник за одит"
+msgstr "Активиране на отдалечен Syslog"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Поставяне в опашка на финализираните одитни събития за отдалечена доставка по Syslog. Съществуващият изход към външен файл остава независим."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog получател"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Въведете име на хост или IP адрес на получателя без URI схема, път или данни за достъп."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog порт"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Въведете 1-65535 или оставете празно, за да използвате 514 за UDP/TCP и 6514 за TLS."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog транспорт"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP изпраща една дейтаграма без потвърждение. TCP и TLS използват RFC 6587 рамкиране с брой октети."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Формат на полезния товар за Syslog"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Всички формати използват заглавка по RFC 5424. Изберете структурирани данни по RFC 5424, CEF или компактен JSON за съобщението."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog категория (Facility)"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Изберете категорията (facility), използвана за изчисляване на приоритета по RFC 5424."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Име на приложението за Syslog"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. Печатими ASCII знаци без интервали, до 48 знака."
 
 #: setup.php
-#, fuzzy
 #| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Запазване на регистъра на одитите"
+msgstr "Идентичност на възела за одит"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Устойчиво RFC 5424 име на хост за този Cacti възел. Не използвайте стойност, която се променя при рестартиране."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Време на изчакване при свързване и запис"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Време на изчакване в секунди, от 1 до 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Максимален размер на UDP запис"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Записи, по-големи от това ограничение в байтове, се пренасочват към опашката за недоставени съобщения и никога не се съкращават или разделят. За големи събития се препоръчва TCP или TLS."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "Файл с TLS сертифициращ орган (CA)"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Незадължителен PEM CA пакет. Проверката на отсрещната страна и името на хоста винаги са включени."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "Клиентски TLS сертификат"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Незадължителен PEM клиентски сертификат. Трябва да бъде конфигуриран и клиентски ключ."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "Частен ключ за клиентски TLS"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Незадължителен път до четим PEM файл с частен ключ. Съдържанието на ключа никога не се съхранява в събитията за одит."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Опашка за доставка на Syslog"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Начално забавяне при повторен опит"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Начално забавяне преди повторен опит в секунди, от 1 до 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Максимално забавяне при повторен опит"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Максимално забавяне при повторен опит в секунди, от базовото забавяне до 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Максимален брой опити за доставка"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Преместване на запис в опашката за недоставени (dead-letter) след този брой опити, от 1 до 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Размер на пакета на Poller"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Максимален брой дължими записи, обработвани на цикъл на Poller, от 1 до 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Предупреждение за възраст на изчакващи"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Показване на предупреждение за неизправност, когато най-старият запис на опашката достигне тази възраст в секунди."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Праг за предупреждение за недоставени съобщения (Dead-letter)"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Показване на предупреждение за неизправност, когато толкова записи са отхвърлени в dead-letter опашката."
 
 #: setup.php
 msgid "Audit"
@@ -748,6 +733,10 @@ msgstr "Дневник на одита"
 #: setup.php
 msgid "Audit Event Log"
 msgstr "Протокол за събития на одит"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Път до външния файл на журнала за одит"
 
 #, php-format
 #~ msgid "Audit Log Purged by %s"
