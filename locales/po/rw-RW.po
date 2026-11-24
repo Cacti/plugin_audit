@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Kinyarwanda\n"
+"Language: rw-RW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Inyandiko y'igerageza ya Syslog yanditswe kuri socket y'imbere. Ububiko bw'iyakira ntiburemezwa."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Igerageza rya Syslog ryananiwe: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Subiza ku ntangiriro iyohereza rya Syslog %d ryananiwe (dead-letter) kugira ngo ryongerwe kugeragezwa."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Igikorwa cy'igenzura nticyabonetse."
+
+#: audit.php
+msgid "Page:"
+msgstr "Urupapuro:"
+
+#: audit.php
+msgid "User:"
+msgstr "Umukoresha:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Aderesi ya IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Itariki:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Igikorwa:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Ubwoko bw'igikorwa:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "ID y'igikorwa:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Imiterere y'icyifuzo:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Icyavuye mu gikorwa:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Impamvu y'icyavuyemo:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Itangwa rya dosiye yo hanze:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Ikosa rya dosiye yo hanze:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Itangwa rya Syslog yo Kure:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Ibigeragezo bya Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Iyandika kuri Socket ya Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Ikosa rya Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Skripti:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Amakuru yabitswe"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Amakuru y'ubusabe yabitswe si JSON yemewe: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Ikiranga"
+
+#: audit.php
+msgid "Value"
+msgstr "Agaciro"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Amakuru y'inyandiko:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Isiba ry'inyandiko y'igenzura ryakozwe na %s ryakuyeho ibikorwa %d kandi ririnda ibikorwa %d bifite iyohereza rya Syslog ritararangira."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Inyandiko y'igenzura"
+
+#: audit.php
+msgid "Search"
+msgstr "Shakisha"
+
+#: audit.php
+msgid "Page"
+msgstr "Urupapuro"
+
+#: audit.php
+msgid "All"
+msgstr "Byose"
+
+#: audit.php
+msgid "User"
+msgstr "Umukoresha"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Ibyabaye"
+
+#: audit.php
+msgid "Default"
+msgstr "Mburabuzi"
+
+#: audit.php
+msgid "Go"
+msgstr "Komeza"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Gushyiraho/Kuvugurura muyunguruzi"
+
+#: audit.php
+msgid "Clear"
+msgstr "Siba"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Gusiba muyunguruzi"
+
+#: audit.php
+msgid "Export"
+msgstr "Sohora"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Kohereza hanze ibikorwa byo mu gitabo"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Gusiba burundu ibikorwa byose by'igenzura mu nyandiko?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Siba burundu"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Siba burundu ibyabaye mu nyandiko y'ibikorwa"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Ibikorwa by'igenzura"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Izina ry'urupapuro"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Urupapuro aho igikorwa cyabereye."
+
+#: audit.php
+msgid "User Name"
+msgstr "Izina ry'ukoresha"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Ukoresha wakoze igikorwa."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Igikorwa cyasabwe"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Igikorwa cya Cacti cyasabwe. Shyira akambi hejuru y'igikorwa kugira ngo ubone amakuru y'ubusabe."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Imiterere y'icyifuzo"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Imiterere y'itunganywa ry'icyifuzo; kurangira ntibivuze ko buri gikorwa cyose cyagenze neza."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Itangwa rya dosiye yo hanze"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Imiterere y'iyoherezwa ry'idosiye y'ubugenzuzi yo hanze itari itegeko. Ubuzima bwa Syslog ya kure bugaragazwa ukwabwo."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Porogaramu y'ukoresha (User Agent)"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Ubwoko bwa mushakisha y'usaba."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Aderesi ya IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Aderesi IP y'usaba."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Igihe cy'igikorwa"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Igihe Igikorwa cyabereyeho."
+
+#: audit.php
+msgid "N/A"
+msgstr "Ntibihari"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Nta Bikorwa by'Inyandiko z'Ubugenzuzi Byabonetse"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Itangwa rya Syslog yo Kure"
+
+#: audit.php
+msgid "Status"
+msgstr "Imiterere"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Byahagaritswe"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Bimeze neza"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Itameze neza"
+
+#: audit.php
+msgid "Pending"
+msgstr "Bitegereje"
+
+#: audit.php
+msgid "Retry"
+msgstr "Ongera ugerageze"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Ubutumwa butashyikirijwe"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Byoherejwe (Bitaremezwa)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Igitegereje gishaje kurusha ibindi"
+
+#: audit.php
+msgid "seconds"
+msgstr "amasegonda"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Igerageza rya nyuma"
+
+#: audit.php
+msgid "Never"
+msgstr "Nta na rimwe"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Iyandika rya nyuma kuri Socket"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Gerageza Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Ongera ugerageze ibyananiwe (Dead-letter)"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Ongera ugerageze ibikorwa bya Syslog byananiwe (dead-letter) byose?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Ikosa ry'Igenamiterere:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Ikosa rya nyuma:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti yandika iki gisubizo mbere yo kugenzura niba konti yafunguwe, uburenganzira bw'igice, cyangwa irangizwa rya 2FA; umwanya w'imikoranire ushobora kuba utaratangijwe."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Nta nzira ya Cacti iriho yandika iyi sinyatire; byanditswe mu buryo bwo kwirinda nk'ihinduka ry'ijambobanga rishoboka rifite ibisubizo bitaremezwa."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Cacti user_log result=3 hamwe na user_id=0 bishobora kuba ari ihindura ry'ijambobanga cyangwa igenzura rya 2FA ritagenze neza; imbonerahamwe ntishobora kubitandukanya."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Uburenganzira bwo kuyobora igenzura burakenewe kugira ngo ube wabika aya magenamiterere."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Igenzura ryo kwemeza umwirondoro ntiryari ryafunguwe. Banza ukoreshe itegeko rya CLI ryo gusana audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Amagenamiterere ya Syslog yo kure ntiyabitswe: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Ukoresha inyandiko y'igenzura"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Umuyobozi w'inyandiko y'igenzura"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Ubufasha bwa tekiniki"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Reba inyandiko y'igenzura"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Biha abayobozi ubushobozi bwo kureba ibikorwa by'impinduka kuri seriveri ya Cacti.  Abayobozi bashobora kandi kohereza hanze inyandiko y'igenzura kugira ngo bayisesengure."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Mu buryo butagira iherezo"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Ibyumweru %d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Ukwezi %d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Amezi %d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Umwaka %d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Imyaka %d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Ibikoresho by'ubufasha"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Umugereka w'igenzura"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Amagenamiterere y'inyandiko y'igenzura"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Fungura Inyandiko y'Ubugenzuzi"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Hitamo aka gasanduku, niba wifuza ko Inyandiko y'igenzura ikurikirana ibikorwa bya GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Igihe cyo kubika inyandiko y'igenzura"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Wifuza ko amakuru y'Inyandiko z'Ubugenzuzi abikwa igihe kingana iki?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Inyandiko y'igenzura yo hanze"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Hitamo aka gasanduku, niba wifuza ko Inyandiko y'igenzura yandikwa muri dosiye yo hanze."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Imiterere y'inyandiko y'igenzura yo hanze"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Hitamo imiterere y'ibisohoka ku nyandiko z'ubugenzuzi zisohoka hanze."
+
+#: setup.php
+msgid "Text"
+msgstr "Umwandiko"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Inzira ya dosiye y'inyandiko y'igenzura yo hanze"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Andika inzira igana kuri dosiye yo hanze y'inyandiko y'igenzura."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Igenzura ryo kwemeza umwirondoro"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Fungura Ubugenzuzi bwo Kwemeza Imyirondoro"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Hitamo gufata ibikorwa bishya byo kwinjira, gusohoka, ikimenyetso cy'uburenganzira (token), guhindura ijambobanga, no kwimwa uburenganzira guhera ubu."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Fungura Gutahura Umubare w'Ibyanze Kwinjira"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Kohereza igikorwa cy'ikidasanzwe rusange igihe umubare w'ibyanze kwinjira mu iyinjira ryose urenze urwego ntarengwa rwagenwe."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Igihe cyo kwinjira byanze (iminota)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Igihe gikomeza mu minota, kuva kuri 1 kugeza kuri 1440, gikoreshwa mu kubara kwinjira kutagenze neza."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Urwego ntarengwa rw'umubare wo kwinjira byanze"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Umubare w'igerageza ryo kwinjira ryanze muri sisitemu yose, kuva kuri 1 kugeza ku 1000, utera igikorwa rusange cy'ikibazo kidasanzwe."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Ingano y'icyiciro cyo kwinjiza inyandiko z'abakoresha"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Umubare ntarengwa w'imirongo ya user_log yinjizwa n'ibimenyetso byarengeje igihe bigarurwa kuri buri cyiciro cy'Ikusanyamakuru, kuva kuri 1 kugeza kuri 5000. Imiterere y'ibimenyetso ibikwa iminsi irindwi, bityo ibyiciro binini byongera byombi akazi kenshi k'Ikusanyamakuru n'ingano y'imbonerahamwe y'imiterere y'iminsi irindwi."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog yo Kure"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Fungura Syslog ya Kure"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Shyira ku murongo ibyabaye by'igenzura byarangiye kugira ngo byoherezwe kuri Syslog ya kure. Ibisohoka mu idosiye yo hanze bisanzwe bikomeza kwigenga."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Iyakira rya Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Andika izina rya mwakirizi yakira cyangwa aderesi ya IP nta gice cya URI, inzira, cyangwa ibyangombwa byo kwinjira."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Umuyoboro wa Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Andika 1-65535, cyangwa usige harimo ubusa kugira ngo ukoreshe 514 kuri UDP/TCP na 6514 kuri TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Uburyo bwo kohereza Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP yohereza datagramu imwe nta kwemeza kubayeho. TCP na TLS bikoresha uburyo bwa RFC 6587 bwo kubara okite."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Imiterere y'amakuru ya Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Imiterere yose ikoresha umutwe wa RFC 5424. Hitamo amakuru ateguye ya RFC 5424, CEF, cyangwa JSON yegeranye ku butumwa."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Icyiciro cya Syslog (Facility)"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Hitamo ikiciro gikoreshwa mu kubara uburemere bwa RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Izina rya porogaramu ya Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Inyuguti za ASCII zicapika zitagira umwanya, kugeza ku nyuguti 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Umwirondoro w'igice cy'igenzura"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Umwirondoro uhoraho w'izina rya mwakirizi rya RFC 5424 kuri iyi node ya Cacti. Ntukoreshe agaciro gahinduka igihe hatangiye bundi bushya."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Igihe ntarengwa cyo Guhuza no Kwandika"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Igihe ntarengwa mu masegonda, kuva kuri 1 kugeza kuri 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Ingano ntarengwa y'inyandiko ya UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Inyandiko nini kurusha iyi ntera y'ama-byte zishyirwa mu butumwa bwapfuye kandi ntizigera zikatwa cyangwa ngo zigabanywe. TCP cyangwa TLS birasabwa ku bikorwa binini."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Dosiye ya CA ya TLS"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Umufungo wa PEM CA utari ngombwa. Igenzura ry'uwo muvugana n'izina rya mwakirizi rihora rifunguye."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Impamyabushobozi y'umukiriya ya TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Icyemezo cy'umukiriya cya PEM kitari ngombwa. Urufunguzo rw'umukiriya na rwo rugomba kugenerwa."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Urufunguzo rwihariye rw'umukiriya rwa TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Inzira itari ngombwa isomeka y'urufunguzo bwite rwa PEM. Ibiri mu rufunguzo ntibibikwa na rimwe mu makuru y'igenzura."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Umurongo w'iyoherezwa rya Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Igihe fatizo cyo gutegereza mbere yo kongera kugerageza"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Igihe cyo gutegereza mbere yo kongera kugerageza mu masegonda, kuva kuri 1 kugeza kuri 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Ikererwa ntarengwa ryo kongera kugerageza"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Ikererwa ntarengwa ryo kongera kugerageza mu masegonda, kuva ku ikererwa shingiro kugeza kuri 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Inshuro ntarengwa zo kugerageza kohereza"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Yimure inyandiko mu bubiko bw'ibyananiranye nyuma y'iyi mibare y'igerageza, kuva kuri 1 kugeza ku 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Ingano y'Ikiciro cy'Ikusanyamakuru"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Umubare ntarengwa w'inyandiko zigeze igihe zitunganywa kuri buri cyiciro cy'Ikusanyamakuru, kuva kuri 1 kugeza ku 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Iburira ry'igihe cyo gutegereza"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Erekana iburira ry'ikibazo igihe inyandiko ya kera kurusha izindi ku murongo igeze kuri iki gihe mu masegonda."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Umubare w'iburira ry'ubutumwa butashyikirijwe"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Erekana iburira ry'ikibazo igihe umubare ungana utya w'inyandiko washyizwe ku ruhande nk'udashoboye gutunganywa."
+
+#: setup.php
+msgid "Audit"
+msgstr "Igenzura"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Inyandiko y'ibikorwa by'igenzura"
+

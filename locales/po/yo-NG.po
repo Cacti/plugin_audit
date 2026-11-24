@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Yoruba\n"
+"Language: yo-NG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "A kọ àkọsílẹ̀ ìdánwò Syslog sí sókẹ́ẹ̀tì àdúgbò. A kò tíì fìdí ìpamọ́ olùgbà múlẹ̀."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Ìdánwò Syslog kùnà: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Tún àwọn ìfiránṣẹ́ Syslog tí kò dé ibi tó yẹ %d tò fún àtúngbìyànjú."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "A kò rí ìṣẹ̀lẹ̀ àyẹ̀wò."
+
+#: audit.php
+msgid "Page:"
+msgstr "Ojú-ewé:"
+
+#: audit.php
+msgid "User:"
+msgstr "Olùṣàmúlò:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Àdírẹ́sì IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Ọjọ́:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Ìgbésẹ̀:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Irú Ìṣẹ̀lẹ̀:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "ID Ìṣẹ̀lẹ̀:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Ipò Ìbéèrè:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Àbájáde Iṣẹ́:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Ìdí Àbájáde:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Ìfìránṣẹ́ Fáìlì Ìta:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Àṣìṣe Fáìlì Ìta:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Ìfijiṣẹ́ Syslog Òkèèrè:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Àwọn Ìgbìyànjú Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Ìkọ̀wé Sókẹ́ẹ̀tì Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Àṣìṣe Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Síkíríìtì:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Dátà tí a Fipamọ́"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Dátà ìbéèrè tí a tọ́jú kì í ṣe JSON tí ó tọ́: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Àbùdá"
+
+#: audit.php
+msgid "Value"
+msgstr "Iye"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Dátà Àkọsílẹ̀:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Ìnu Àkọsílẹ̀ Àyẹ̀wò láti ọwọ́ %s ti yọ àwọn ìṣẹ̀lẹ̀ %d kúrò ó sì dáàbò bo àwọn ìṣẹ̀lẹ̀ %d tí ìfijiṣẹ́ Syslog wọn kò tíì parí."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Àkọsílẹ̀ Àyẹ̀wò"
+
+#: audit.php
+msgid "Search"
+msgstr "Ṣàwárí"
+
+#: audit.php
+msgid "Page"
+msgstr "Ojú-ìwé"
+
+#: audit.php
+msgid "All"
+msgstr "Gbogbo"
+
+#: audit.php
+msgid "User"
+msgstr "Olùlò"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Àwọn Ìṣẹ̀lẹ̀"
+
+#: audit.php
+msgid "Default"
+msgstr "Àìyípadà"
+
+#: audit.php
+msgid "Go"
+msgstr "Lọ"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Ṣètò/Sọ Àwọn Àlẹ̀mọ́ Dọ̀tun"
+
+#: audit.php
+msgid "Clear"
+msgstr "Nu Kúrò"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Pa Àwọn Àlẹ̀mọ́ Rẹ́"
+
+#: audit.php
+msgid "Export"
+msgstr "Kó Jáde"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Kó Àwọn Ìṣẹ̀lẹ̀ Àkọsílẹ̀ Jáde"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Ṣé kí á fọ gbogbo àwọn ìṣẹ̀lẹ̀ àkọsílẹ̀ àyẹ̀wò mọ́ títí láé?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Parẹ́ Pátápátá"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Fọ Àwọn Ìṣẹ̀lẹ̀ Àkọsílẹ̀ Kúrò"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Àwọn Ìṣẹ̀lẹ̀ Àyẹ̀wò"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Orúkọ Ojú-ewé"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Ojú-ìwé níbi tí a ti ṣẹ̀dá ìṣẹ̀lẹ̀ náà."
+
+#: audit.php
+msgid "User Name"
+msgstr "Orúkọ Olùlò"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Olùlò tó ṣẹ̀dá ìṣẹ̀lẹ̀ náà."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Ìgbésẹ̀ Tí A Béèrè"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Ìgbésẹ̀ Cacti tí a béèrè. Gbé e lé orí ìgbésẹ̀ náà láti rí dátà ìbéèrè."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Ipò Ìbéèrè"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Ipò ìṣiṣẹ́ ìbéèrè; píparí rẹ̀ kò túmọ̀ sí pé gbogbo iṣẹ́ ló yọrí sí rere."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Ìfìránṣẹ́ Fáìlì Ìta"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Ipò ìfijiṣẹ́ fún fáìlì àkọsílẹ̀ àyẹ̀wò òde tí kì í ṣe dandan. Ìlera Syslog òkèèrè ni a fi hàn lọ́tọ̀."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Aṣojú Olùlò"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Irú aṣàwákiri ti olùbéèrè."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Àdírẹ́ẹ̀sì IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Àdírẹ́sì IP ti olùbéèrè."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Àkókò Ìṣẹ̀lẹ̀"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Àkókò tí Ìṣẹ̀lẹ̀ náà wáyé."
+
+#: audit.php
+msgid "N/A"
+msgstr "Kò Sí"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Kò Sí Àwọn Ìṣẹ̀lẹ̀ Àkọsílẹ̀ Àyẹ̀wò Tí A Rí"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Ìfijiṣẹ́ Syslog Òkèèrè"
+
+#: audit.php
+msgid "Status"
+msgstr "Ipò"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Àìṣiṣẹ́"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Ní Ìlera"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Aláìlera"
+
+#: audit.php
+msgid "Pending"
+msgstr "Ní Ìdúró"
+
+#: audit.php
+msgid "Retry"
+msgstr "Tún gbìyànjú"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Ìfiránṣẹ́ tí ó kùnà"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Ti Firanṣẹ́ (Kò Tíì Jẹ́rìísí)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Tí Ó Ń Dúró Tí Ó Pẹ́ Jùlọ"
+
+#: audit.php
+msgid "seconds"
+msgstr "ìṣẹ́jú àáyá"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Ìgbìyànjú Tó Kẹ́yìn"
+
+#: audit.php
+msgid "Never"
+msgstr "Kò ṣẹlẹ̀ rí"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Ìkọ̀wé Socket Tó Kẹ́yìn"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Ṣe Àyẹ̀wò Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Tún Gbìyànjú Ìfiránṣẹ́ Tí Kò Dé Ibi Tó Yẹ"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Ṣé kí a tún gbogbo àwọn ìṣẹ̀lẹ̀ Syslog tí kò dé ibi tó yẹ gbìyànjú?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Àṣìṣe Ìṣètò:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Àṣìṣe Tó Kẹ́yìn:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti máa ń kọ èsì yìí sílẹ̀ ṣáájú kí ó tó ṣàyẹ̀wò pé àkọọ́lẹ̀ ṣiṣẹ́, àṣẹ agbègbè, tàbí ìparí 2FA; ó ṣeé ṣe kí ìgbà ìṣiṣẹ́ má tíì bẹ̀rẹ̀."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Kò sí ipa ọ̀nà Cacti lọ́wọ́lọ́wọ́ tí ó kọ àmì ìdánimọ̀ yìí; a kọ ọ́ sílẹ̀ fún ààbò gẹ́gẹ́ bí àyípadà ọ̀rọ̀ aṣínà tí ó ṣeéṣe pẹ̀lú èsì tí a kò tíì fìdí rẹ̀ múlẹ̀."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Àbájáde Cacti user_log result=3 pẹ̀lú user_id=0 lè jẹ́ àyípadà ọ̀rọ̀ aṣínà tàbí ìpèníjà 2FA tí ó kùnà; tábìlì náà kò lè ṣàlàyé ìyàtọ̀ rẹ̀."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Ìyọ̀ǹda ìdarí àyẹ̀wò ṣe kókó láti fipamọ́ àwọn ètò wọ̀nyí."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Àyẹ̀wò ìdánimọ̀ kò sí ní ṣiṣẹ́. Kọ́kọ́ ṣiṣẹ́ àṣẹ ìtọ́jú CLI audit_auth_indexes.php ná."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Àwọn ètò Syslog òkèèrè kò fipamọ́: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Olùlò Àkọsílẹ̀ Àyẹ̀wò"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Olùdarí Àkọsílẹ̀ Àyẹ̀wò"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Ìrànlọ́wọ́ Ìmọ̀-ẹ̀rọ"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Wo Àkọsílẹ̀ Àyẹ̀wò"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Ó ń gba Àwọn Alákòóso láàyè láti wo ìṣe àyípadà lórí sáfà Cacti.  Àwọn Alákòóso tún lè gbé àkọsílẹ̀ àyẹ̀wò jáde fún ìdí ìtúpalẹ̀."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Láìlópin"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Ọ̀sẹ̀ %d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Oṣù %d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Oṣù %d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Ọdún %d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Ọdún %d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Àwọn Ohun-èlò"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Àfikún Àyẹ̀wò"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Àwọn Ètò Àkọsílẹ̀ Àyẹ̀wò"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Mú Àkọsílẹ̀ Àyẹ̀wò ṣiṣẹ́"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Fi àmì sí àpótí yìí, tí o bá fẹ́ kí Àkọsílẹ̀ Àyẹ̀wò tọpinpin àwọn iṣẹ́ GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Àkókò Ìpamọ́ Àkọsílẹ̀ Àyẹ̀wò"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Ìgbà wo ni o fẹ́ kí àwọn àkọsílẹ̀ Ìwádìí wà ní ìpamọ́?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Àkọsílẹ̀ Àyẹ̀wò Ìta"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Fi àmì sí àpótí yìí, tí o bá fẹ́ kí Àkọsílẹ̀ Àyẹ̀wò jẹ́ kíkọ sínú fáìlì ìta."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Ìṣètò Àkọsílẹ̀ Àyẹ̀wò Ìta"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Yan ọ̀nà àbájáde fún àwọn àkọsílẹ̀ àyẹ̀wò ìta."
+
+#: setup.php
+msgid "Text"
+msgstr "Ọ̀rọ̀"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Ọ̀nà Fáìlì Àkọsílẹ̀ Àyẹ̀wò Ìta"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Tẹ ọ̀nà sí fáìlì àkọsílẹ̀ àyẹ̀wò ìta."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Àyẹ̀wò Ìdánimọ̀"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Mú Àyẹ̀wò Ìdánimọ̀ ṣiṣẹ́"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Darapọ̀ mọ́ kí o lè gba àwọn ìṣẹ̀lẹ̀ wíwọlé tuntun, jíjáde, tókìnì, ìyípadà ọ̀rọ̀ aṣínà, àti ìkọ̀sílẹ̀ àṣẹ láti àsìkò yìí lọ."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Mú Ìwárí Iye Ìwọlé Tí Ó Kùnà ṣiṣẹ́"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Fi ìṣẹ̀lẹ̀ àjèjì àgbáyé jáde nígbà tí iye ìwọlé tí ó kùnà káàkiri ìfisílẹ̀ bá kọjá àlà tí a ṣètò."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Àkókò Ìwọlé-tí-ó-kùnà (ìṣẹ́jú)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Àkókò yíyípo ní ìṣẹ́jú, láti 1 títí dé 1440, tí a ń lò láti ka àwọn ìgbìyànjú ìwọlé tó kùnà."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Àlà Iye Ìwọlé-tí-ó-kùnà"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Iye ìwọlé tí ó kùnà káàkiri gbogbo ìfi-sórí-ẹ̀rọ, láti 1 dé 1000, tí ó ń fa ìṣẹ̀lẹ̀ àjèjì gbogbogbòò."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Ìwọ̀n Ìdìpọ̀ Gbigba Àkọsílẹ̀ Olùlò"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Àwọn ìlà user_log tó pọ̀ jù lọ tí a kó wọlé àti àwọn àmì tí àkókò wọn ti parí tí a gbà padà fún ìyípo Olùṣàyẹ̀wò kọ̀ọ̀kan, láti 1 títí dé 5000. A máa ń pa ipò àmì mọ́ fún ọjọ́ méje, nítorí náà àwọn àkójọpọ̀ tó tóbi jù máa ń mú kí iṣẹ́ Olùṣàyẹ̀wò tó ga jù àti ìwọ̀n tábìlì ipò ọjọ́ méje tí a dè pọ̀ sí i."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog Òkèèrè"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Mú Syslog Ọ̀nà Jíjìn ṣiṣẹ́"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Fi àwọn ìṣẹ̀lẹ̀ àyẹ̀wò tí a ti parí sí orí ìlà fún ìfiránṣẹ́ sí Syslog òkèèrè. Àbájáde fáìlì ìta tí ó wà tẹ́lẹ̀ yóò dúró lọ́tọ̀."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Olùgbà Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Tẹ orúkọ olùgbàlejò olùgbà tàbí àdírẹ́sì IP láìsí ètò URI, ọ̀nà, tàbí àwọn ìwé-ẹ̀rí."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Pọ́ọ̀tù Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Tẹ 1-65535, tàbí fi sílẹ̀ ní òfo láti lo 514 fún UDP/TCP àti 6514 fún TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Ìgbékalẹ̀ Ìfiránṣẹ́ Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP máa ń fi dátàgírámù kan ránṣẹ́ láìsí ìjẹ́rìísí. TCP àti TLS máa ń lo ìtòlẹ́sẹẹsẹ iye-ọ́ktẹ́ẹ̀tì RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Ọ̀nà Ìṣètò Ẹrù-dátà Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Gbogbo àwọn ìṣètò máa ń lo àkọlé RFC 5424. Yan dátà oníṣètò RFC 5424, CEF, tàbí JSON kíkúnjú fún ìránṣẹ́ náà."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Ẹ̀ka Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Yan ohun èlò tí a lò láti ṣírò ìpò kókó RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Orúkọ Ohun-èlò Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Àwọn lẹ́tà ASCII tí a lè tẹ̀ tí kò ní ààyè, títí dé àmì-ìkọ̀wé 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Ìdánimọ̀ Nóòdù Àyẹ̀wò"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Ìdánimọ̀ orúkọ olùgbàlejò RFC 5424 tó dúró ṣinṣin fún nóòdù Cacti yìí. Má ṣe lo iye tó ń yí padà nígbà àtúnbẹ̀rẹ̀."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Àkókò Ìpàdánù Ìsopọ̀ àti Kíkọ"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Ìparí àkókò ní ìṣẹ́jú-àáyá, láti 1 títí dé 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Ìwọ̀n Àkọsílẹ̀ UDP Tó Pọ̀ Jù Lọ"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Àwọn àkọsílẹ̀ tí ó tóbi ju ààlà báìtì yìí lọ ni a máa ń fi sí àkọsílẹ̀ tí kò lọ àti pé a kì í gé wọn kúrú tàbí pín wọn. A dábàá TCP tàbí TLS fún àwọn ìṣẹ̀lẹ̀ ńlá."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Fáìlì TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Àpò PEM CA àṣàyàn. Ìfìdí ẹlẹgbẹ́ àti orúkọ olùgbàlejò múlẹ̀ máa ń ṣiṣẹ́ nígbà gbogbo."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Ìwé-ẹ̀rí Oníbàárà TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Ìwé-ẹ̀rí oníbàárà PEM àṣàyàn. A tún gbọ́dọ̀ ṣètò kọ́kọ́rọ́ oníbàárà."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Kọ́kọ́rọ́ Àdáni Oníbàárà TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Ọ̀nà kọ́kọ́rọ́ àdáni PEM tí ó ṣeé kà àṣàyàn. A kì í fi àwọn ohun tí ó wà nínú kọ́kọ́rọ́ náà pamọ́ sínú àwọn ìṣẹ̀lẹ̀ àyẹ̀wò láéláé."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Ìlà Ìfìránṣẹ́ Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Ìdádúró Ìpìlẹ̀ Àtúngbìyànjú"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Ìdádúró ìgbìyànjú lẹ́ẹ̀kan sí i àkọ́kọ́ ní ìṣẹ́jú-àáyá, láti 1 títí dé 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Ìdádúró Àtúngbìyànjú Tó Pọ̀ Jù Lọ"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Ìdádúró àtúngbìyànjú tó pọ̀ jù lọ ní ìṣẹ́jú-àáyá, láti ìdádúró ìpìlẹ̀ títí dé 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Ìgbìyànjú Ìfíránṣẹ́ Tó Pọ̀ Jù Lọ"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Gbé àkọsílẹ̀ lọ sí àpò ìkọ̀sílẹ̀ lẹ́yìn iye ìgbìyànjú yìí, láti 1 títí dé 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Ìwọ̀n Ìdìpọ̀ Olùṣàyẹ̀wò"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Àwọn àkọsílẹ̀ tó yẹ tí a ṣiṣẹ́ lé lórí tó pọ̀ jù lọ fún ìyípo Olùṣàyẹ̀wò kọ̀ọ̀kan, láti 1 títí dé 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Ìkìlọ̀ Ọjọ́-orí Ìdúró"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Ṣàfihàn ìkìlọ̀ àìlera nígbà tí àkọsílẹ̀ tí ó pẹ́ jùlọ nínú ìlà bá dé ọjọ́-orí yìí ní ìṣẹ́jú-àáyá."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Ìka Ìkìlọ̀ Ìfiránṣẹ́ tí ó Kùnà"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Ṣàfihàn ìkìlọ̀ àìlera nígbà tí iye àwọn àkọsílẹ̀ yìí bá di àkọsílẹ̀ tí kò ṣeé ránṣẹ́."
+
+#: setup.php
+msgid "Audit"
+msgstr "Àyẹ̀wò"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Àkọsílẹ̀ Ìṣẹ̀lẹ̀ Àyẹ̀wò"
+

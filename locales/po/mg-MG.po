@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Malagasy\n"
+"Language: mg-MG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Nosoratana tao amin'ny socket eo an-toerana ny firaketana fitsapana Syslog. Tsy voamarina ny fitahirizan'ny mpandray."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Tsy nahomby ny fitsapana Syslog: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Avereno amin'ny laoniny ny fandefasana Syslog tsy tafita %d mba hanandramana indray."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Tsy hita ny hetsika fanaraha-maso."
+
+#: audit.php
+msgid "Page:"
+msgstr "Pejy:"
+
+#: audit.php
+msgid "User:"
+msgstr "Mpampiasa:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Adiresy IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Daty:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Hetsika:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Karazana hetsika:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "ID hetsika:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Satan'ny fangatahana:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Vokatry ny asa:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Antony nahatonga ny vokatra:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Fandefasana rakitra ivelany:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Hadisoan'ny rakitra ivelany:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Fandefasana Syslog lavitra:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Fanandramana Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Fanoratana Socket Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Hadisoana Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Script:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Angona voatahiry"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Tsy JSON manan-kery ny angon-drakitry ny fangatahana voatahiry: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Toetra"
+
+#: audit.php
+msgid "Value"
+msgstr "Sanda"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Angon'ny firaketana:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Ny fanadiovana ny diarin'ny fanaraha-maso nataon'i %s dia namafa hetsika %d ary niaro hetsika %d izay mbola tsy vita ny fandefasana azy amin'ny Syslog."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Diarin'ny fanaraha-maso"
+
+#: audit.php
+msgid "Search"
+msgstr "Fikarohana"
+
+#: audit.php
+msgid "Page"
+msgstr "Pejy"
+
+#: audit.php
+msgid "All"
+msgstr "Rehetra"
+
+#: audit.php
+msgid "User"
+msgstr "Mpampiasa"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Zava-nitranga"
+
+#: audit.php
+msgid "Default"
+msgstr "Voafaritra mialoha"
+
+#: audit.php
+msgid "Go"
+msgstr "Alefa"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Hametraka/Hanavao sivana"
+
+#: audit.php
+msgid "Clear"
+msgstr "Fafao"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Esory ny sivana"
+
+#: audit.php
+msgid "Export"
+msgstr "Aondrana"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Aondrana ny hetsika voarakitra"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Hamafa tanteraka ny hetsika rehetra ao amin'ny diarin'ny fanaraha-maso ve?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Diovy tanteraka"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Fafao tanteraka ireo hetsiky ny diarin'asa"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Hetsika fanaraha-maso"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Anaran'ny pejy"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Ny pejy namoronana ny hetsika."
+
+#: audit.php
+msgid "User Name"
+msgstr "Anaran'ny mpampiasa"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Ny mpampiasa namorona ilay hetsika."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Hetsika nangatahina"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Ny hetsika Cacti nangatahina. Apetraho eo ambonin'ny hetsika ny totozy hahitana ny angon-drakitry ny fangatahana."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Satan'ny fangatahana"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Toetry ny fikarakarana fangatahana; tsy manome antoka fa nahomby avokoa ny asa rehetra ny fahavitany."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Fandefasana rakitra ivelany"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Toetry ny fandefasana ho an'ny rakitra tatitra fanamarinana ivelany tsy voatery. Ny fahasalaman'ny Syslog lavitra dia aseho misaraka."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Mpanera mpampiasa (User Agent)"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Ny karazana mpitety tranonkalan'ny mpangataka."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Adiresy IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Ny adiresy IP an'ny mpangataka."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Fotoanan'ny hetsika"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Ny fotoana nitrangan'ny Hetsika."
+
+#: audit.php
+msgid "N/A"
+msgstr "Tsy misy"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Tsy nisy zava-nitranga diarin'ny fanaraha-maso hita"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Fandefasana Syslog lavitra"
+
+#: audit.php
+msgid "Status"
+msgstr "Sata"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Tsy mavitrika"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Salama"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Tsy salama"
+
+#: audit.php
+msgid "Pending"
+msgstr "Miandry"
+
+#: audit.php
+msgid "Retry"
+msgstr "Andramo indray"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Hafatra tsy lasa"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Voalefa (Tsy voamarina)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Miandry tranainy indrindra"
+
+#: audit.php
+msgid "seconds"
+msgstr "segondra"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Fanandramana farany"
+
+#: audit.php
+msgid "Never"
+msgstr "Tsy mihitsy"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Fanoratana Socket farany"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Andrana Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Andramo indray ny hafatra tsy tafita"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Hanandrana indray ny hetsika Syslog tsy tafita rehetra ve?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Hadisoana amin'ny fandrindrana:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Hadisoana farany:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Mirakitra ity vokatra ity i Cacti alohan'ny hanamarinana raha mavitrika ny kaonty, ny fanomezan-dalana realm, na ny fahavitan'ny 2FA; mety tsy mbola nisy fivoriana natsangana."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Tsy misy lalan'ny Cacti ankehitriny manoratra ity sonia ity; voarakitra ho fiarovana toy ny mety ho fanovana tenimiafina tsy voamarina ny vokany."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Ny user_log Cacti misy result=3 sy user_id=0 dia mety ho fanovana tenimiafina na tsy fahombiazana tamin'ny fanamarinana 2FA; tsy afaka manavaka izany ny tabilao."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Ilaina ny alalana hitantana ny fanaraha-maso mba hitahirizana ireo fandrindrana ireo."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Tsy navitrika ny fanaraha-maso ny fanamarinana. Alefaso aloha ny baiko fikojakojana CLI audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Tsy voatahiry ny fandrindrana Syslog lavitra: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Mpampiasa ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Mpitantana ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Fanohanana ara-teknika"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Jereo ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Mamela ny Mpitantana hijery ny hetsika fanovana ao amin'ny mpizara Cacti. Azon'ny Mpitantana atao koa ny manondrana ny tantaran'ny fanamarinana mba handinihana azy."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Mandritra ny fotoana tsy voafetra"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d Herinandro"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d Volana"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d Volana"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d taona"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d Taona"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Fitaovana fanampiny"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Plugin fanaraha-maso"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Fandrindrana ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Alefaso ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Mariho ity boaty ity raha tianao hanara-maso ny hetsika ao amin'ny GUI ny Audit Log."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Fitazonana ny diarin'ny fanaraha-maso"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Mandra-pahoviana no tianao hotehirizina ny firaketana Audit Log?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Tantaran'ny fanaraha-maso ivelany"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Mariho ity boaty ity raha tianao hosoratana any amin'ny rakitra ivelany ny Audit Log."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Endriky ny tantaran'ny fanaraha-maso ivelany"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Misafidiana ny endrika fivoahana ho an'ny firaketana fanaraha-maso ivelany."
+
+#: setup.php
+msgid "Text"
+msgstr "Lahatsoratra"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Lalan'ny rakitry ny tantaran'ny fanaraha-maso ivelany"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Ampidiro ny lalana mankany amin'ny rakitra tatitra fanamarinana ivelany."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Fanaraha-maso ny fanamarinana"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Alefaso ny fanaraha-maso ny fanamarinana"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Misafidiana handray ireo tranga vaovao momba ny fidirana, fivoahana, mari-pamantarana, fanovana tenimiafina, ary fandavana alalana manomboka izao."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Alefaso ny fitiliana ny habetsaky ny fidirana tsy nahomby"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Mamoaka hetsika tsy fahatomombanana ankapobeny rehefa mihoatra ny fetra voarindra ny habetsaky ny fidirana tsy nahomby manerana ny fametrahana."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Elanelam-potoanan'ny fidirana tsy nahomby (minitra)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Fe-potoana mikisaka amin'ny minitra, manomboka amin'ny 1 ka hatramin'ny 1440, ampiasaina hanisana ny fidirana tsy nahomby."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Fetra fatran'ny fidirana tsy nahomby"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Isan'ny fidirana tsy nahomby manerana ny fametrahana, manomboka amin'ny 1 ka hatramin'ny 1000, izay miteraka hetsika tsy fahatomombanana faobe."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Haben'ny andiany fandraisana ny tatitra mpampiasa"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Andalana user_log farany ambony ampidirina sy marika lany daty alaina indray isaky ny tsingerin'ny poller, manomboka amin'ny 1 ka hatramin'ny 5000. Tehirizina mandritra ny fito andro ny toetry ny marika, ka ny andiany lehibe kokoa dia mampitombo na ny asa faran'izay betsaky ny poller na ny haben'ny tabilao toetra voafetra mandritra ny fito andro."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog lavitra"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Alefaso ny Syslog lavitra"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Ampilaharo ireo hetsika fanaraha-maso vita mba halefa any amin'ny Syslog lavitra. Tsy miankina amin'izany ny famoahana rakitra ivelany efa misy."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Mpandray Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Ampidiro anaran'ny mpampiantrano mpandray na adiresy IP tsy misy rafitra URI, lalana, na mari-pamantarana fidirana."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Seranana Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Ampidiro ny 1-65535, na avelao ho banga mba hampiasana ny 514 ho an'ny UDP/TCP ary 6514 ho an'ny TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Fitaterana Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "Mandefa datagrama iray tsy misy fanamafisana ny UDP. Mampiasa rafitra fanisana okte RFC 6587 ny TCP sy ny TLS."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Endriky ny votoatin'ny Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Mampiasa lohapejy RFC 5424 avokoa ny endrika rehetra. Misafidiana angona voarafitra RFC 5424, CEF, na JSON fohy ho an'ny hafatra."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Sokajy (Facility) Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Misafidiana ny sokajy ampiasaina hikajiana ny laharam-pahamehana RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Anaran'ny rindranasa Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Soratra ASCII azo atonta tsy misy elanelana, hatramin'ny tarehin-tsoratra 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Famantarana ny node fanaraha-maso"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Anaran'ny mpampiantrano RFC 5424 marin-toerana ho an'ity node Cacti ity. Aza mampiasa sanda miova rehefa manomboka indray."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Fetr'andro fifandraisana sy fanoratana"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Fe-potoana farany amin'ny segondra, manomboka amin'ny 1 ka hatramin'ny 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Haben'ny firaketana UDP farany ambony"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Ny firaketana mihoatra io fetran'ny octet io dia alefa any amin'ny dead-letter ary tsy tapahina na zaraina mihitsy. Ny TCP na TLS no soso-kevitra ho an'ny hetsika lehibe."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Rakitra TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Amboara PEM CA safidy. Mavitrika foana ny fanamarinana ny mpiara-miasa sy ny anaran'ny mpampiantrano."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Taratasy fanamarinana mpanjifa TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Taratasy fanamarinana mpanjifa PEM safidy. Tsy maintsy amboarina ihany koa ny fanalahidin'ny mpanjifa."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Lakile manokana mpanjifa TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Lalana mankany amin'ny fanalahidy manokana PEM azo vakiana (safidy). Tsy tahirizina mihitsy ao amin'ny tranga fanaraha-maso ny votoatin'ny fanalahidy."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Laharan'ny fandefasana Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Fotoana fiandrasana fototra alohan'ny fanandramana indray"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Fahatarana voalohany alohan'ny hanandramana indray amin'ny segondra, manomboka amin'ny 1 ka hatramin'ny 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Elanelam-potoana fanandramana indray farany ambony"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Elanelam-potoana fanandramana indray farany ambony amin'ny segondra, manomboka amin'ny elanelam-potoana fototra ka hatramin'ny 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Fanandramana fandefasana farany ambony"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Afindrao any amin'ny lisitry ny hafatra tsy lasa (dead-letter) ny rakitra iray aorian'izay isa andrana izay, manomboka amin'ny 1 ka hatramin'ny 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Haben'ny andian'ny Poller"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Firaketana tonga fotoana farany ambony karakaraina isaky ny tsingerin'ny poller, manomboka amin'ny 1 ka hatramin'ny 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Fampitandremana momba ny faharetan'ny fiandrasana"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Asehoy ny fampitandremana tsy fahatomombanana rehefa mahatratra io faharetana io amin'ny segondra ny firaketana tranainy indrindra ao anaty filaharana."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Isan'ny fampitandremana hafatra tsy lasa"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Asehoy ny fampitandremana tsy fahatomombanana rehefa mahatratra io isa io ny firaketana tsy tafita (dead-lettered)."
+
+#: setup.php
+msgid "Audit"
+msgstr "Fanaraha-maso"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Diarin'ny hetsika fanaraha-maso"
+
