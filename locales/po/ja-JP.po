@@ -4,38 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2024-06-08 09:15-0400\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: ja_JP\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Japanese <https://translate.cacti.net/projects/cacti/audit/ja/>\nLanguage: ja-JP\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog テストレコードはローカルソケットに書き込まれました。レシーバー側の保存は未確認です。"
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog テストに失敗しました: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "再試行のため %d 件のデッドレター Syslog 配信をリセットしました。"
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "監査イベントログ"
+msgstr "監査イベントが見つかりません。"
 
 #: audit.php
 msgid "Page:"
@@ -43,7 +30,7 @@ msgstr "ページ:"
 
 #: audit.php
 msgid "User:"
-msgstr "ユーザー"
+msgstr "ユーザー："
 
 #: audit.php
 msgid "IP Address:"
@@ -58,69 +45,61 @@ msgid "Action:"
 msgstr "アクション:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "イベントの時間"
+msgstr "イベントタイプ:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "イベント"
+msgstr "イベントID:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "リクエストステータス:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "操作結果:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "結果の理由:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "外部ファイル配信:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "監査ログを有効にする"
+msgstr "外部ファイルエラー:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "リモート Syslog 配信:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog 試行回数:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog ソケット書き込み:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog エラー:"
 
 #: audit.php
 msgid "Script:"
 msgstr "スクリプト(T):"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "レコードデータ:"
+msgstr "保存データ"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "保存されたリクエストデータは有効な JSON ではありません: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -137,7 +116,7 @@ msgstr "レコードデータ:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "%s による監査ログのパージにより %d 件のイベントが削除され、Syslog 配信が未完了の %d 件のイベントが保護されました。"
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -197,7 +176,7 @@ msgstr "ログイベントのエクスポート"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "すべての監査ログイベントを完全にパージしますか？"
 
 #: audit.php
 msgid "Purge"
@@ -229,31 +208,27 @@ msgstr "イベントを生成したユーザー。"
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "要求されたアクション"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "サボテンアクションは要求しました。 $ _POSTデータを表示するためのアクションにカーソルを合わせます。"
+msgstr "要求された Cacti アクション。アクションにカーソルを合わせるとリクエストデータが表示されます。"
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "リクエストステータス"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "リクエストの処理状態です。完了しても、すべての操作が成功したとは限りません。"
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "外部ファイル配信"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "外部監査ログ ファイルへのパスを入力します。"
+msgstr "オプションの外部監査ログファイルの配信状態。リモート Syslog の状態は別途表示されます。"
 
 #: audit.php
 msgid "User Agent"
@@ -289,118 +264,112 @@ msgstr "監査ログイベントが見つかりません"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "リモート Syslog 配信"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "状態"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "無効"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "正常"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "異常"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "保留中"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "再試行"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "デッドレター"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "送信済み（未確認）"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "最古の保留"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "秒"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "最終試行"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "決して"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "最終ソケット書き込み"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Syslog のテスト"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "デッドレターを再試行"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "すべてのデッドレター Syslog イベントを再試行しますか？"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "設定エラー:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "監査ログを有効にする"
+msgstr "最後のエラー:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti はアカウントの有効化、レルム認可、または 2FA 完了を確認する前にこの結果を記録します。セッションが確立されていない可能性があります。"
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "現在の Cacti の処理経路ではこのシグネチャを書き込みません。結果未確認のパスワード変更の可能性として防御的に記録されました。"
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "user_id=0 の Cacti user_log result=3 は、パスワード変更または 2FA チャレンジ失敗の可能性がありますが、テーブルからは判別できません。"
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "これらの設定を保存するには監査管理権限が必要です。"
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "認証監査は有効になりませんでした。最初に audit_auth_indexes.php CLI メンテナンスコマンドを実行してください。"
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "リモート Syslog 設定を保存できませんでした: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "監査ログ"
+msgstr "監査ログユーザー"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "監査ログ"
+msgstr "監査ログ管理者"
 
 #: setup.php
 msgid "Technical Support"
@@ -416,27 +385,27 @@ msgstr "管理者がCactiサーバの変更アクティビティを表示する�
 
 #: setup.php
 msgid "Indefinitely"
-msgstr "無期限に"
+msgstr "無期限"
 
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "%d 週間の"
+msgstr "%d 週間"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "%d ヶ月間の"
+msgstr "%d ヶ月"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "%d ヶ月間の"
+msgstr "%d ヶ月"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "%d 年間の"
+msgstr "%d 年"
 
 #: setup.php
 #, php-format
@@ -445,13 +414,11 @@ msgstr "%d 年"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "ユーティリティ"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "監査ログ"
+msgstr "監査プラグイン"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -482,28 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "監査ログにGUIアクティビティを追跡させる場合は、このボックスをオンにします。"
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "監査ログを有効にする"
+msgstr "外部監査ログの形式"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "外部監査ログ ファイルへのパスを入力します。"
+msgstr "外部監査ログレコードの出力形式を選択します。"
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "テキスト"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
-msgstr "外部監査ログ ログ ファイルのパス"
+msgid "External Audit Log File Path"
+msgstr "外部監査ログファイルパス"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -511,235 +474,231 @@ msgstr "外部監査ログ ファイルへのパスを入力します。"
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "認証監査"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "認証監査を有効にする"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "これ以降に発生する新しいログイン、ログアウト、トークン、パスワード変更、および認可拒否イベントの記録を有効にします。"
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "ログイン失敗回数の検出を有効にする"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "システム全体のログイン失敗回数が設定されたしきい値を超えた場合、グローバル異常イベントを発生させます。"
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "ログイン失敗の集計期間 (分)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "失敗したログイン回数をカウントするために使用するローリングウィンドウ (1〜1440 分)。"
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "ログイン失敗回数のしきい値"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "グローバル異常イベントをトリガーする、システム全体のログイン失敗回数（1〜1000）です。"
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "ユーザーログ取り込みバッチサイズ"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "ポーラーサイクルごとに取り込まれる user_log 行と回収される期限切れマーカーの最大数（1〜5000）です。マーカー状態は 7 日間保持されるため、バッチサイズを大きくするとピーク時のポーラー負荷と 7 日間の状態テーブルサイズの上限の両方が増加します。"
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "リモート Syslog"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "監査ログを有効にする"
+msgstr "リモートSyslogを有効にする"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "確定した監査イベントをリモート Syslog 配信用にキューに入れます。既存の外部ファイル出力は独立して維持されます。"
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog レシーバー"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "URI スキーム、パス、または認証情報を含まない受信側のホスト名または IP アドレスを入力してください。"
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog ポート"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "1〜65535 を入力するか、空白のままにして UDP/TCP では 514、TLS では 6514 を使用します。"
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog トランスポート"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP は確認応答なしで 1 つのデータグラムを送信します。TCP および TLS は RFC 6587 のオクテットカウントフレーミングを使用します。"
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog ペイロード形式"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "すべての形式が RFC 5424 ヘッダーを使用します。メッセージには RFC 5424 構造化データ、CEF、またはコンパクト JSON を選択してください。"
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog ファシリティ"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "RFC 5424 の優先度を計算するために使用するファシリティを選択してください。"
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog アプリケーション名"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME。空白を含まない印字可能な ASCII 文字で最大 48 文字まで。"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "監査ログの保存"
+msgstr "監査ノード識別子"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "この Cacti ノード用の固定された RFC 5424 ホスト名識別子です。再起動時に変化する値は使用しないでください。"
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "接続および書き込みタイムアウト"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "タイムアウト（秒、1〜30）。"
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "最大 UDP レコードサイズ"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "このバイト制限を超えるレコードはデッドレター化され、切り捨てや分割は行われません。大きなイベントには TCP または TLS の使用を推奨します。"
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA ファイル"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "任意の PEM 形式 CA バンドル。ピアおよびホスト名の検証は常に有効です。"
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS クライアント証明書"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "任意の PEM 形式クライアント証明書。クライアント鍵も設定する必要があります。"
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS クライアント秘密鍵"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "任意の読み取り可能な PEM 形式秘密鍵のパス。鍵の内容が監査イベントに保存されることはありません。"
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog 配信キュー"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "再試行の基本遅延"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "初回再試行までの遅延時間（秒）、1 ～ 3600 の範囲。"
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "最大再試行遅延"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "秒単位の最大再試行遅延（基本遅延〜86400）です。"
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "最大配信試行回数"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "1 から 100 までの範囲で、指定した試行回数を超えたレコードをデッドレターへ移動します。"
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "ポーラーのバッチサイズ"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "ポーラーサイクルごとに処理される期限到達レコードの最大数（1〜1000）です。"
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "保留経過時間の警告"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "キュー内の最も古いレコードの経過時間がこの秒数に達したときに異常警告を表示します。"
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "デッドレター警告数"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "デッドレター化されたレコード数がこの数に達したときに異常警告を表示します。"
 
 #: setup.php
 msgid "Audit"
