@@ -4,39 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2024-06-08 09:16-0400\n"
-"Last-Translator: Edwin Lankamp <edwin.lankamp@gmail.com>\n"
-"Language-Team: Dutch <http://translate.cacti.net/projects/cacti/audit/nl/>\n"
-"Language: nl_NL\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.4.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Dutch <https://translate.cacti.net/projects/cacti/audit/nl/>\nLanguage: nl-NL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Het Syslog-testrecord is naar de lokale socket geschreven. Opslag bij de ontvanger is niet bevestigd."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog-test mislukt: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "%d dead-letter Syslog-afleveringen gereset voor een nieuwe poging."
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Auditgebeurtenislogboek"
+msgstr "Auditgebeurtenis niet gevonden."
 
 #: audit.php
 msgid "Page:"
@@ -59,69 +45,61 @@ msgid "Action:"
 msgstr "Actie:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Evenement Tijd"
+msgstr "Gebeurtenistype:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "Gebeurtenissen"
+msgstr "Gebeurtenis-ID:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Aanvraagstatus:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Resultaat van bewerking:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Reden van resultaat:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Externe bestandslevering:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Auditlogboek inschakelen"
+msgstr "Externe bestandsfout:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Externe Syslog-aflevering:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog-pogingen:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog-socketschrijfbewerking:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog-fout:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Script:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Gegevens opnemen:"
+msgstr "Opgeslagen gegevens"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "De opgeslagen aanvraaggegevens zijn geen geldige JSON: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -138,7 +116,7 @@ msgstr "Gegevens opnemen:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "Opschonen van het auditlogboek door %s heeft %d gebeurtenissen verwijderd en %d gebeurtenissen met onvoltooide Syslog-aflevering beschermd."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -182,7 +160,7 @@ msgstr "Stel in/vernieuw filters"
 
 #: audit.php
 msgid "Clear"
-msgstr "Herstel"
+msgstr "Wissen"
 
 #: audit.php
 msgid "Clear Filters"
@@ -198,7 +176,7 @@ msgstr "Logboekgebeurtenissen exporteren"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Alle auditloggebeurtenissen definitief opschonen?"
 
 #: audit.php
 msgid "Purge"
@@ -230,35 +208,31 @@ msgstr "De gebruiker die het evenement heeft gegenereerd."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Aangevraagde actie"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "De gevraagde Cacti actie.  Beweeg de muis over de actie om $_POST data te zien."
+msgstr "De aangevraagde Cacti-actie. Beweeg de muis over de actie om de aanvraaggegevens te bekijken."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Aanvraagstatus"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Verwerkingsstatus van aanvraag; voltooiing garandeert niet dat elke bewerking is geslaagd."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Externe bestandslevering"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Voer het pad naar het externe controlelogboekbestand in."
+msgstr "Afleverstatus voor het optionele externe auditlogbestand. De status van externe Syslog wordt afzonderlijk weergegeven."
 
 #: audit.php
 msgid "User Agent"
-msgstr "Gebruiker agent"
+msgstr "User-Agent"
 
 #: audit.php
 msgid "The browser type of the requester."
@@ -290,118 +264,112 @@ msgstr "Geen auditlogboekgebeurtenissen gevonden"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Externe Syslog-aflevering"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgeschakeld"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Gezond"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Ongezond"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "In wachtrij"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Opnieuw proberen"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Dead-letter"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Verzonden (onbevestigd)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Oudste in wachtrij"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "seconden"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Laatste poging"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Nooit"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Laatste socket-schrijfbewerking"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Syslog testen"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Dead-letter opnieuw proberen"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Alle dead-letter Syslog-gebeurtenissen opnieuw proberen?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Configuratiefout:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Auditlogboek inschakelen"
+msgstr "Laatste fout:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti legt dit resultaat vast voordat is gecontroleerd of het account is ingeschakeld, de realm-autorisatie klopt of 2FA is voltooid; mogelijk is er geen sessie tot stand gebracht."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Geen enkel huidig Cacti-pad schrijft deze handtekening; defensief geregistreerd als een mogelijke wachtwoordwijziging met een onbevestigd resultaat."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Cacti user_log result=3 met user_id=0 kan een wachtwoordwijziging of een mislukte 2FA-verificatie zijn; de tabel kan dit niet onderscheiden."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "Machtiging voor auditbeheer is vereist om deze instellingen op te slaan."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Authenticatie-auditing is niet ingeschakeld. Voer eerst de CLI-onderhoudsopdracht audit_auth_indexes.php uit."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Instellingen voor externe Syslog zijn niet opgeslagen: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Auditlogboek"
+msgstr "Gebruiker auditlogboek"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Auditlogboek"
+msgstr "Beheerder auditlogboek"
 
 #: setup.php
 msgid "Technical Support"
@@ -417,7 +385,7 @@ msgstr "Stelt beheerders in staat om wijzigingsactiviteiten op de Cacti-server t
 
 #: setup.php
 msgid "Indefinitely"
-msgstr "Onbepaalde tijd"
+msgstr "Voor onbepaalde tijd"
 
 #: setup.php
 #, php-format
@@ -442,17 +410,15 @@ msgstr "%d Jaar"
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "%d Jaren"
+msgstr "%d jaar"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Gereedschappen"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Auditlogboek"
+msgstr "Audit-plugin"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -483,28 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "Vink dit vakje aan als u wilt dat het auditlogboek de GUI-activiteiten volgt."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Auditlogboek inschakelen"
+msgstr "Indeling extern auditlogboek"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Voer het pad naar het externe controlelogboekbestand in."
+msgstr "Selecteer de uitvoerindeling voor externe auditlogrecords."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
-msgstr "Pad naar logboekbestand voor externe controle"
+msgid "External Audit Log File Path"
+msgstr "Pad naar extern auditlogbestand"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -512,235 +474,231 @@ msgstr "Voer het pad naar het externe controlelogboekbestand in."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Authenticatie-auditing"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Authenticatie-auditing inschakelen"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Kies ervoor om vanaf dit moment nieuwe gebeurtenissen voor aanmelden, afmelden, tokens, wachtwoordwijzigingen en geweigerde autorisaties vast te leggen."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Detectie van aantal mislukte aanmeldingen inschakelen"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Genereer een algemene afwijkingsgebeurtenis wanneer het installatiebrede aantal mislukte aanmeldingen de ingestelde drempelwaarde overschrijdt."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Tijdvenster voor mislukte aanmeldingen (minuten)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Voortschrijdend tijdvenster in minuten, van 1 tot en met 1440, gebruikt om mislukte aanmeldingen te tellen."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Drempelwaarde voor aantal mislukte aanmeldingen"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Installatiebreed aantal mislukte aanmeldingen, van 1 tot en met 1000, dat een globale anomaliegebeurtenis activeert."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Batchgrootte voor opname van gebruikerslogboeken"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Maximumaantal user_log-rijen dat wordt opgenomen en verlopen markeringen dat per poller-cyclus wordt vrijgegeven, van 1 tot en met 5000. De markeringsstatus wordt zeven dagen bewaard, dus grotere batches verhogen zowel de piekbelasting van de poller als de begrensde grootte van de zevendaagse statustabel."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Externe Syslog"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Auditlogboek inschakelen"
+msgstr "Externe Syslog inschakelen"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Plaats afgeronde auditgebeurtenissen in de wachtrij voor externe Syslog-aflevering. De bestaande externe bestandsuitvoer blijft onafhankelijk."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog-ontvanger"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Voer een hostnaam of IP-adres van de ontvanger in zonder URI-schema, pad of referenties."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog-poort"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Voer 1-65535 in, of laat leeg om 514 voor UDP/TCP en 6514 voor TLS te gebruiken."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog-transport"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP verzendt één datagram zonder bevestiging. TCP en TLS gebruiken RFC 6587 octet-count framing."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog-payloadindeling"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Alle indelingen gebruiken een RFC 5424-header. Selecteer RFC 5424 structured data, CEF of compacte JSON voor het bericht."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog-faciliteit"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Selecteer de faciliteit die wordt gebruikt om de RFC 5424-prioriteit te berekenen."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog-applicatienaam"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. Afdrukbare ASCII-tekens zonder spaties, maximaal 48 tekens."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Audit Logboek Behoud"
+msgstr "Auditnode-identiteit"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Stabiele RFC 5424-hostnaamidentiteit voor dit Cacti-knooppunt. Gebruik geen waarde die verandert bij een herstart."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Verbindings- en schrijftime-out"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Time-out in seconden, van 1 tot en met 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Maximale UDP-recordgrootte"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Records die groter zijn dan deze bytelimiet worden als dead-letter gemarkeerd en nooit afgekapt of gesplitst. TCP of TLS wordt aanbevolen voor grote gebeurtenissen."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA-bestand"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Optionele PEM CA-bundel. Peer- en hostnaamverificatie zijn altijd ingeschakeld."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS-clientcertificaat"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Optioneel PEM-clientcertificaat. Er moet ook een clientsleutel worden geconfigureerd."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "Persoonlijke TLS-clientsleutel"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Optioneel leesbaar pad naar PEM-privésleutel. De sleutelinhoud wordt nooit opgeslagen in auditgebeurtenissen."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog-afleverwachtrij"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Basisvertraging voor nieuwe poging"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Initiële wachttijd voor opnieuw proberen in seconden, van 1 tot en met 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Maximale wachttijd voor nieuwe poging"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Maximale wachttijd voor nieuwe poging in seconden, vanaf de basisvertraging tot en met 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Maximumaantal afleverpogingen"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Verplaats een record naar dead-letter na dit aantal pogingen, van 1 tot en met 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Poller-batchgrootte"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Maximumaantal vervallen records dat per poller-cyclus wordt verwerkt, van 1 tot en met 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Waarschuwing ouderdom wachtrij"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Toon een statuswaarschuwing wanneer het oudste record in de wachtrij deze leeftijd in seconden bereikt."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Waarschuwingsaantal voor dead-letter"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Toon een statuswaarschuwing wanneer dit aantal records als dead-letter is gemarkeerd."
 
 #: setup.php
 msgid "Audit"
