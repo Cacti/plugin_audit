@@ -4,38 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2024-06-08 09:27-0400\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: vi_VN\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Vietnamese <https://translate.cacti.net/projects/cacti/audit/vi/>\nLanguage: vi-VN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Bản ghi kiểm tra Syslog đã được ghi vào socket cục bộ. Chưa xác nhận việc lưu trữ tại bộ nhận."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Kiểm tra Syslog thất bại: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Đã đặt lại %d lượt gửi Syslog bị lỗi (dead-letter) để thử lại."
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Nhật ký sự kiện kiểm toán"
+msgstr "Không tìm thấy sự kiện kiểm tra."
 
 #: audit.php
 msgid "Page:"
@@ -43,7 +30,7 @@ msgstr "Trang:"
 
 #: audit.php
 msgid "User:"
-msgstr "Thành viên: "
+msgstr "Thành viên:"
 
 #: audit.php
 msgid "IP Address:"
@@ -58,69 +45,61 @@ msgid "Action:"
 msgstr "Hành động:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Thời gian sự kiện"
+msgstr "Loại sự kiện:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "Sự kiện"
+msgstr "ID sự kiện:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Trạng thái yêu cầu:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Kết quả thao tác:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Lý do kết quả:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Gửi ra tệp bên ngoài:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Bật nhật ký kiểm toán"
+msgstr "Lỗi tệp bên ngoài:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Gửi Syslog từ xa:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Số lần thử Syslog:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Ghi socket Syslog:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Lỗi Syslog:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Tập lệnh:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Ghi dữ liệu:"
+msgstr "Dữ liệu đã lưu"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Dữ liệu yêu cầu được lưu trữ không phải là JSON hợp lệ: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -137,7 +116,7 @@ msgstr "Ghi dữ liệu:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "Việc dọn dẹp nhật ký Audit do %s thực hiện đã xóa %d sự kiện và bảo vệ %d sự kiện chưa hoàn tất gửi Syslog."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -197,7 +176,7 @@ msgstr "Xuất nhật ký sự kiện"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Xóa vĩnh viễn tất cả các sự kiện nhật ký kiểm toán?"
 
 #: audit.php
 msgid "Purge"
@@ -229,35 +208,31 @@ msgstr "Người dùng đã tạo sự kiện."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Hành động được yêu cầu"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Hành động Cacti được yêu cầu. Di chuột qua hành động để xem dữ liệu $ _POST."
+msgstr "Hành động Cacti được yêu cầu. Di chuột qua hành động để xem dữ liệu yêu cầu."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Trạng thái yêu cầu"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Trạng thái xử lý yêu cầu; việc hoàn tất không đảm bảo mọi thao tác đều thành công."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Gửi ra tệp bên ngoài"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Nhập đường dẫn đến tệp nhật ký kiểm tra bên ngoài."
+msgstr "Trạng thái gửi đối với tệp nhật ký kiểm toán bên ngoài tùy chọn. Tình trạng Syslog từ xa được hiển thị riêng."
 
 #: audit.php
 msgid "User Agent"
-msgstr "Tài khoản quản lí"
+msgstr "User Agent"
 
 #: audit.php
 msgid "The browser type of the requester."
@@ -289,118 +264,112 @@ msgstr "Không tìm thấy sự kiện Nhật ký kiểm toán"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Gửi Syslog từ xa"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Trạng thái"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Vô hiệu hóa"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Hoạt động tốt"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Bất thường"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Đang chờ xử lý"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Thử lại"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Thư lỗi (Dead-letter)"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Đã gửi (Chưa xác nhận)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Mục đang chờ cũ nhất"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "giây"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Lần thử gần nhất"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Không bao giờ"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Lần ghi socket gần nhất"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Kiểm tra Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Thử lại hàng đợi lỗi (Dead-letter)"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Thử lại tất cả các sự kiện Syslog bị lỗi (dead-letter)?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Lỗi cấu hình:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Bật nhật ký kiểm toán"
+msgstr "Lỗi gần nhất:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti ghi nhận kết quả này trước khi xác minh tài khoản có được kích hoạt, phân quyền realm hay hoàn tất 2FA; phiên làm việc có thể chưa được thiết lập."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Không có đường dẫn Cacti hiện tại nào ghi chữ ký này; được ghi lại mang tính phòng ngừa như một khả năng thay đổi mật khẩu với kết quả chưa được xác nhận."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Giá trị user_log result=3 với user_id=0 của Cacti có thể là thay đổi mật khẩu hoặc xác thực 2FA thất bại; bảng không thể phân biệt rõ."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "Cần có quyền quản trị Audit để lưu các thiết lập này."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Kiểm tra xác thực chưa được bật. Hãy chạy lệnh bảo trì CLI audit_auth_indexes.php trước."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Chưa lưu cài đặt Syslog từ xa: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Nhật ký"
+msgstr "Người dùng nhật ký kiểm tra"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Nhật ký"
+msgstr "Quản trị nhật ký kiểm tra"
 
 #: setup.php
 msgid "Technical Support"
@@ -421,37 +390,35 @@ msgstr "Vô thời hạn"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "% d Tuần"
+msgstr "%d Tuần"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "% d Tháng"
+msgstr "%d Tháng"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "% d Tháng"
+msgstr "%d Tháng"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "% d Năm"
+msgstr "%d Năm"
 
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "% d Năm"
+msgstr "%d Năm"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Tiện Ích"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Nhật ký"
+msgstr "Plugin kiểm tra (Audit)"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -482,28 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "Chọn hộp này, nếu bạn muốn Nhật ký kiểm toán theo dõi các hoạt động GUI."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Bật nhật ký kiểm toán"
+msgstr "Định dạng nhật ký kiểm tra bên ngoài"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Nhập đường dẫn đến tệp nhật ký kiểm tra bên ngoài."
+msgstr "Chọn định dạng đầu ra cho các bản ghi nhật ký kiểm tra bên ngoài."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Văn bản"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
-msgstr "Nhật ký kiểm toán bên ngoài Đường dẫn tệp nhật ký"
+msgid "External Audit Log File Path"
+msgstr "Đường dẫn tệp nhật ký kiểm toán bên ngoài"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -511,235 +474,231 @@ msgstr "Nhập đường dẫn đến tệp nhật ký kiểm tra bên ngoài."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Kiểm tra xác thực"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Bật kiểm toán xác thực"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Chọn tham gia để ghi lại các sự kiện đăng nhập, đăng xuất, token, đổi mật khẩu và từ chối cấp quyền mới kể từ thời điểm này trở đi."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Bật phát hiện lượng đăng nhập thất bại"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Phát sự kiện bất thường toàn cục khi số lần đăng nhập thất bại trên toàn hệ thống vượt quá ngưỡng đã cấu hình."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Cửa sổ đăng nhập thất bại (phút)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Cửa sổ trượt tính bằng phút, từ 1 đến 1440, dùng để đếm số lần đăng nhập thất bại."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Ngưỡng số lần đăng nhập thất bại"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Số lần đăng nhập thất bại trên toàn hệ thống, từ 1 đến 1000, để kích hoạt sự kiện bất thường toàn cục."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Kích thước lô thu nhận nhật ký người dùng"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Số hàng user_log tối đa được tiếp nhận và số dấu đánh dấu hết hạn được thu hồi trong mỗi chu kỳ Poller, từ 1 đến 5000. Trạng thái dấu đánh dấu được giữ lại trong bảy ngày, vì vậy lô lớn hơn sẽ làm tăng cả khối lượng công việc đỉnh của Poller và kích thước bảng trạng thái giới hạn bảy ngày."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Syslog từ xa"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Bật nhật ký kiểm toán"
+msgstr "Bật Syslog từ xa"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Đưa các sự kiện kiểm toán đã hoàn tất vào hàng đợi để gửi đến Syslog từ xa. Đầu ra tệp bên ngoài hiện có vẫn hoạt động độc lập."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Bộ nhận Syslog"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Nhập tên máy chủ hoặc địa chỉ IP của bộ nhận không kèm lược đồ URI, đường dẫn hoặc thông tin xác thực."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Cổng Syslog"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Nhập 1-65535, hoặc để trống để dùng 514 cho UDP/TCP và 6514 cho TLS."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Giao thức truyền tải Syslog"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP gửi một datagram mà không cần xác nhận. TCP và TLS sử dụng đóng khung đếm octet theo RFC 6587."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Định dạng payload Syslog"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Mọi định dạng đều sử dụng tiêu đề RFC 5424. Chọn dữ liệu có cấu trúc RFC 5424, CEF hoặc JSON thu gọn cho thông báo."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Facility Syslog"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Chọn facility được dùng để tính mức độ ưu tiên RFC 5424."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Tên ứng dụng Syslog"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. Ký tự ASCII có thể in được không có dấu cách, tối đa 48 ký tự."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Lưu giữ nhật ký kiểm toán"
+msgstr "Danh tính nút kiểm tra"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Định danh tên máy chủ RFC 5424 ổn định cho nút Cacti này. Không sử dụng giá trị thay đổi khi khởi động lại."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Thời gian chờ kết nối và ghi"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Thời gian chờ tính bằng giây, từ 1 đến 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Kích thước bản ghi UDP tối đa"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Các bản ghi lớn hơn giới hạn byte này sẽ bị đưa vào hàng đợi thư lỗi (dead-letter) và không bao giờ bị cắt ngắn hay chia nhỏ. Khuyến nghị dùng TCP hoặc TLS cho các sự kiện lớn."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "Tệp CA TLS"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Gói chứng chỉ CA PEM tùy chọn. Tính năng xác minh máy chủ ngang hàng và tên máy chủ luôn được bật."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "Chứng chỉ máy khách TLS"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Chứng chỉ ứng dụng khách PEM tùy chọn. Khóa ứng dụng khách cũng phải được cấu hình."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "Khóa riêng máy khách TLS"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Đường dẫn khóa riêng tư PEM có thể đọc tùy chọn. Nội dung khóa không bao giờ được lưu trong các sự kiện kiểm toán."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Hàng đợi gửi Syslog"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Độ trễ cơ sở khi thử lại"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Độ trễ thử lại ban đầu tính bằng giây, từ 1 đến 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Độ trễ thử lại tối đa"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Độ trễ thử lại tối đa tính bằng giây, từ độ trễ cơ sở đến 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Số lần thử gửi tối đa"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Chuyển bản ghi vào danh sách thư chết (dead-letter) sau số lần thử này, từ 1 đến 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Kích thước lô Poller"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Số bản ghi đến hạn tối đa được xử lý trong mỗi chu kỳ Poller, từ 1 đến 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Cảnh báo thời gian chờ xử lý"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Hiển thị cảnh báo tình trạng không ổn định khi bản ghi cũ nhất trong hàng đợi đạt đến thời gian chờ này (tính bằng giây)."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Số lượng cảnh báo thư lỗi (Dead-letter)"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Hiển thị cảnh báo tình trạng không ổn định khi có số lượng bản ghi này bị đưa vào hàng đợi lỗi (dead-letter)."
 
 #: setup.php
 msgid "Audit"
