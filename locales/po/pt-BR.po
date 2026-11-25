@@ -4,39 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2024-06-25 16:31+0000\n"
-"Last-Translator: fabricio tavares maciel <fabricio.tavares@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) <http://translate.cacti.net/projects/cacti/audit/pt_BR/>\n"
-"Language: pt-BR\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.8.1\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Portuguese (Brazil) <https://translate.cacti.net/projects/cacti/audit/pt_BR/>\nLanguage: pt-BR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "O registro de teste do Syslog foi gravado no socket local. O armazenamento no receptor não está confirmado."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Falha no teste do Syslog: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Redefinidas %d entregas de Syslog em dead-letter para nova tentativa."
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Log de eventos de auditoria"
+msgstr "Evento de auditoria não encontrado."
 
 #: audit.php
 msgid "Page:"
@@ -59,69 +45,61 @@ msgid "Action:"
 msgstr "Ação:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Hora do Evento"
+msgstr "Tipo de evento:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "Eventos"
+msgstr "ID do evento:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Status da solicitação:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Resultado da operação:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Motivo do resultado:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Entrega de Arquivo Externo:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Ativar log de auditoria"
+msgstr "Erro de arquivo externo:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Entrega de Syslog remoto:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Tentativas do Syslog:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Gravação no socket do Syslog:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Erro do Syslog:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Script:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Dados do registro:"
+msgstr "Dados armazenados"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Os dados da solicitação armazenados não são um JSON válido: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -138,7 +116,7 @@ msgstr "Dados do registro:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "A limpeza do log de auditoria por %s removeu %d eventos e protegeu %d eventos com entrega Syslog pendente."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -198,7 +176,7 @@ msgstr "Eventos de log de exportação"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Expurgar permanentemente todos os eventos do log de auditoria?"
 
 #: audit.php
 msgid "Purge"
@@ -230,35 +208,31 @@ msgstr "O usuário que gerou o evento."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Ação solicitada"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "O Cacti Action pediu.  Passe o mouse sobre a ação para ver os dados $_POST."
+msgstr "A ação solicitada do Cacti. Passe o mouse sobre a ação para ver os dados da solicitação."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Status da solicitação"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Estado de processamento da solicitação; a conclusão não garante que todas as operações tenham tido sucesso."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Entrega de Arquivo Externo"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Insira o caminho para o arquivo de log de auditoria externa."
+msgstr "Estado de entrega do arquivo de log de auditoria externo opcional. A integridade do Syslog remoto é exibida separadamente."
 
 #: audit.php
 msgid "User Agent"
-msgstr "Agente de usuário"
+msgstr "User Agent"
 
 #: audit.php
 msgid "The browser type of the requester."
@@ -290,118 +264,112 @@ msgstr "Auditoria de Eventos não encontrados"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Entrega de Syslog remoto"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Desativado"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Saudável"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Não saudável"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Pendente"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Tentar novamente"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Dead-letter"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Enviado (Não confirmado)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Mais antigo pendente"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "segundos"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Última tentativa"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Última gravação em socket"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Testar Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Reprocessar dead-letter"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Tentar novamente todos os eventos Syslog em dead-letter?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Erro de configuração:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Ativar log de auditoria"
+msgstr "Último erro:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "O Cacti registra este resultado antes de verificar se a conta está ativada, a autorização de realm ou a conclusão da autenticação 2FA; uma sessão pode não ter sido estabelecida."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Nenhum caminho atual do Cacti grava esta assinatura; registrado preventivamente como uma possível alteração de senha com resultado não confirmado."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "No Cacti, user_log result=3 com user_id=0 pode ser uma alteração de senha ou uma falha no desafio 2FA; a tabela não permite distinguir."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "A permissão de administração de auditoria é necessária para salvar estas configurações."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "A auditoria de autenticação não foi ativada. Execute primeiro o comando de manutenção de CLI audit_auth_indexes.php."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "As configurações de Syslog remoto não foram salvas: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Log de Auditoria"
+msgstr "Usuário do log de auditoria"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Log de Auditoria"
+msgstr "Administrador do log de auditoria"
 
 #: setup.php
 msgid "Technical Support"
@@ -417,7 +385,7 @@ msgstr "Permite que os administradores visualizem a atividade de alteração no 
 
 #: setup.php
 msgid "Indefinitely"
-msgstr "Por tempo indeterminado"
+msgstr "Indefinidamente"
 
 #: setup.php
 #, php-format
@@ -446,13 +414,11 @@ msgstr "%d Anos"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Ferramentas"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Log de Auditoria"
+msgstr "Plugin de auditoria"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -483,28 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "Marque esta caixa para que o Log de auditoria rastreie as atividades da GUI."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Ativar log de auditoria"
+msgstr "Formato do log de auditoria externo"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Insira o caminho para o arquivo de log de auditoria externa."
+msgstr "Selecione o formato de saída para os registros do log de auditoria externo."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Texto"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
-msgstr "Caminho do arquivo de log de log de auditoria externa"
+msgid "External Audit Log File Path"
+msgstr "Caminho do Arquivo de Log de Auditoria Externo"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -512,235 +474,231 @@ msgstr "Insira o caminho para o arquivo de log de auditoria externa."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Auditoria de autenticação"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Habilitar Auditoria de Autenticação"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Habilite para capturar novos eventos de login, logout, token, alteração de senha e autorização negada a partir deste momento."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Habilitar Detecção de Volume de Falhas de Login"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Emitir um evento global de anomalia quando o volume de falhas de login em toda a instalação exceder o limiar configurado."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Janela de Falhas de Login (minutos)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Janela deslizante em minutos, de 1 a 1440, usada para contar logins com falha."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Limiar de Volume de Falhas de Login"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Contagem de falhas de login em toda a instalação, de 1 a 1000, que dispara um evento global de anomalia."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Tamanho do Lote de Ingestão de Logs de Usuário"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Máximo de linhas de user_log ingeridas e marcadores expirados recuperados por ciclo do poller, de 1 a 5000. O estado dos marcadores é retido por sete dias, portanto lotes maiores aumentam tanto o trabalho de pico do poller quanto o tamanho limitado da tabela de estado de sete dias."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Syslog remoto"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Ativar log de auditoria"
+msgstr "Ativar Syslog remoto"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Enfileirar eventos de auditoria finalizados para entrega remota via Syslog. A saída de arquivo externo existente permanece independente."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Receptor Syslog"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Digite um nome de host ou endereço IP do receptor sem esquema de URI, caminho ou credenciais."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Porta do Syslog"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Digite de 1 a 65535 ou deixe em branco para usar 514 para UDP/TCP e 6514 para TLS."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Transporte do Syslog"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP envia um datagrama sem confirmação. TCP e TLS usam enquadramento por contagem de octetos da RFC 6587."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Formato do payload do Syslog"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Todos os formatos usam um cabeçalho RFC 5424. Selecione dados estruturados RFC 5424, CEF ou JSON compacto para a mensagem."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Facilidade do Syslog"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Selecione a facilidade usada para calcular a prioridade RFC 5424."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Nome da aplicação Syslog"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "APP-NAME da RFC 5424. ASCII imprimível sem espaços, até 48 caracteres."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Retenção de logs de auditoria"
+msgstr "Identidade do nó de auditoria"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Identidade estável de nome de host RFC 5424 para este nó do Cacti. Não use um valor que mude ao reiniciar."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Tempo limite de conexão e gravação"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Tempo limite em segundos, de 1 a 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Tamanho máximo de registro UDP"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Registros maiores que este limite de bytes são enviados para a fila de mensagens mortas (dead-letter) e nunca são truncados nem divididos. Recomenda-se TCP ou TLS para eventos grandes."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "TLS do Syslog"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "Arquivo CA TLS"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Pacote de CA PEM opcional. A verificação de par e de nome do host está sempre ativada."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "Certificado de cliente TLS"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Certificado de cliente PEM opcional. Uma chave de cliente também deve ser configurada."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "Chave privada do cliente TLS"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Caminho opcional legível da chave privada PEM. O conteúdo da chave nunca é armazenado em eventos de auditoria."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Fila de entrega do Syslog"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Atraso base de nova tentativa"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Atraso inicial de nova tentativa em segundos, de 1 a 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Atraso máximo entre tentativas"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Atraso máximo entre tentativas em segundos, do atraso base até 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Máximo de tentativas de entrega"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Mover um registro para dead-letter após esta quantidade de tentativas, de 1 a 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Tamanho do lote do Poller"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Máximo de registros pendentes processados por ciclo do poller, de 1 a 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Aviso de idade pendente"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Exibir um aviso de integridade comprometida quando o registro mais antigo na fila atingir esta idade em segundos."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Contagem de avisos de dead-letter"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Exibir um aviso de integridade comprometida quando esta quantidade de registros estiver na fila de mensagens mortas (dead-letter)."
 
 #: setup.php
 msgid "Audit"
