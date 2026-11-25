@@ -4,39 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2024-06-08 09:19-0400\n"
-"Last-Translator: San IPE <sanipe1949@krunsea.com>\n"
-"Language-Team: Turkish <http://translate.cacti.net/projects/cacti/audit/tr/>\n"
-"Language: tr_TR\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.4.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Turkish <https://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog test kaydı yerel sokete yazıldı. Alıcı tarafındaki depolama doğrulanamadı."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog testi başarısız oldu: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Yeniden denemek için %d ölü mektup (dead-letter) Syslog teslimi sıfırlandı."
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Olay Günlüğünü Denetle"
+msgstr "Denetim olayı bulunamadı."
 
 #: audit.php
 msgid "Page:"
@@ -59,69 +45,61 @@ msgid "Action:"
 msgstr "Eylem:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Etkinlik Zamanı"
+msgstr "Olay Türü:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "Olaylar"
+msgstr "Olay Kimliği:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "İstek Durumu:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "İşlem Sonucu:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Sonuç Nedeni:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Harici Dosya Teslimi:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Denetim Günlüğünü Etkinleştir"
+msgstr "Harici Dosya Hatası:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Uzak Syslog Teslimi:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog Denemeleri:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog Soket Yazma:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog Hatası:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Betik:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Kayıt Verileri:"
+msgstr "Saklanan Veri"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Depolanan istek verisi geçerli JSON değil: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -138,7 +116,7 @@ msgstr "Kayıt Verileri:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "%s tarafından yapılan Denetim Günlüğü temizliği %d olayı kaldırdı ve tamamlanmamış Syslog teslimatına sahip %d olayı korudu."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -198,7 +176,7 @@ msgstr "Günlük Olaylarını Dışa Aktar"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Tüm denetim günlüğü olayları kalıcı olarak temizlensin mi?"
 
 #: audit.php
 msgid "Purge"
@@ -230,35 +208,31 @@ msgstr "Etkinliği oluşturan kullanıcı."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "İstenen Eylem"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Cacti Eylemi talep edildi. $ _POST verisini görmek için işlemin üzerine gelin."
+msgstr "İstenen Cacti eylemi. İstek verilerini görmek için eylemin üzerine gelin."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "İstek Durumu"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "İstek işleme durumu; tamamlanması her işlemin başarılı olduğunu garanti etmez."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Harici Dosya Teslimi"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Dış denetim günlüğü dosyasının yolunu girin."
+msgstr "İsteğe bağlı harici denetim günlüğü dosyası için teslim durumu. Uzak Syslog sağlığı ayrı gösterilir."
 
 #: audit.php
 msgid "User Agent"
-msgstr "Kullanıcı"
+msgstr "User Agent"
 
 #: audit.php
 msgid "The browser type of the requester."
@@ -290,118 +264,112 @@ msgstr "Denetim Günlüğü Etkinliği Bulunamadı"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Uzak Syslog Teslimi"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Devre dışı"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Sağlıklı"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Sağlıksız"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Beklemede"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Yeniden Dene"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "İletilemeyen ileti (Dead-letter)"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Gönderildi (Onaylanmadı)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "En Eski Bekleyen"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "saniye"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Son Deneme"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Asla"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Son Soket Yazma"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Syslog'u Test Et"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Ölü Mektubu (Dead-letter) Yeniden Dene"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Tüm ölü mektup (dead-letter) Syslog olayları yeniden denensin mi?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Yapılandırma Hatası:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Denetim Günlüğünü Etkinleştir"
+msgstr "Son Hata:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti bu sonucu, hesabın etkin olup olmadığını, alan yetkilendirmesini veya 2FA tamamlanmasını doğrulamadan önce kaydeder; bir oturum oluşturulmamış olabilir."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Mevcut hiçbir Cacti yolu bu imzayı yazmıyor; sonucu doğrulanmamış olası bir parola değişikliği olarak önlem amaçlı kaydedildi."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "user_id=0 ile Cacti user_log result=3 kaydı bir parola değişikliği veya başarısız bir 2FA doğrulaması olabilir; tablo bu ikisini ayırt edemez."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "Bu ayarları kaydetmek için denetim yönetimi izni gereklidir."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Kimlik doğrulama denetimi etkinleştirilmedi. Önce audit_auth_indexes.php CLI bakım komutunu çalıştırın."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Uzak Syslog ayarları kaydedilemedi: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Denetim Günlüğü"
+msgstr "Denetim Günlüğü Kullanıcısı"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Denetim Günlüğü"
+msgstr "Denetim Günlüğü Yöneticisi"
 
 #: setup.php
 msgid "Technical Support"
@@ -446,13 +414,11 @@ msgstr "%d Yıl"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Araçlar"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Denetim Günlüğü"
+msgstr "Denetim Eklentisi"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -483,28 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "Denetim Günlüğünün GUI etkinliklerini izlemesini istiyorsanız bu kutuyu işaretleyin."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Denetim Günlüğünü Etkinleştir"
+msgstr "Harici Denetim Günlüğü Biçimi"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Dış denetim günlüğü dosyasının yolunu girin."
+msgstr "Harici denetim günlüğü kayıtları için çıktı biçimini seçin."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Metin"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
-msgstr "Dış Denetim Günlüğü Günlük dosyası Yolu"
+msgid "External Audit Log File Path"
+msgstr "Harici Denetim Günlüğü Dosya Yolu"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -512,235 +474,231 @@ msgstr "Dış denetim günlüğü dosyasının yolunu girin."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Kimlik Doğrulama Denetimi"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Kimlik Doğrulama Denetimini Etkinleştir"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Bu noktadan itibaren yeni oturum açma, oturum kapatma, belirteç, parola değişikliği ve yetki reddi olaylarını yakalamayı etkinleştirin."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Başarısız Oturum Açma Hacmi Algılamayı Etkinleştir"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Kurulum genelindeki başarısız oturum açma hacmi yapılandırılan eşiği aştığında genel bir anomali olayı oluştur."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Başarısız Giriş Zaman Penceresi (dakika)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Başarısız oturum açma girişimlerini saymak için kullanılan, 1 ile 1440 arasında dakika cinsinden kayan pencere."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Başarısız Giriş Hacmi Eşiği"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Genel bir anomali olayını tetikleyen, kurulum genelindeki 1 ile 1000 arasındaki başarısız oturum açma sayısı."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Kullanıcı Günlüğü Alım Toplu İş Boyutu"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Poller döngüsü başına alınan user_log satırlarının ve süresi dolmuş işaretçilerin geri kazanılan azami sayısı (1 ile 5000 arasında). İşaretçi durumu yedi gün boyunca saklanır; bu nedenle daha büyük toplu işlemler hem tepe poller yükünü hem de yedi günlük sınırlı durum tablosu boyutunu artırır."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Uzak Syslog"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Denetim Günlüğünü Etkinleştir"
+msgstr "Uzak Syslog'u Etkinleştir"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Sonuçlanan denetim olaylarını uzak Syslog teslimi için kuyruğa alın. Mevcut harici dosya çıktısı bağımsız olarak kalır."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog Alıcısı"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "URI şeması, yolu veya kimlik bilgileri olmadan bir alıcı ana bilgisayar adı veya IP adresi girin."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog Bağlantı Noktası"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "1-65535 arasında bir değer girin veya UDP/TCP için 514 ve TLS için 6514 kullanmak üzere boş bırakın."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog Aktarımı"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP, onay olmadan tek bir datagram gönderir. TCP ve TLS, RFC 6587 sekizli sayım çerçevelemesi kullanır."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog Yük Biçimi"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Tüm biçimler bir RFC 5424 üstbilgisi kullanır. Mesaj için RFC 5424 yapılandırılmış veri, CEF veya sıkıştırılmış JSON seçin."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog Tesisi"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "RFC 5424 önceliğini hesaplamak için kullanılan olanağı (facility) seçin."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog Uygulama Adı"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. En fazla 48 karakter uzunluğunda, boşluk içermeyen yazdırılabilir ASCII."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Denetim Günlüğü Tutma"
+msgstr "Denetim Düğümü Kimliği"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Bu Cacti düğümü için kararlı RFC 5424 ana bilgisayar adı kimliği. Yeniden başlatmada değişen bir değer kullanmayın."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Bağlantı ve Yazma Zaman Aşımı"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "1 ile 30 arasında saniye cinsinden zaman aşımı."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Azami UDP Kayıt Boyutu"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Bu bayt sınırından büyük kayıtlar ölü mektup kuyruğuna (dead-letter) alınır ve asla kırpılmaz veya bölünmez. Büyük olaylar için TCP veya TLS önerilir."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA Dosyası"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "İsteğe bağlı PEM CA paketi. Eş ve ana bilgisayar adı doğrulaması her zaman etkindir."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS İstemci Sertifikası"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "İsteğe bağlı PEM istemci sertifikası. Bir istemci anahtarı da yapılandırılmalıdır."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS İstemci Özel Anahtarı"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "İsteğe bağlı okunabilir PEM özel anahtar yolu. Anahtar içeriği denetim olaylarında hiçbir zaman saklanmaz."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog Teslimat Kuyruğu"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Yeniden Deneme Temel Gecikmesi"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Saniye cinsinden ilk yeniden deneme gecikmesi, 1 ile 3600 arasında."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Azami Yeniden Deneme Gecikmesi"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Temel gecikmeden 86400'e kadar saniye cinsinden azami yeniden deneme gecikmesi."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Azami Teslimat Denemesi"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Bu kadar denemeden sonra bir kaydı teslim edilemeyen (dead-letter) kuyruğuna taşı (1 ile 100 arasında)."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Poller Toplu İşlem Boyutu"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Poller döngüsü başına işlenecek zamanı gelmiş azami kayıt sayısı (1 ile 1000 arasında)."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Bekleme Süresi Uyarısı"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Kuyruktaki en eski kayıt saniye cinsinden bu yaşa ulaştığında sağlıksız uyarısı göster."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "İletilemeyen İleti (Dead-letter) Uyarı Sayısı"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Bu kadar kayıt teslim edilemeyenler (dead-letter) listesine düştüğünde sağlıksız uyarısı göster."
 
 #: setup.php
 msgid "Audit"
