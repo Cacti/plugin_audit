@@ -503,7 +503,9 @@ msgid "JSON"
 msgstr ""
 
 #: setup.php
-msgid "External Audit Log Log file  Path"
+#, fuzzy
+#| msgid "External Audit Log Log file  Path"
+msgid "External Audit Log File Path"
 msgstr "გარე აუდიტის ჟურნალის ფაილის  ბილიკი"
 
 #: setup.php
