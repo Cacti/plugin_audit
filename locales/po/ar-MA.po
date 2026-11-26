@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Arabic (Morocco)\n"
+"Language: ar-MA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "تمت كتابة سجل اختبار Syslog إلى المقبس المحلي. لم يتم تأكيد التخزين لدى المستقبل."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "فشل اختبار Syslog: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "إعادة تعيين %d من رسائل Syslog المتعثرة لإعادة محاولة التسليم."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "لم يتم العثور على حدث التدقيق."
+
+#: audit.php
+msgid "Page:"
+msgstr "صفحة"
+
+#: audit.php
+msgid "User:"
+msgstr "المستخدم.:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "عنوان الIP"
+
+#: audit.php
+msgid "Date:"
+msgstr "تاريخ:"
+
+#: audit.php
+msgid "Action:"
+msgstr "العمل:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "نوع الحدث:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "معرف الحدث:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "حالة الطلب:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "نتيجة العملية:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "سبب النتيجة:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "تسليم الملف الخارجي:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "خطأ في الملف الخارجي:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "تسليم Syslog البعيد:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "محاولات Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "كتابة مقبس Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "خطأ Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "السيناريو:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "البيانات المخزنة"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "بيانات الطلب المخزنة ليست بتنسيق JSON صالح: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "ATTRIB"
+
+#: audit.php
+msgid "Value"
+msgstr "القيمة"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "بيانات السجل:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "أدت عملية تنظيف سجل التدقيق بواسطة %s إلى إزالة %d من الأحداث وحماية %d من الأحداث التي لم يكتمل تسليم Syslog لها."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "سجل التدقيق"
+
+#: audit.php
+msgid "Search"
+msgstr "بحث"
+
+#: audit.php
+msgid "Page"
+msgstr "صفحة"
+
+#: audit.php
+msgid "All"
+msgstr "الكل"
+
+#: audit.php
+msgid "User"
+msgstr "المستخدم"
+
+#: audit.php
+msgid "cli"
+msgstr "كلاسيكي"
+
+#: audit.php
+msgid "Events"
+msgstr "الفعاليات"
+
+#: audit.php
+msgid "Default"
+msgstr "الافتراضي"
+
+#: audit.php
+msgid "Go"
+msgstr "انتقال"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "مجموعة / تحديث الفلاتر"
+
+#: audit.php
+msgid "Clear"
+msgstr "مسح"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "مسح الفلتر"
+
+#: audit.php
+msgid "Export"
+msgstr "تصدير"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "أحداث سجل التصدير"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "هل تريد مسح جميع أحداث سجل التدقيق نهائيًا؟"
+
+#: audit.php
+msgid "Purge"
+msgstr "تطهير"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "تطهير سجل الأحداث"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "أحداث التدقيق"
+
+#: audit.php
+msgid "Page Name"
+msgstr "اسم الصفحة"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "الصفحة التي تم فيها إنشاء الحدث."
+
+#: audit.php
+msgid "User Name"
+msgstr "اسم المستخدم"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "المستخدم الذي أنشأ الحدث."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "الإجراء المطلوب"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "إجراء Cacti المطلوب. مرر مؤشر الفأرة فوق الإجراء لعرض بيانات الطلب."
+
+#: audit.php
+msgid "Request Status"
+msgstr "حالة الطلب"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "حالة معالجة الطلب؛ الاكتمال لا يضمن نجاح كل عملية."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "تسليم الملف الخارجي"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "حالة التسليم لملف سجل التدقيق الخارجي الاختياري. يتم عرض صحة Syslog البعيد بشكل منفصل."
+
+#: audit.php
+msgid "User Agent"
+msgstr "وكيل المستخدم"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "نوع متصفح الطالب."
+
+#: audit.php
+msgid "IP Address"
+msgstr "عنوان الIP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "عنوان IP لمقدم الطلب."
+
+#: audit.php
+msgid "Event Time"
+msgstr "وقت الحدث"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "الوقت حدث الحدث."
+
+#: audit.php
+msgid "N/A"
+msgstr "N/A"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "لم يتم العثور على أحداث سجل التدقيق"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "تسليم Syslog البعيد"
+
+#: audit.php
+msgid "Status"
+msgstr "الحالة"
+
+#: audit.php
+msgid "Disabled"
+msgstr "معطل"
+
+#: audit.php
+msgid "Healthy"
+msgstr "سليم"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "غير سليم"
+
+#: audit.php
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: audit.php
+msgid "Retry"
+msgstr "إعادة المحاولة"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "الرسائل المتعثرة"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "تم الإرسال (غير مؤكد)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "أقدم عنصر معلق"
+
+#: audit.php
+msgid "seconds"
+msgstr "ثواني"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "آخر محاولة"
+
+#: audit.php
+msgid "Never"
+msgstr "أبدا"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "آخر كتابة للمقبس"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "اختبار Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "إعادة محاولة الرسائل المتعثرة"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "إعادة محاولة جميع أحداث Syslog المتعثرة؟"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "خطأ في التكوين:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "آخر خطأ:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "يسجّل Cacti هذه النتيجة قبل التحقق من تفعيل الحساب، أو صلاحية النطاق (Realm)، أو إتمام المصادقة الثنائية (2FA)؛ قد لا تكون الجلسة قد أُنشئت بعد."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "لا يوجد مسار حالي في Cacti يكتب هذا التوقيع؛ تم تسجيله احترازياً كتغيير محتمل في كلمة المرور بنتيجة غير مؤكدة."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "قيمة user_log result=3 مع user_id=0 في Cacti قد تكون تغييرًا لكلمة المرور أو فشلًا في تحدي المصادقة الثنائية (2FA)؛ لا يستطيع الجدول التمييز بينهما."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "مطلوب إذن إدارة التدقيق لحفظ هذه الإعدادات."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "لم يكن تدقيق المصادقة مفعلًا. شغّل أمر صيانة CLI وهو audit_auth_indexes.php أولًا."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "لم يتم حفظ إعدادات Syslog البعيد: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "مستخدم سجل التدقيق"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "مسؤول سجل التدقيق"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "الدعم الفني"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "عرض سجل التدقيق"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "يسمح للمسؤولين بعرض نشاط التغيير على خادم Cacti. يمكن للمسؤولين أيضًا تصدير سجل التدقيق لأغراض التحليل."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "إلى ما لا نهاية"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d أسابيع"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d شهر"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d أشهر"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d سنة"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d سنوات"
+
+#: setup.php
+msgid "Utilities"
+msgstr "المرافق"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "ملحق التدقيق"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "إعدادات سجل التدقيق"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "تمكين سجل التدقيق"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "حدد هذا المربع ، إذا كنت تريد أن يقوم سجل التدوين بتتبع أنشطة واجهة المستخدم الرسومية."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "مراجعة سجل الاحتفاظ"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "ما المدة التي ترغب في الاحتفاظ بها في إدخالات تدوين السجل؟"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "تمكين سجل التدقيق"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "حدد هذا المربع ، إذا كنت تريد أن يقوم سجل التدوين بتتبع أنشطة واجهة المستخدم الرسومية."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "تنسيق سجل التدقيق الخارجي"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "اختر تنسيق الإخراج لسجلات التدقيق الخارجية."
+
+#: setup.php
+msgid "Text"
+msgstr "نص"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "مسار ملف سجل التدقيق الخارجي"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "أدخل المسار إلى ملف سجل التدقيق الخارجي."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "تدقيق المصادقة"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "تفعيل تدقيق المصادقة"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "اشترك لالتقاط أحداث تسجيل الدخول وتسجيل الخروج والرمز وتغيير كلمة المرور ورفض التفويض الجديدة من الآن فصاعدًا."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "تفعيل اكتشاف حجم تسجيل الدخول الفاشل"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "إصدار حدث شذوذ عام عندما يتجاوز حجم محاولات تسجيل الدخول الفاشلة على مستوى التثبيت بأكمله العتبة المكونة."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "نافذة تسجيلات الدخول الفاشلة (بالدقائق)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "نافذة زمنية متحركة بالدقائق، من 1 إلى 1440، تُستخدم لحساب محاولات تسجيل الدخول الفاشلة."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "عتبة حجم تسجيلات الدخول الفاشلة"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "عدد محاولات تسجيل الدخول الفاشلة على مستوى التثبيت، من 1 إلى 1000، الذي يؤدي إلى إطلاق حدث شذوذ عام."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "حجم دفعة استيعاب سجل المستخدم"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "الحد الأقصى لصفوف user_log المستوعبة والعلامات منتهية الصلاحية المستردة في كل دورة مستفتي، من 1 إلى 5000. يتم الاحتفاظ بحالة العلامة لمدة سبعة أيام، لذا فإن الدفعات الأكبر تزيد من ذروة عمل المستفتي وحجم جدول الحالة المحدود بسبعة أيام."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog البعيد"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "تفعيل Syslog البعيد"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "وضع أحداث التدقيق المكتملة في قائمة الانتظار لتسليمها إلى Syslog البعيد. يظل مخرج الملف الخارجي الحالي مستقلاً."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "مستقبل Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "أدخل اسم مستضيف المستقبل أو عنوان IP بدون مخطط URI أو مسار أو بيانات اعتماد."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "منفذ Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "أدخل 1-65535، أو اتركه فارغًا لاستخدام 514 لبروتوكول UDP/TCP و6514 لبروتوكول TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "بروتوكول نقل Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "يرسل UDP حزمة بيانات واحدة دون إقرار بالاستلام. يستخدم كل من TCP وTLS تأطير عدد البايتات وفقاً لمعيار RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "تنسيق حمولة Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "تستخدم جميع التنسيقات ترويسة RFC 5424. حدد بيانات RFC 5424 المهيكلة، أو CEF، أو JSON المضغوط للرسالة."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "مرفق Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "اختر المرفق (facility) المستخدم لحساب أولوية RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "اسم تطبيق Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "اسم التطبيق (APP-NAME) وفق RFC 5424. أحرف ASCII قابلة للطباعة بدون مسافات، بحد أقصى 48 حرفًا."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "هوية عقدة التدقيق"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "هوية اسم مستضيف RFC 5424 مستقرة لعقدة Cacti هذه. لا تستخدم قيمة تتغير عند إعادة التشغيل."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "مهلة الاتصال والكتابة"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "المهلة بالثواني، من 1 إلى 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "الحد الأقصى لحجم سجل UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "السجلات الأكبر من حد البايت هذا تُرسل إلى قائمة الرسائل غير القابلة للتسليم ولا يتم اقتطاعها أو تقسيمها أبدًا. يُنصح باستخدام TCP أو TLS للأحداث الكبيرة."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "بروتوكول TLS لـ Syslog"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "ملف المرجع المصدق CA لـ TLS"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "حزمة PEM CA اختيارية. يكون التحقق من النظير واسم المستضيف Host مفعلًا دائمًا."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "شهادة عميل TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "شهادة عميل PEM اختيارية. يجب أيضًا تكوين مفتاح العميل."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "المفتاح الخاص لعميل TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "مسار اختياري قابل للقراءة للمفتاح الخاص PEM. لا يتم تخزين محتويات المفتاح أبدًا في أحداث التدقيق."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "قائمة انتظار تسليم Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "التأخير الأساسي لإعادة المحاولة"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "تأخير إعادة المحاولة الأولي بالثواني، من 1 إلى 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "الحد الأقصى لتأخير إعادة المحاولة"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "الحد الأقصى لتأخير إعادة المحاولة بالثواني، بدءًا من التأخير الأساسي وحتى 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "الحد الأقصى لمحاولات التسليم"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "انقل السجل إلى قائمة الرسائل الميتة بعد هذا العدد من المحاولات، من 1 إلى 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "حجم دفعة المستفتي"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "الحد الأقصى للسجلات المستحقة التي تتم معالجتها في كل دورة مستفتي، من 1 إلى 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "تحذير مدة الانتظار"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "إظهار تحذير بعدم السلامة عندما يصل أقدم سجل في قائمة الانتظار إلى هذا العمر بالثواني."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "عدد تحذيرات الرسائل المتعثرة"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "إظهار تحذير بعدم السلامة عندما يصل عدد السجلات الفاشلة (dead-lettered) إلى هذا الحد."
+
+#: setup.php
+msgid "Audit"
+msgstr "سجل التدقيق"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "تدوين سجل الأحداث"
+

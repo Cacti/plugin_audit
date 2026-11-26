@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Zulu\n"
+"Language: zu-ZA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Irekhodi lokuhlola le-Syslog libhalwe ku-socket yendawo. Isitoreji somamukeli asiqinisekisiwe."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Ukuhlola kwe-Syslog kuhlulekile: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Setha kabusha ukulethwa kwe-Syslog kwe-dead-letter okungu-%d ukuze kuzanywe futhi."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Isenzakalo sokucwaninga asitholakali."
+
+#: audit.php
+msgid "Page:"
+msgstr "Ikhasi:"
+
+#: audit.php
+msgid "User:"
+msgstr "Umsebenzisi:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Ikheli le-IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Usuku:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Isenzo:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Uhlobo Lwesenzakalo:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "I-ID Yesenzakalo:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Isimo Sesicelo:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Umphumela Womsebenzi:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Isizathu Somphumela:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Ukulethwa Kwefayela Langaphandle:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Iphutha Lefayela Langaphandle:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Ukulethwa Kwe-Syslog Ekude:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Imizamo ye-Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Ukubhala kwe-Socket ye-Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Iphutha le-Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Iskripthi:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Idatha Elondoloziwe"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Idatha yesicelo egciniwe ayiyona i-JSON evumelekile: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Isibaluli"
+
+#: audit.php
+msgid "Value"
+msgstr "Inani"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Idatha Yerekhodi:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Ukuhlanzwa kwelogi yokucwaninga ngu-%s kususe izenzakalo ezingu-%d futhi kwavikela izenzakalo ezingu-%d ezinokulethwa kwe-Syslog okungakaqedwa."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Ilogi Yokucwaninga"
+
+#: audit.php
+msgid "Search"
+msgstr "Sesha"
+
+#: audit.php
+msgid "Page"
+msgstr "Ikhasi"
+
+#: audit.php
+msgid "All"
+msgstr "Konke"
+
+#: audit.php
+msgid "User"
+msgstr "Umsebenzisi"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Izenzakalo"
+
+#: audit.php
+msgid "Default"
+msgstr "Okuzenzakalelayo"
+
+#: audit.php
+msgid "Go"
+msgstr "Hamba"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Setha/Vuselela Izihlungi"
+
+#: audit.php
+msgid "Clear"
+msgstr "Sula"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Sula Izihlungi"
+
+#: audit.php
+msgid "Export"
+msgstr "Khipha"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Khipha Izenzakalo Zelogi"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Susa unomphela zonke izenzakalo zelogi yokuhlola?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Sula ngokuphelele"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Hlanza Izenzakalo Zelogi"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Izenzakalo Zokucwaninga"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Igama Lekhasi"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Ikhasi lapho isenzakalo sikhiqizwe khona."
+
+#: audit.php
+msgid "User Name"
+msgstr "Igama Lomsebenzisi"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Umsebenzisi odale lesi sigameko."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Isenzo Esiceliwe"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Isenzo se-Cacti esiceliwe. Yisa ikhesa phezu kwesenzo ukuze ubone idatha yesicelo."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Isimo Sesicelo"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Isimo sokucubungula isicelo; ukuqeda akuqinisekisi ukuthi wonke umsebenzi uphumelele."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Ukulethwa Kwefayela Langaphandle"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Isimo sokulethwa kwefayela lelogi yokuhlola yangaphandle elingakhethwa. Impilo ye-Syslog ekude iboniswa ngokwehlukana."
+
+#: audit.php
+msgid "User Agent"
+msgstr "I-User Agent"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Uhlobo lwesiphequluli somceli."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Ikheli le-IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Ikheli le-IP lomceli."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Isikhathi Sesenzakalo"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Isikhathi lapho Isenzakalo senzeke khona."
+
+#: audit.php
+msgid "N/A"
+msgstr "Akutholakali"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Azikho Izenzakalo Zelogi Yokuhlola Ezitholiwe"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Ukulethwa Kwe-Syslog Ekude"
+
+#: audit.php
+msgid "Status"
+msgstr "Isimo"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Kukhutshaziwe"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Kuphilile"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Akuphilile"
+
+#: audit.php
+msgid "Pending"
+msgstr "Kulindile"
+
+#: audit.php
+msgid "Retry"
+msgstr "Zama futhi"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Umlayezo ongalethekanga"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Kuthunyelwe (Akukaqinisekiswa)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Okulindile Okudala Kakhulu"
+
+#: audit.php
+msgid "seconds"
+msgstr "imizuzwana"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Umzamo Wokugcina"
+
+#: audit.php
+msgid "Never"
+msgstr "Akukaze"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Ukubhala Kwe-Socket Kokugcina"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Hlola i-Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Zama Futhi i-Dead-letter"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Zama futhi zonke izenzakalo ze-Syslog eziyi-dead-letter?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Iphutha Lokumisa:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Iphutha Lokugcina:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "I-Cacti irekhoda lo mphumela ngaphambi kokuqinisekisa ukuthi i-akhawunti inikwe amandla, ukugunyazwa kwendawo, noma ukuqedwa kwe-2FA; kungenzeka iseshini ayisungulwanga."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Ayikho indlela yamanje ye-Cacti ebhala le siginesha; irekhodwe ngokuzivikela njengokushintshwa kwephasiwedi okungenzeka kube khona okunomphumela ongaqinisekisiwe."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Umphumela we-Cacti user_log result=3 one-user_id=0 ungaba ushintsho lwephasiwedi noma inselelo ye-2FA ehlulekile; ithebula alikwazi ukuhlukanisa."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Kudingeka imvume yokuphatha ukucwaninga ukuze kulondolozwe lezi zilungiselelo."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Ukucwaningwa kokuqinisekisa bekunganikwanga amandla. Qala ngokusebenzisa umyalo wokunakekela we-CLI we-audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Izilungiselelo ze-Syslog Ekude azizange zilondolozwe: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Umsebenzisi Welogi Yokucwaninga"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Umphathi Welogi Yokucwaninga"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Ukusekelwa Kwezobuchwepheshe"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Buka Ilogi Yokuhlola"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Ivumela Abaphathi ukuthi babuke umsebenzi wezinguquko kuseva ye-Cacti.  Abaphathi bangakwazi futhi ukuthumela ngaphandle ilogi yokucwaninga ngezinhloso zokuhlaziya."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Ngokungapheli"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Amaviki angu-%d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Inyanga engu-%d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Izinyanga ezingu-%d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Unyaka ongu-%d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Iminyaka engu-%d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Izinsiza"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "I-Plugin Yokucwaninga"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Izilungiselelo Zelogi Yokucwaninga"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Nika amandla Ilogi Yokuhlola"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Maka leli bhokisi, uma ufuna i-Audit Log ilandelele imisebenzi ye-GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Ukugcinwa Kwelogi Yokucwaninga"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Ufisa ukuthi okufakiwe Kwelogi Yokuhlola kugcinwe isikhathi esingakanani?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Ilogi Yokucwaninga Yangaphandle"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Maka leli bhokisi, uma ufuna i-Audit Log ibhalwe efayeleni langaphandle."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Ifomethi Yelogi Yokucwaninga Yangaphandle"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Khetha ifomethi yokukhipha yamarekhodi elogi yokuhlola yangaphandle."
+
+#: setup.php
+msgid "Text"
+msgstr "Umbhalo"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Indlela Yefayela Lelogi Yokucwaninga Yangaphandle"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Faka indlela eya kufayela lelogi yokuhlola yangaphandle."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Ukucwaningwa Kokuqinisekisa"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Nika amandla Ukuhlolwa Kokuqinisekisa"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Khetha ukurekhoda imicimbi emisha yokungena, ukuphuma, ithokheni, ukushintsha iphasiwedi, kanye nokwenqatshwa kwemvume kusukela kuleli phuzu kuya phambili."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Nika amandla Ukutholwa Kwenani Lokungena Okuhlulekile"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Khipha umcimbi wokungajwayelekile womhlaba wonke lapho inani lokungena okuhlulekile kulo lonke ufakelo lidlula umkhawulo omisiwe."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Iwindi Lokungena Okuhlulekile (imizuzu)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Ifasitela elizungezayo ngamaminithi, kusuka ku-1 kuya ku-1440, elisetshenziselwa ukubala ukungena okwehlulekile."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Umkhawulo Wevolumu Yokungena Okuhlulekile"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Isibalo sokungena okwehlulekile kuyo yonke indawo efakiwe, kusuka ku-1 kuya ku-1000, esiqalisa isigameko esingajwayelekile somhlaba wonke."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Usayizi Weqoqo Lokungenisa Ilogi Yomsebenzisi"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Inani eliphezulu lemigqa ye-user_log efakiwe nezimpawu eziphelelwe yisikhathi ezibuyiswayo ngomjikelezo ngamunye we-I-Poller, ukusuka ku-1 kuya ku-5000. Isimo sophawu sigcinwa izinsuku eziyisikhombisa, ngakho amaqoqo amakhulu akhulisa kokubili umsebenzi ophezulu we-I-Poller nosayizi wethebula lesimo elikhawulelwe izinsuku eziyisikhombisa."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "I-Syslog Ekude"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Nika amandla i-Syslog Ekude"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Faka emugqweni izenzakalo zokuhlola eziphothuliwe ukuze zilethwe ku-Syslog ekude. Okuphumayo kwefayela langaphandle okukhona kuhlala kuzimele."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Umamukeli we-Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Faka igama lomsingathi womamukeli noma ikheli le-IP ngaphandle kwesikimu se-URI, indlela, noma imininingwane yokungena."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Imbobo ye-Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Faka u-1-65535, noma ushiye kungenalutho ukuze usebenzise u-514 ku-UDP/TCP no-6514 ku-TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Ukuthuthwa kwe-Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "I-UDP ithumela i-datagram eyodwa ngaphandle kokuqinisekiswa. I-TCP ne-TLS zisebenzisa ukwakheka kokubalwa kwama-octet kwe-RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Ifomethi ye-Payload ye-Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Wonke amafomethi asebenzisa unhlokweni we-RFC 5424. Khetha idatha ehlelekile ye-RFC 5424, i-CEF, noma i-JSON ehlangene yomlayezo."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "I-Facility ye-Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Khetha insiza esetshenziselwa ukubala okubalulekile kwe-RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Igama Lohlelo Lokusebenza lwe-Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "I-RFC 5424 APP-NAME. I-ASCII ephrintekayo engenazo izikhala, kufika ezinhlamvwini ezingu-48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Ubunikazi Be-Node Yokucwaninga"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Ubunikazi begama lomsingathi be-RFC 5424 obuzinzile bale node ye-Cacti. Ungasebenzisi inani elishintshayo lapho kuqalwa kabusha."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Isikhathi Sokuphela Kokuxhumana Nokubhala"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Ukuphela kwesikhathi ngamasekhondi, kusukela ku-1 kuya ku-30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Usayizi Ophezulu Werekhodi Le-UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Amarekhodi amakhulu kunalo mkhawulo wamabhayithi abekwa eceleni njengahlulekile futhi awasoze anqunywa noma ahlukaniswe. I-TCP noma i-TLS inconywa ezenzakalweni ezinkulu."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "I-Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Ifayela le-TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Inqwaba ye-PEM CA ongayikhetha. Ukuqinisekiswa kontanga negama lomsingathi kunikwe amandla njalo."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Isitifiketi Seklayenti se-TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Isitifiketi seklayenti se-PEM ongakukhetha. Ukhiye weklayenti nawo kufanele ulungiselelwe."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Ukhiye Oyimfihlo Weklayenti ye-TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Indlela yokhiye oyimfihlo we-PEM ofundekayo ongayikhetha. Okuqukethwe kokhiye akulokothi kugcinwe emicimbini yokucwaninga."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Ulayini Wokulethwa kwe-Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Ukubambezeleka Okuyisisekelo Kokuzama Futhi"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Ukubambezeleka kokuzama kabusha kokuqala ngamasekhondi, kusuka ku-1 kuya ku-3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Ukulibaziseka Okuphezulu Kokuzama Futhi"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Ukulibaziseka okuphezulu kokuzama futhi ngamasekhondi, ukusuka ekulibazisekeni okuyisisekelo kuya ku-86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Imizamo Ephezulu Yokuletha"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Yisa irekhodi ku-dead-letter ngemva kwale mizamo engaka, kusuka ku-1 kuya ku-100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Usayizi Weqoqo le-Poller"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Inani eliphezulu lamarekhodi afanele acutshungulwa ngomjikelezo ngamunye we-I-Poller, ukusuka ku-1 kuya ku-1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Isexwayiso Sobudala Obulindile"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Bonisa isexwayiso sokungaphili kahle uma irekhodi elidala kunawo wonke elisemugqeni lifinyelela kulobu budala ngemizuzwana."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Isibalo Sesexwayiso Somlayezo Ongalethekanga"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Bonisa isexwayiso sokungaphili kahle uma amarekhodi amaningi kangaka afakwe ku-dead-letter."
+
+#: setup.php
+msgid "Audit"
+msgstr "Ukucwaninga"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Ilogi Yezenzakalo Zokucwaninga"
+

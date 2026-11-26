@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Somali\n"
+"Language: so-SO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Diiwaanka imtixaanka Syslog waxaa lagu qoray socket-ka gudaha. Kaydinta qaatayaha lama xaqiijin."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Imtixaanka Syslog wuu fashilmay: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Dib u deji %d diris Syslog oo aan gaarin si dib loogu tijaabiyo."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Dhacdada hantidhawrka lama helin."
+
+#: audit.php
+msgid "Page:"
+msgstr "Bogga:"
+
+#: audit.php
+msgid "User:"
+msgstr "Isticmaalaha:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Ciwaanka IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Taariikhda:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Tallaabo:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Nooca Dhacdada:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "Aqoonsiga Dhacdada:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Xaaladda Codsiga:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Natiijada Hawlgalka:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Sababta Natiijada:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Gaarsiinta Faylka Dibadda:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Khaladka Faylka Dibadda:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Dirista Syslog Fog:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Isku-dayada Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Qorista Socket-ka Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Khaladka Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Iskiriibka:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Xogta la Kaydiyay"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Xogta codsiga ee la keydiyay ma aha JSON sax ah: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Sifo"
+
+#: audit.php
+msgid "Value"
+msgstr "Qiime"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Xogta Diiwaanka:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Nadiifinta Diiwaanka Hantidhawrka ee uu sameeyay %s waxay ka saartay %d dhacdooyin waxayna ilaaliday %d dhacdooyin oo leh gudbinta Syslog ee aan dhammaystirnayn."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Diiwaanka Hantidhawrka"
+
+#: audit.php
+msgid "Search"
+msgstr "Raadi"
+
+#: audit.php
+msgid "Page"
+msgstr "Bogga"
+
+#: audit.php
+msgid "All"
+msgstr "Dhammaan"
+
+#: audit.php
+msgid "User"
+msgstr "Isticmaale"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Dhacdooyinka"
+
+#: audit.php
+msgid "Default"
+msgstr "Asal ah"
+
+#: audit.php
+msgid "Go"
+msgstr "Soco"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Deji/Cusboonaysii Shaandheeyayaasha"
+
+#: audit.php
+msgid "Clear"
+msgstr "Nadiifi"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Nadiifi Shaandheeyayaasha"
+
+#: audit.php
+msgid "Export"
+msgstr "Dhoofi"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Dhoofi Dhacdooyinka Diiwaanka"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Si joogto ah ma u nadiifisaa dhammaan dhacdooyinka diiwaanka baaritaanka?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Nadiifi"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Baabi'i Dhacdooyinka Diiwaanka"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Dhacdooyinka Hantidhawrka"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Magaca Bogga"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Bogga laga soo saaray dhacdada."
+
+#: audit.php
+msgid "User Name"
+msgstr "Magaca Isticmaalaha"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Isticmaalaha abuuray dhacdada."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Ficilka La Codsaday"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Falka Cacti ee la codsaday. Dul mari falka si aad u aragto xogta codsiga."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Xaaladda Codsiga"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Xaaladda habaynta codsiga; dhammaystirku ma dammaanad qaadayo in hawlgal kasta uu guuleystay."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Gaarsiinta Faylka Dibadda"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Xaaladda gaarsiinta ee faylka diiwaanka hubinta dibadda ee ikhtiyaariga ah. Caafimaadka Syslog ee fog si gaar ah ayaa loo muujiyaa."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Wakiilka Isticmaalaha"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Nooca daalacashada (browser) ee codsadaha."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Ciwaanka IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Cinwaanka IP ee codsadaha."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Waqtiga Dhacdada"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Waqtiga ay Dhacdadu dhacday."
+
+#: audit.php
+msgid "N/A"
+msgstr "Ma khuseyso"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Wax Dhacdooyin Diiwaanka Hantidhawrka ah Lama Helin"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Dirista Syslog Fog"
+
+#: audit.php
+msgid "Status"
+msgstr "Xaaladda"
+
+#: audit.php
+msgid "Disabled"
+msgstr "La joojiyay"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Caafimaad qaba"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Aan caafimaad qabin"
+
+#: audit.php
+msgid "Pending"
+msgstr "Sugaya"
+
+#: audit.php
+msgid "Retry"
+msgstr "Isku day mar kale"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Farriin aan la gaarsiin"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "La diray (Aan la xaqiijin)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Kan Ugu Da'da Weyn ee Sugaya"
+
+#: audit.php
+msgid "seconds"
+msgstr "ilbiriqsiyo"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Isku-daygii Ugu Dambeeyay"
+
+#: audit.php
+msgid "Never"
+msgstr "Marna"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Qoraalkii Socket ee Ugu Dambeeyay"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Tijaabi Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Dib u tijaabi Fariimaha Aan Gaarin"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Ma dib loo tijaabiyaa dhammaan dhacdooyinka Syslog ee aan gaarin?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Khaladka Qaabeynta:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Khaladkii Ugu Dambeeyay:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti wuxuu diiwaangeliyaa natiijadan ka hor inta uusan xaqiijin in akoonku uu yahay La hawlgeliyay, oggolaanshaha realm-ka, ama dhammaystirka 2FA; waxaa suurtogal ah inaan fadhi la samayn."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Ma jiro waddo Cacti oo hadda ah oo qora saxeexan; waxaa si difaac ah loogu diiwaangeliyay inay tahay isbeddel suurtagal ah oo erayga sirta ah iyadoo natiijadu aan la xaqiijin."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Cacti user_log result=3 oo leh user_id=0 waxay noqon kartaa beddelaad erayga sirta ah ama tartan 2FA ah oo fashilmay; shaxdu ma kala saari karto."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Ogolaanshaha maamulka hantidhawrka ayaa loo baahan yahay si loo keydiyo dejintan."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Hantidhawrka xaqiijinta lama hawlgelin. Marka hore socodsii amarka dayactirka CLI ee audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Dejinta Syslog Fog lama keydin: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Isticmaalaha Diiwaanka Hantidhawrka"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Maamulaha Diiwaanka Hantidhawrka"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Taageerada Farsamada"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Eeg Diiwaanka Baaritaanka"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Waxay u oggolaanaysaa Maamulayaasha inay arkaan dhaqdhaqaaqa isbeddelka ee seerfarka Cacti.  Maamulayaashu waxay sidoo kale dhoofin karaan diiwaanka baaritaanka ujeeddooyin falanqayn ah."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Si aan xad lahayn"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d Toddobaad"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d Bil"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d Bilood"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d Sano"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d Sano"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Adeegyada"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Lifaaqa Hantidhawrka"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Dejinta Diiwaanka Hantidhawrka"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Hawlgeli Diiwaanka Hubinta"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Calaamadee sanduuqan, haddii aad rabto in Diiwaanka Hanti-dhawrka uu la socdo hawlaha GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Haynta Diiwaanka Hantidhawrka"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Muddo intee le'eg ayaad rabtaa in la hayo diiwaannada Diiwaanka Hantidhawrka?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Diiwaanka Hanti-dhawrka Dibadda"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Calaamadee sanduuqan, haddii aad rabto in Diiwaanka Hanti-dhawrka lagu qoro fayl dibadda ah."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Qaabka Diiwaanka Hanti-dhawrka Dibadda"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Dooro qaabka wax-soo-saarka ee diiwaannada hanti-dhawrka dibadda."
+
+#: setup.php
+msgid "Text"
+msgstr "Qoraal"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Jidka Faylka Diiwaanka Hanti-dhawrka Dibadda"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Geli jidka faylka diiwaanka hubinta dibadda."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Hantidhawrka Xaqiijinta"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Hawlgeli Hubinta Xaqiijinta"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Dooro in aad duubto dhacdooyinka cusub ee gelitaanka, ka-bixidda, calaamadda (token), beddelka erayga sirta ah, iyo oggolaansho-diidka laga bilaabo hadda wixii ka dambeeya."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Hawlgeli Ogaanshaha Tirada Gelitaanka Fashilmay"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Dir dhacdo aan caadi ahayn oo guud marka tirada gelitaannada fashilmay ee rakibidda oo dhan ay ka badato xadka la habeeyay."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Muddada Galitaanka Fashilmay (daqiiqado)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Muddada wareegaysa oo daqiiqado ah, laga bilaabo 1 ilaa 1440, oo loo adeegsado tirinta gelitaannada fashilmay."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Xadka Mugga Galitaanka Fashilmay"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Tirada gelitaanka fashilmay ee dhammaan rakibaadda, laga bilaabo 1 ilaa 1000, taasoo kicisa dhacdo aan caadi ahayn oo guud."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Cabbirka Kooxda Gelinta Diiwaanka Isticmaalaha"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Safafka user_log ee ugu badan ee la qaato iyo calaamadaha dhacay ee dib loo soo cesho wareeg kasta oo Xog-uruuriye ah, laga bilaabo 1 ilaa 5000. Xaaladda calaamadda waxaa la hayaa toddoba maalmood, sidaas darteed xirmooyinka waaweyn waxay kordhiyaan shaqada ugu sarraysa ee Xog-uruuriyaha iyo cabbirka shaxda xaaladda ee toddobada maalmood ku xaddidan."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog Fog"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Hawlgeli Syslog Fog"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Saf geli dhacdooyinka hanti-dhawrka ee la dhammeeyay si loogu diro Syslog-ga fog. Wax-soo-saarka faylka dibadda ee jira wuxuu ahaanayaa mid madax-bannaan."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Qaatayaha Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Geli magaca martigeliyaha qaataha ama ciwaanka IP iyada oo aan lahayn nidaam URI, jid, ama aqoonsiyo."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Dekedda Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Geli 1-65535, ama bannaanka u daa si aad u isticmaasho 514 ee UDP/TCP iyo 6514 ee TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Gudbinta Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP waxay dirtaa hal xirmo xog ah iyada oo aan oggolaansho sugin. TCP iyo TLS waxay adeegsadaan qaabeynta tirinta-oktetka ee RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Qaabka Xogta (Payload) ee Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Dhammaan qaababku waxay adeegsadaan madaxa RFC 5424. U dooro xogta qaabaysan ee RFC 5424, CEF, ama JSON kooban fariinta."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Qaybta Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Dooro qaybta (facility) loo isticmaalo xisaabinta mudnaanta RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Magaca Barnaamijka Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Xarfaha ASCII ee la daabici karo ee aan meel bannaan lahayn, ilaa 48 xaraf."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Aqoonsiga Noodhka Hantidhawrka"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Aqoonsi magac-martigeliye oo xasilloon oo RFC 5424 ah oo loogu talagalay unuggan Cacti. Ha isticmaalin qiime isbeddela marka dib loo bilaabo."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Waqtiga Xidhiidhka iyo Qorista oo Dhammaaday"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Waqti dhammaadka oo ilbiriqsiyo ah, laga bilaabo 1 ilaa 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Cabbirka Diiwaanka UDP ee Ugu Badan"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Diiwaannada ka weyn xadka byte-kan waa la kaydiyaa iyadoo aan la jarin ama la kala qaybin. TCP ama TLS ayaa lagula talinayaa dhacdooyinka waaweyn."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Faylka TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Xirmada PEM CA ee ikhtiyaariga ah. Xaqiijinta asaagga iyo magaca martigeliyaha mar walba waa la hawlgeliyay."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Shahaadada Macmiilka TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Shahaadada macmiilka PEM ee ikhtiyaariga ah. Furaha macmiilka waa in sidoo kale la habeeyaa."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Furaha Gaarka ah ee Macmiilka TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Dariiq furaha gaarka ah ee PEM ee la akhrin karo oo ikhtiyaari ah. Waxyaabaha ku jira furaha waligood laguma keydiyo dhacdooyinka hantidhawrka."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Safka Gaarsiinta Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Dib-u-dhaca Aasaasiga ah ee Isku-dayga"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Dib-u-dhigista isku-dayga bilowga ah oo ilbiriqsiyo ah, laga bilaabo 1 ilaa 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Dib-u-dhaca Isku-dayga ee Ugu Badan"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Dib-u-dhaca isku-dayga ee ugu badan oo ilbiriqsiyo ah, laga bilaabo dib-u-dhaca aasaasiga ah ilaa 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Isku-dayga Dirista ee Ugu Badan"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "U wareeji diiwaanka sanduuqa farriimaha fashilmay ka dib intan oo isku day ah, laga bilaabo 1 ilaa 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Cabbirka Qaybta Xog-uruuriyaha"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Diiwaannada ugu badan ee waqtigoodu dhammaaday ee laga shaqeeyo wareeg kasta oo Xog-uruuriye ah, laga bilaabo 1 ilaa 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Digniinta Da'da Sugitaanka"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Muuji digniin caafimaad-darro marka diiwaanka ugu da'da weyn ee safka ku jira uu gaaro da'dan oo ilbiriqsiyo ah."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Tirada Digniinta Farriimaha aan la gaarsiin"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Muuji digniin caafimaad-darro marka tiradan diiwaannada ah loo diro warqadaha dhintay."
+
+#: setup.php
+msgid "Audit"
+msgstr "Hantidhawr"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Diiwaanka Dhacdooyinka Hantidhawrka"
+

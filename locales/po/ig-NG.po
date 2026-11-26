@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Igbo\n"
+"Language: ig-NG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "E dere ndekọ nnwale Syslog na socket mpaghara. A chọpụtabeghị nchekwa nke ngwa nnata."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Nnwale Syslog dara: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Tọgharịa nnyefe Syslog dara ada %d maka ịnwa ọzọ."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Ahụghị ihe omume nyocha."
+
+#: audit.php
+msgid "Page:"
+msgstr "Peeji:"
+
+#: audit.php
+msgid "User:"
+msgstr "Onye Ọrụ:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Adreesị IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Ụbọchị:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Omume:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Ụdị Ihe Omume:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "NJ Ihe Omume:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Ọnọdụ Arịrịọ:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Nsonaazụ Ọrụ:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Ihe Kpatara Nsonaazụ:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Nnyefe Faịlụ Mpụga:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Njehie Faịlụ Mpụga:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Nnyefe Syslog Dị N'ebe Dị Anya:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Mgbalị Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Odide Socket Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Njehie Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Edemede:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Data Echekwara"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Data arịrịọ echekwara abụghị JSON dị irè: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Njirimara"
+
+#: audit.php
+msgid "Value"
+msgstr "Uru"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Data Ndekọ:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Mkpochapụ Ndekọ Nyocha nke %s wepụrụ ihe omume %d ma chekwaa ihe omume %d nwere nnyefe Syslog na-akwụsịbeghị."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Ndekọ Nyocha"
+
+#: audit.php
+msgid "Search"
+msgstr "Chọọ"
+
+#: audit.php
+msgid "Page"
+msgstr "Ibe"
+
+#: audit.php
+msgid "All"
+msgstr "Niile"
+
+#: audit.php
+msgid "User"
+msgstr "Onye ọrụ"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Ihe Omume"
+
+#: audit.php
+msgid "Default"
+msgstr "Nke Ndabere"
+
+#: audit.php
+msgid "Go"
+msgstr "Gaa"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Tọọ/Megharịa Ihe nzacha"
+
+#: audit.php
+msgid "Clear"
+msgstr "Kpochapụ"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Kpochapụ Ihe nzacha"
+
+#: audit.php
+msgid "Export"
+msgstr "Bupụ"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Bupụ Ihe Omume Ndekọ"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Kpochapụ ihe omume ndekọ nyocha niile kpamkpam?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Kpochapụ"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Kpochapụ Ihe Omume Ndekọ"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Ihe Omume Nyocha"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Aha Peeji"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Ibe ebe e mepụtara mmemme ahụ."
+
+#: audit.php
+msgid "User Name"
+msgstr "Aha Onye Ọrụ"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Onye ọrụ kpatara mmemme ahụ."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Omume A Rịọrọ"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Omume Cacti a rịọrọ. Kpọchie òké n'elu omume ahụ iji hụ data arịrịọ."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Ọnọdụ Arịrịọ"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Ọnọdụ nhazi arịrịọ; mmecha anaghị ekwe nkwa na ọrụ niile gara nke ọma."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Nnyefe Faịlụ Mpụga"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Ọnọdụ nzipu maka faịlụ ndekọ nyocha mpụga nke nhọrọ. A na-egosi ahụike Syslog dị anya iche."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Ejenti Onye Ọrụ"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Ụdị ihe nchọgharị nke onye rịọrọ ya."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Adreesị IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Adreesị IP nke onye na-arịọ."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Oge Ihe Omume"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Oge Mmemme ahụ mere."
+
+#: audit.php
+msgid "N/A"
+msgstr "Ọ dịghị"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Ahụghị Ihe Omume Ndekọ Nyocha Ọ Bụla"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Nnyefe Syslog Dị N'ebe Dị Anya"
+
+#: audit.php
+msgid "Status"
+msgstr "Ọnọdụ"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Gbanyụrụ"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Ahụike Dị Mma"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Adịghị mma"
+
+#: audit.php
+msgid "Pending"
+msgstr "Na-echere"
+
+#: audit.php
+msgid "Retry"
+msgstr "Nwaa ọzọ"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Ozi enweghị nnyefe"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Ezigara (Ekwenyeghị)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Nke Kasị Ochie Na-echere"
+
+#: audit.php
+msgid "seconds"
+msgstr "sekọnd"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Mgbalị Ikpeazụ"
+
+#: audit.php
+msgid "Never"
+msgstr "Ọ dịtụbeghị"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Ntinye Socket Ikpeazụ"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Nwalee Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Nwaa Ozi Dara Ada Ọzọ"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Nwaa ihe omume Syslog niile dara ada ọzọ?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Njehie Nhazi:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Njehie Ikpeazụ:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti na-edekọ nsonaazụ a tupu ya enyocha ma akaụntụ gbanyere, ikike mpaghara (realm), ma ọ bụ mmecha 2FA; o nwere ike ịbụ na e guzobebeghị oge nnọkọ."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Ọ dịghị ụzọ Cacti dị ugbu a na-ede mbinye aka a; edekọrọ ya dị ka nchedo dị ka mgbanwe okwuntụghe nwere ike ime nke nsonaazụ ya akwadoghị."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Cacti user_log result=3 nwere user_id=0 nwere ike ịbụ mgbanwe okwuntụghe ma ọ bụ mgba aka 2FA dara ada; tebụl enweghị ike ịkpa ókè n'etiti ha."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Achọrọ ikike nchịkwa nyocha iji chekwaa ntọala ndị a."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Agbanyeghị nyocha nkwenye. Buru ụzọ mee iwu nlekọta CLI audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Echekwaghị ntọala Syslog Dị N'ebe Dị Anya: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Onye Ọrụ Ndekọ Nyocha"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Onye Nchịkwa Ndekọ Nyocha"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Nkwado Nka na Ụzụ"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Lee Ndekọ Nnyocha"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Na-enye Ndị Nchịkwa ohere ilele ọrụ mgbanwe na sava Cacti.  Ndị Nchịkwa nwekwara ike ibupụ ndekọ nyocha maka ebumnuche nyocha."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Na-enweghị njedebe"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Izu %d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Ọnwa %d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Ọnwa %d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Afọ %d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Afọ %d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Ngwa Ọrụ"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Mgbakwụnye Nyocha"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Ntọala Ndekọ Nyocha"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Gbanye Ndekọ Nyocha"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Kaa akara n'igbe a, ma ọ bụrụ na ịchọrọ ka Ndekọ Nnyocha na-eso ihe omume GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Nchekwa Ndekọ Nyocha"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Ogologo oge ole ka ị chọrọ ka edebe ndekọ Nnyocha?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Ndekọ Nnyocha Mpụga"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Kaa akara n'igbe a, ma ọ bụrụ na ịchọrọ ka e dee Ndekọ Nnyocha na faịlụ mpụga."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Ụdị Ndekọ Nnyocha Mpụga"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Họrọ usoro mmepụta maka ndekọ nyocha mpụga."
+
+#: setup.php
+msgid "Text"
+msgstr "Ederede"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Ụzọ Faịlụ Ndekọ Nnyocha Mpụga"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Tinye ụzọ gaa na faịlụ ndekọ nyocha mpụga."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Nyocha Nkwenye"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Gbanye Nyocha Nkwenye"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Họrọ ijide mmemme ọhụrụ nke nbanye, ọpụpụ, token, mgbanwe okwuntụghe, na ịjụ ikike site ugbu a gaa n'ihu."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Gbanye Nchọpụta Ọnụ Ọgụgụ Nbanye Dara Ada"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Zịpụta mmemme ihe na-adịghị mma zuru ụwa ọnụ mgbe ọnụ ọgụgụ nbanye dara ada n'ofe nrụnye niile karịrị ọnụ ụzọ ahaziri."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Oge Nbanye Dara (nkeji)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Windọ na-atụgharị na nkeji, site na 1 ruo 1440, nke a na-eji agụ nbanye dara ada."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Ọnụ ụzọ Ọnụọgụgụ Nbanye Dara"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Ọnụọgụgụ nbanye kụrụ afọ n'ala n'ofe nrụnye niile, site na 1 ruo 1000, nke na-akpalite mmemme ihe na-adịghị mma zuru ụwa ọnụ."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Ogo Otu Nnabata Ndekọ Onye Ọrụ"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Ahịrị user_log kacha elu a nabatara na akara ndị kubiri ume a napụtaghachiri n'otu okirikiri poller, site na 1 ruo 5000. A na-edobe ọnọdụ akara ruo ụbọchị asaa, yabụ nnukwu ogbe na-abawanye ma ọrụ poller kacha elu ma oke tebụl ọnọdụ ụbọchị asaa ahụ."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog Dị N'ebe Dị Anya"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Gbanye Syslog Dị N'ebe Dị Anya"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Tinye ihe omume nyocha emechara n'ahịrị maka nnyefe Syslog dị anya. Mpụta faịlụ mpụga dị ugbu a ka nọrọ onwe ya."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Ngwa Nnata Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Tinye aha onye nnabata nke onye nnata ma ọ bụ adreesị IP na-enweghị usoro URI, ụzọ, ma ọ bụ nzere."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Ọdụ Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Tinye 1-65535, ma ọ bụ hapụ oghere iji 514 maka UDP/TCP na 6514 maka TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Mbufe Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP na-ezipu otu datagram na-enweghị nkwenye. TCP na TLS na-eji nhazi ọnụọgụgụ octet RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Nhazi Ibu Ozi Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Ụdị nile na-eji isi okwu RFC 5424. Họrọ data ahaziri ahazi nke RFC 5424, CEF, ma ọ bụ JSON dị nkenke maka ozi ahụ."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Ngalaba Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Họrọ ngalaba eji gbakọọ mkpa RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Aha Ngwa Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. ASCII na-enweghị ohere nke enwere ike ibipụta, ruo mkpụrụedemede 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Njirimara Nọọdụ Nyocha"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Njirimara aha onye nnabata RFC 5424 kwụsiri ike maka node Cacti a. Ejila uru na-agbanwe mgbe a malitegharịrị."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Oge Mpụta Njikọ na Ide Ihe"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Oge njedebe na sekọnd, site na 1 ruo 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Oke Ndekọ UDP Kacha Elu"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Ndekọ ndị karịrị oke byte a ka a na-etinye na dead-letter ma a naghị ebipụ ha ma ọ bụ kewaa ha. A na-atụ aro TCP ma ọ bụ TLS maka mmemme buru ibu."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Faịlụ TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Ngwugwu PEM CA nke nhọrọ. A na-agbanye nkwenye nke ndị ọgbọ na aha onye nnabata mgbe niile."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Asambodo Onye Ahịa TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Asambodo onye ahịa PEM nke nhọrọ. A ga-ahazirịrị igodo onye ahịa kwa."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Igodo Nzuzo Onye Ahịa TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Ụzọ igodo nzuzo PEM a pụrụ ịgụ nke nhọrọ. A naghị echekwa ọdịnaya igodo ahụ na mmemme nyocha."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Ahịrị Nnyefe Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Oge Nkwụsị Mbụ maka Ịnwa Ọzọ"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Igbu oge mbụ tupu ịnwale ọzọ na sekọnd, site na 1 ruo 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Oge Nchere Nnwalegharị Kacha Elu"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Oge nchere nnwalegharị kacha elu na sekọnd, site na oge nchere ntọala ruo 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Mgbalị Nnyefe Kacha Elu"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Bufee ndekọ n'akwụkwọ ozi nwụrụ anwụ mgbe ọnụọgụgụ mgbalị ndị a gachara, site na 1 ruo 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Ogo Nchịkọta Poller"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Ndekọ ruru oge kacha elu a na-ahazi n'otu okirikiri poller, site na 1 ruo 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Ịdọ aka ná ntị Oge Nchere"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Gosi ịdọ aka ná ntị adịghị mma mgbe ndekọ kacha ochie nọ n'ahịrị ruru afọ a n'ime sekọnd."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Ọnụọgụgụ Ịdọ aka ná ntị Ozi Enweghị Nnyefe"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Gosi ịdọ aka ná ntị adịghị mma mgbe ọnụọgụ ndekọ ndị a nọ n'akwụkwọ ozi nwụrụ anwụ."
+
+#: setup.php
+msgid "Audit"
+msgstr "Nyocha"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Ndekọ Ihe Omume Nyocha"
+

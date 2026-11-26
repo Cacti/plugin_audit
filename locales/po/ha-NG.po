@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Hausa\n"
+"Language: ha-NG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "An rubuta bayanan gwajin Syslog zuwa soket na gida. Ba a tabbatar da ajiyar mai karɓa ba."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Gwajin Syslog ya gaza: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Sake saita isar da saƙonnin Syslog da suka gaza guda %d don sake gwadawa."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Ba a sami abin binciken ba."
+
+#: audit.php
+msgid "Page:"
+msgstr "Shafi:"
+
+#: audit.php
+msgid "User:"
+msgstr "Mai Amfani:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Adireshin IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Kwanan wata:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Mataki:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Nau'in Lamari:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "Lambar Lamari:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Matsayin Buƙata:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Sakamakon Aiki:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Dalilin Sakamako:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Isar da Fayil na Waje:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Kuskuren Fayil na Waje:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Isar da Syslog na Nesa:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Gwaje-gwajen Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Rubutun Soket na Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Kuskuren Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Rubutun Umarni:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Bayanai da Aka Ajiye"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Bayanan buƙatar da aka ajiye ba ingantaccen JSON ba ne: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Siffa"
+
+#: audit.php
+msgid "Value"
+msgstr "Ƙima"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Bayanan rikodi:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Tsaftace Rajistar Bincike da %s ya yi ya cire abubuwa %d kuma ya kare abubuwa %d da ke da isar da Syslog da ba a kammala ba."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Rajistar Bincike"
+
+#: audit.php
+msgid "Search"
+msgstr "Bincika"
+
+#: audit.php
+msgid "Page"
+msgstr "Shafi"
+
+#: audit.php
+msgid "All"
+msgstr "Duka"
+
+#: audit.php
+msgid "User"
+msgstr "Mai Amfani"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Abubuwan da Suka Faru"
+
+#: audit.php
+msgid "Default"
+msgstr "Na Asali"
+
+#: audit.php
+msgid "Go"
+msgstr "Tafi"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Saita/Sabunta Matatu"
+
+#: audit.php
+msgid "Clear"
+msgstr "Share"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Share Matatu"
+
+#: audit.php
+msgid "Export"
+msgstr "Fitarwa"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Fitar da Lamuran Rajista"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Za a share dukkan abubuwan rajistar bincike na dindindin?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Sharewa Gaba Ɗaya"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Share Abubuwan Log"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Abubuwan Bincike"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Sunan Shafi"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Shafin da aka samar da taron."
+
+#: audit.php
+msgid "User Name"
+msgstr "Sunan Mai Amfani"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Mai amfani da ya haifar da taron."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Aikin Da Aka Buƙata"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Matakin Cacti da aka nema. Tsaya da linzamin kwamfuta a kan matakin don ganin bayanan buƙatar."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Matsayin Buƙata"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Yanayin sarrafa buƙata; kammalawa ba ya tabbatar da cewa kowane aiki ya yi nasara."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Isar da Fayil na Waje"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Yanayin isarwa na fayil ɗin rajistar bincike na waje na zaɓi. Ana nuna lafiyar Syslog na nesa daban."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Wakilin Mai Amfani"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Nau'in mai binciken gizo na mai nema."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Adireshin IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Adireshin IP na mai nema."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Lokacin Lamari"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Lokacin da Taron ya faru."
+
+#: audit.php
+msgid "N/A"
+msgstr "Babu"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Ba a Sami Abubuwan Rajistar Bincike ba"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Isar da Syslog na Nesa"
+
+#: audit.php
+msgid "Status"
+msgstr "Matsayi"
+
+#: audit.php
+msgid "Disabled"
+msgstr "An kashe"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Lafiya lau"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Ba shi da lafiya"
+
+#: audit.php
+msgid "Pending"
+msgstr "Ana jira"
+
+#: audit.php
+msgid "Retry"
+msgstr "Sake gwadawa"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Saƙon da ba a isar ba"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "An aika (Ba a tabbatar ba)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Mafi Tsufan da Ke Jira"
+
+#: audit.php
+msgid "seconds"
+msgstr "daƙiƙu"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Yunƙuri Na Ƙarshe"
+
+#: audit.php
+msgid "Never"
+msgstr "Ba a Taɓa Ba"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Rubutun Socket Na Ƙarshe"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Gwada Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Sake Gwada Saƙonnin Da Suka Gaza"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Sake gwada dukkan abubuwan Syslog da suka gaza?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Kuskuren Tsarin Saiti:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Kuskure Na Ƙarshe:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti yana rubuta wannan sakamakon kafin ya tabbatar da cewa an kunna asusun, izinin yanki, ko kammala 2FA; ƙila ba a kafa zama ba tukuna."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Babu wata hanyar Cacti ta yanzu da ke rubuta wannan sa hannun; an rubuta shi a matsayin kariya a kan yiwuwar sauyin kalmar sirri wanda ba a tabbatar da sakamakonsa ba."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Sakamakon Cacti user_log result=3 tare da user_id=0 na iya zama sauyin kalmar sirri ko ƙalubalen 2FA da ya gaza; teburin ba zai iya rarrabewa ba."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Ana buƙatar izinin gudanar da bincike don ajiye waɗannan saituna."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Ba a kunna binciken tabbatar da shaida ba. Da farko gudanar da umarnin kulawa na CLI audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Ba a ajiye saitunan Syslog na Nesa ba: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Mai Amfani da Rajistar Bincike"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Mai Gudanar da Rajistar Bincike"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Tallafin Fasaha"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Duba Rijistar Bincike"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Yana ba wa Masu Gudanarwa damar duba ayyukan sauyi a kan sabar Cacti. Masu Gudanarwa za su iya fitar da rajistar bincike don dalilan nazari."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Ba tare da iyaka ba"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Makonni %d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Wata %d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Watanni %d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Shekara %d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Shekaru %d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Kayan Aiki"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Ƙarin Manhajar Bincike"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Saitunan Rajistar Bincike"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Kunna Rajistar Bincike"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Yi alama a wannan akwatin, idan kana son Rajistar Bincike ta bibiyi ayyukan GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Tsawon Ajiyar Rajistar Bincike"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Har na tsawon wane lokaci kake son a riƙe bayanan Rajistar Bincike?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Rajistar Bincike ta Waje"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Yi alama a wannan akwatin, idan kana son a rubuta Rajistar Bincike a cikin wani fayil na waje."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Tsarin Rajistar Bincike ta Waje"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Zaɓi tsarin fitarwa don bayanan rajistar bincike na waje."
+
+#: setup.php
+msgid "Text"
+msgstr "Rubutu"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Hanyar Fayil ɗin Rajistar Bincike ta Waje"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Shigar da hanyar zuwa fayil ɗin rajistar bincike na waje."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Binciken Tabbatar da Shaida"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Kunna Binciken Tabbatar da Shiga"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Zaɓi don ɗaukar sabbin abubuwan shiga, fita, alamar sirri (token), sauya kalmar sirri, da hana izini daga wannan lokaci zuwa gaba."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Kunna Gano Yawan Shiga da Ya Kasa"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Fitar da sanarwar sabon yanayi na gabaɗaya lokacin da adadin shiga da ya kasa a duk shigarwa ya wuce iyakar da aka saita."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Lokacin Shigar da Ta Kasa (mintuna)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Lokacin lissafi mai gudana cikin mintuna, daga 1 zuwa 1440, da ake amfani da shi wajen ƙirga shiga da suka gaza."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Iyakar Yawan Shigar da Ta Kasa"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Adadin kuskuren shiga a duk faɗin shigarwar, daga 1 zuwa 1000, wanda ke kunna taron saɓani na gaba ɗaya."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Girman Rukuni na Shigar da Rajistan Mai Amfani"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Mafi yawan layukan user_log da aka shigar da alamomin da suka ƙare da aka dawo da su a kowane zagayen Mai Tattara Bayanai, daga 1 zuwa 5000. Ana riƙe yanayin alama na tsawon kwanaki bakwai, don haka manyan rukuni suna ƙara duka kololuwar aikin Mai Tattara Bayanai da girman teburin yanayi na kwanaki bakwai."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog na Nesa"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Kunna Syslog na Nesa"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Sanya kammalallun abubuwan bincike a jeri don isar da Syslog na nesa. Fitar da fayil na waje da ke akwai zai ci gaba da kasancewa mai zaman kansa."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Mai Karɓar Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Shigar da sunan mai masauki na mai karɓa ko adireshin IP ba tare da tsarin URI, hanya, ko bayanan sirri ba."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Tashar Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Shigar da 1-65535, ko ka bar shi fanko don amfani da 514 ga UDP/TCP da 6514 ga TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Hanyar Aika Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP yana aika datagram guda ba tare da tabbacin karɓa ba. TCP da TLS suna amfani da tsarin ƙirga octet na RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Tsarin Bayanan Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Duk tsare-tsaren suna amfani da kanun RFC 5424. Zaɓi tsararrun bayanai na RFC 5424, CEF, ko taƙaitaccen JSON don saƙon."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Rukunin Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Zaɓi rukuni (facility) da ake amfani da shi wajen lissafa fifikon RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Sunan Manhajar Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Haruffan ASCII masu buguwa marasa sarari, har zuwa haruffa 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Shaidar Node na Bincike"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Tabbataccen sunan mai masauki na RFC 5424 don wannan node na Cacti. Kada a yi amfani da ƙimar da ke canzawa idan an sake kunnawa."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Ƙarewar Lokacin Haɗi da Rubutu"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Ƙarewar lokaci a daƙiƙoƙi, daga 1 zuwa 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Mafi Girman Girman Bayanin UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Rikodin da suka fi wannan iyakar byte ana tura su zuwa dead-letter kuma ba a taɓa yanke su ko raba su. Ana ba da shawarar TCP ko TLS don manyan abubuwan da suka faru."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Fayil ɗin TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Kunshin PEM CA na zaɓi. Tabbatar da abokin haɗi da sunan mai masauki koyaushe an kunna su."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Takardar Shaidar Abokin Ciniki ta TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Takardar shaidar abokin ciniki ta PEM ta zaɓi. Dole ne kuma a saita mabuɗin abokin ciniki."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Mabuɗin Sirri na Abokin Ciniki na TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Hanyar mabuɗin sirri na PEM mai karantawa ta zaɓi. Ba a taɓa ajiye abubuwan mabuɗin a cikin abubuwan binciken rajista ba."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Layin Aika Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Jinkirin Asali na Sake Gwadawa"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Jinkirin sake gwadawa na farko a daƙiƙu, daga 1 zuwa 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Mafi Tsawon Jinkirin Sake Gwadawa"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Mafi tsawon jinkirin sake gwadawa a daƙiƙa, daga jinkirin tushe zuwa 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Mafi Yawan Yunkurin Isarwa"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Matsar da rikodi zuwa dead-letter bayan wannan adadin gwaje-gwaje, daga 1 zuwa 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Girman Rukuni na Mai Tattara Bayanai"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Mafi yawan bayanan da lokacinsu ya yi da ake sarrafawa a kowane zagayen Mai Tattara Bayanai, daga 1 zuwa 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Gargaɗin Tsawon Lokacin Jira"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Nuna gargaɗin rashin lafiya lokacin da mafi tsohon rikodin da ke kan layi ya kai wannan shekaru a cikin daƙiƙoƙi."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Adadin Gargaɗin Saƙon da ba a isar ba"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Nuna gargaɗin rashin lafiya lokacin da wannan adadin rikododin suka zama dead-letter."
+
+#: setup.php
+msgid "Audit"
+msgstr "Bincike"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Rajistar Abubuwan Bincike"
+

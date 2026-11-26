@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Amharic\n"
+"Language: am-ET\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "የSyslog ሙከራ መዝገብ ወደ አካባቢያዊው ሶኬት ተጽፏል። የተቀባይ ማከማቻው አልተረጋገጠም።"
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "የSyslog ሙከራ አልተሳካም: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "ለዳግም ሙከራ %d ያልተሳኩ (dead-letter) የSyslog አቅርቦቶችን ዳግም አስጀምር።"
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "የኦዲት ክስተት አልተገኘም።"
+
+#: audit.php
+msgid "Page:"
+msgstr "ገጽ:"
+
+#: audit.php
+msgid "User:"
+msgstr "ተጠቃሚ:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "የIP አድራሻ:"
+
+#: audit.php
+msgid "Date:"
+msgstr "ቀን፦"
+
+#: audit.php
+msgid "Action:"
+msgstr "እርምጃ፦"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "የክስተት ዓይነት፦"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "የክስተት መታወቂያ፦"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "የጥያቄ ሁኔታ፦"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "የተግባር ውጤት፦"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "የውጤት ምክንያት፦"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "ውጫዊ ፋይል አቅርቦት:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "የውጫዊ ፋይል ስህተት:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "የርቀት Syslog አቅርቦት:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "የSyslog ሙከራዎች:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "የSyslog ሶኬት መጻፍ:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "የSyslog ስህተት:"
+
+#: audit.php
+msgid "Script:"
+msgstr "ስክሪፕት:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "የተከማቸ ውሂብ"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "የተቀመጠው የጥያቄ ውሂብ ትክክለኛ JSON አይደለም፦ %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "ባህሪ"
+
+#: audit.php
+msgid "Value"
+msgstr "እሴት"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "የመዝገብ ውሂብ:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "በ%s የተደረገው የኦዲት ምዝግብ ማስታወሻ ማጽዳት %d ክስተቶችን አስወግዷል እና ያልተጠናቀቀ የSyslog ማድረስ ያላቸውን %d ክስተቶች ጠብቋል።"
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "የኦዲት ምዝግብ ማስታወሻ"
+
+#: audit.php
+msgid "Search"
+msgstr "ፈልግ"
+
+#: audit.php
+msgid "Page"
+msgstr "ገጽ"
+
+#: audit.php
+msgid "All"
+msgstr "ሁሉም"
+
+#: audit.php
+msgid "User"
+msgstr "ተጠቃሚ"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "ክስተቶች"
+
+#: audit.php
+msgid "Default"
+msgstr "ነባሪ"
+
+#: audit.php
+msgid "Go"
+msgstr "ሂድ"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "ማጣሪያዎችን አዘጋጅ/አድስ"
+
+#: audit.php
+msgid "Clear"
+msgstr "አጽዳ"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "ማጣሪያዎችን አጽዳ"
+
+#: audit.php
+msgid "Export"
+msgstr "ወደ ውጭ ላክ"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "የምዝግብ ማስታወሻ ክስተቶችን ላክ"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "ሁሉንም የኦዲት ምዝግብ ማስታወሻ ክስተቶች በቋሚነት ይጽዱ?"
+
+#: audit.php
+msgid "Purge"
+msgstr "ሙሉ በሙሉ አጽዳ"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "የመዝገብ ክስተቶችን አጥፋ"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "የኦዲት ክስተቶች"
+
+#: audit.php
+msgid "Page Name"
+msgstr "የገጽ ስም"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "ክስተቱ የተፈጠረበት ገጽ።"
+
+#: audit.php
+msgid "User Name"
+msgstr "የተጠቃሚ ስም"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "ክስተቱን የፈጠረው ተጠቃሚ።"
+
+#: audit.php
+msgid "Requested Action"
+msgstr "የተጠየቀው እርምጃ"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "የተጠየቀው የCacti እርምጃ። የጥያቄውን ውሂብ ለማየት ጠቋሚውን በእርምጃው ላይ ያሳርፉ።"
+
+#: audit.php
+msgid "Request Status"
+msgstr "የጥያቄ ሁኔታ"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "የጥያቄ ሂደት ሁኔታ፤ መጠናቀቁ እያንዳንዱ ክዋኔ መሳካቱን አያረጋግጥም።"
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "ውጫዊ ፋይል አቅርቦት"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "ለአማራጭ ውጫዊ የኦዲት ምዝግብ ማስታወሻ ፋይል የማድረስ ሁኔታ። የርቀት Syslog ጤና በተናጠል ይታያል።"
+
+#: audit.php
+msgid "User Agent"
+msgstr "የተጠቃሚ ወኪል (User Agent)"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "የጠያቂው የአሳሽ ዓይነት።"
+
+#: audit.php
+msgid "IP Address"
+msgstr "የIP አድራሻ"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "የጠያቂው IP አድራሻ።"
+
+#: audit.php
+msgid "Event Time"
+msgstr "የክስተት ጊዜ"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "ክስተቱ የተከሰተበት ጊዜ።"
+
+#: audit.php
+msgid "N/A"
+msgstr "አይመለከትም"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "ምንም የኦዲት ምዝግብ ክስተቶች አልተገኙም"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "የርቀት Syslog አቅርቦት"
+
+#: audit.php
+msgid "Status"
+msgstr "ሁኔታ"
+
+#: audit.php
+msgid "Disabled"
+msgstr "ተሰናክሏል"
+
+#: audit.php
+msgid "Healthy"
+msgstr "ጤናማ"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "ጤናማ ያልሆነ"
+
+#: audit.php
+msgid "Pending"
+msgstr "በመጠባበቅ ላይ"
+
+#: audit.php
+msgid "Retry"
+msgstr "እንደገና ሞክር"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "ዴድ-ሌተር (Dead-letter)"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "ተልኳል (ያልተረጋገጠ)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "በጣም ጥንታዊው በመጠባበቅ ላይ ያለ"
+
+#: audit.php
+msgid "seconds"
+msgstr "ሰከንዶች"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "የመጨረሻ ሙከራ"
+
+#: audit.php
+msgid "Never"
+msgstr "ፈጽሞ"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "የመጨረሻ የሶኬት ጽሑፍ"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Syslogን ሞክር"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "ያልተሳካውን (Dead-letter) እንደገና ሞክር"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "ሁሉንም ያልተሳኩ (dead-letter) የSyslog ክስተቶች እንደገና ይሞክሩ?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "የውቅር ስህተት:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "የመጨረሻ ስህተት:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti ይህን ውጤት የሚመዘግበው መለያ መንቃቱን፣ የግዛት (realm) ፈቃድን፣ ወይም የ 2FA መጠናቀቅን ከማረጋገጡ በፊት ነው፤ ክፍለ ጊዜ (session) ላይመሠረት ይችላል።"
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "ምንም የአሁኑ የCacti መንገድ ይህን ፊርማ አይጽፍም፤ ውጤቱ ያልተረጋገጠ የይለፍ ቃል ለውጥ ሊሆን ይችላል በሚል በመከላከያ መልኩ ተመዝግቧል።"
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "የCacti user_log result=3 ከuser_id=0 ጋር የይለፍ ቃል ለውጥ ወይም ያልተሳካ የ2FA ማረጋገጫ ሊሆን ይችላል፤ ሰንጠረዡ ልዩነቱን መለየት አይችልም።"
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "እነዚህን ቅንብሮች ለማስቀመጥ የኦዲት አስተዳደር ፈቃድ ያስፈልጋል።"
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "የማረጋገጫ ኦዲት አልነቃም ነበር። በመጀመሪያ የaudit_auth_indexes.php CLI የጥገና ትዕዛዝን ያሂዱ።"
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "የርቀት Syslog ቅንብሮች አልተቀመጡም: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "የኦዲት ምዝግብ ማስታወሻ ተጠቃሚ"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "የኦዲት ምዝግብ ማስታወሻ አስተዳዳሪ"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "ቴክኒካዊ ድጋፍ"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "የኦዲት መዝገብ ተመልከት"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "አስተዳዳሪዎች በCacti አገልጋይ ላይ ያሉ የለውጥ እንቅስቃሴዎችን እንዲመለከቱ ያስችላል።  አስተዳዳሪዎች ለትንተና ዓላማ የኦዲት ምዝግብ ማስታወሻውን ወደ ውጭ መላክም ይችላሉ።"
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "ላልተወሰነ ጊዜ"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d ሳምንታት"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d ወር"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d ወራት"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d ዓመት"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d ዓመታት"
+
+#: setup.php
+msgid "Utilities"
+msgstr "መገልገያዎች"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "የኦዲት ተሰኪ"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "የኦዲት ምዝግብ ማስታወሻ ቅንብሮች"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "የኦዲት ምዝግብ ማስታወሻን አንቃ"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "የኦዲት መዝገብ የGUI እንቅስቃሴዎችን እንዲከታተል ከፈለጉ ይህን ሳጥን ይምረጡ።"
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "የኦዲት ምዝግብ ማስታወሻ ማቆያ ጊዜ"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "የኦዲት ምዝግብ ማስታወሻ ግቤቶች ለምን ያህል ጊዜ እንዲቆዩ ይፈልጋሉ?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "ውጫዊ የኦዲት መዝገብ"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "የኦዲት መዝገብ ወደ ውጫዊ ፋይል እንዲጻፍ ከፈለጉ ይህን ሳጥን ይምረጡ።"
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "የውጫዊ ኦዲት መዝገብ ቅርጸት"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "ለውጫዊ የኦዲት መዝገብ መረጃዎች የውጤት ቅርጸቱን ይምረጡ።"
+
+#: setup.php
+msgid "Text"
+msgstr "ጽሑፍ"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "የውጫዊ ኦዲት መዝገብ ፋይል መንገድ"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "ወደ ውጫዊው የኦዲት መዝገብ ፋይል የሚወስደውን ዱካ ያስገቡ።"
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "የማረጋገጫ ኦዲት"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "የማረጋገጫ ኦዲትን አንቃ"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "ከዚህ ነጥብ ጀምሮ አዲስ የመግባት፣ የመውጣት፣ የቶከን፣ የይለፍ ቃል መቀየር እና የፈቃድ መከልከል ክስተቶችን ለመቅረጽ ይመዝገቡ።"
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "ያልተሳካ መግቢያ መጠን ማወቂያን አንቃ"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "በመላው ጭነቱ ላይ ያልተሳካ የመግቢያ መጠን ከተዋቀረው ገደብ ሲያልፍ አጠቃላይ ያልተለመደ ሁኔታ ክስተት ያውጡ።"
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "ያልተሳካ የመግባት የጊዜ መስኮት (ደቂቃዎች)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "ያልተሳኩ መግቢያዎችን ለመቁጠር የሚያገለግል፣ ከ1 እስከ 1440 ያለ ተንከባላይ የጊዜ መስኮት በደቂቃዎች።"
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "ያልተሳካ የመግባት መጠን ገደብ"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "ዓለም አቀፍ ያልተለመደ ክስተትን የሚቀሰቅስ በመላው መጫኛው ላይ ያልተሳኩ የመግቢያ ሙከራዎች ብዛት፣ ከ1 እስከ 1000።"
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "የተጠቃሚ ምዝግብ ማስገቢያ ጥቅል መጠን"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "በአንድ የፖለር ዑደት የሚገቡ ከፍተኛ የuser_log ረድፎች እና የሚመለሱ ጊዜያቸው ያለፈባቸው ምልክቶች፣ ከ1 እስከ 5000። የምልክት ሁኔታ ለሰባት ቀናት ስለሚቆይ ትላልቅ ስብስቦች የፖለሩን ከፍተኛ ስራ እና የተገደበውን የሰባት ቀን የሁኔታ-ሰንጠረዥ መጠን ይጨምራሉ።"
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "የርቀት Syslog"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "የርቀት Syslogን አንቃ"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "የተጠናቀቁ የኦዲት ክስተቶችን ለርቀት Syslog አቅርቦት ወረፋ አስገባ። ነባሩ የውጭ ፋይል ውጤት በራሱ ነጻ ሆኖ ይቆያል።"
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "የSyslog ተቀባይ"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "ያለ URI scheme፣ ዱካ ወይም የማረጋገጫ መረጃ የተቀባይ አስተናጋጅ ስም ወይም IP አድራሻ ያስገቡ።"
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "የSyslog ወደብ"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "1-65535 ያስገቡ፣ ወይም ለUDP/TCP 514 እና ለTLS 6514 ለመጠቀም ባዶ ይተዉት።"
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "የSyslog ትራንስፖርት"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP ያለ ማረጋገጫ አንድ ዳታግራም ይልካል። TCP እና TLS የRFC 6587 የኦክቴት-ቆጠራ ክፈፍ (octet-count framing) ይጠቀማሉ።"
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "የSyslog ፔይሎድ ቅርጸት"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "ሁሉም ቅርጸቶች የRFC 5424 ራስጌን ይጠቀማሉ። ለመልእክቱ የRFC 5424 የተዋቀረ ውሂብ፣ CEF ወይም የታመቀ JSON ይምረጡ።"
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "የSyslog መገልገያ"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "የRFC 5424 ቅድሚያን ለማስላት ጥቅም ላይ የዋለውን መገልገያ (facility) ይምረጡ።"
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "የSyslog መተግበሪያ ስም"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME። ክፍተት የሌለው ሊታተም የሚችል ASCII፣ እስከ 48 ቁምፊዎች።"
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "የኦዲት ኖድ ማንነት"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "ለዚህ Cacti ኖድ ቋሚ የRFC 5424 አስተናጋጅ ስም (hostname) መለያ። እንደገና ሲጀመር የሚቀየር እሴት አይጠቀሙ።"
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "የግንኙነት እና የመጻፍ ጊዜ ማብቂያ"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "የጊዜ ማለቂያ በሰከንዶች፣ ከ 1 እስከ 30።"
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "ከፍተኛ የUDP መዝገብ መጠን"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "ከዚህ የባይት ገደብ የሚበልጡ መዝገቦች ወደ dead-letter ይላካሉ እና በጭራሽ አይቆረጡም ወይም አይከፋፈሉም። ለትላልቅ ክስተቶች TCP ወይም TLS ይመከራል።"
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "የTLS CA ፋይል"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "አማራጭ PEM CA ጥቅል። የአቻ እና የአስተናጋጅ ስም ማረጋገጫ ሁልጊዜ ነቅቷል።"
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "የTLS ደንበኛ የምስክር ወረቀት"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "አማራጭ PEM የደንበኛ ሰርተፊኬት። የደንበኛ ቁልፍም መዋቀር አለበት።"
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "የTLS ደንበኛ የግል ቁልፍ"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "አማራጭ ሊነበብ የሚችል PEM የግል-ቁልፍ ዱካ። የቁልፉ ይዘት በኦዲት ክስተቶች ውስጥ በፍጹም አይቀመጥም።"
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "የSyslog ማድረሻ ወረፋ"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "የዳግም ሙከራ መሠረታዊ መዘግየት"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "የመጀመሪያ የዳግም ሙከራ መዘግየት በሰከንዶች ውስጥ፣ ከ 1 እስከ 3600።"
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "ከፍተኛ የድጋሚ ሙከራ መዘግየት"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "ከፍተኛ የድጋሚ ሙከራ መዘግየት በሴኮንዶች፣ ከመነሻ መዘግየት እስከ 86400።"
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "ከፍተኛ የማድረስ ሙከራዎች"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "ከ1 እስከ 100 ባለው ውስጥ ከዚህን ያህል ሙከራዎች በኋላ መዝገቡን ወደ dead-letter ያዛውሩ።"
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "የፖለር ባች መጠን"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "በአንድ የፖለር ዑደት የሚስተናገዱ ከፍተኛ ጊዜያቸው የደረሰ መዝገቦች፣ ከ1 እስከ 1000።"
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "በመጠባበቅ ላይ ያለ ዕድሜ ማስጠንቀቂያ"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "በወረፋ ላይ ያለው በጣም የቆየው መዝገብ ይህንን ዕድሜ በሰከንዶች ውስጥ ሲደርስ ጤናማ ያልሆነ ማስጠንቀቂያ አሳይ።"
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "የዴድ-ሌተር ማስጠንቀቂያ ብዛት"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "ይህን ያህል መዝገቦች ያልተላኩ (dead-lettered) ሲሆኑ ጤናማ ያልሆነ ማስጠንቀቂያ አሳይ።"
+
+#: setup.php
+msgid "Audit"
+msgstr "ኦዲት"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "የኦዲት ክስተት ምዝግብ ማስታወሻ"
+

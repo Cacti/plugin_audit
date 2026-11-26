@@ -1,0 +1,721 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-24 19:00+0000\n"
+"Last-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\n"
+"Language-Team: Swahili\n"
+"Language: sw-KE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Rekodi ya jaribio la Syslog iliandikwa kwenye soketi ya ndani. Hifadhi ya kipokezi haijathibitishwa."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Jaribio la Syslog limeshindwa: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Weka upya uwasilishaji %d wa Syslog uliokwama ili ujaribiwe tena."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Tukio la ukaguzi halikupatikana."
+
+#: audit.php
+msgid "Page:"
+msgstr "Ukurasa:"
+
+#: audit.php
+msgid "User:"
+msgstr "Mtumiaji:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "Anwani ya IP:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Tarehe:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Kitendo:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Aina ya Tukio:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "Kitambulisho cha Tukio:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Hali ya Ombi:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Matokeo ya Operesheni:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Sababu ya Matokeo:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Uwasilishaji wa Faili wa Nje:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Hitilafu ya Faili ya Nje:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Uwasilishaji wa Syslog ya Mbali:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Majaribio ya Syslog:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Uandishi wa Soketi ya Syslog:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Hitilafu ya Syslog:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Skripti:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Data Iliyohifadhiwa"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Data ya ombi iliyohifadhiwa si JSON halali: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Sifa"
+
+#: audit.php
+msgid "Value"
+msgstr "Thamani"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Data ya Rekodi:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Usafishaji wa Kumbukumbu ya Ukaguzi na %s uliondoa matukio %d na ukalinda matukio %d yenye uwasilishaji wa Syslog ambao haujakamilika."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Kumbukumbu ya Ukaguzi"
+
+#: audit.php
+msgid "Search"
+msgstr "Tafuta"
+
+#: audit.php
+msgid "Page"
+msgstr "Ukurasa"
+
+#: audit.php
+msgid "All"
+msgstr "Zote"
+
+#: audit.php
+msgid "User"
+msgstr "Mtumiaji"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Matukio"
+
+#: audit.php
+msgid "Default"
+msgstr "Chaguo-msingi"
+
+#: audit.php
+msgid "Go"
+msgstr "Nenda"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Weka/Onyesha Upya Vichujio"
+
+#: audit.php
+msgid "Clear"
+msgstr "Futa"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Futa Vichujio"
+
+#: audit.php
+msgid "Export"
+msgstr "Hamisha"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Hamisha Matukio ya Kumbukumbu"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Futa kabisa matukio yote ya kumbukumbu ya ukaguzi?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Safisha"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Safisha Matukio ya Kumbukumbu"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Matukio ya Ukaguzi"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Jina la Ukurasa"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Ukurasa ambapo tukio lilizalishwa."
+
+#: audit.php
+msgid "User Name"
+msgstr "Jina la Mtumiaji"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Mtumiaji aliyezalisha tukio hili."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Kitendo Kilichoombwa"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Kitendo cha Cacti kilichoombwa. Elea juu ya kitendo ili kuona data ya ombi."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Hali ya Ombi"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Hali ya uchakataji wa ombi; kukamilika hakuhakikishi kuwa kila operesheni ilifaulu."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Uwasilishaji wa Faili wa Nje"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Hali ya uwasilishaji wa faili ya hiari ya kumbukumbu ya ukaguzi wa nje. Hali ya Syslog ya mbali inaonyeshwa kando."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Wakala wa Mtumiaji"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Aina ya kivinjari cha mwombaji."
+
+#: audit.php
+msgid "IP Address"
+msgstr "Anwani ya IP"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "Anwani ya IP ya mwombaji."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Muda wa Tukio"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Muda ambao Tukio lilitokea."
+
+#: audit.php
+msgid "N/A"
+msgstr "Haipatikani"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Hakuna Matukio ya Kumbukumbu ya Ukaguzi Yaliyopatikana"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Uwasilishaji wa Syslog ya Mbali"
+
+#: audit.php
+msgid "Status"
+msgstr "Hali"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Imezimwa"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Yenye Afya"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Isiyo na Afya"
+
+#: audit.php
+msgid "Pending"
+msgstr "Inasubiri"
+
+#: audit.php
+msgid "Retry"
+msgstr "Jaribu Tena"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Ujumbe uliokwama"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Imetumwa (Haijathibitishwa)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Ya Zamani Zaidi Inayosubiri"
+
+#: audit.php
+msgid "seconds"
+msgstr "sekunde"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Jaribio la Mwisho"
+
+#: audit.php
+msgid "Never"
+msgstr "Kamwe"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Uandishi wa Mwisho wa Soketi"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Jaribu Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Jaribu Tena Ujumbe Uliokwama"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Jaribu tena matukio yote ya Syslog yaliyokwama?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Hitilafu ya Usanidi:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Hitilafu ya Mwisho:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti hurekodi matokeo haya kabla ya kuthibitisha kama akaunti imewashwa, idhini ya eneo (realm), au ukamilishaji wa 2FA; huenda kipindi hakijaanzishwa."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Hakuna njia ya sasa ya Cacti inayoandika saini hii; imerekodiwa kwa tahadhari kama uwezekano wa mabadiliko ya nenosiri yenye matokeo yasiyothibitishwa."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Cacti user_log result=3 yenye user_id=0 inaweza kuwa mabadiliko ya nenosiri au jaribio la 2FA lililoshindwa; jedwali haliwezi kutofautisha."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "Ruhusa ya usimamizi wa ukaguzi inahitajika ili kuhifadhi mipangilio hii."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Ukaguzi wa uthibitishaji haukuwa umewashwa. Tekeleza amri ya matengenezo ya CLI audit_auth_indexes.php kwanza."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Mipangilio ya Syslog ya Mbali haikuhifadhiwa: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Mtumiaji wa Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Msimamizi wa Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Usaidizi wa Kiufundi"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Tazama Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Huruhusu Wasimamizi kutazama shughuli za mabadiliko kwenye seva ya Cacti.  Wasimamizi wanaweza pia kuhamisha kumbukumbu ya ukaguzi kwa madhumuni ya uchambuzi."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Bila kikomo cha muda"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "Wiki %d"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "Mwezi %d"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "Miezi %d"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "Mwaka %d"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "Miaka %d"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Zana"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Programu-jalizi ya Ukaguzi"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Mipangilio ya Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Washa Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Tiki kisanduku hiki, ikiwa unataka Kumbukumbu ya Ukaguzi ifuatilie shughuli za GUI."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Uhifadhi wa Kumbukumbu ya Ukaguzi"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Je, ungependa maingizo ya Kumbukumbu ya Ukaguzi yahifadhiwe kwa muda gani?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Kumbukumbu ya Ukaguzi wa Nje"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Tiki kisanduku hiki, ikiwa unataka Kumbukumbu ya Ukaguzi iandikwe kwenye faili ya nje."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Umbizo la Kumbukumbu ya Ukaguzi wa Nje"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Chagua umbizo la matokeo kwa rekodi za kumbukumbu za ukaguzi za nje."
+
+#: setup.php
+msgid "Text"
+msgstr "Maandishi"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Njia ya Faili ya Kumbukumbu ya Ukaguzi wa Nje"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Ingiza njia ya faili ya kumbukumbu ya ukaguzi wa nje."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Ukaguzi wa Uthibitishaji"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Washa Ukaguzi wa Uthibitishaji"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Kubali kunasa matukio mapya ya kuingia, kutoka, tokeni, kubadilisha nenosiri, na kukataliwa kwa idhini kuanzia sasa na kuendelea."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Washa Ugunduzi wa Kiwango cha Majaribio Yaliyoshindwa ya Kuingia"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Toa tukio la hitilafu ya jumla wakati kiwango cha majaribio yaliyoshindwa ya kuingia katika usakinishaji mzima kinapozidi kizingiti kilichosanidiwa."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Kipindi cha Kuingia Kulikoshindwa (dakika)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Dirisha linalosonga kwa dakika, kuanzia 1 hadi 1440, linalotumika kuhesabu majaribio ya kuingia yaliyoshindwa."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Kizingiti cha Kiasi cha Kuingia Kulikoshindwa"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Idadi ya majaribio ya kuingia yaliyoshindwa katika usakinishaji mzima, kuanzia 1 hadi 1000, ambayo husababisha tukio la hitilafu kwa ujumla."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Ukubwa wa Kundi la Uingizaji wa Kumbukumbu za Mtumiaji"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Idadi ya juu ya safumlalo za user_log zinazoingizwa na alama zilizokwisha muda zinazorejeshwa kwa kila mzunguko wa kikusanyaji, kuanzia 1 hadi 5000. Hali ya alama huhifadhiwa kwa siku saba, kwa hivyo mafungu makubwa huongeza kazi ya kilele ya kikusanyaji na ukubwa wa jedwali la hali la siku saba."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Syslog ya Mbali"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Washa Syslog ya Mbali"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Weka kwenye foleni matukio ya ukaguzi yaliyokamilishwa kwa ajili ya uwasilishaji wa Syslog ya mbali. Towe la faili la nje lililopo linasalia kuwa huru."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Kipokezi cha Syslog"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Ingiza jina la kipangishi au anwani ya IP ya mpokeaji bila mfumo wa URI, njia, au vitambulisho."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Lango la Syslog"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Ingiza 1-65535, au acha wazi ili kutumia 514 kwa UDP/TCP na 6514 kwa TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Usafirishaji wa Syslog"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP hutuma datagramu moja bila uthibitisho. TCP na TLS hutumia uundaji wa fremu wa kuhesabu okteti wa RFC 6587."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Umbizo la Data ya Syslog"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Miundo yote hutumia kichwa cha RFC 5424. Chagua data iliyopangwa ya RFC 5424, CEF, au JSON fupi kwa ujumbe."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Huduma ya Syslog"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Chagua kitengo kinachotumika kukokotoa kipaumbele cha RFC 5424."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Jina la Programu ya Syslog"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Herufi za ASCII zinazochapishwa zisizo na nafasi, hadi herufi 48."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Utambulisho wa Nodi ya Ukaguzi"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Utambulisho thabiti wa jina la kipangishi la RFC 5424 kwa nodi hii ya Cacti. Usitumie thamani inayobadilika wakati wa kuanzisha upya."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Muda wa Kusubiri wa Muunganisho na Uandishi"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Muda wa kuisha kwa sekunde, kuanzia 1 hadi 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Ukubwa wa Juu wa Rekodi ya UDP"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Rekodi kubwa kuliko kikomo hiki cha baiti huwekwa kwenye foleni ya barua zilizoshindwa na hazikatwi wala kugawanywa kamwe. TCP au TLS inapendekezwa kwa matukio makubwa."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "Faili ya TLS CA"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Kifungu cha CA cha PEM cha hiari. Uthibitishaji wa rika na jina la kipangishi huwashwa kila wakati."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "Cheti cha Mteja wa TLS"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Cheti cha mteja cha PEM cha hiari. Ufunguo wa mteja lazima pia usanidiwe."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "Ufunguo wa Faragha wa Mteja wa TLS"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Njia ya hiari inayosomeka ya ufunguo wa faragha wa PEM. Maudhui ya ufunguo hayahifadhiwi kamwe katika matukio ya ukaguzi."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Foleni ya Uwasilishaji wa Syslog"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Muda wa Msingi wa Kujaribu Tena"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Ucheleweshaji wa awali wa kujaribu tena kwa sekunde, kuanzia 1 hadi 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Muda wa Juu wa Kusubiri Kujaribu Tena"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Muda wa juu wa kusubiri kujaribu tena kwa sekunde, kuanzia ucheleweshaji wa msingi hadi 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Idadi ya Juu ya Majaribio ya Uwasilishaji"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Hamisha rekodi hadi kwenye barua zisizowasilishwa baada ya majaribio haya mengi, kuanzia 1 hadi 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Ukubwa wa Kundi la Kikusanyaji"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Idadi ya juu ya rekodi zinazostahili zinazochakatwa kwa kila mzunguko wa kikusanyaji, kuanzia 1 hadi 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Onyo la Muda wa Kusubiri"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Onyesha onyo la hali isiyo nzuri wakati rekodi kongwe zaidi kwenye foleni inapofikia umri huu kwa sekunde."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Idadi ya Maonyo ya Ujumbe Uliokwama"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Onyesha onyo la hali isiyo nzuri wakati idadi hii ya rekodi imeshindwa kuchakatwa."
+
+#: setup.php
+msgid "Audit"
+msgstr "Ukaguzi"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Kumbukumbu ya Matukio ya Ukaguzi"
+
