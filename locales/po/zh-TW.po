@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Chinese (Traditional Han script) <https://translate.cacti.net/projects/cacti/audit/zh_Hant/>\nLanguage: zh-TW\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -248,7 +248,7 @@ msgstr "請求者的IP地址。"
 
 #: audit.php
 msgid "Event Time"
-msgstr "活動時間"
+msgstr "事件時間"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -272,7 +272,7 @@ msgstr "狀態"
 
 #: audit.php
 msgid "Disabled"
-msgstr "已停用"
+msgstr "停用"
 
 #: audit.php
 msgid "Healthy"
@@ -390,27 +390,27 @@ msgstr "無限期"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "%d 週"
+msgstr "%d週"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "%d 個月"
+msgstr "%d月"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "%d 個月"
+msgstr "%d個月"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "%d 年"
+msgstr "%d年"
 
 #: setup.php
 #, php-format
 msgid "%d Years"
-msgstr "%d 年"
+msgstr "%d年"
 
 #: setup.php
 msgid "Utilities"
@@ -442,11 +442,11 @@ msgstr "您希望保留審核日誌條目多長時間？"
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "啟用審核日誌"
+msgstr "外部稽核日誌"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "如果希望審核日誌跟踪GUI活動，請選中此框。"
+msgstr "如果您希望將稽核日誌寫入外部檔案，請勾選此方塊。"
 
 #: setup.php
 msgid "External Audit Log Format"
