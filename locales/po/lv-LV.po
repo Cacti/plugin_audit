@@ -4,39 +4,25 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: Cacti\n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2026-05-09 07:18+0000\n"
-"Last-Translator: \"Coool (github.com/Coool)\" <coool@mail.lv>\n"
-"Language-Team: Latvian <https://translate.cacti.net/projects/cacti/audit/lv/>\n"
-"Language: lv-LV\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Latvian <https://translate.cacti.net/projects/cacti/audit/lv/>\nLanguage: lv-LV\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog testa ieraksts tika ierakstīts vietējā ligzdā. Saglabāšana saņēmējā nav apstiprināta."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog tests neizdevās: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "Atkārtotam mēģinājumam atiestatītas %d nepiegādātās Syslog piegādes."
 
 #: audit.php
-#, fuzzy
-#| msgid "Audit Event Log"
 msgid "Audit event not found."
-msgstr "Revīzijas notikumu žurnāls"
+msgstr "Audita notikums nav atrasts."
 
 #: audit.php
 msgid "Page:"
@@ -59,69 +45,61 @@ msgid "Action:"
 msgstr "Darbība:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Event Time"
 msgid "Event Type:"
-msgstr "Notikuma laiks"
+msgstr "Notikuma veids:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Events"
 msgid "Event ID:"
-msgstr "Notikumi"
+msgstr "Notikuma ID:"
 
 #: audit.php
 msgid "Request Status:"
-msgstr ""
+msgstr "Pieprasījuma statuss:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "Darbības iznākums:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "Iznākuma iemesls:"
 
 #: audit.php
 msgid "External File Delivery:"
-msgstr ""
+msgstr "Piegāde ārējā failā:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External File Error:"
-msgstr "Iespējot revīzijas žurnālu"
+msgstr "Ārējā faila kļūda:"
 
 #: audit.php
 msgid "Remote Syslog Delivery:"
-msgstr ""
+msgstr "Attālinātā Syslog piegāde:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog mēģinājumi:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Rakstīšana Syslog ligzdā:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog kļūda:"
 
 #: audit.php
 msgid "Script:"
 msgstr "Skripts:"
 
 #: audit.php
-#, fuzzy
-#| msgid "Record Data:"
 msgid "Stored Data"
-msgstr "Ieraksta dati:"
+msgstr "Saglabātie dati"
 
 #: audit.php
 #, php-format
 msgid "The stored request data is not valid JSON: %s"
-msgstr ""
+msgstr "Saglabātie pieprasījuma dati nav derīgs JSON: %s"
 
 #: audit.php
 msgid "Attrib"
@@ -138,7 +116,7 @@ msgstr "Ieraksta dati:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "Audita žurnāla tīrīšana, ko veica %s, dzēsa %d notikumus un aizsargāja %d notikumus ar nepabeigtu Syslog piegādi."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -198,7 +176,7 @@ msgstr "Izgūt žurnāla notikumus"
 
 #: audit.php
 msgid "Permanently purge all audit log events?"
-msgstr ""
+msgstr "Vai neatgriezeniski iztīrīt visus audita žurnāla notikumus?"
 
 #: audit.php
 msgid "Purge"
@@ -230,31 +208,27 @@ msgstr "Lietotājs, kurš ģenerēja notikumu."
 
 #: audit.php
 msgid "Requested Action"
-msgstr ""
+msgstr "Pieprasītā darbība"
 
 #: audit.php
-#, fuzzy
-#| msgid "The Cacti Action requested.  Hover over action to see $_POST data."
 msgid "The requested Cacti action. Hover over the action to see request data."
-msgstr "Pieprasītā Cacti darbība.  Pārvietojiet kursoru uz darbību, lai redzētu $_POST datus."
+msgstr "Pieprasītā Cacti darbība. Novietojiet kursoru virs darbības, lai redzētu pieprasījuma datus."
 
 #: audit.php
 msgid "Request Status"
-msgstr ""
+msgstr "Pieprasījuma statuss"
 
 #: audit.php
 msgid "Request processing state; completion does not guarantee that every operation succeeded."
-msgstr ""
+msgstr "Pieprasījuma apstrādes stāvoklis; pabeigšana negarantē, ka visas darbības ir izdevušās."
 
 #: audit.php
 msgid "External File Delivery"
-msgstr ""
+msgstr "Piegāde ārējā failā"
 
 #: audit.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "Ievadiet ceļu uz ārējā audita žurnālfailu."
+msgstr "Neobligātā ārējā audita žurnāla faila piegādes stāvoklis. Attālinātā Syslog darbības stāvoklis tiek rādīts atsevišķi."
 
 #: audit.php
 msgid "User Agent"
@@ -290,118 +264,112 @@ msgstr "Netika atrasts neviens revīzijas žurnāla notikums"
 
 #: audit.php
 msgid "Remote Syslog Delivery"
-msgstr ""
+msgstr "Attālinātā Syslog piegāde"
 
 #: audit.php
 msgid "Status"
-msgstr ""
+msgstr "Statuss"
 
 #: audit.php
 msgid "Disabled"
-msgstr ""
+msgstr "Atspējots"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "Darbspējīgs"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "Nedarbspējīgs"
 
 #: audit.php
 msgid "Pending"
-msgstr ""
+msgstr "Gaida"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "Atkārtots mēģinājums"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "Nepiegādāts"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "Nosūtīts (neapstiprināts)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "Vecākais gaidošais"
 
 #: audit.php
 msgid "seconds"
-msgstr ""
+msgstr "sekundes"
 
 #: audit.php
 msgid "Last Attempt"
-msgstr ""
+msgstr "Pēdējais mēģinājums"
 
 #: audit.php
 msgid "Never"
-msgstr ""
+msgstr "Nekad"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "Pēdējā rakstīšana ligzdā"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Testēt Syslog"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "Atkārtot nepiegādātos"
 
 #: audit.php
 msgid "Retry all dead-letter Syslog events?"
-msgstr ""
+msgstr "Vai atkārtot visus nepiegādātos Syslog notikumus?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "Konfigurācijas kļūda:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "Last Error:"
-msgstr "Iespējot revīzijas žurnālu"
+msgstr "Pēdējā kļūda:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti ieraksta šo iznākumu pirms konta aktivizācijas, jomas autorizācijas vai 2FA pabeigšanas pārbaudes; sesija var nebūt izveidota."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Neviens pašreizējais Cacti ceļš neieraksta šo parakstu; preventīvi reģistrēts kā iespējama paroles maiņa ar neapstiprinātu iznākumu."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Cacti user_log result=3 ar user_id=0 var nozīmēt paroles maiņu vai neveiksmīgu 2FA pārbaudi; tabula neļauj to viennozīmīgi noteikt."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "Lai saglabātu šos iestatījumus, ir nepieciešama audita administrēšanas atļauja."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "Autentifikācijas audits netika iespējots. Vispirms palaidiet CLI uzturēšanas komandu audit_auth_indexes.php."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "Attālinātā Syslog iestatījumi netika saglabāti: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "Audita žurnāls"
+msgstr "Audita žurnāla lietotājs"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "Audita žurnāls"
+msgstr "Audita žurnāla administrators"
 
 #: setup.php
 msgid "Technical Support"
@@ -446,13 +414,11 @@ msgstr "%d gadi"
 
 #: setup.php
 msgid "Utilities"
-msgstr ""
+msgstr "Rīki"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "Audita žurnāls"
+msgstr "Audita spraudnis"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -483,30 +449,24 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "Atķeksējiet, ja vēlaties, lai revīzijas žurnāls reģistrētu GUI darbības."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "Iespējot revīzijas žurnālu"
+msgstr "Ārējā audita žurnāla formāts"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "Ievadiet ceļu uz ārējā audita žurnālfailu."
+msgstr "Atlasiet izvades formātu ārējā audita žurnāla ierakstiem."
 
 #: setup.php
 msgid "Text"
-msgstr ""
+msgstr "Teksts"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log Log file  Path"
 msgid "External Audit Log File Path"
-msgstr "Ārējā audita žurnālfaila ceļš"
+msgstr "Ārējā audita žurnāla faila ceļš"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -514,235 +474,231 @@ msgstr "Ievadiet ceļu uz ārējā audita žurnālfailu."
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "Autentifikācijas audits"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "Iespējot autentifikācijas auditu"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "Ieslēgt jaunu pieteikšanās, atteikšanās, marķieru, paroles maiņas un autorizācijas atteikuma notikumu reģistrēšanu turpmāk."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "Iespējot neveiksmīgo pieteikšanos apjoma noteikšanu"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "Ģenerēt globālu anomālijas notikumu, kad neveiksmīgo pieteikšanos apjoms visā instalācijā pārsniedz konfigurēto slieksni."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "Neveiksmīgo pieteikšanos logs (minūtēs)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "Slīdošais logs minūtēs no 1 līdz 1440, ko izmanto neveiksmīgo pieteikšanos uzskaitei."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "Neveiksmīgo pieteikšanos apjoma slieksnis"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "Neveiksmīgo pieteikšanos skaits visā instalācijā no 1 līdz 1000, kas izraisa globālu anomālijas notikumu."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "Lietotāju žurnāla ielādes paketes lielums"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "Maksimālais user_log rindu skaits, kas tiek ielādētas, un beigušos marķieru skaits, kas tiek atbrīvoti vienā aptaujātāja ciklā, no 1 līdz 5000. Marķieru stāvoklis tiek saglabāts septiņas dienas, tāpēc lielākas paketes palielina gan aptaujātāja maksimālo slodzi, gan ierobežotās septiņu dienu stāvokļa tabulas lielumu."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "Attālinātais Syslog"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "Iespējot revīzijas žurnālu"
+msgstr "Iespējot attālināto Syslog"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "Ievietot pabeigtos audita notikumus rindā attālinātajai Syslog piegādei. Esošā ārējā faila izvade paliek neatkarīga."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog saņēmējs"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "Ievadiet saņēmēja resursdatora nosaukumu vai IP adresi bez URI shēmas, ceļa vai akreditācijas datiem."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog ports"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "Ievadiet 1-65535 vai atstājiet tukšu, lai izmantotu 514 protokoliem UDP/TCP un 6514 protokolam TLS."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog transports"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP nosūta vienu datagrammu bez apstiprinājuma. TCP un TLS izmanto RFC 6587 oktetu skaita kadrēšanu."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
-msgstr ""
+msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog lietderīgās slodzes formāts"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "Visi formāti izmanto RFC 5424 galveni. Ziņojumam atlasiet RFC 5424 strukturētos datus, CEF vai kompakto JSON."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog kategorija"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "Atlasiet kategoriju, ko izmanto RFC 5424 prioritātes aprēķināšanai."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog lietojumprogrammas nosaukums"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. Drukājamas ASCII rakstzīmes bez atstarpēm, līdz 48 rakstzīmēm."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "Revīzijas žurnāla uzglabāšana"
+msgstr "Audita mezgla identitāte"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "Stabila RFC 5424 resursdatora nosaukuma identitāte šim Cacti mezglam. Neizmantojiet vērtību, kas mainās pēc restartēšanas."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "Savienojuma un rakstīšanas noildze"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "Noildze sekundēs, no 1 līdz 30."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "Maksimālais UDP ieraksta lielums"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "Ieraksti, kas pārsniedz šo baitu ierobežojumu, tiek pārvietoti uz nepiegādāto ierakstu rindu un nekad netiek apcirsti vai sadalīti. Lieliem notikumiem ieteicams izmantot TCP vai TLS."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA fails"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "Neobligāts PEM CA sertifikātu komplekts. Partnera un resursdatora nosaukuma pārbaude vienmēr ir iespējota."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS klienta sertifikāts"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "Neobligāts PEM klienta sertifikāts. Jābūt konfigurētai arī klienta atslēgai."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS klienta privātā atslēga"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "Neobligāts lasāms PEM privātās atslēgas ceļš. Atslēgas saturs nekad netiek saglabāts audita notikumos."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog piegādes rinda"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "Atkārtota mēģinājuma pamata aizkave"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "Sākotnējā atkārtota mēģinājuma aizkave sekundēs, no 1 līdz 3600."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "Maksimālā atkārtota mēģinājuma aizkave"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "Maksimālā atkārtota mēģinājuma aizkave sekundēs, no pamata aizkaves līdz 86400."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "Maksimālais piegādes mēģinājumu skaits"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "Pārvietot ierakstu uz nepiegādāto ierakstu rindu pēc šāda mēģinājumu skaita, no 1 līdz 100."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Aptaujātāja pakešu lielums"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "Maksimālais izpildāmo ierakstu skaits, kas tiek apstrādāts vienā aptaujātāja ciklā, no 1 līdz 1000."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "Gaidošo ierakstu vecuma brīdinājums"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "Rādīt neveselīga stāvokļa brīdinājumu, kad vecākais rindā esošais ieraksts sasniedz šo vecumu sekundēs."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "Nepiegādāto ierakstu brīdinājuma skaits"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "Rādīt neveselīga stāvokļa brīdinājumu, kad šāds skaits ierakstu ir pārvietots uz nepiegādāto ierakstu rindu."
 
 #: setup.php
 msgid "Audit"
