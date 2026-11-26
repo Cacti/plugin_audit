@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Portuguese (Portugal) <https://translate.cacti.net/projects/cacti/audit/pt_PT/>\nLanguage: pt-PT\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Portuguese (Portugal) <https://translate.cacti.net/projects/cacti/audit/pt_PT/>\nLanguage: pt-PT\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -180,7 +180,7 @@ msgstr "Eliminar permanentemente todos os eventos do registo de auditoria?"
 
 #: audit.php
 msgid "Purge"
-msgstr "Limpar"
+msgstr "Purgar"
 
 #: audit.php
 msgid "Purge Log Events"
@@ -442,11 +442,11 @@ msgstr "Por quanto tempo deseja que as entradas do Log de auditoria sejam mantid
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Ativar log de auditoria"
+msgstr "Registo de auditoria externo"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Marque esta caixa para que o Log de auditoria rastreie as atividades da GUI."
+msgstr "Marque esta caixa se pretender que o registo de auditoria seja escrito num ficheiro externo."
 
 #: setup.php
 msgid "External Audit Log Format"
