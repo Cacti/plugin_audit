@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: French <https://translate.cacti.net/projects/cacti/audit/fr/>\nLanguage: fr-FR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: French <https://translate.cacti.net/projects/cacti/audit/fr/>\nLanguage: fr-FR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -90,7 +90,7 @@ msgstr "Erreur Syslog :"
 
 #: audit.php
 msgid "Script:"
-msgstr "Votre discours :"
+msgstr "Script :"
 
 #: audit.php
 msgid "Stored Data"
@@ -180,7 +180,7 @@ msgstr "Purger définitivement tous les événements du journal d'audit ?"
 
 #: audit.php
 msgid "Purge"
-msgstr "Effacer"
+msgstr "Purger"
 
 #: audit.php
 msgid "Purge Log Events"
@@ -373,7 +373,7 @@ msgstr "Administrateur du journal d'audit"
 
 #: setup.php
 msgid "Technical Support"
-msgstr "Support technique et services professionnels"
+msgstr "Support technique"
 
 #: setup.php
 msgid "View Audit Log"
@@ -442,11 +442,11 @@ msgstr "Combien de temps souhaitez-vous que les entrées du journal d'audit soie
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Activer le journal d'audit"
+msgstr "Journal d'audit externe"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Cochez cette case si vous voulez que le journal d'audit suive les activités de l'interface graphique."
+msgstr "Cochez cette case si vous souhaitez que le journal d'audit soit écrit dans un fichier externe."
 
 #: setup.php
 msgid "External Audit Log Format"
