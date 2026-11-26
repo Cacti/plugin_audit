@@ -1,0 +1,719 @@
+# Serbian translation for Cacti.
+# Copyright (C) 2004-2026 The Cacti Group
+# This file is distributed under the same license as the Cacti package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Cacti\n"
+"Report-Msgid-Bugs-To: developers@cacti.net\n"
+"POT-Creation-Date: 2026-09-30 21:27-0400\n"
+"PO-Revision-Date: 2026-11-26 18:57+0000\n"
+"Last-Translator: Thomas Vincent <thomasvincent@gmail.com>\n"
+"Language-Team: Serbian <developers@cacti.net>\n"
+"Language: sr-RS\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+
+#: audit.php
+msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
+msgstr "Пробни Syslog запис је уписан у локални сокет. Складиштење код примаоца није потврђено."
+
+#: audit.php
+#, php-format
+msgid "Syslog test failed: %s"
+msgstr "Syslog тест није успео: %s"
+
+#: audit.php
+#, php-format
+msgid "Reset %d dead-letter Syslog deliveries for retry."
+msgstr "Ресетовано %d неиспоручивих Syslog испорука за поновни покушај."
+
+#: audit.php
+msgid "Audit event not found."
+msgstr "Догађај ревизије није пронађен."
+
+#: audit.php
+msgid "Page:"
+msgstr "Страница:"
+
+#: audit.php
+msgid "User:"
+msgstr "Корисник:"
+
+#: audit.php
+msgid "IP Address:"
+msgstr "IP адреса:"
+
+#: audit.php
+msgid "Date:"
+msgstr "Датум:"
+
+#: audit.php
+msgid "Action:"
+msgstr "Радња:"
+
+#: audit.php
+msgid "Event Type:"
+msgstr "Тип догађаја:"
+
+#: audit.php
+msgid "Event ID:"
+msgstr "ID догађаја:"
+
+#: audit.php
+msgid "Request Status:"
+msgstr "Статус захтева:"
+
+#: audit.php
+msgid "Operation Outcome:"
+msgstr "Исход операције:"
+
+#: audit.php
+msgid "Outcome Reason:"
+msgstr "Разлог исхода:"
+
+#: audit.php
+msgid "External File Delivery:"
+msgstr "Испорука у спољну датотеку:"
+
+#: audit.php
+msgid "External File Error:"
+msgstr "Грешка спољне датотеке:"
+
+#: audit.php
+msgid "Remote Syslog Delivery:"
+msgstr "Удаљена Syslog испорука:"
+
+#: audit.php
+msgid "Syslog Attempts:"
+msgstr "Syslog покушаји:"
+
+#: audit.php
+msgid "Syslog Socket Write:"
+msgstr "Упис у Syslog сокет:"
+
+#: audit.php
+msgid "Syslog Error:"
+msgstr "Syslog грешка:"
+
+#: audit.php
+msgid "Script:"
+msgstr "Скрипта:"
+
+#: audit.php
+msgid "Stored Data"
+msgstr "Сачувани подаци"
+
+#: audit.php
+#, php-format
+msgid "The stored request data is not valid JSON: %s"
+msgstr "Сачувани подаци захтева нису исправан JSON: %s"
+
+#: audit.php
+msgid "Attrib"
+msgstr "Атриб"
+
+#: audit.php
+msgid "Value"
+msgstr "Вредност"
+
+#: audit.php
+msgid "Record Data:"
+msgstr "Подаци записа:"
+
+#: audit.php
+#, php-format
+msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
+msgstr "Чишћење дневника ревизије од стране %s уклонило је %d догађаја и заштитило %d догађаја са недовршеном Syslog испоруком."
+
+#: audit.php setup.php
+msgid "Audit Log"
+msgstr "Дневник ревизије"
+
+#: audit.php
+msgid "Search"
+msgstr "Претражи"
+
+#: audit.php
+msgid "Page"
+msgstr "Страница"
+
+#: audit.php
+msgid "All"
+msgstr "Све"
+
+#: audit.php
+msgid "User"
+msgstr "Корисник"
+
+#: audit.php
+msgid "cli"
+msgstr "cli"
+
+#: audit.php
+msgid "Events"
+msgstr "Догађаји"
+
+#: audit.php
+msgid "Default"
+msgstr "Подразумевано"
+
+#: audit.php
+msgid "Go"
+msgstr "Иди"
+
+#: audit.php
+msgid "Set/Refresh Filters"
+msgstr "Постави/освежи филтере"
+
+#: audit.php
+msgid "Clear"
+msgstr "Очисти"
+
+#: audit.php
+msgid "Clear Filters"
+msgstr "Очисти филтере"
+
+#: audit.php
+msgid "Export"
+msgstr "Извези"
+
+#: audit.php
+msgid "Export Log Events"
+msgstr "Извези догађаје дневника"
+
+#: audit.php
+msgid "Permanently purge all audit log events?"
+msgstr "Трајно очистити све догађаје дневника ревизије?"
+
+#: audit.php
+msgid "Purge"
+msgstr "Очисти"
+
+#: audit.php
+msgid "Purge Log Events"
+msgstr "Очисти догађаје дневника"
+
+#: audit.php
+msgid "Audit Events"
+msgstr "Догађаји ревизије"
+
+#: audit.php
+msgid "Page Name"
+msgstr "Назив странице"
+
+#: audit.php
+msgid "The page where the event was generated."
+msgstr "Страница на којој је догађај генерисан."
+
+#: audit.php
+msgid "User Name"
+msgstr "Корисничко име"
+
+#: audit.php
+msgid "The user who generated the event."
+msgstr "Корисник који је генерисао догађај."
+
+#: audit.php
+msgid "Requested Action"
+msgstr "Захтевана радња"
+
+#: audit.php
+msgid "The requested Cacti action. Hover over the action to see request data."
+msgstr "Захтевана Cacti радња. Пређите курсором преко радње да бисте видели податке захтева."
+
+#: audit.php
+msgid "Request Status"
+msgstr "Статус захтева"
+
+#: audit.php
+msgid "Request processing state; completion does not guarantee that every operation succeeded."
+msgstr "Стање обраде захтева; завршетак не гарантује да је свака операција успела."
+
+#: audit.php
+msgid "External File Delivery"
+msgstr "Испорука у спољну датотеку"
+
+#: audit.php
+msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
+msgstr "Стање испоруке за опциону спољну датотеку дневника ревизије. Исправност удаљеног Syslog-а се приказује засебно."
+
+#: audit.php
+msgid "User Agent"
+msgstr "Кориснички агент"
+
+#: audit.php
+msgid "The browser type of the requester."
+msgstr "Тип прегледача подносиоца захтева."
+
+#: audit.php
+msgid "IP Address"
+msgstr "IP адреса"
+
+#: audit.php
+msgid "The IP Address of the requester."
+msgstr "IP адреса подносиоца захтева."
+
+#: audit.php
+msgid "Event Time"
+msgstr "Време догађаја"
+
+#: audit.php
+msgid "The time the Event took place."
+msgstr "Време када се догађај догодио."
+
+#: audit.php
+msgid "N/A"
+msgstr "Н/Д"
+
+#: audit.php
+msgid "No Audit Log Events Found"
+msgstr "Нису пронађени догађаји дневника ревизије"
+
+#: audit.php
+msgid "Remote Syslog Delivery"
+msgstr "Удаљена Syslog испорука"
+
+#: audit.php
+msgid "Status"
+msgstr "Статус"
+
+#: audit.php
+msgid "Disabled"
+msgstr "Онемогућено"
+
+#: audit.php
+msgid "Healthy"
+msgstr "Исправно"
+
+#: audit.php
+msgid "Unhealthy"
+msgstr "Неисправно"
+
+#: audit.php
+msgid "Pending"
+msgstr "На чекању"
+
+#: audit.php
+msgid "Retry"
+msgstr "Поновни покушај"
+
+#: audit.php
+msgid "Dead-letter"
+msgstr "Неиспоручиво"
+
+#: audit.php
+msgid "Sent (Unconfirmed)"
+msgstr "Послато (непотврђено)"
+
+#: audit.php
+msgid "Oldest Pending"
+msgstr "Најстарији на чекању"
+
+#: audit.php
+msgid "seconds"
+msgstr "секунди"
+
+#: audit.php
+msgid "Last Attempt"
+msgstr "Последњи покушај"
+
+#: audit.php
+msgid "Never"
+msgstr "Никада"
+
+#: audit.php
+msgid "Last Socket Write"
+msgstr "Последњи упис у сокет"
+
+#: audit.php
+msgid "Test Syslog"
+msgstr "Тестирај Syslog"
+
+#: audit.php
+msgid "Retry Dead-letter"
+msgstr "Понови неиспоручиве"
+
+#: audit.php
+msgid "Retry all dead-letter Syslog events?"
+msgstr "Поновити све неиспоручиве Syslog догађаје?"
+
+#: audit.php
+msgid "Configuration Error:"
+msgstr "Грешка конфигурације:"
+
+#: audit.php
+msgid "Last Error:"
+msgstr "Последња грешка:"
+
+#: includes/functions.php
+msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
+msgstr "Cacti бележи овај исход пре провере да ли је налог омогућен, ауторизације области или завршетка 2FA; сесија можда није успостављена."
+
+#: includes/functions.php
+msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
+msgstr "Ниједна тренутна Cacti путања не уписује овај потпис; забележено дефанзивно као могућа промена лозинке са непотврђеним исходом."
+
+#: includes/functions.php
+msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
+msgstr "Cacti user_log result=3 са user_id=0 може бити промена лозинке или неуспела 2FA провера; табела не може да разјасни разлику."
+
+#: includes/functions.php
+msgid "Audit administration permission is required to save these settings."
+msgstr "За чување ових подешавања потребна је дозвола за администрацију ревизије."
+
+#: includes/functions.php
+msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
+msgstr "Ревизија аутентификације није била омогућена. Прво покрените CLI команду за одржавање audit_auth_indexes.php."
+
+#: includes/functions.php
+#, php-format
+msgid "Remote Syslog settings were not saved: %s"
+msgstr "Удаљена Syslog подешавања нису сачувана: %s"
+
+#: setup.php
+msgid "Audit Log User"
+msgstr "Корисник дневника ревизије"
+
+#: setup.php
+msgid "Audit Log Admin"
+msgstr "Администратор дневника ревизије"
+
+#: setup.php
+msgid "Technical Support"
+msgstr "Техничка подршка"
+
+#: setup.php
+msgid "View Audit Log"
+msgstr "Прикажи дневник ревизије"
+
+#: setup.php
+msgid "Allows Administrators to view change activity on the Cacti server.  Administrators can also export the audit log for analysis purposes."
+msgstr "Омогућава администраторима да прегледају активности промена на Cacti серверу. Администратори такође могу да извезу дневник ревизије ради анализе."
+
+#: setup.php
+msgid "Indefinitely"
+msgstr "Неограничено"
+
+#: setup.php
+#, php-format
+msgid "%d Weeks"
+msgstr "%d недеља"
+
+#: setup.php
+#, php-format
+msgid "%d Month"
+msgstr "%d месец"
+
+#: setup.php
+#, php-format
+msgid "%d Months"
+msgstr "%d месеци"
+
+#: setup.php
+#, php-format
+msgid "%d Year"
+msgstr "%d година"
+
+#: setup.php
+#, php-format
+msgid "%d Years"
+msgstr "%d година"
+
+#: setup.php
+msgid "Utilities"
+msgstr "Алатке"
+
+#: setup.php
+msgid "Audit Plugin"
+msgstr "Додатак за ревизију"
+
+#: setup.php
+msgid "Audit Log Settings"
+msgstr "Подешавања дневника ревизије"
+
+#: setup.php
+msgid "Enable Audit Log"
+msgstr "Омогући дневник ревизије"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to track GUI activities."
+msgstr "Означите ово поље ако желите да дневник ревизије прати GUI активности."
+
+#: setup.php
+msgid "Audit Log Retention"
+msgstr "Чување дневника ревизије"
+
+#: setup.php
+msgid "How long do you wish Audit Log entries to be retained?"
+msgstr "Колико дуго желите да се уноси дневника ревизије чувају?"
+
+#: setup.php
+msgid "External Audit Log"
+msgstr "Спољни дневник ревизије"
+
+#: setup.php
+msgid "Check this box, if you want the Audit Log to be written to an external file."
+msgstr "Означите ово поље ако желите да се дневник ревизије уписује у спољну датотеку."
+
+#: setup.php
+msgid "External Audit Log Format"
+msgstr "Формат спољног дневника ревизије"
+
+#: setup.php
+msgid "Select the output format for external audit log records."
+msgstr "Изаберите излазни формат за записе спољног дневника ревизије."
+
+#: setup.php
+msgid "Text"
+msgstr "Текст"
+
+#: setup.php
+msgid "JSON"
+msgstr "JSON"
+
+#: setup.php
+msgid "External Audit Log File Path"
+msgstr "Путања датотеке спољног дневника ревизије"
+
+#: setup.php
+msgid "Enter the path to the external audit log file."
+msgstr "Унесите путању до спољне датотеке дневника ревизије."
+
+#: setup.php
+msgid "Authentication Auditing"
+msgstr "Ревизија аутентификације"
+
+#: setup.php
+msgid "Enable Authentication Auditing"
+msgstr "Омогући ревизију аутентификације"
+
+#: setup.php
+msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
+msgstr "Укључите бележење нових догађаја пријављивања, одјављивања, токена, промене лозинке и одбијања ауторизације од овог тренутка па надаље."
+
+#: setup.php
+msgid "Enable Failed-login Volume Detection"
+msgstr "Омогући детекцију обима неуспелих пријава"
+
+#: setup.php
+msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
+msgstr "Емитуј глобални догађај аномалије када укупан број неуспелих пријава на нивоу целе инсталације премаши конфигурисани праг."
+
+#: setup.php
+msgid "Failed-login Window (minutes)"
+msgstr "Прозор за неуспеле пријаве (минути)"
+
+#: setup.php
+msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
+msgstr "Покретни временски прозор у минутима, од 1 до 1440, који се користи за бројање неуспелих пријава."
+
+#: setup.php
+msgid "Failed-login Volume Threshold"
+msgstr "Праг обима неуспелих пријава"
+
+#: setup.php
+msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
+msgstr "Број неуспелих пријава на нивоу целе инсталације, од 1 до 1000, који покреће глобални догађај аномалије."
+
+#: setup.php
+msgid "User Log Ingestion Batch Size"
+msgstr "Величина пакета за унос корисничког дневника"
+
+#: setup.php
+msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
+msgstr "Максималан број редова из user_log који се уносе и истеклих маркера који се ослобађају по циклусу испитивача, од 1 до 5000. Стање маркера се чува седам дана, тако да већи пакети повећавају и вршно оптерећење испитивача и ограничену величину седмодневне табеле стања."
+
+#: setup.php
+msgid "Remote Syslog"
+msgstr "Удаљени Syslog"
+
+#: setup.php
+msgid "Enable Remote Syslog"
+msgstr "Омогући удаљени Syslog"
+
+#: setup.php
+msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
+msgstr "Стави финализоване догађаје ревизије у ред за испоруку на удаљени Syslog. Постојећи излаз у спољну датотеку остаје независан."
+
+#: setup.php
+msgid "Syslog Receiver"
+msgstr "Syslog пријемник"
+
+#: setup.php
+msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
+msgstr "Унесите име хоста или IP адресу пријемника без URI шеме, путање или акредитива."
+
+#: setup.php
+msgid "Syslog Port"
+msgstr "Syslog порт"
+
+#: setup.php
+msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
+msgstr "Унесите 1-65535 или оставите празно да би се користило 514 за UDP/TCP и 6514 за TLS."
+
+#: setup.php
+msgid "Syslog Transport"
+msgstr "Syslog транспорт"
+
+#: setup.php
+msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
+msgstr "UDP шаље један датаграм без потврде пријема. TCP и TLS користе RFC 6587 уоквиривање бројем октета."
+
+#: setup.php
+msgid "UDP"
+msgstr "UDP"
+
+#: setup.php
+msgid "TCP"
+msgstr "TCP"
+
+#: setup.php
+msgid "TLS"
+msgstr "TLS"
+
+#: setup.php
+msgid "Syslog Payload Format"
+msgstr "Формат Syslog корисног терета"
+
+#: setup.php
+msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
+msgstr "Сви формати користе RFC 5424 заглавље. Изаберите RFC 5424 структуриране податке, CEF или компактни JSON за поруку."
+
+#: setup.php
+msgid "RFC 5424"
+msgstr "RFC 5424"
+
+#: setup.php
+msgid "CEF"
+msgstr "CEF"
+
+#: setup.php
+msgid "Syslog Facility"
+msgstr "Syslog категорија"
+
+#: setup.php
+msgid "Select the facility used to calculate the RFC 5424 priority."
+msgstr "Изаберите категорију која се користи за израчунавање RFC 5424 приоритета."
+
+#: setup.php
+msgid "Syslog Application Name"
+msgstr "Име Syslog апликације"
+
+#: setup.php
+msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
+msgstr "RFC 5424 APP-NAME. Штампајући ASCII знакови без размака, до 48 знакова."
+
+#: setup.php
+msgid "Audit Node Identity"
+msgstr "Идентитет чвора за ревизију"
+
+#: setup.php
+msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
+msgstr "Стабилан RFC 5424 идентитет имена хоста за овај Cacti чвор. Немојте користити вредност која се мења при поновном покретању."
+
+#: setup.php
+msgid "Connection and Write Timeout"
+msgstr "Истек времена за повезивање и упис"
+
+#: setup.php
+msgid "Timeout in seconds, from 1 through 30."
+msgstr "Истек времена у секундама, од 1 до 30."
+
+#: setup.php
+msgid "Maximum UDP Record Size"
+msgstr "Максимална величина UDP записа"
+
+#: setup.php
+msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
+msgstr "Записи већи од овог ограничења у бајтовима премештају се у ред неуспелих порука и никада се не скраћују нити деле. За велике догађаје препоручује се TCP или TLS."
+
+#: setup.php
+msgid "Syslog TLS"
+msgstr "Syslog TLS"
+
+#: setup.php
+msgid "TLS CA File"
+msgstr "TLS CA датотека"
+
+#: setup.php
+msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
+msgstr "Опционални PEM CA пакет. Верификација парњака и имена хоста је увек омогућена."
+
+#: setup.php
+msgid "TLS Client Certificate"
+msgstr "TLS сертификат клијента"
+
+#: setup.php
+msgid "Optional PEM client certificate. A client key must also be configured."
+msgstr "Опционални PEM сертификат клијента. Кључ клијента такође мора бити конфигурисан."
+
+#: setup.php
+msgid "TLS Client Private Key"
+msgstr "TLS приватни кључ клијента"
+
+#: setup.php
+msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
+msgstr "Опционална читљива путања до PEM приватног кључа. Садржај кључа се никада не чува у догађајима ревизије."
+
+#: setup.php
+msgid "Syslog Delivery Queue"
+msgstr "Ред за испоруку Syslog порука"
+
+#: setup.php
+msgid "Retry Base Delay"
+msgstr "Почетно кашњење поновног покушаја"
+
+#: setup.php
+msgid "Initial retry delay in seconds, from 1 through 3600."
+msgstr "Почетно кашњење поновног покушаја у секундама, од 1 до 3600."
+
+#: setup.php
+msgid "Maximum Retry Delay"
+msgstr "Максимално кашњење поновног покушаја"
+
+#: setup.php
+msgid "Maximum retry delay in seconds, from the base delay through 86400."
+msgstr "Максимално кашњење поновног покушаја у секундама, од почетног кашњења до 86400."
+
+#: setup.php
+msgid "Maximum Delivery Attempts"
+msgstr "Максималан број покушаја испоруке"
+
+#: setup.php
+msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
+msgstr "Премести запис у ред неуспелих порука након оволико покушаја, од 1 до 100."
+
+#: setup.php
+msgid "Poller Batch Size"
+msgstr "Величина пакета испитивача"
+
+#: setup.php
+msgid "Maximum due records processed per poller cycle, from 1 through 1000."
+msgstr "Максималан број доспелих записа обрађених по циклусу испитивача, од 1 до 1000."
+
+#: setup.php
+msgid "Pending Age Warning"
+msgstr "Упозорење на старост на чекању"
+
+#: setup.php
+msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
+msgstr "Прикажи упозорење о неисправности када најстарији запис у реду достигне ову старост у секундама."
+
+#: setup.php
+msgid "Dead-letter Warning Count"
+msgstr "Праг упозорења за неуспеле поруке"
+
+#: setup.php
+msgid "Show an unhealthy warning when this many records are dead-lettered."
+msgstr "Прикажи упозорење о неисправности када оволико записа заврши у реду неуспелих порука."
+
+#: setup.php
+msgid "Audit"
+msgstr "Ревизија"
+
+#: setup.php
+msgid "Audit Event Log"
+msgstr "Дневник догађаја ревизије"
