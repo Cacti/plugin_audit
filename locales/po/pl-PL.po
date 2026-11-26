@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Polish <https://translate.cacti.net/projects/cacti/audit/pl/>\nLanguage: pl-PL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Polish <https://translate.cacti.net/projects/cacti/audit/pl/>\nLanguage: pl-PL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -248,7 +248,7 @@ msgstr "Adres IP wnioskodawcy."
 
 #: audit.php
 msgid "Event Time"
-msgstr "Czas wydarzenia"
+msgstr "Czas zdarzenia"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -442,11 +442,11 @@ msgstr "Jak długo chcesz, aby wpisy w dzienniku audytu były przechowywane?"
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Włącz dziennik audytu"
+msgstr "Zewnętrzny dziennik audytu"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Zaznacz to pole wyboru, jeśli chcesz, aby dziennik audytu śledził działania GUI."
+msgstr "Zaznacz to pole, jeśli chcesz, aby dziennik audytu był zapisywany do pliku zewnętrznego."
 
 #: setup.php
 msgid "External Audit Log Format"
