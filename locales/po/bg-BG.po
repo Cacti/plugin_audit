@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Bulgarian <https://translate.cacti.net/projects/cacti/audit/bg/>\nLanguage: bg-BG\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Bulgarian <https://translate.cacti.net/projects/cacti/audit/bg/>\nLanguage: bg-BG\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -256,7 +256,7 @@ msgstr "Времето на събитието."
 
 #: audit.php
 msgid "N/A"
-msgstr "Няма"
+msgstr "Неприложимо"
 
 #: audit.php
 msgid "No Audit Log Events Found"
@@ -272,7 +272,7 @@ msgstr "Статус"
 
 #: audit.php
 msgid "Disabled"
-msgstr "деактивиран"
+msgstr "Изключен"
 
 #: audit.php
 msgid "Healthy"
@@ -446,7 +446,7 @@ msgstr "Активиране на дневник за одит"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Поставете отметка в това квадратче, ако искате дневникът за одит да проследява дейностите на GUI."
+msgstr "Поставете отметка в това поле, ако искате дневникът за одит да се записва във външен файл."
 
 #: setup.php
 msgid "External Audit Log Format"
