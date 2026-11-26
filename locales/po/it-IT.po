@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Italian <https://translate.cacti.net/projects/cacti/audit/it/>\nLanguage: it-IT\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Italian <https://translate.cacti.net/projects/cacti/audit/it/>\nLanguage: it-IT\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -103,7 +103,7 @@ msgstr "I dati della richiesta memorizzati non sono JSON validi: %s"
 
 #: audit.php
 msgid "Attrib"
-msgstr "Attrib"
+msgstr "Attributi"
 
 #: audit.php
 msgid "Value"
@@ -156,7 +156,7 @@ msgstr "Vai"
 
 #: audit.php
 msgid "Set/Refresh Filters"
-msgstr "Impostazione/Rifresh Filtri"
+msgstr "Imposta/Aggiorna filtri"
 
 #: audit.php
 msgid "Clear"
@@ -248,7 +248,7 @@ msgstr "L'indirizzo IP del richiedente."
 
 #: audit.php
 msgid "Event Time"
-msgstr "Orario Evento"
+msgstr "Ora evento"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -292,7 +292,7 @@ msgstr "Riprova"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr "Dead-letter"
+msgstr "Non recapitabile"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
@@ -442,11 +442,11 @@ msgstr "Per quanto tempo si desidera che le voci del registro di audit vengano m
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Abilita registro di controllo"
+msgstr "Registro di controllo esterno"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Selezionare questa casella se si desidera che l'Audit Log tracci le attività dell'interfaccia grafica."
+msgstr "Selezionare questa casella se si desidera che il registro di audit venga scritto su un file esterno."
 
 #: setup.php
 msgid "External Audit Log Format"
