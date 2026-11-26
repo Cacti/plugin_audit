@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Vietnamese <https://translate.cacti.net/projects/cacti/audit/vi/>\nLanguage: vi-VN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Vietnamese <https://translate.cacti.net/projects/cacti/audit/vi/>\nLanguage: vi-VN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -103,7 +103,7 @@ msgstr "Dữ liệu yêu cầu được lưu trữ không phải là JSON hợp 
 
 #: audit.php
 msgid "Attrib"
-msgstr "Attrib"
+msgstr "Thuộc tính"
 
 #: audit.php
 msgid "Value"
@@ -442,11 +442,11 @@ msgstr "Bạn muốn các mục Nhật ký kiểm toán được giữ lại tro
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Bật nhật ký kiểm toán"
+msgstr "Nhật ký kiểm toán bên ngoài"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Chọn hộp này, nếu bạn muốn Nhật ký kiểm toán theo dõi các hoạt động GUI."
+msgstr "Chọn hộp này nếu bạn muốn Nhật ký kiểm toán được ghi vào một tệp bên ngoài."
 
 #: setup.php
 msgid "External Audit Log Format"
