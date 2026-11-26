@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Japanese <https://translate.cacti.net/projects/cacti/audit/ja/>\nLanguage: ja-JP\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Japanese <https://translate.cacti.net/projects/cacti/audit/ja/>\nLanguage: ja-JP\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=1; plural=0;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -180,7 +180,7 @@ msgstr "すべての監査ログイベントを完全にパージしますか？
 
 #: audit.php
 msgid "Purge"
-msgstr "粛清"
+msgstr "パージ"
 
 #: audit.php
 msgid "Purge Log Events"
@@ -248,7 +248,7 @@ msgstr "要求者のIPアドレス。"
 
 #: audit.php
 msgid "Event Time"
-msgstr "イベントの時間"
+msgstr "イベント時刻"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -390,22 +390,22 @@ msgstr "無期限"
 #: setup.php
 #, php-format
 msgid "%d Weeks"
-msgstr "%d 週間"
+msgstr "%d 週間の"
 
 #: setup.php
 #, php-format
 msgid "%d Month"
-msgstr "%d ヶ月"
+msgstr "%d ヶ月間の"
 
 #: setup.php
 #, php-format
 msgid "%d Months"
-msgstr "%d ヶ月"
+msgstr "%d ヶ月間の"
 
 #: setup.php
 #, php-format
 msgid "%d Year"
-msgstr "%d 年"
+msgstr "%d 年間の"
 
 #: setup.php
 #, php-format
@@ -438,15 +438,15 @@ msgstr "監査ログの保存"
 
 #: setup.php
 msgid "How long do you wish Audit Log entries to be retained?"
-msgstr "監査ログのエントリをどのくらいの期間保持しますか。"
+msgstr "監査ログのエントリをどのくらいの期間保持しますか？"
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "監査ログを有効にする"
+msgstr "外部監査ログ"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "監査ログにGUIアクティビティを追跡させる場合は、このボックスをオンにします。"
+msgstr "監査ログを外部ファイルに書き込む場合は、このチェックボックスをオンにします。"
 
 #: setup.php
 msgid "External Audit Log Format"
