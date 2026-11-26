@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Hebrew (Israel) <https://translate.cacti.net/projects/cacti/audit/he_IL/>\nLanguage: he-IL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Hebrew (Israel) <https://translate.cacti.net/projects/cacti/audit/he_IL/>\nLanguage: he-IL\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -103,7 +103,7 @@ msgstr "נתוני הבקשה השמורים אינם JSON תקין: %s"
 
 #: audit.php
 msgid "Attrib"
-msgstr "Attrib"
+msgstr "מאפיינים"
 
 #: audit.php
 msgid "Value"
@@ -184,7 +184,7 @@ msgstr "מחק"
 
 #: audit.php
 msgid "Purge Log Events"
-msgstr "יומן אירועים"
+msgstr "ניקוי אירועי יומן"
 
 #: audit.php
 msgid "Audit Events"
@@ -256,7 +256,7 @@ msgstr "הזמן שבו התקיים האירוע."
 
 #: audit.php
 msgid "N/A"
-msgstr "לא זמין"
+msgstr "לא רלוונטי"
 
 #: audit.php
 msgid "No Audit Log Events Found"
@@ -272,7 +272,7 @@ msgstr "סטטוס"
 
 #: audit.php
 msgid "Disabled"
-msgstr "לא זמין"
+msgstr "מושבת"
 
 #: audit.php
 msgid "Healthy"
@@ -442,11 +442,11 @@ msgstr "כמה זמן אתה רוצה לשמור רשומות יומן ביקו�
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "הפעל יומן ביקורת"
+msgstr "יומן ביקורת חיצוני"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "סמן תיבה זו, אם ברצונך ש'יומן הביקורת 'יעקוב אחר פעילויות GUI."
+msgstr "סמן תיבה זו אם ברצונך שיומן הביקורת ייכתב לקובץ חיצוני."
 
 #: setup.php
 msgid "External Audit Log Format"
