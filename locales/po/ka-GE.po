@@ -4,33 +4,21 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr ""
-"Project-Id-Version: Cacti\n"
-"Report-Msgid-Bugs-To: developers@cacti.net\n"
-"POT-Creation-Date: 2026-09-30 21:27-0400\n"
-"PO-Revision-Date: 2026-09-24 20:55+0000\n"
-"Last-Translator: Ekaterine papava <papava.e@gtu.ge>\n"
-"Language-Team: Georgian <https://translate.cacti.net/projects/cacti/audit/ka/>\n"
-"Language: ka-GE\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: Cacti\nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Georgian <https://translate.cacti.net/projects/cacti/audit/ka/>\nLanguage: ka-GE\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
-msgstr ""
+msgstr "Syslog-ის სატესტო ჩანაწერი ჩაიწერა ლოკალურ სოკეტში. მიმღების საცავში შენახვა დაუდასტურებელია."
 
 #: audit.php
 #, php-format
 msgid "Syslog test failed: %s"
-msgstr ""
+msgstr "Syslog-ის ტესტი ვერ შესრულდა: %s"
 
 #: audit.php
 #, php-format
 msgid "Reset %d dead-letter Syslog deliveries for retry."
-msgstr ""
+msgstr "ხელახალი ცდისთვის გადაიტვირთა %d მიუწოდებელი (dead-letter) Syslog ჩანაწერი."
 
 #: audit.php
 msgid "Audit event not found."
@@ -70,41 +58,35 @@ msgstr "მოთხოვნის სტატუსი:"
 
 #: audit.php
 msgid "Operation Outcome:"
-msgstr ""
+msgstr "ოპერაციის შედეგი:"
 
 #: audit.php
 msgid "Outcome Reason:"
-msgstr ""
+msgstr "შედეგის მიზეზი:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Delivery:"
 msgid "External File Delivery:"
-msgstr "გარე მიწოდება:"
+msgstr "გარე ფაილში მიწოდება:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Error:"
 msgid "External File Error:"
-msgstr "გარე შეცდომა:"
+msgstr "გარე ფაილის შეცდომა:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Delivery:"
 msgid "Remote Syslog Delivery:"
-msgstr "გარე მიწოდება:"
+msgstr "დაშორებული Syslog მიწოდება:"
 
 #: audit.php
 msgid "Syslog Attempts:"
-msgstr ""
+msgstr "Syslog-ის მცდელობები:"
 
 #: audit.php
 msgid "Syslog Socket Write:"
-msgstr ""
+msgstr "Syslog სოკეტში ჩაწერა:"
 
 #: audit.php
 msgid "Syslog Error:"
-msgstr ""
+msgstr "Syslog-ის შეცდომა:"
 
 #: audit.php
 msgid "Script:"
@@ -134,7 +116,7 @@ msgstr "ჩანაწერის მონაცემები:"
 #: audit.php
 #, php-format
 msgid "Audit Log purge by %s removed %d events and protected %d events with unfinished Syslog delivery."
-msgstr ""
+msgstr "%s-ის მიერ აუდიტის ჟურნალის გასუფთავებამ წაშალა %d მოვლენა და დაიცვა %d მოვლენა დაუსრულებელი Syslog მიწოდებით."
 
 #: audit.php setup.php
 msgid "Audit Log"
@@ -241,16 +223,12 @@ msgid "Request processing state; completion does not guarantee that every operat
 msgstr "მოთხოვნის დამუშავების მდგომარეობა. დასრულება არ იძლევა გარანტიას, რომ ყველა ოპერაცია წარმატებით დასრულდა."
 
 #: audit.php
-#, fuzzy
-#| msgid "External Delivery"
 msgid "External File Delivery"
-msgstr "გარე მიწოდება"
+msgstr "გარე ფაილში მიწოდება"
 
 #: audit.php
-#, fuzzy
-#| msgid "Delivery state for the optional external audit log."
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "მიწოდების მდგომარეობა არასავალდებულო გარე აუდიტის ჟურნალისთვის."
+msgstr "არასავალდებულო გარე აუდიტის ჟურნალის ფაილის მიწოდების მდგომარეობა. დაშორებული Syslog-ის მდგომარეობა ნაჩვენებია ცალკე."
 
 #: audit.php
 msgid "User Agent"
@@ -285,10 +263,8 @@ msgid "No Audit Log Events Found"
 msgstr "აუდიტის ჟურნალის მოვლენები აღმოჩენილი არაა"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Delivery"
 msgid "Remote Syslog Delivery"
-msgstr "გარე მიწოდება"
+msgstr "დაშორებული Syslog მიწოდება"
 
 #: audit.php
 msgid "Status"
@@ -300,11 +276,11 @@ msgstr "გათიშულია"
 
 #: audit.php
 msgid "Healthy"
-msgstr ""
+msgstr "გამართული"
 
 #: audit.php
 msgid "Unhealthy"
-msgstr ""
+msgstr "გაუმართავი"
 
 #: audit.php
 msgid "Pending"
@@ -312,19 +288,19 @@ msgstr "რიგშია"
 
 #: audit.php
 msgid "Retry"
-msgstr ""
+msgstr "ხელახალი ცდა"
 
 #: audit.php
 msgid "Dead-letter"
-msgstr ""
+msgstr "მიუწოდებელი (Dead-letter)"
 
 #: audit.php
 msgid "Sent (Unconfirmed)"
-msgstr ""
+msgstr "გაგზავნილია (დაუდასტურებელი)"
 
 #: audit.php
 msgid "Oldest Pending"
-msgstr ""
+msgstr "უძველესი მომლოდინე"
 
 #: audit.php
 msgid "seconds"
@@ -340,68 +316,60 @@ msgstr "არასდროს"
 
 #: audit.php
 msgid "Last Socket Write"
-msgstr ""
+msgstr "ბოლო ჩაწერა სოკეტში"
 
 #: audit.php
 msgid "Test Syslog"
-msgstr ""
+msgstr "Syslog-ის ტესტი"
 
 #: audit.php
 msgid "Retry Dead-letter"
-msgstr ""
+msgstr "მიუწოდებლების ხელახალი ცდა"
 
 #: audit.php
-#, fuzzy
-#| msgid "Permanently purge all audit log events?"
 msgid "Retry all dead-letter Syslog events?"
-msgstr "წაიშალოს სამუდამოდ ყველა აუდიტის ჟურნალის მოვლენა?"
+msgstr "გაიგზავნოს ხელახლა ყველა მიუწოდებელი (dead-letter) Syslog მოვლენა?"
 
 #: audit.php
 msgid "Configuration Error:"
-msgstr ""
+msgstr "კონფიგურაციის შეცდომა:"
 
 #: audit.php
-#, fuzzy
-#| msgid "External Error:"
 msgid "Last Error:"
-msgstr "გარე შეცდომა:"
+msgstr "ბოლო შეცდომა:"
 
 #: includes/functions.php
 msgid "Cacti records this outcome before verifying account enabled, realm authorization, or 2FA completion; a session may not have been established."
-msgstr ""
+msgstr "Cacti ამ შედეგს იწერს ანგარიშის ჩართულობის, სფეროს (realm) ავტორიზაციის ან 2FA-ს დასრულების შემოწმებამდე; შესაძლოა სესია არ იყოს შექმნილი."
 
 #: includes/functions.php
 msgid "No current Cacti path writes this signature; recorded defensively as a possible password change with an unconfirmed outcome."
-msgstr ""
+msgstr "Cacti-ის არცერთი მიმდინარე გზა არ წერს ამ ხელმოწერას; დაზღვევის მიზნით ჩაწერილია, როგორც პაროლის შესაძლო შეცვლა დაუდასტურებელი შედეგით."
 
 #: includes/functions.php
 msgid "Cacti user_log result=3 with user_id=0 may be a password change or a failed 2FA challenge; the table cannot disambiguate."
-msgstr ""
+msgstr "Cacti-ის user_log result=3 მნიშვნელობით user_id=0 შეიძლება იყოს პაროლის შეცვლა ან წარუმატებელი 2FA შემოწმება; ცხრილი ამას ვერ განასხვავებს."
 
 #: includes/functions.php
 msgid "Audit administration permission is required to save these settings."
-msgstr ""
+msgstr "ამ პარამეტრების შესანახად საჭიროა აუდიტის ადმინისტრირების უფლება."
 
 #: includes/functions.php
 msgid "Authentication auditing was not enabled. Run the audit_auth_indexes.php CLI maintenance command first."
-msgstr ""
+msgstr "ავთენტიფიკაციის აუდიტი არ ჩაირთო. ჯერ გაუშვით audit_auth_indexes.php CLI მომსახურების ბრძანება."
 
 #: includes/functions.php
 #, php-format
 msgid "Remote Syslog settings were not saved: %s"
-msgstr ""
+msgstr "დაშორებული Syslog-ის პარამეტრები არ შეინახა: %s"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log User"
-msgstr "აუდიტის ჟურნალი"
+msgstr "აუდიტის ჟურნალის მომხმარებელი"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Log Admin"
-msgstr "აუდიტის ჟურნალი"
+msgstr "აუდიტის ჟურნალის ადმინისტრატორი"
 
 #: setup.php
 msgid "Technical Support"
@@ -449,10 +417,8 @@ msgid "Utilities"
 msgstr "ხელსაწყოები"
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log"
 msgid "Audit Plugin"
-msgstr "აუდიტის ჟურნალი"
+msgstr "აუდიტის პლაგინი"
 
 #: setup.php
 msgid "Audit Log Settings"
@@ -483,16 +449,12 @@ msgid "Check this box, if you want the Audit Log to be written to an external fi
 msgstr "დასვით ეს თოლია, თუ გნებავთ აუდიტის ჟურნალი გარე ფაილში ჩაიწეროს."
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log"
 msgid "External Audit Log Format"
-msgstr "გარე აუდიტის ჟურნალი"
+msgstr "გარე აუდიტის ჟურნალის ფორმატი"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enter the path to the external audit log file."
 msgid "Select the output format for external audit log records."
-msgstr "შეიყვანეთ ბილიკი გარე აუდიტის ჟურნალის ფაილისთვის."
+msgstr "აირჩიეთ გამომავალი ფორმატი გარე აუდიტის ჟურნალის ჩანაწერებისთვის."
 
 #: setup.php
 msgid "Text"
@@ -500,13 +462,11 @@ msgstr "ტექსტი"
 
 #: setup.php
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: setup.php
-#, fuzzy
-#| msgid "External Audit Log Log file  Path"
 msgid "External Audit Log File Path"
-msgstr "გარე აუდიტის ჟურნალის ფაილის  ბილიკი"
+msgstr "გარე აუდიტის ჟურნალის ფაილის ბილიკი"
 
 #: setup.php
 msgid "Enter the path to the external audit log file."
@@ -514,93 +474,91 @@ msgstr "შეიყვანეთ ბილიკი გარე აუდი
 
 #: setup.php
 msgid "Authentication Auditing"
-msgstr ""
+msgstr "ავთენტიფიკაციის აუდიტი"
 
 #: setup.php
 msgid "Enable Authentication Auditing"
-msgstr ""
+msgstr "ავთენტიფიკაციის აუდიტის ჩართვა"
 
 #: setup.php
 msgid "Opt in to capture new login, logout, token, password-change, and authorization-denied events from this point forward."
-msgstr ""
+msgstr "ჩართეთ ამ მომენტიდან ახალი შესვლის, გასვლის, ტოკენის, პაროლის შეცვლისა და ავტორიზაციაზე უარის თქმის მოვლენების ჩასაწერად."
 
 #: setup.php
 msgid "Enable Failed-login Volume Detection"
-msgstr ""
+msgstr "წარუმატებელი შესვლების რაოდენობის აღმოჩენის ჩართვა"
 
 #: setup.php
 msgid "Emit a global anomaly event when installation-wide failed-login volume exceeds the configured threshold."
-msgstr ""
+msgstr "გლობალური ანომალიის მოვლენის გენერირება, როდესაც მთელ ინსტალაციაში წარუმატებელი შესვლების რაოდენობა აჭარბებს დაყენებულ ზღვარს."
 
 #: setup.php
 msgid "Failed-login Window (minutes)"
-msgstr ""
+msgstr "წარუმატებელი შესვლების ფანჯარა (წუთები)"
 
 #: setup.php
 msgid "Rolling window in minutes, from 1 through 1440, used to count failed logins."
-msgstr ""
+msgstr "მცოცავი ფანჯარა წუთებში, 1-დან 1440-მდე, რომელიც გამოიყენება წარუმატებელი შესვლების დასათვლელად."
 
 #: setup.php
 msgid "Failed-login Volume Threshold"
-msgstr ""
+msgstr "წარუმატებელი შესვლების რაოდენობის ზღვარი"
 
 #: setup.php
 msgid "Installation-wide failed-login count, from 1 through 1000, that triggers a global anomaly event."
-msgstr ""
+msgstr "მთელი ინსტალაციის მასშტაბით წარუმატებელი შესვლების რაოდენობა, 1-დან 1000-მდე, რომელიც იწვევს გლობალური ანომალიის მოვლენას."
 
 #: setup.php
 msgid "User Log Ingestion Batch Size"
-msgstr ""
+msgstr "მომხმარებლის ჟურნალის ჩატვირთვის პაკეტის ზომა"
 
 #: setup.php
 msgid "Maximum user_log rows ingested and expired markers reclaimed per poller cycle, from 1 through 5000. Marker state is retained for seven days, so larger batches increase both peak poller work and the bounded seven-day state-table size."
-msgstr ""
+msgstr "poller-ის თითოეულ ციკლში ჩატვირთული user_log სტრიქონებისა და გაუქმებული ვადაგასული მარკერების მაქსიმალური რაოდენობა, 1-დან 5000-მდე. მარკერის მდგომარეობა ინახება შვიდი დღის განმავლობაში, ამიტომ უფრო დიდი პაკეტები ზრდის როგორც poller-ის პიკურ დატვირთვას, ისე შვიდდღიანი მდგომარეობის ცხრილის შეზღუდულ ზომას."
 
 #: setup.php
 msgid "Remote Syslog"
-msgstr ""
+msgstr "დაშორებული Syslog"
 
 #: setup.php
-#, fuzzy
-#| msgid "Enable Audit Log"
 msgid "Enable Remote Syslog"
-msgstr "აუდიტის ჟურნალის ჩართვა"
+msgstr "დაშორებული Syslog-ის ჩართვა"
 
 #: setup.php
 msgid "Queue finalized audit events for remote Syslog delivery. The existing external file output remains independent."
-msgstr ""
+msgstr "დასრულებული აუდიტის მოვლენების რიგში ჩაყენება დაშორებულ Syslog-ში მიწოდებისთვის. არსებული გარე ფაილში გამოტანა დამოუკიდებელი რჩება."
 
 #: setup.php
 msgid "Syslog Receiver"
-msgstr ""
+msgstr "Syslog მიმღები"
 
 #: setup.php
 msgid "Enter a receiver hostname or IP address without a URI scheme, path, or credentials."
-msgstr ""
+msgstr "შეიყვანეთ მიმღების ჰოსტის სახელი ან IP მისამართი URI სქემის, ბილიკისა და ავტორიზაციის მონაცემების გარეშე."
 
 #: setup.php
 msgid "Syslog Port"
-msgstr ""
+msgstr "Syslog პორტი"
 
 #: setup.php
 msgid "Enter 1-65535, or leave blank to use 514 for UDP/TCP and 6514 for TLS."
-msgstr ""
+msgstr "შეიყვანეთ 1-65535, ან დატოვეთ ცარიელი UDP/TCP-ისთვის 514-ის და TLS-ისთვის 6514-ის გამოსაყენებლად."
 
 #: setup.php
 msgid "Syslog Transport"
-msgstr ""
+msgstr "Syslog ტრანსპორტი"
 
 #: setup.php
 msgid "UDP sends one datagram without acknowledgement. TCP and TLS use RFC 6587 octet-count framing."
-msgstr ""
+msgstr "UDP აგზავნის ერთ დატაგრამას დადასტურების გარეშე. TCP და TLS იყენებენ RFC 6587 ოქტეტების დათვლის ფრეიმინგს."
 
 #: setup.php
 msgid "UDP"
-msgstr ""
+msgstr "UDP"
 
 #: setup.php
 msgid "TCP"
-msgstr ""
+msgstr "TCP"
 
 #: setup.php
 msgid "TLS"
@@ -608,141 +566,139 @@ msgstr "TLS"
 
 #: setup.php
 msgid "Syslog Payload Format"
-msgstr ""
+msgstr "Syslog დატვირთვის ფორმატი"
 
 #: setup.php
 msgid "All formats use an RFC 5424 header. Select RFC 5424 structured data, CEF, or compact JSON for the message."
-msgstr ""
+msgstr "ყველა ფორმატი იყენებს RFC 5424 სათაურს. შეტყობინებისთვის აირჩიეთ RFC 5424 სტრუქტურირებული მონაცემები, CEF ან კომპაქტური JSON."
 
 #: setup.php
 msgid "RFC 5424"
-msgstr ""
+msgstr "RFC 5424"
 
 #: setup.php
 msgid "CEF"
-msgstr ""
+msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr ""
+msgstr "Syslog კატეგორია (Facility)"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
-msgstr ""
+msgstr "აირჩიეთ კატეგორია (facility), რომელიც გამოიყენება RFC 5424 პრიორიტეტის გამოსათვლელად."
 
 #: setup.php
 msgid "Syslog Application Name"
-msgstr ""
+msgstr "Syslog აპლიკაციის სახელი"
 
 #: setup.php
 msgid "RFC 5424 APP-NAME. Printable non-space ASCII, up to 48 characters."
-msgstr ""
+msgstr "RFC 5424 APP-NAME. ბეჭდვადი ASCII სიმბოლოები გამოტოვების გარეშე, 48 სიმბოლომდე."
 
 #: setup.php
-#, fuzzy
-#| msgid "Audit Log Retention"
 msgid "Audit Node Identity"
-msgstr "აუდიტის ჟურნალის შენახვა"
+msgstr "აუდიტის კვანძის იდენტობა"
 
 #: setup.php
 msgid "Stable RFC 5424 hostname identity for this Cacti node. Do not use a value that changes on restart."
-msgstr ""
+msgstr "სტაბილური RFC 5424 ჰოსტის სახელის იდენტობა ამ Cacti კვანძისთვის. არ გამოიყენოთ მნიშვნელობა, რომელიც გადატვირთვისას იცვლება."
 
 #: setup.php
 msgid "Connection and Write Timeout"
-msgstr ""
+msgstr "კავშირისა და ჩაწერის მოლოდინის დრო"
 
 #: setup.php
 msgid "Timeout in seconds, from 1 through 30."
-msgstr ""
+msgstr "მოლოდინის დრო წამებში, 1-დან 30-მდე."
 
 #: setup.php
 msgid "Maximum UDP Record Size"
-msgstr ""
+msgstr "UDP ჩანაწერის მაქსიმალური ზომა"
 
 #: setup.php
 msgid "Records larger than this byte limit are dead-lettered and are never truncated or split. TCP or TLS is recommended for large events."
-msgstr ""
+msgstr "ამ ბაიტების ლიმიტზე დიდი ჩანაწერები გადადის მიუწოდებელთა (dead-letter) სტატუსში და არასოდეს იკვეცება ან იყოფა. დიდი მოვლენებისთვის რეკომენდებულია TCP ან TLS."
 
 #: setup.php
 msgid "Syslog TLS"
-msgstr ""
+msgstr "Syslog TLS"
 
 #: setup.php
 msgid "TLS CA File"
-msgstr ""
+msgstr "TLS CA ფაილი"
 
 #: setup.php
 msgid "Optional PEM CA bundle. Peer and hostname verification are always enabled."
-msgstr ""
+msgstr "არასავალდებულო PEM CA პაკეტი. პარტნიორისა და ჰოსტის სახელის შემოწმება ყოველთვის ჩართულია."
 
 #: setup.php
 msgid "TLS Client Certificate"
-msgstr ""
+msgstr "TLS კლიენტის სერტიფიკატი"
 
 #: setup.php
 msgid "Optional PEM client certificate. A client key must also be configured."
-msgstr ""
+msgstr "არასავალდებულო PEM კლიენტის სერტიფიკატი. ასევე უნდა იყოს კონფიგურირებული კლიენტის გასაღები."
 
 #: setup.php
 msgid "TLS Client Private Key"
-msgstr ""
+msgstr "TLS კლიენტის პირადი გასაღები"
 
 #: setup.php
 msgid "Optional readable PEM private-key path. The key contents are never stored in audit events."
-msgstr ""
+msgstr "არასავალდებულო წაკითხვადი PEM პირადი გასაღების ბილიკი. გასაღების შიგთავსი არასოდეს ინახება აუდიტის მოვლენებში."
 
 #: setup.php
 msgid "Syslog Delivery Queue"
-msgstr ""
+msgstr "Syslog მიწოდების რიგი"
 
 #: setup.php
 msgid "Retry Base Delay"
-msgstr ""
+msgstr "ხელახალი ცდის საბაზისო დაყოვნება"
 
 #: setup.php
 msgid "Initial retry delay in seconds, from 1 through 3600."
-msgstr ""
+msgstr "ხელახალი ცდის საწყისი დაყოვნება წამებში, 1-დან 3600-მდე."
 
 #: setup.php
 msgid "Maximum Retry Delay"
-msgstr ""
+msgstr "ხელახალი ცდის მაქსიმალური დაყოვნება"
 
 #: setup.php
 msgid "Maximum retry delay in seconds, from the base delay through 86400."
-msgstr ""
+msgstr "ხელახალი ცდის მაქსიმალური დაყოვნება წამებში, საბაზისო დაყოვნებიდან 86400-მდე."
 
 #: setup.php
 msgid "Maximum Delivery Attempts"
-msgstr ""
+msgstr "მიწოდების მაქსიმალური მცდელობები"
 
 #: setup.php
 msgid "Move a record to dead-letter after this many attempts, from 1 through 100."
-msgstr ""
+msgstr "ჩანაწერის მიუწოდებელთა (dead-letter) რიგში გადატანა ამ რაოდენობის მცდელობის შემდეგ, 1-დან 100-მდე."
 
 #: setup.php
 msgid "Poller Batch Size"
-msgstr ""
+msgstr "Poller-ის პაკეტის ზომა"
 
 #: setup.php
 msgid "Maximum due records processed per poller cycle, from 1 through 1000."
-msgstr ""
+msgstr "პოლერის ერთ ციკლში დასამუშავებელი ვადამოსული ჩანაწერების მაქსიმალური რაოდენობა, 1-დან 1000-მდე."
 
 #: setup.php
 msgid "Pending Age Warning"
-msgstr ""
+msgstr "მოლოდინის ხანდაზმულობის გაფრთხილება"
 
 #: setup.php
 msgid "Show an unhealthy warning when the oldest queued record reaches this age in seconds."
-msgstr ""
+msgstr "არაჯანსაღი მდგომარეობის გაფრთხილების ჩვენება, როდესაც რიგში მყოფი უძველესი ჩანაწერი ამ ასაკს მიაღწევს წამებში."
 
 #: setup.php
 msgid "Dead-letter Warning Count"
-msgstr ""
+msgstr "დაუმუშავებელი ჩანაწერების გაფრთხილების რაოდენობა"
 
 #: setup.php
 msgid "Show an unhealthy warning when this many records are dead-lettered."
-msgstr ""
+msgstr "არაჯანსაღი მდგომარეობის გაფრთხილების ჩვენება, როდესაც ამდენი ჩანაწერი დაუმუშავებლად (dead-letter) მოინიშნება."
 
 #: setup.php
 msgid "Audit"
