@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Hindi <https://translate.cacti.net/projects/cacti/audit/hi/>\nLanguage: hi-IN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Hindi <https://translate.cacti.net/projects/cacti/audit/hi/>\nLanguage: hi-IN\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n > 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -152,7 +152,7 @@ msgstr "डिफ़ॉल्ट"
 
 #: audit.php
 msgid "Go"
-msgstr "लागू करें"
+msgstr "जाएं"
 
 #: audit.php
 msgid "Set/Refresh Filters"
@@ -228,7 +228,7 @@ msgstr "बाहरी फ़ाइल डिलीवरी"
 
 #: audit.php
 msgid "Delivery state for the optional external audit log file. Remote Syslog health is shown separately."
-msgstr "वैकल्पिक बाह्य ऑडिट लॉग फ़ाइल की डिलीवरी स्थिति। रिमोट Syslog की स्थिति अलग से दिखाई जाती है।"
+msgstr "वैकल्पिक बाह्य ऑडिट लॉग फ़ाइल की डिलीवरी स्थिति। रिमोट Syslog की स्वास्थ्य स्थिति अलग से दिखाई जाती है।"
 
 #: audit.php
 msgid "User Agent"
@@ -248,7 +248,7 @@ msgstr "अनुरोधकर्ता का आईपी पता।"
 
 #: audit.php
 msgid "Event Time"
-msgstr "घटना के समय"
+msgstr "ईवेंट समय"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -369,7 +369,7 @@ msgstr "ऑडिट लॉग उपयोगकर्ता"
 
 #: setup.php
 msgid "Audit Log Admin"
-msgstr "ऑडिट लॉग व्यवस्थापक"
+msgstr "ऑडिट लॉग एडमिन"
 
 #: setup.php
 msgid "Technical Support"
@@ -442,11 +442,11 @@ msgstr "आप कब तक ऑडिट लॉग प्रविष्टि�
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "ऑडिट लॉग सक्षम करें"
+msgstr "बाहरी ऑडिट लॉग"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "इस बॉक्स को चेक करें, यदि आप GUI गतिविधियों को ट्रैक करने के लिए ऑडिट लॉग चाहते हैं।"
+msgstr "यदि आप चाहते हैं कि ऑडिट लॉग किसी बाहरी फ़ाइल में लिखा जाए, तो इस बॉक्स को चिह्नित करें।"
 
 #: setup.php
 msgid "External Audit Log Format"
