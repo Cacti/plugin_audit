@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Turkish <https://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Turkish <https://translate.cacti.net/projects/cacti/audit/tr/>\nLanguage: tr-TR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -180,7 +180,7 @@ msgstr "Tüm denetim günlüğü olayları kalıcı olarak temizlensin mi?"
 
 #: audit.php
 msgid "Purge"
-msgstr "Temizle"
+msgstr "Tamamen Temizle"
 
 #: audit.php
 msgid "Purge Log Events"
@@ -248,7 +248,7 @@ msgstr "İstek sahibinin IP Adresi."
 
 #: audit.php
 msgid "Event Time"
-msgstr "Etkinlik Zamanı"
+msgstr "Olay Zamanı"
 
 #: audit.php
 msgid "The time the Event took place."
@@ -256,7 +256,7 @@ msgstr "Etkinliğin gerçekleştiği zaman."
 
 #: audit.php
 msgid "N/A"
-msgstr "Yok"
+msgstr "Geçerli Değil"
 
 #: audit.php
 msgid "No Audit Log Events Found"
@@ -442,11 +442,11 @@ msgstr "Denetim Günlüğü girişlerinin ne kadar süreyle saklanmasını ister
 
 #: setup.php
 msgid "External Audit Log"
-msgstr "Denetim Günlüğünü Etkinleştir"
+msgstr "Harici Denetim Günlüğü"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Denetim Günlüğünün GUI etkinliklerini izlemesini istiyorsanız bu kutuyu işaretleyin."
+msgstr "Denetim Günlüğünün harici bir dosyaya yazılmasını istiyorsanız bu kutuyu işaretleyin."
 
 #: setup.php
 msgid "External Audit Log Format"
