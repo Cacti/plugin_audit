@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
-msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-25 00:53+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Greek <https://translate.cacti.net/projects/cacti/audit/el/>\nLanguage: el-GR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
+msgstr "Project-Id-Version: \nReport-Msgid-Bugs-To: developers@cacti.net\nPOT-Creation-Date: 2026-09-30 21:27-0400\nPO-Revision-Date: 2026-11-26 01:18+0000\nLast-Translator: Thomas Vincent <balder.infuser.6n@icloud.com>\nLanguage-Team: Greek <https://translate.cacti.net/projects/cacti/audit/el/>\nLanguage: el-GR\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=n != 1;\nX-Generator: Weblate 5.11.4\n"
 
 #: audit.php
 msgid "Syslog test record was written to the local socket. Receiver storage is unconfirmed."
@@ -103,7 +103,7 @@ msgstr "Τα αποθηκευμένα δεδομένα αιτήματος δεν
 
 #: audit.php
 msgid "Attrib"
-msgstr "Attrib"
+msgstr "Ιδιότητα"
 
 #: audit.php
 msgid "Value"
@@ -180,7 +180,7 @@ msgstr "Οριστική εκκαθάριση όλων των συμβάντων
 
 #: audit.php
 msgid "Purge"
-msgstr "Διαγραφή"
+msgstr "Εκκαθάριση"
 
 #: audit.php
 msgid "Purge Log Events"
@@ -256,7 +256,7 @@ msgstr "Την ώρα που έλαβε χώρα η εκδήλωση."
 
 #: audit.php
 msgid "N/A"
-msgstr "Μη Διαθέσιμο"
+msgstr "Μη Εφαρμόσιμο"
 
 #: audit.php
 msgid "No Audit Log Events Found"
@@ -446,7 +446,7 @@ msgstr "Ενεργοποιήστε το αρχείο ελέγχου"
 
 #: setup.php
 msgid "Check this box, if you want the Audit Log to be written to an external file."
-msgstr "Επιλέξτε αυτό το πλαίσιο, εάν θέλετε το αρχείο ελέγχου να παρακολουθεί τις δραστηριότητες GUI."
+msgstr "Επιλέξτε αυτό το πλαίσιο, εάν θέλετε το αρχείο καταγραφής ελέγχου να εγγράφεται σε εξωτερικό αρχείο."
 
 #: setup.php
 msgid "External Audit Log Format"
@@ -582,7 +582,7 @@ msgstr "CEF"
 
 #: setup.php
 msgid "Syslog Facility"
-msgstr "Syslog Facility"
+msgstr "Υπηρεσία Syslog"
 
 #: setup.php
 msgid "Select the facility used to calculate the RFC 5424 priority."
